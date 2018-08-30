@@ -34,9 +34,7 @@ Construct the maximum tree by the given array and output the root node of this t
 
 const { TreeNode } = require('../../utils')
 
-var constructMaximum
-
-BinaryTree = function(nums) {
+var constructMaximumBinaryTree = function(nums) {
   if(!nums.length) {
     return null
   }
