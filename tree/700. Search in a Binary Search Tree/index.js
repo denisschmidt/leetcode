@@ -28,6 +28,14 @@ In the example above, if we want to search the value 5,
 since there is no node with value 5, we should return NULL.
 
 
+Time complexity : O(n)
+A total of n nodes need to be traversed. 
+Here, n represents the minimum number of nodes from the two given trees.
+
+Auxiliary Space : O(n)
+The depth of the recursion tree can go upto n in case of a skewed tree. 
+In average case, depth will be O(logn).
+
 */
 
 
