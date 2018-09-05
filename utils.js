@@ -17,6 +17,39 @@ class TreeNode {
   }
 }
 
+
+class DSU {
+  constructor(size) {
+    for (let i = 0; i < size.length; i++) {
+      this.parent[i] = i
+    }
+    this.rank = this.parent
+  }
+
+  find(x) {
+    if (this.parent[x] !== x) this.parent[x] = find(this.parent[x])
+    return this.parent[x]
+  }
+
+  union(x, y) {
+    let xr = this.find(x), yr = this.find(y)
+
+    if (xr == yr) {
+      return false
+    } else if (this.rank[xr] < this.rank[yr]) {
+      this.parent[xr] = yr
+    } else if (this.rank[xr] > this.rank[yr]) {
+      this.parent[yr] = xr
+    } else {
+      this.parent[yr] = xr
+      this.rank[xr]++
+    }
+    return true
+  }
+
+}
+
+
 function makeTestLinkNodes(tests, name = 'root') {
   makeTestNodes(makeLinkNodes, tests, name);
 }
@@ -87,5 +120,6 @@ module.exports = {
   makeLinkNodes,
   makeTreeNodes,
   makeTestLinkNodes,
-  makeTestTreeNodes
+  makeTestTreeNodes, 
+  DSU
 };
