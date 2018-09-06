@@ -41,6 +41,7 @@ Disjoint set union (DSU) или Union-Find.
 
 const { DSU } = require('../../utils')
 
+
 /**
  * @param {number[][]} edges
  * @return {number[]}
