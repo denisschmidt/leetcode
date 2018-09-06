@@ -41,22 +41,21 @@ Disjoint set union (DSU) или Union-Find.
 
 const { DSU } = require('../../utils')
 
-
 /**
  * @param {number[][]} edges
  * @return {number[]}
  */
-var findRedundantConnection = function(edges) {
+const findRedundantConnection = function(edges) {
   const MAX_EDGE_VAL = 1000
   const dsu = new DSU(MAX_EDGE_VAL + 1)
 
-  for (let i=0; i < edges.length; i++) {
-    if (dsu.union(edges[i][0],  edges[i][1])) {
+  for (let i=0; i<edges.length; i++) {
+    if (!dsu.union(edges[i][0], edges[i][1])) {
       return edges[i]
     }
   }
 }
 
 const res = findRedundantConnection([[1,2], [1,3], [2,3]])
-
 console.log(res)
+
