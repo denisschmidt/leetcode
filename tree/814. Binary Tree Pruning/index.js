@@ -12,6 +12,8 @@ We process each node once.
 Space Complexity: O(H)O(H), where HH is the height of the tree.
 This represents the size of the implicit call stack in our recursion.
 
+Алгоритм, если нам нужен самый нижний узел для проверки и потом по стеку след и след
+
  */
 
 const { TreeNode } = require('../../utils')
