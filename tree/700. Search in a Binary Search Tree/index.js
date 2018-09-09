@@ -1,13 +1,13 @@
 /*
 
-Given the root node of a binary search tree (BST) and a value. 
+Given the root node of a binary search tree (BST) and a value.
 
-You need to find the node in the BST that the node's value equals the given value. 
+You need to find the node in the BST that the node's value equals the given value.
 
-Return the subtree rooted with that node. 
+Return the subtree rooted with that node.
 If such node doesn't exist, you should return NULL.
 
-For example, 
+For example,
 
 Given the tree:
         4
@@ -20,20 +20,20 @@ And the value to search: 2
 
 You should return this subtree:
 
-      2     
-     / \   
+      2
+     / \
     1   3
 
-In the example above, if we want to search the value 5, 
+In the example above, if we want to search the value 5,
 since there is no node with value 5, we should return NULL.
 
 
 Time complexity : O(n)
-A total of n nodes need to be traversed. 
+A total of n nodes need to be traversed.
 Here, n represents the minimum number of nodes from the two given trees.
 
 Auxiliary Space : O(n)
-The depth of the recursion tree can go upto n in case of a skewed tree. 
+The depth of the recursion tree can go upto n in case of a skewed tree.
 In average case, depth will be O(logn).
 
 */
@@ -64,7 +64,7 @@ const searchBST = function(root, val) {
       return null
     }
 
-    if(node.val === val) {
+    if (node.val === val) {
       tree.val = node.val
       tree.left = node.left
       tree.right = node.right
@@ -86,16 +86,16 @@ const searchBST = function(root, val) {
 
 const t1 = {
   val: 4,
-  right: { 
-    val: 7, 
-    right: null, 
-    left: null 
+  right: {
+    val: 7,
+    right: null,
+    left: null
   },
-  left: { 
+  left: {
     val: 2,
     right: { val: 3, right: null, left: null },
-    left: { val: 1, right: null, left: null } 
-  } 
+    left: { val: 1, right: null, left: null }
+  }
 }
 
 console.log(searchBST(t1, 2))
