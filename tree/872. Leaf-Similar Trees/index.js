@@ -28,7 +28,6 @@ const { TreeNode } = require('../../utils')
 const leafSimilar = function(root1, root2) {
   let a1 = []
   let a2 = []
-
   const fn = (node, arr) => {
     if (!node) return null
     fn(node.left, arr)
