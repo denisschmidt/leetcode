@@ -22,18 +22,25 @@ const { TreeNode } = require('../../utils')
 /**
  * @param {TreeNode} root1
  * @param {TreeNode} root2
- * @return {boolean}
+ * @return {Boolean}
  */
 
-const leafSimilar = function(root1, root2, arr = []) {
-  if (!root1) return null
-  leafSimilar(root1.left, arr )
-  leafSimilar(root1.right, arr)
-  if (!root1.left && !root1.right) {
-    console.log(root1)
-    arr.push(root1.val)
+const leafSimilar = function(root1, root2) {
+  let a1 = []
+  let a2 = []
+
+  const fn = (node, arr) => {
+    if (!node) return null
+    fn(node.left, arr)
+    fn(node.right, arr)
+    if (!node.left && !node.right) arr.push(node.val)
+    return arr
   }
-  return arr
+  a1 = fn(root1, a1)
+  a2 = fn(root2, a2)
+  for(let i=0;i<a1.length;i++)
+    if (a1[i] !== a2[i]) return false
+  return true
 }
 
 const t1 = {
