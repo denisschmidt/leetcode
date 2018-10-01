@@ -18,6 +18,12 @@ Output:
  * @param {number[]} nums
  * @return {number[]}
  */
-const findDisappearedNumbers = function(nums) {
-
+const findDisappearedNumbers = function(n) {
+  let a = []
+  for(let i = 1; i <= n.length; i++) {
+   if (!n.includes(i)) a.push(i)
+  }
+  return a
 }
+const arr = [2, 2]
+console.log('---', findDisappearedNumbers(arr))
