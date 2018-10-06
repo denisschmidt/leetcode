@@ -21,8 +21,6 @@ class TreeNode {
 * Система непересекающихся множеств
 *
 * Реализация Union-Find.
-*
-*
 * */
 class DSU {
   constructor(size) {
