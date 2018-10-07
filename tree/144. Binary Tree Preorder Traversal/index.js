@@ -46,6 +46,30 @@ const preorderTraversal = function(root) {
 
 const res = preorderTraversal(makeTreeNodes([1, null, 2, 3]))
 
-console.log('---', res)
+console.log('--1--', res)
 
+/*
+ Solution only right children are stored to stack.
 
+ */
+
+function preorderTraversal2(node) {
+  let rights = []
+  let arr = []
+
+  while (node !== null) {
+    arr.push(node.val)
+    if (node.right !== null) {
+      rights.push(node.right)
+    }
+    node = node.left
+    if (node === null && rights.length) {
+      node = rights.pop()
+    }
+  }
+  return arr
+}
+
+const res2 = preorderTraversal(makeTreeNodes([1, null, 2, 3]))
+
+console.log('--2--', res2)
