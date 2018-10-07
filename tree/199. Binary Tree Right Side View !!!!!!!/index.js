@@ -89,6 +89,8 @@ const rightSideView2 = function(root) {
     let node = nodeQueue.shift()
     let depth = depthQueue.shift()
 
+    console.log('===', depth)
+
     if (node !== null) {
       console.log('===', node.val)
       maxDepth = Math.max(maxDepth, depth)
