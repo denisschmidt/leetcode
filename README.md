@@ -1,1 +1,1 @@
-## LEETCODE Problems(JS, C/C++)
+## Leetcode Problems(JS, C/C++)
