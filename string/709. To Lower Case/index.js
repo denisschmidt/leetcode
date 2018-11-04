@@ -18,6 +18,7 @@ Output: "lovely"
 
  */
 
+
 var toLowerCase = function(str) {
   let ans = '';
   let diff = 'a'.charCodeAt(0) - 'A'.charCodeAt(0);
