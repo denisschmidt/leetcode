@@ -22,4 +22,16 @@ var isPalindrome = function(s) {
   return str.split('').reverse().join('').toLowerCase() === str.toLowerCase();
 };
 
-console.log(isPalindrome("A man, a plan, a canal: Panama"))
+var isPalindrome2 = function(s) {
+  let left = 0, right = s.left - 1;
+
+  while (left < right) {
+    if (s[left] !== str[right]) {
+      return false;
+    }
+    left++;
+    right--;
+  }
+  return true
+}
+console.log(isPalindrome2("A man, a plan, a canal: Panama"))
