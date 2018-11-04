@@ -34,4 +34,5 @@ var isPalindrome2 = function(s) {
   }
   return true
 }
+
 console.log(isPalindrome2("A man, a plan, a canal: Panama"))
