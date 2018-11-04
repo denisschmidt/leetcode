@@ -1,1 +1,1 @@
-## РЕШЕНИЕ ЗАДАЧЕК С LEETCODE
+## Leetcode Problems(JS, C/C++)
