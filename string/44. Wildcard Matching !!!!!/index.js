@@ -60,7 +60,9 @@ Example 5:
  */
 
 /**
- *
+
+ Analytics: !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
  For each element in s
  If s == p or p == ? which means this is a match, then goes to next element s++ p++.
  If p == '*', this is also a match, but one or many chars may be available,
@@ -69,6 +71,7 @@ Example 5:
  If not match, then we check if there is a * previously showed up,
  if there is no *,  return false;
  if there is an *,  we set current p to the next element of *, and set current s to the next saved s position.
+
 
  * @param {string} s
  * @param {string} p
