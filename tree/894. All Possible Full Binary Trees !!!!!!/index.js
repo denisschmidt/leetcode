@@ -41,4 +41,6 @@ const allPossibleFBT = N => {
   return map.get(N)
 }
 
-allPossibleFBT(7)
+const res = allPossibleFBT(3)
+
+console.log('---', res)
