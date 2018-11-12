@@ -68,6 +68,7 @@ var recoverTree = function(root) {
   fn(root.left, newNode);
   fn(root.right, newNode);
   return newNode;
+
 };
 
 
