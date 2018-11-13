@@ -65,19 +65,19 @@ let first = null, second = null, pre = null;
 
 const inOrder = function (root) {
   if (root === null) return;
+  inOrder(root.left);
+  console.log('===', root.val)
+  if (pre === null) pre = root;
   else {
-    inOrder(root.left);
-    if (pre === null) pre = root;
-    else {
-      if (pre.val > root.val) {
-        if (first === null) first = pre;
-        second = root;
-      }
-      pre = root;
+    if (pre.val > root.val) {
+      if (first === null) first = pre;
+      second = root;
     }
-    inOrder(root.right);
+    pre = root;
   }
-}
+  inOrder(root.right);
+
+};
 
 const recoverTree = function(root) {
   if (!root) return null;
@@ -91,6 +91,4 @@ const recoverTree = function(root) {
   return root;
 };
 
-
-const res = recoverTree(makeTreeNodes([3, 1, 4, null, null, 2]))
-console.log('---', res);
+recoverTree(makeTreeNodes([1, 3, 8, 6, 7, 4, 10, 13, 14]))
