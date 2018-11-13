@@ -61,16 +61,36 @@ Could you devise a constant space solution?
  */
 const { TreeNode, makeTreeNodes } = require('../../utils')
 
-var recoverTree = function(root) {
+let first = null, second = null, pre = null;
+
+const inOrder = function (root) {
+  if (root === null) return;
+  else {
+    inOrder(root.left);
+    if (pre === null) pre = root;
+    else {
+      if (pre.val > root.val) {
+        if (first === null) first = pre;
+        second = root;
+      }
+      pre = root;
+    }
+    inOrder(root.right);
+  }
+}
+
+const recoverTree = function(root) {
   if (!root) return null;
-  let newNode = new TreeNode(root.val)
-
-  fn(root.left, newNode);
-  fn(root.right, newNode);
-  return newNode;
-
+  pre = null;
+  first = null;
+  second = null;
+  inOrder(root);
+  let temp = first.val;
+  first.val = second.val;
+  second.val = temp;
+  return root;
 };
 
 
-const res = recoverTree(makeTreeNodes([1, 3, null, null, 2]))
+const res = recoverTree(makeTreeNodes([3, 1, 4, null, null, 2]))
 console.log('---', res);
