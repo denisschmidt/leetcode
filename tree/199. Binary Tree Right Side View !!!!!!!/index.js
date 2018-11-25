@@ -67,12 +67,7 @@ const rightSideView = function(root) {
 // console.log('====', res)
 
 /*
-Approach #2 Breadth-First Search
- */
-
-/**
- * Approach #1 Depth-First Search
- *
+ * Approach #2 Breadth-First Search
  *
  * @param {TreeNode} root
  * @return {number[]}
