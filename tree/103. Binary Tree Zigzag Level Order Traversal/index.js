@@ -54,7 +54,6 @@ const zigzagLevelOrder = root => {
       }
       nodeQueue.push(node.left);
       nodeQueue.push(node.right);
-
       depthQueue.push(depth + 1);
       depthQueue.push(depth + 1);
     }
@@ -66,11 +65,6 @@ const zigzagLevelOrder = root => {
   return res;
 };
 
-
 const arr = zigzagLevelOrder(makeTreeNodes([1,2,3,4,null,null,5]))
 
-
 console.log('---', arr);
-
-
-
