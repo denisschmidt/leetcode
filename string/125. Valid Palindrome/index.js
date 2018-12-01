@@ -23,10 +23,10 @@ var isPalindrome = function(s) {
 };
 
 var isPalindrome2 = function(s) {
-  let left = 0, right = s.left - 1;
+  let left = 0, right = s.length - 1;
 
   while (left < right) {
-    if (s[left] !== str[right]) {
+    if (s[left] !== s[right]) {
       return false;
     }
     left++;

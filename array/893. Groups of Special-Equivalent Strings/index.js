@@ -43,7 +43,6 @@ const numSpecialEquivGroups = function(arr) {
   const size = arr.length;
   let even = [], odd = [], count = 0, map = {};
 
-
   for (let i = 0; i < size; i++) {
     even = [];
     odd = [];
