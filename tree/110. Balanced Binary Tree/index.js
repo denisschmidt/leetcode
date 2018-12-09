@@ -53,7 +53,7 @@ const dfsHeight = (root) => {
 
   let leftHeight = dfsHeight(root.left)
   if (leftHeight === -1) return -1;
-k
+kK
   let rightHeight = dfsHeight(root.right)
   if (rightHeight === -1) return -1;
 
@@ -62,7 +62,7 @@ k
 }
 
 const isBalanced = function(root) {
-  return dfsHeight(root) !== -1;
+  return dfsHeight(root) !== -1;K
 };
 
 const res = isBalanced(makeTreeNodes([3,9,20,null,null,15,7]));
