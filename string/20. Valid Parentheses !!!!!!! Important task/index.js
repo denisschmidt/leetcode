@@ -30,22 +30,18 @@ Example 5:
  */
 
 const validBraces = (str) => {
-  let queueOpenSymbols = [], countOpenSymbols = 0;
-
   if (!str.length) {
     return true;
   }
-
   if (str.length % 2 !== 0) {
     return false;
   }
-
+  let queueOpenSymbols = [], countOpenSymbols = 0;
   for (let i = 0; i < str.length; i++) {
     if (str[i] === '{' || str[i] === '[' || str[i] === '(') {
       queueOpenSymbols.push(str[i]);
     } else {
       countOpenSymbols = queueOpenSymbols.length;
-
       if ((str[i] === '}' && queueOpenSymbols[countOpenSymbols - 1] === '{')
         || (str[i] === ']' && queueOpenSymbols[countOpenSymbols - 1] === '[')
         || (str[i] === ')' && queueOpenSymbols[countOpenSymbols - 1] === '('))
@@ -57,6 +53,26 @@ const validBraces = (str) => {
   return !queueOpenSymbols.length;
 }
 
-const res = validBraces('{}[]()');
-
+const res = validBraces('{}[]()]');
 console.log('---', res);
+
+const validBraces2 = (str) => {
+  let stack = [];
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === '(') {
+      stack.push(')');
+    } else if (str[i] === '{') {
+      stack.push('}');
+    } else if (str[i] === '[') {
+      stack.push(']');
+    } else if (!stack.length || stack.pop() !== str[i]) {
+      return false;
+    }
+  }
+  return !stack.length
+}
+
+const res2 = validBraces2('{}[]()]');
+console.log('---', res2);
+
