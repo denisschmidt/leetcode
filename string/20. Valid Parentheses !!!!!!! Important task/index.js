@@ -32,6 +32,14 @@ Example 5:
 const validBraces = (str) => {
   let queueOpenSymbols = [], countOpenSymbols = 0;
 
+  if (!str.length) {
+    return true;
+  }
+
+  if (str.length % 2 !== 0) {
+    return false;
+  }
+
   for (let i = 0; i < str.length; i++) {
     if (str[i] === '{' || str[i] === '[' || str[i] === '(') {
       queueOpenSymbols.push(str[i]);
