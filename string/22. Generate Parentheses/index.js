@@ -80,12 +80,3 @@ const generateParenthesis2 = n => {
 
 const res = generateParenthesis2(3);
 console.log('---', res);
-
-
-
-
-
-
-
-
-
