@@ -54,4 +54,31 @@ const rangeSumBST = function(root, L, R) {
 
 const res = rangeSumBST(makeTreeNodes([10,5,15,3,7,13,18,1,null,6]), 6, 10);
 
-console.log('---', res);
+console.log('--First solution--', res);
+
+//====================DFS Recursive Implementation=======================================
+
+const rangeSumBST2 = (root, L, R) => {
+  let res = 0;
+  const dfs = (node, L, R) => {
+    if (node !== null) {
+      if (L <= node.val && node.val <= R) {
+        res += node.val;
+      }
+      if (L < node.val) {
+        dfs(node.left, L, R);
+      }
+      if (node.val < R) {
+        dfs(node.right, L, R);
+      }
+    }
+  };
+
+  dfs(root, L, R);
+
+  console.log('--Second solution--', res);
+
+  return res;
+};
+
+rangeSumBST2(makeTreeNodes([10,5,15,3,7,13,18,1,null,6]), 6, 10);
