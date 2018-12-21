@@ -26,6 +26,7 @@ Example 2:
     enention -> exention (replace 'n' with 'x')
     exention -> exection (replace 'n' with 'c')
     exection -> execution (insert 'u')
+
 =======================================================================================================
 
 Solution:
@@ -39,7 +40,6 @@ Complexity Analysis
   Space complexity : O(mn) since at each step we keep the results of all previous computations.
 
  */
-
 /**
  * @param {string} word1
  * @param {string} word2
