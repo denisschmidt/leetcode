@@ -60,7 +60,6 @@ const diStringMatch = str => {
       }
     }
   }
-  console.log('---', res);
   return res;
 };
 
