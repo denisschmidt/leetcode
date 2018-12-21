@@ -26,6 +26,17 @@ Example 2:
     enention -> exention (replace 'n' with 'x')
     exention -> exection (replace 'n' with 'c')
     exection -> execution (insert 'u')
+=======================================================================================================
+
+Solution:
+
+Dynamic Programming:
+  The edit distance algorithm is very popular among the data scientists.
+  It's one of the basic algorithms used for evaluation of machine translation and speech recognition.
+
+Complexity Analysis
+  Time complexity : O(mn) as it follows quite straightforward for the inserted loops.
+  Space complexity : O(mn) since at each step we keep the results of all previous computations.
 
  */
 
