@@ -1,5 +1,6 @@
 /*
-Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0? Find all unique triplets in the array which gives the sum of zero.
+Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0?
+Find all unique triplets in the array which gives the sum of zero.
 
 Note:
 
@@ -27,14 +28,14 @@ var threeSum = function(nums) {
   if(len < 4) {
     return result
   }
-  
+
   nums.sort((a, b) => a - b)
 
   for (let i = 0; i < len-2; i++) {
     if(nums[i] + nums[i+1] + nums[i+2] > 0) break
     if(nums[i] + nums[len - 1] + nums[len - 2] < 0) continue
     if (i>0 && nums[i] === nums[i-1]) continue //убираем дубли
-    
+
     let low = i + 1
     let high = len - 1
 
@@ -51,9 +52,7 @@ var threeSum = function(nums) {
       }
     }
   }
-
   return result
-
 };
 
 const res = threeSum([-1, 0, 1, 2, -1, -4])
