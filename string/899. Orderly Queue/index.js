@@ -27,6 +27,6 @@ const orderlyQueue = function(str, k) {
   }
 };
 
-const res = orderlyQueue('cba', 1); // "guozmw"
+const res = orderlyQueue('cba', 1);
 
 console.log('---', res);
