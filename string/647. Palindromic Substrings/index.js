@@ -46,4 +46,42 @@ const countSubstrings = s => {
   return count;
 };
 
-const res = countSubstrings('aaa');
+const res1 = countSubstrings('aaa');
+
+
+/*
+State
+  state[i][j] is true if substring s[i, j] is palindromic
+
+Aim State
+  decide all possible state[i][j] and count the element that is true
+
+State Transition
+  state[i][j] is true if s[i] == s[j] and state[i+1][j-1] is true (j - i >= 2)
+  state[i][j] is true if s[i] == s[j] (j - i == 1)
+  state[i][j] is true (j - i == 0)
+
+ */
+const countSubstringsDP = str => {
+  const size = str.length;
+  let res = 0;
+  const dp = [[]];
+
+  for (let i = 0; i < size; i++) {
+    if (!dp[i]) dp[i] = [];
+  }
+
+  for (let i = size - 1; i >= 0 ; i--) {
+    for (let j = i; j < size; j++) {
+      dp[i][j] = str[i] === str[j] && (j - i < 3 || dp[i + 1][j - 1]);
+      if (dp[i][j]) {
+        res++;
+      }
+    }
+  }
+  return res;
+};
+
+const res2 =  countSubstringsDP('aaa');
+
+console.log('--', res2);
