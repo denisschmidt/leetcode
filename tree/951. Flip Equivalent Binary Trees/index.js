@@ -26,6 +26,10 @@ const { makeTreeNodes } = require('../../utils')
  */
 
 /**
+ * Time Complexity: O(min(N1, N2)) where ​N1 and N2 are the lengths of root1 and root2
+ *
+ * Space Complexity: O(min(H1, H2)) where H1 and H2 are the heights of the trees of root1 and root2
+ *
  * @param {TreeNode} root1
  * @param {TreeNode} root2
  * @return {boolean}
@@ -42,8 +46,6 @@ const flipEquiv = function(root1, root2) {
 };
 
 let root1 = [1,2,3,4,5,6,null,null,null,7,8], root2 = [1,3,2,null,6,4,5,null,null,null,null,8,7]
-// let root1 = [1, 2, 3], root2 = [1, 3, 2];
-// let root1 = [0,3,1,null,null,null,2], root2 = [0,3,1,2]; // false
 
 const res = flipEquiv(makeTreeNodes(root1), makeTreeNodes(root2));
 
