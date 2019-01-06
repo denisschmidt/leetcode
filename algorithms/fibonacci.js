@@ -29,3 +29,10 @@ const res2 = recFibbonacci(5);
 const res3 = recFibbo(5);
 
 console.log('---', res1, res2, res3);
+
+const fact = (x) => {
+  if (x <= 1) {
+    return 1;
+  }
+  return x * fact(x - 1);
+};
