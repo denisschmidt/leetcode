@@ -45,7 +45,6 @@ const generateSequence = (num, n) => {
   n - длинна кода для 4 = [0, 0, 0, 1]
   k - мерные коды для 2 коды могут содержать только 1 и 0
  */
-
 const generateCodes = (n = 3, k = 3) => {
   let index;
   let arr = generateSequence(0, n);

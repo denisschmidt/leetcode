@@ -66,7 +66,6 @@ function getSum(nums, target) {
         }
       }
     }
-
   }
   return result
 }
