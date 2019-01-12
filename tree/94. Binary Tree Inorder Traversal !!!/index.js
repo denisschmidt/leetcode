@@ -37,7 +37,7 @@ Space complexity : O(n)O(n).
  * @return {number[]}
  */
 
-const { makeTreeNodes, TreeNode } = require('../../utils');
+const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 
 const inorderTraversal = function(root) {
   let nodeStack = [], node = root;

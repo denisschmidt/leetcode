@@ -25,7 +25,7 @@ Output: 23
  * }
  */
 
-const { makeTreeNodes } = require('../../utils')
+const { makeTreeNodes } = require('../../algorithms/treeNode')
 
 /**
  * @param {TreeNode} root

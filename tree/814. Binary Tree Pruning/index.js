@@ -16,7 +16,7 @@ This represents the size of the implicit call stack in our recursion.
 
  */
 
-const { TreeNode } = require('../../utils')
+const { TreeNode } = require('../../algorithms/treeNode')
 
 /**
  * Definition for a binary tree node.

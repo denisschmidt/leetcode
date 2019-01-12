@@ -29,7 +29,7 @@ return its zigzag level order traversal as:
  * @param {TreeNode} root
  * @return {number[][]}
  */
-const { makeTreeNodes } = require('../../utils');
+const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 const zigzagLevelOrder = root => {
   let nodeQueue = [], depthQueue = [];

@@ -33,7 +33,7 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
  * @param {number} sum
  * @return {boolean}
  */
-const { makeTreeNodes } = require('../../utils')
+const { makeTreeNodes } = require('../../algorithms/treeNode')
 
 var hasPathSum = function(root, sum) {
   if (!root) return false

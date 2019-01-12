@@ -59,7 +59,7 @@ Could you devise a constant space solution?
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
-const { TreeNode, makeTreeNodes } = require('../../utils')
+const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode')
 
 let first = null, second = null, pre = null;
 

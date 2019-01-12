@@ -39,7 +39,7 @@ You can return this binary search tree:
  * @param {number} val
  * @return {TreeNode}
  */
-const { TreeNode, makeTreeNodes } = require('../../utils')
+const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode')
 
 const newNode = (val) => {
   const node = new TreeNode(val)

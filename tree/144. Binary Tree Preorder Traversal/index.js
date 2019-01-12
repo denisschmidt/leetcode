@@ -21,7 +21,7 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
  *     this.left = this.right = null;
  * }
  */
-const { makeTreeNodes } = require('../../utils')
+const { makeTreeNodes } = require('../../algorithms/treeNode')
 
 /**
  * @param {TreeNode} root

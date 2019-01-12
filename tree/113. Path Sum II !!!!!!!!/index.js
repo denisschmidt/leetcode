@@ -30,7 +30,7 @@ Return:
  * }
  */
 
-const { makeTreeNodes, TreeNode } = require('../../utils')
+const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
 
 /**
  * @param {TreeNode} root

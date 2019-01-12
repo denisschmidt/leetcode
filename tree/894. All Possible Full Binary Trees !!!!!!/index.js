@@ -11,7 +11,7 @@ You may return the final list of trees in any ord
 Also, by a simple counting argument, there are no full binary trees with a positive, even number of nodes.
 
  */
-const { TreeNode } = require('../../utils')
+const { TreeNode } = require('../../algorithms/treeNode')
 const map = new Map()
 
 const allPossibleFBT = N => {

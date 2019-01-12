@@ -23,7 +23,7 @@ Explanation:
  *     this.left = this.right = null;
  * }
  */
-const { makeTreeNodes, TreeNode } = require('../../utils')
+const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
 
 /**
  * Approach #1 Depth-First Search

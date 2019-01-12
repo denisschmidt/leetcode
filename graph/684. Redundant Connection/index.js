@@ -38,7 +38,7 @@ For the directed graph follow up please see Redundant Connection II). We apologi
 Disjoint set union (DSU) или Union-Find.
 */
 
-const { DSU } = require('../../utils')
+const { DSU } = require('../../algorithms/treeNode')
 
 /**
  * @param {number[][]} edges

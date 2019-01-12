@@ -38,7 +38,7 @@ Return false
  * }
  */
 
-const { makeTreeNodes } = require('../../utils');
+const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 
 /**

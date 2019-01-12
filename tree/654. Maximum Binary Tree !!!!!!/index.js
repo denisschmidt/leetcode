@@ -32,7 +32,7 @@ Construct the maximum tree by the given array and output the root node of this t
 
 'use strict'
 
-const { TreeNode, makeTreeNodes } = require('../../utils')
+const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode')
 
 var constructMaximumBinaryTree = function(nums) {
   if(!nums.length) {

@@ -27,7 +27,7 @@
  * @param {TreeNode} root
  * @return {number[]}
  */
-const { TreeNode } = require('../../utils')
+const { TreeNode } = require('../../algorithms/treeNode')
 
 const averageOfLevels = function(root, depth = 0, counts = []) {
   if (!root) return null

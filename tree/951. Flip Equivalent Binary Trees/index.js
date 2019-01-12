@@ -15,7 +15,7 @@ Example 1:
   Explanation: We flipped at nodes with values 1, 3, and 5.
 
  */
-const { makeTreeNodes } = require('../../utils')
+const { makeTreeNodes } = require('../../algorithms/treeNode')
 
 /**
  * Definition for a binary tree node.

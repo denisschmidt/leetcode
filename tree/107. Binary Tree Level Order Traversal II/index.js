@@ -35,7 +35,7 @@ return its bottom-up level order traversal as:
  * @param {TreeNode} root
  * @return {number[][]}
  */
-const { makeTreeNodes } = require('../../utils');
+const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 
 const levelOrderBottom = function(root) {

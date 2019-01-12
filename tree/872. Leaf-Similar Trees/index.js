@@ -17,7 +17,7 @@ Return true if and only if the two given trees with head nodes root1 and root2 a
  * }
  */
 
-const { TreeNode } = require('../../utils')
+const { TreeNode } = require('../../algorithms/treeNode')
 
 /**
  * @param {TreeNode} root1

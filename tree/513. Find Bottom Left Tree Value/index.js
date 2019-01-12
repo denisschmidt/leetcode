@@ -25,7 +25,7 @@ Note: You may assume the tree (i.e., the given root node) is not NULL.
 
  */
 
-const { makeTreeNodes, TreeNode } = require('../../utils')
+const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {

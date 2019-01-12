@@ -28,7 +28,7 @@ return its minimum depth = 2.
  * @return {number}
  */
 
-const { makeTreeNodes } = require('../../utils')
+const { makeTreeNodes } = require('../../algorithms/treeNode')
 
 const minDepth = function(root) {
   if (!root) return 0;

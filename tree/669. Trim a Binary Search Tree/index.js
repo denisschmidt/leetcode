@@ -24,7 +24,7 @@ of nodes in the worst case.
 
 'use strict'
 
-const { TreeNode } = require('../../utils')
+const { TreeNode } = require('../../algorithms/treeNode')
 
 /**
  * @param {TreeNode} root

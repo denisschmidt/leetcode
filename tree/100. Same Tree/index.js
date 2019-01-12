@@ -17,7 +17,7 @@ Two binary trees are considered the same if they are structurally identical and 
  * @param {TreeNode} q
  * @return {boolean}
  */
-const { makeTreeNodes } = require('../../utils');
+const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 var isSameTree = function(node1, node2) {
   let isEqual = true;

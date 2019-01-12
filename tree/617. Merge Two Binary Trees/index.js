@@ -55,7 +55,7 @@ In average case, depth will be O(logn).
  */
 
 
-const { TreeNode } = require('../../utils')
+const { TreeNode } = require('../../algorithms/treeNode')
 
 /**
  * @param {TreeNode} t1
