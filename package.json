@@ -9,11 +9,13 @@
   },
   "scripts": {
     "pretty": "prettier --write \"./**/*.{js}\"",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "release": "release-it",
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.js": [
-      "prettier --fix --write",
+    "*.{js}": [
+      "prettier --write",
       "git add"
     ]
   },
