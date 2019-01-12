@@ -42,15 +42,15 @@ Output: k q e e p
  */
 const findAllEntryIndexes = function(str, subStr) {
   const arr = [];
-  for(let i=0; i < str.length; i++) {
-    if(str[i] === subStr) arr.push(i)
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === subStr) arr.push(i);
   }
-  return arr
-}
+  return arr;
+};
 
 const removeCharFromStr = function(str, char) {
   return str.replace(new RegExp(char, 'g'), '');
-}
+};
 
 /**
  * @param {string} s
@@ -58,11 +58,12 @@ const removeCharFromStr = function(str, char) {
  * @return {string}
  */
 const customSortString = function(s, t) {
-  let str = '', removeStr = t;
+  let str = '',
+    removeStr = t;
 
-  for(let i=0; i < s.length; i++) {
+  for (let i = 0; i < s.length; i++) {
     const indexes = findAllEntryIndexes(t, s[i]);
-    removeStr = removeCharFromStr(removeStr, s[i])
+    removeStr = removeCharFromStr(removeStr, s[i]);
     if (indexes.length) {
       indexes.forEach(index => {
         str = str + t[index];
@@ -71,7 +72,6 @@ const customSortString = function(s, t) {
   }
   return str + removeStr;
 };
-
 
 const res = customSortString('cba', 'abcd');
 console.log('===', res);

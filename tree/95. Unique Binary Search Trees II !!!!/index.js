@@ -38,7 +38,7 @@ Complexity analysis -> https://leetcode.com/problems/unique-binary-search-trees-
  * @param {number} n
  * @return {TreeNode[]}
  */
-const { TreeNode } = require('../../algorithms/treeNode')
+const { TreeNode } = require('../../algorithms/treeNode');
 
 const dfn = (start, end) => {
   let allTrees = [];
@@ -67,7 +67,6 @@ const dfn = (start, end) => {
   return allTrees;
 };
 
-
 const generateTrees = function(n) {
   if (n === 0) {
     return [];
@@ -76,4 +75,3 @@ const generateTrees = function(n) {
 };
 
 generateTrees(3);
-

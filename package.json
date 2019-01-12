@@ -2,13 +2,8 @@
   "name": "leetcode",
   "version": "0.1.0",
   "private": true,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
   "scripts": {
-    "pretty": "prettier --write \"./**/*.{js}\"",
+    "prettier": "prettier --write \"**/*.js\"",
     "lint": "./node_modules/.bin/eslint ./src",
     "release": "release-it",
     "precommit": "lint-staged"
@@ -18,6 +13,11 @@
       "prettier --write",
       "git add"
     ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "devDependencies": {
     "husky": "^1.3.1",

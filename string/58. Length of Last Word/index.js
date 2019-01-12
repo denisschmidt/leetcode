@@ -26,5 +26,4 @@ var lengthOfLastWord = function(s) {
 };
 
 const res = lengthOfLastWord('ad');
-console.log(res)
-
+console.log(res);

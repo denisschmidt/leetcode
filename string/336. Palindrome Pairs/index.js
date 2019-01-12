@@ -21,18 +21,19 @@ Explanation: The palindromes are ["battab","tabbat"]
  * @param s {string}
  * @returns {boolean}
  */
-const isPalindromic = function (s) {
-  let left = 0; right = s.length - 1;
+const isPalindromic = function(s) {
+  let left = 0;
+  right = s.length - 1;
 
-  while(left < right) {
+  while (left < right) {
     if (s[left] !== s[right]) {
-      return false
+      return false;
     }
     left++;
     right--;
   }
   return true;
-}
+};
 
 /**
  * @param {string[]} words
@@ -49,7 +50,7 @@ var palindromePairs = function(words) {
       }
       console.log('---', i, j);
       if (isPalindromic(words[i] + words[j])) {
-        let arr = [i, j]
+        let arr = [i, j];
         res.push(arr);
       }
     }
@@ -57,6 +58,6 @@ var palindromePairs = function(words) {
   return res;
 };
 
-const res = palindromePairs(["bat","tab","cat"]);
+const res = palindromePairs(['bat', 'tab', 'cat']);
 
 console.log('---', res);

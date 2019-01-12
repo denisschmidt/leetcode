@@ -25,7 +25,7 @@ Note: You may assume the tree (i.e., the given root node) is not NULL.
 
  */
 
-const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
+const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -42,16 +42,19 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
  */
 
 const findBottomLeftValue = function(root) {
-  let nodeStack = [], depthStack = [], rightmostValueAtDepth = new Map(), maxDepth = -1;
+  let nodeStack = [],
+    depthStack = [],
+    rightmostValueAtDepth = new Map(),
+    maxDepth = -1;
   nodeStack.push(root);
   depthStack.push(0);
   while (nodeStack.length) {
     let node = nodeStack.pop();
     let depth = depthStack.pop();
     if (node !== null) {
-      maxDepth = Math.max(maxDepth, depth)
+      maxDepth = Math.max(maxDepth, depth);
       if (!rightmostValueAtDepth.has(depth)) {
-        rightmostValueAtDepth.set(depth, node.val)
+        rightmostValueAtDepth.set(depth, node.val);
       }
       nodeStack.push(node.right);
       nodeStack.push(node.left);
@@ -62,14 +65,13 @@ const findBottomLeftValue = function(root) {
   return rightmostValueAtDepth.get(maxDepth);
 };
 
-const res = findBottomLeftValue(makeTreeNodes([1, 2, 3, 4, 5, 6, null, null, null, 7, 8],)); // 1
+const res = findBottomLeftValue(makeTreeNodes([1, 2, 3, 4, 5, 6, null, null, null, 7, 8])); // 1
 
 console.log('---', res);
 
-
-
 const findBottomLeftValue2 = function(root) {
-  let node, queue = [];
+  let node,
+    queue = [];
   queue.push(root);
   while (queue.length) {
     node = queue.shift();
@@ -83,6 +85,5 @@ const findBottomLeftValue2 = function(root) {
   return node.val;
 };
 
-const res2 = findBottomLeftValue2(makeTreeNodes([1, 2, 3, 4, 5, 6, null, null, null, 7, 8],));
+const res2 = findBottomLeftValue2(makeTreeNodes([1, 2, 3, 4, 5, 6, null, null, null, 7, 8]));
 console.log('---', res2);
-

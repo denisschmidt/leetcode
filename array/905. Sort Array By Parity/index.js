@@ -13,16 +13,19 @@ The outputs [4,2,3,1], [2,4,1,3], and [4,2,1,3] would also be accepted.
  * @return {number[]}
  */
 var sortArrayByParity = function(a) {
-  let s = a.length, i=0, a1 = [], a2 = []
+  let s = a.length,
+    i = 0,
+    a1 = [],
+    a2 = [];
   while (i < s) {
     if (a[i] % 2 == 0) {
-      a1.push(a[i])
-    }else  {
-      a2.push(a[i])
+      a1.push(a[i]);
+    } else {
+      a2.push(a[i]);
     }
-    i++
+    i++;
   }
-  return a1.concat(a2)
-}
+  return a1.concat(a2);
+};
 
-console.log(sortArrayByParity([3,1,2,4]))
+console.log(sortArrayByParity([3, 1, 2, 4]));

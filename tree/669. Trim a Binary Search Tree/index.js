@@ -22,9 +22,9 @@ of nodes in the worst case.
  * }
  */
 
-'use strict'
+'use strict';
 
-const { TreeNode } = require('../../algorithms/treeNode')
+const { TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * @param {TreeNode} root
@@ -33,30 +33,26 @@ const { TreeNode } = require('../../algorithms/treeNode')
  * @return {TreeNode}
  */
 const trimBST = function(root, L, R) {
-  if (!root) return root
-  if (root.val > R) return trimBST(root.left, L, R)
-  if (root.val < L) return trimBST(root.right, L, R)
-  root.left = trimBST(root.left, L, R)
-  root.right = trimBST(root.right, L, R)
-  return root
-}
+  if (!root) return root;
+  if (root.val > R) return trimBST(root.left, L, R);
+  if (root.val < L) return trimBST(root.right, L, R);
+  root.left = trimBST(root.left, L, R);
+  root.right = trimBST(root.right, L, R);
+  return root;
+};
 
 const t = {
   val: 3,
   right: {
     val: 4,
     left: null,
-    right: null
+    right: null,
   },
   left: {
     val: 0,
     right: { val: 2, right: null, left: { val: 1, left: null, right: null } },
-    left: null
-  }
-}
+    left: null,
+  },
+};
 
-console.log(trimBST(t, 1, 3))
-
-
-
-
+console.log(trimBST(t, 1, 3));

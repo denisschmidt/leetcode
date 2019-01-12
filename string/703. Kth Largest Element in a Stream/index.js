@@ -19,7 +19,6 @@ You may assume that nums' length ≥ k-1 and k ≥ 1.
 
  */
 
-
 class KthLargest {
   /**
    * @param {number} k
@@ -49,7 +48,7 @@ class KthLargest {
   }
 }
 
-const obj = new KthLargest(3, [4,5,8,2])
+const obj = new KthLargest(3, [4, 5, 8, 2]);
 obj.add(3);
 obj.add(5);
 obj.add(10);
@@ -57,26 +56,8 @@ obj.add(9);
 const res = obj.add(4);
 console.log('---', res);
 
-
 /**
  * Your KthLargest object will be instantiated and called as such:
  * var obj = Object.create(KthLargest).createNew(k, nums)
  * var param_1 = obj.add(val)
  */
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

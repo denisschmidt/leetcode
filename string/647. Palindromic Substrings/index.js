@@ -21,7 +21,8 @@ Example 2:
  * @return {boolean}
  */
 const isPalidrome = s => {
-  let left = 0, right = s.length - 1;
+  let left = 0,
+    right = s.length - 1;
   while (left < right) {
     if (s[left] !== s[right]) {
       return false;
@@ -33,7 +34,8 @@ const isPalidrome = s => {
 };
 
 const countSubstrings = s => {
-  let count = 0, str = '';
+  let count = 0,
+    str = '';
   for (let i = 0; i < s.length; i++) {
     for (let j = i; j <= s.length; j++) {
       str = str + s[j];
@@ -47,7 +49,6 @@ const countSubstrings = s => {
 };
 
 const res1 = countSubstrings('aaa');
-
 
 /*
 State
@@ -71,7 +72,7 @@ const countSubstringsDP = str => {
     if (!dp[i]) dp[i] = [];
   }
 
-  for (let i = size - 1; i >= 0 ; i--) {
+  for (let i = size - 1; i >= 0; i--) {
     for (let j = i; j < size; j++) {
       dp[i][j] = str[i] === str[j] && (j - i < 3 || dp[i + 1][j - 1]);
       if (dp[i][j]) {
@@ -82,6 +83,6 @@ const countSubstringsDP = str => {
   return res;
 };
 
-const res2 =  countSubstringsDP('aaa');
+const res2 = countSubstringsDP('aaa');
 
 console.log('--', res2);

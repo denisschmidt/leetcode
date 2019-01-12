@@ -33,14 +33,16 @@ S only contains characters "I" or "D".
  * @return {number[]}
  */
 const diStringMatch = str => {
-  let res = [], iSum = 0, dSum = str.length;
+  let res = [],
+    iSum = 0,
+    dSum = str.length;
 
   for (let i = 0; i < str.length; i++) {
     if (str[i] === 'I') {
       if (iSum === 0) {
         res.push(iSum);
         iSum += 1;
-      } else  {
+      } else {
         res.push(iSum);
         iSum += 1;
       }
@@ -51,7 +53,7 @@ const diStringMatch = str => {
       if (dSum === str.length) {
         res.push(dSum);
         dSum -= 1;
-      } else  {
+      } else {
         res.push(dSum);
         dSum -= 1;
       }

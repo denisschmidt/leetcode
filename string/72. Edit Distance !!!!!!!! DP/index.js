@@ -62,11 +62,7 @@ const minDistance = function(word1, word2) {
       } else if (word1[i - 1] === word2[j - 1]) {
         matrix[i][j] = matrix[i - 1][j - 1];
       } else {
-        matrix[i][j] = 1 + Math.min(
-          matrix[i - 1][j],
-          matrix[i][j - 1],
-          matrix[i - 1][j - 1]
-        );
+        matrix[i][j] = 1 + Math.min(matrix[i - 1][j], matrix[i][j - 1], matrix[i - 1][j - 1]);
       }
     }
   }

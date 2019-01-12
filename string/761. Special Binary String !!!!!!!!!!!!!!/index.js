@@ -31,7 +31,8 @@ Solution include 4 steps
  */
 
 const makeLargestSpecial = S => {
-  let count = 0, i = 0;
+  let count = 0,
+    i = 0;
   let res = [];
   for (let j = 0; j < S.length; ++j) {
     if (S.charAt(j) === '1') count++;
@@ -44,11 +45,11 @@ const makeLargestSpecial = S => {
   }
   let resStr = '';
   res.sort((a, b) => a - b);
-  for (let k = res.length - 1; k >= 0 ; k--) {
+  for (let k = res.length - 1; k >= 0; k--) {
     resStr += res[k];
   }
   return resStr;
-}
+};
 
 const res = makeLargestSpecial('101011001110011010001111100000'); // 111110000011101001100011001010
 console.log('---', res);
@@ -58,7 +59,7 @@ const dfs = (arr, i) => {
   let res = '';
   let resArr = [];
 
-  while(i < arr.length && res.length === 0) {
+  while (i < arr.length && res.length === 0) {
     if (arr[i++] === '1') {
       resArr.push(dfs(arr, i));
     } else {
@@ -66,7 +67,7 @@ const dfs = (arr, i) => {
     }
   }
   resArr.sort((a, b) => a - b);
-  for (let j = resArr.length - 1; j >= 0 ; j--) {
+  for (let j = resArr.length - 1; j >= 0; j--) {
     res += resArr[j];
   }
   if (res.length) {

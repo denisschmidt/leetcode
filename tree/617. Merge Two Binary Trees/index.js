@@ -54,8 +54,7 @@ In average case, depth will be O(logn).
  * }
  */
 
-
-const { TreeNode } = require('../../algorithms/treeNode')
+const { TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * @param {TreeNode} t1
@@ -64,7 +63,7 @@ const { TreeNode } = require('../../algorithms/treeNode')
  */
 var mergeTrees = function(t1, t2) {
   const merge = (node1, node2) => {
-    if(!node1) {
+    if (!node1) {
       return node2;
     }
     if (!node2) {
@@ -74,37 +73,36 @@ var mergeTrees = function(t1, t2) {
     node1.left = merge(node1.left, node2.left);
     node1.right = merge(node1.right, node2.right);
     return node1;
-  }
+  };
   return merge(t1, t2);
 };
-
 
 const t1 = {
   val: 1,
   right: {
     val: 2,
     right: null,
-    left: null
+    left: null,
   },
   left: {
     val: 3,
     right: null,
-    left:{ val: 5, right: null, left: null }
-  }
-}
+    left: { val: 5, right: null, left: null },
+  },
+};
 
 const t2 = {
   val: 2,
   right: {
     val: 3,
     right: { val: 7, right: null, left: null },
-    left: null
+    left: null,
   },
   left: {
     val: 1,
     right: { val: 4, right: null, left: null },
-    left: null
-  }
-}
+    left: null,
+  },
+};
 
-console.log(mergeTrees(t1, t2))
+console.log(mergeTrees(t1, t2));

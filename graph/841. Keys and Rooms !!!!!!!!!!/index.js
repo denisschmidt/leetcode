@@ -47,28 +47,28 @@ Space Complexity: O(N)O(N) in additional space complexity, to store stack and se
  * @return {boolean}
  */
 var canVisitAllRooms = function(rooms) {
-  let seen = [], stack = []
-  seen[0] = true
-  stack.push(0)
+  let seen = [],
+    stack = [];
+  seen[0] = true;
+  stack.push(0);
 
-  while(stack.length) {
-    let node = stack.pop() // Получаем следующий ключ узла
+  while (stack.length) {
+    let node = stack.pop(); // Получаем следующий ключ узла
 
-    for(let i=0; i < rooms[node].length; i++){
-      if(!seen[rooms[node][i]]) {
-        seen[rooms[node][i]] = true // отметка того что мы открыли комнату
-        stack.push(rooms[node][i]) // добавим ключ в стек
+    for (let i = 0; i < rooms[node].length; i++) {
+      if (!seen[rooms[node][i]]) {
+        seen[rooms[node][i]] = true; // отметка того что мы открыли комнату
+        stack.push(rooms[node][i]); // добавим ключ в стек
       }
     }
-
   }
-  for(let i=0; i < rooms.length; i++) {
-    if(!seen[i]) return false
+  for (let i = 0; i < rooms.length; i++) {
+    if (!seen[i]) return false;
   }
-  return true
-}
+  return true;
+};
 
-const p1 = [[1,1],[]]
+const p1 = [[1, 1], []];
 
-var a = canVisitAllRooms(p1)
-console.log(a)
+var a = canVisitAllRooms(p1);
+console.log(a);

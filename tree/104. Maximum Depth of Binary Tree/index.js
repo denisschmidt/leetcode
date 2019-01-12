@@ -41,26 +41,28 @@ TreeNode {
  * @return {number}
  */
 var maxDepth = function(root) {
-  let max = 0
+  let max = 0;
 
   const size = (node = root, depth = max) => {
     if (node === null) {
-      max = Math.max(max, depth)
-      return
+      max = Math.max(max, depth);
+      return;
     }
-    size(node.left, depth + 1)
-    size(node.right, depth + 1)
-  }
-  size()
-  return max
+    size(node.left, depth + 1);
+    size(node.right, depth + 1);
+  };
+  size();
+  return max;
 };
 
-console.log(maxDepth({
-  val: 3,
-  right: {
-    val: 20,
-    right: { val: 7, right: null, left: null },
-    left: { val: 15, right: null, left: null } },
-  left: { val: 9, right: null, left: null }
-  }
-))
+console.log(
+  maxDepth({
+    val: 3,
+    right: {
+      val: 20,
+      right: { val: 7, right: null, left: null },
+      left: { val: 15, right: null, left: null },
+    },
+    left: { val: 9, right: null, left: null },
+  }),
+);

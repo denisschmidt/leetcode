@@ -19,11 +19,11 @@ Output:
  * @return {number[]}
  */
 const findDisappearedNumbers = function(n) {
-  let a = []
-  for(let i = 1; i <= n.length; i++) {
-   if (!n.includes(i)) a.push(i)
+  let a = [];
+  for (let i = 1; i <= n.length; i++) {
+    if (!n.includes(i)) a.push(i);
   }
-  return a
-}
-const arr = [2, 2]
-console.log('---', findDisappearedNumbers(arr))
+  return a;
+};
+const arr = [2, 2];
+console.log('---', findDisappearedNumbers(arr));

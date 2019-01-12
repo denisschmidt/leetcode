@@ -18,4 +18,3 @@ You may assume that evaluating the queries will result in no division by zero an
 there is no contradiction.
 
 */
-

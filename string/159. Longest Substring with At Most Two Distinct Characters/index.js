@@ -4,8 +4,12 @@
 
  */
 
-const lengthOfLongestSubstringTwoDistinct = (s) => {
-  let begin = 0, end = 0, map = {}, counter = 0, max = 0;
+const lengthOfLongestSubstringTwoDistinct = s => {
+  let begin = 0,
+    end = 0,
+    map = {},
+    counter = 0,
+    max = 0;
 
   for (let h = 0; h < 26; h++) {
     map[String.fromCharCode(h + 97)] = 0;
@@ -20,7 +24,7 @@ const lengthOfLongestSubstringTwoDistinct = (s) => {
     while (counter > 2) {
       if (map[s[begin]] === 1) {
         counter--;
-     }
+      }
       map[s[begin]]--;
       begin++;
     }

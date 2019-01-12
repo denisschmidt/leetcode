@@ -39,26 +39,26 @@ You can return this binary search tree:
  * @param {number} val
  * @return {TreeNode}
  */
-const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode')
+const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode');
 
-const newNode = (val) => {
-  const node = new TreeNode(val)
-  node.left = null
-  node.right = null
-  return node
-}
+const newNode = val => {
+  const node = new TreeNode(val);
+  node.left = null;
+  node.right = null;
+  return node;
+};
 
 const insertIntoBST = function(root, val) {
   if (root == null) {
-    return newNode(val)
+    return newNode(val);
   }
   if (val > root.val) {
-    root.right = insertIntoBST(root.right, val)
-  } else if(val < root.val) {
-    root.left = insertIntoBST(root.left, val)
+    root.right = insertIntoBST(root.right, val);
+  } else if (val < root.val) {
+    root.left = insertIntoBST(root.left, val);
   }
-  return root
-}
-const arr = [4,2,7,1,3]
-const res = insertIntoBST(makeTreeNodes(arr), 5)
-console.log('---', res)
+  return root;
+};
+const arr = [4, 2, 7, 1, 3];
+const res = insertIntoBST(makeTreeNodes(arr), 5);
+console.log('---', res);

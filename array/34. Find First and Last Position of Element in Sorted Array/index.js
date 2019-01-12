@@ -24,39 +24,40 @@ O(log n)
  * @return {number[]}
  */
 var searchRange = function(nums, target) {
-  let left = 0, right = nums.length - 1, indexArr = []
+  let left = 0,
+    right = nums.length - 1,
+    indexArr = [];
 
-  while(left < right) {
-    const mid = Math.floor((left + right) / 2)
-    if(nums[mid] >= target) {
-      right = mid
+  while (left < right) {
+    const mid = Math.floor((left + right) / 2);
+    if (nums[mid] >= target) {
+      right = mid;
     } else {
-      left = mid + 1
+      left = mid + 1;
     }
   }
 
   if (nums[right] !== target) {
-    return [-1, -1]
+    return [-1, -1];
   }
 
-  if(nums[right + 1] === target) {
-    indexArr.push(right, right + 1)
-    let i = right + 2
-    while(i < nums.length && nums[i] === target) {
-      indexArr.push(i)
-      i++
+  if (nums[right + 1] === target) {
+    indexArr.push(right, right + 1);
+    let i = right + 2;
+    while (i < nums.length && nums[i] === target) {
+      indexArr.push(i);
+      i++;
     }
   }
 
-  if(indexArr.length > 1) {
-    return [indexArr[0], indexArr[indexArr.length - 1]]
+  if (indexArr.length > 1) {
+    return [indexArr[0], indexArr[indexArr.length - 1]];
   }
 
-  return [right, right]
-
+  return [right, right];
 };
 
+let nums = [3, 3, 3],
+  target = 3;
 
-let nums = [3, 3, 3], target = 3
-
-console.log(searchRange(nums, target))
+console.log(searchRange(nums, target));

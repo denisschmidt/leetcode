@@ -25,28 +25,29 @@ Explanation: The robot moves left twice. It ends up two "moves" to the left of t
  * @return {boolean}
  */
 var judgeCircle = function(moves) {
-  let x = 0, y = 0
-  for (let i=0; i<moves.length; i++) {
+  let x = 0,
+    y = 0;
+  for (let i = 0; i < moves.length; i++) {
     switch (moves[i]) {
       case 'L':
-        x--
-        break
+        x--;
+        break;
       case 'R':
-        x++
-        break
+        x++;
+        break;
       case 'U':
-        y++
-        break
+        y++;
+        break;
       case 'D':
-        y--
-        break
+        y--;
+        break;
       default:
-        break
+        break;
     }
   }
-  return x == 0 && y == 0
-}
+  return x == 0 && y == 0;
+};
 
-const res = judgeCircle('UR')
+const res = judgeCircle('UR');
 
-console.log('===', res)
+console.log('===', res);

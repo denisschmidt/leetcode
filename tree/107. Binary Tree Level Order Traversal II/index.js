@@ -22,7 +22,6 @@ return its bottom-up level order traversal as:
 
  */
 
-
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -37,9 +36,10 @@ return its bottom-up level order traversal as:
  */
 const { makeTreeNodes } = require('../../algorithms/treeNode');
 
-
 const levelOrderBottom = function(root) {
-  let nodeQueue = [], depthQueue = [], maxDepth = -1;
+  let nodeQueue = [],
+    depthQueue = [],
+    maxDepth = -1;
   let map = new Map();
 
   nodeQueue.push(root);
@@ -74,8 +74,6 @@ const levelOrderBottom = function(root) {
   return res;
 };
 
-const res = levelOrderBottom(makeTreeNodes([3,9,20,null,null,15,7]));
+const res = levelOrderBottom(makeTreeNodes([3, 9, 20, null, null, 15, 7]));
 
 console.log('---', res);
-
-

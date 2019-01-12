@@ -32,7 +32,8 @@ return its zigzag level order traversal as:
 const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 const zigzagLevelOrder = root => {
-  let nodeQueue = [], depthQueue = [];
+  let nodeQueue = [],
+    depthQueue = [];
   let maxDepth = -1;
   let depthMap = new Map();
   nodeQueue.push(root);
@@ -47,7 +48,7 @@ const zigzagLevelOrder = root => {
 
       if (depthMap.has(depth)) {
         let val = depthMap.get(depth);
-         depth % 2 === 0 ? val.push(node.val) :val.unshift(node.val)
+        depth % 2 === 0 ? val.push(node.val) : val.unshift(node.val);
         depthMap.set(depth, val);
       } else {
         depthMap.set(depth, [node.val]);
@@ -58,13 +59,13 @@ const zigzagLevelOrder = root => {
       depthQueue.push(depth + 1);
     }
   }
-  const res = []
-  for(let i=0;i<=maxDepth;i++) {
-    res.push(depthMap.get(i))
+  const res = [];
+  for (let i = 0; i <= maxDepth; i++) {
+    res.push(depthMap.get(i));
   }
   return res;
 };
 
-const arr = zigzagLevelOrder(makeTreeNodes([1,2,3,4,null,null,5]))
+const arr = zigzagLevelOrder(makeTreeNodes([1, 2, 3, 4, null, null, 5]));
 
 console.log('---', arr);

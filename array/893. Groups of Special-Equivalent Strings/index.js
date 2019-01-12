@@ -41,7 +41,10 @@ Explanation: 1 group ["abcd","cdab","adcb","cbad"]
 
 const numSpecialEquivGroups = function(arr) {
   const size = arr.length;
-  let even = [], odd = [], count = 0, map = {};
+  let even = [],
+    odd = [],
+    count = 0,
+    map = {};
 
   for (let i = 0; i < size; i++) {
     even = [];
@@ -55,7 +58,7 @@ const numSpecialEquivGroups = function(arr) {
     }
     even.sort();
     odd.sort();
-    key = even.join("") + odd.join("");
+    key = even.join('') + odd.join('');
     if (!map[key]) {
       map[key] = true;
       count++;
@@ -64,5 +67,5 @@ const numSpecialEquivGroups = function(arr) {
   return count;
 };
 
-const result = numSpecialEquivGroups(["abc","acb","bac","bca","cab","cba"]);
+const result = numSpecialEquivGroups(['abc', 'acb', 'bac', 'bca', 'cab', 'cba']);
 console.log('---', result);

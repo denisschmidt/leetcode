@@ -17,7 +17,7 @@ Explanation:
 N  will be in range [1, 10000].
  */
 
-const isValid = (N) => {
+const isValid = N => {
   let validFound = false;
   while (N > 0) {
     if (N % 10 === 2) validFound = true;
@@ -32,12 +32,12 @@ const isValid = (N) => {
   return validFound;
 };
 
-const rotatedDigits = (N) => {
+const rotatedDigits = N => {
   let count = 0;
   for (let i = 1; i <= N; i++) {
-    if (isValid(i)) count ++;
+    if (isValid(i)) count++;
   }
   return count;
-}
+};
 
-rotatedDigits()
+rotatedDigits();

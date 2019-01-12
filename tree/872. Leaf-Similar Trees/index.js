@@ -17,7 +17,7 @@ Return true if and only if the two given trees with head nodes root1 and root2 a
  * }
  */
 
-const { TreeNode } = require('../../algorithms/treeNode')
+const { TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * @param {TreeNode} root1
@@ -26,52 +26,50 @@ const { TreeNode } = require('../../algorithms/treeNode')
  */
 
 const leafSimilar = function(root1, root2) {
-  let a1 = []
-  let a2 = []
+  let a1 = [];
+  let a2 = [];
 
   const fn = (node, arr) => {
-    if (!node) return null
-    fn(node.left, arr)
-    fn(node.right, arr)
-    if (!node.left && !node.right) arr.push(node.val)
-    return arr
-  }
-  a1 = fn(root1, a1)
-  a2 = fn(root2, a2)
-  for(let i=0;i<a1.length;i++)
-    if (a1[i] !== a2[i]) return false
-  return true
-}
+    if (!node) return null;
+    fn(node.left, arr);
+    fn(node.right, arr);
+    if (!node.left && !node.right) arr.push(node.val);
+    return arr;
+  };
+  a1 = fn(root1, a1);
+  a2 = fn(root2, a2);
+  for (let i = 0; i < a1.length; i++) if (a1[i] !== a2[i]) return false;
+  return true;
+};
 
 const t1 = {
   val: 3,
   right: {
     val: 1,
     right: { val: 8, right: null, left: null },
-    left: { val: 9, right: null, left: null }
+    left: { val: 9, right: null, left: null },
   },
   left: {
     val: 5,
     right: { val: 2, right: { val: 4, right: null, left: null }, left: { val: 7, right: null, left: null } },
-    left: { val: 6, right: null, left: null }
-  }
-}
+    left: { val: 6, right: null, left: null },
+  },
+};
 
 const t2 = {
   val: 3,
   right: {
     val: 1,
     right: { val: 8, right: null, left: null },
-    left: { val: 9, right: null, left: null }
+    left: { val: 9, right: null, left: null },
   },
   left: {
     val: 5,
     right: { val: 2, right: { val: 4, right: null, left: null }, left: { val: 7, right: null, left: null } },
-    left: { val: 6, right: null, left: null }
-  }
-}
+    left: { val: 6, right: null, left: null },
+  },
+};
 
+const res = leafSimilar(t1, t2);
 
-const res = leafSimilar(t1, t2)
-
-console.log(res)
+console.log(res);

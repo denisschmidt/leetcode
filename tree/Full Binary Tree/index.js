@@ -12,7 +12,7 @@ function isFullTree(root) {
 
   // If both left and right are not Null, and left & right subtrees
   // are full
-  if((root.left) && (root.right)) {
+  if (root.left && root.right) {
     return isFullTree(root.left) && isFullTree(root.right);
   }
 

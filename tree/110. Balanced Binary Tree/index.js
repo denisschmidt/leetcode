@@ -40,33 +40,31 @@ Return false
 
 const { makeTreeNodes } = require('../../algorithms/treeNode');
 
-
 /**
  * @param {TreeNode} root
  * @return {boolean}
  */
 
-const dfsHeight = (root) => {
+const dfsHeight = root => {
   if (root === null) {
     return 0;
   }
 
-  let leftHeight = dfsHeight(root.left)
+  let leftHeight = dfsHeight(root.left);
   if (leftHeight === -1) return -1;
-kK
-  let rightHeight = dfsHeight(root.right)
+  kK;
+  let rightHeight = dfsHeight(root.right);
   if (rightHeight === -1) return -1;
 
   if (Math.abs(leftHeight - rightHeight) > 1) return -1;
   return Math.max(leftHeight, rightHeight) + 1;
-}
-
-const isBalanced = function(root) {
-  return dfsHeight(root) !== -1;K
 };
 
-const res = isBalanced(makeTreeNodes([3,9,20,null,null,15,7]));
+const isBalanced = function(root) {
+  return dfsHeight(root) !== -1;
+  K;
+};
+
+const res = isBalanced(makeTreeNodes([3, 9, 20, null, null, 15, 7]));
 
 console.log('---', res);
-
-

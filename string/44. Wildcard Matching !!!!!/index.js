@@ -78,10 +78,13 @@ Example 5:
  * @return {boolean}
  */
 const isMatch = function(str, pattern) {
-  let s = 0, p = 0, match = 0, startIdx = -1;
+  let s = 0,
+    p = 0,
+    match = 0,
+    startIdx = -1;
 
   while (s < str.length) {
-    if (p < pattern.length && (pattern[p] === '?' || str[s] === pattern[p] )) {
+    if (p < pattern.length && (pattern[p] === '?' || str[s] === pattern[p])) {
       s++;
       p++;
     } else if (p < pattern.length && pattern[p] === '*') {
@@ -97,7 +100,7 @@ const isMatch = function(str, pattern) {
     }
   }
   // check for remaining characters in pattern
-  while (p < pattern.length && pattern[p] === '*') p++
+  while (p < pattern.length && pattern[p] === '*') p++;
 
   return p === pattern.length;
 };

@@ -22,18 +22,20 @@ The result can be in any order.
  * @return {number[]}
  */
 var intersection = function(nums1, nums2) {
-  let i = 0, set = new Set(), res = []
+  let i = 0,
+    set = new Set(),
+    res = [];
 
-  while(i < nums1.length) {
+  while (i < nums1.length) {
     if (nums2.includes(nums1[i])) {
-      set.add(nums1[i])
+      set.add(nums1[i]);
     }
-    i++
+    i++;
   }
   set.forEach(element => {
-    res.push(element)
-  })
-  return res
+    res.push(element);
+  });
+  return res;
 };
 
-console.log(intersection([4,9,5], [9,4,9,8,4]))
+console.log(intersection([4, 9, 5], [9, 4, 9, 8, 4]));

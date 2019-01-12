@@ -38,11 +38,9 @@ In average case, depth will be O(logn).
 
 */
 
+'use strict';
 
-'use strict'
-
-const { TreeNode } = require('../../algorithms/treeNode')
-
+const { TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * Definition for a binary tree node.
@@ -57,45 +55,45 @@ const { TreeNode } = require('../../algorithms/treeNode')
  * @return {TreeNode}
  */
 const searchBST = function(root, val) {
-  const tree = new TreeNode()
+  const tree = new TreeNode();
 
-  const search = (node) => {
+  const search = node => {
     if (!node) {
-      return null
+      return null;
     }
 
     if (node.val === val) {
-      tree.val = node.val
-      tree.left = node.left
-      tree.right = node.right
+      tree.val = node.val;
+      tree.left = node.left;
+      tree.right = node.right;
     }
 
-    search(node.left)
-    search(node.right)
-    return tree
-  }
+    search(node.left);
+    search(node.right);
+    return tree;
+  };
 
-  const node = search(root)
+  const node = search(root);
 
   if (!node.val) {
-    return []
+    return [];
   }
 
-  return node
-}
+  return node;
+};
 
 const t1 = {
   val: 4,
   right: {
     val: 7,
     right: null,
-    left: null
+    left: null,
   },
   left: {
     val: 2,
     right: { val: 3, right: null, left: null },
-    left: { val: 1, right: null, left: null }
-  }
-}
+    left: { val: 1, right: null, left: null },
+  },
+};
 
-console.log(searchBST(t1, 2))
+console.log(searchBST(t1, 2));

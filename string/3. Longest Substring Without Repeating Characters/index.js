@@ -44,7 +44,6 @@ const lengthOfLongestSubstring = s => {
 const res = lengthOfLongestSubstring('abcabcbb');
 console.log('---', res);
 
-
 // ==============================================================================================
 
 /*
@@ -56,12 +55,15 @@ console.log('---', res);
  * @return {number}
  */
 const lengthOfLongestSubstring2 = s => {
-  let begin = 0, end = 0, counter = 0, maxLength = 0;
+  let begin = 0,
+    end = 0,
+    counter = 0,
+    maxLength = 0;
   let map = {};
   for (let i = 0; i < 128; i++) {
     map[String.fromCharCode(i)] = 0;
   }
-  while(end < s.length) {
+  while (end < s.length) {
     if (map[s[end]] > 0) {
       counter++;
     }

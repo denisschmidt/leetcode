@@ -23,18 +23,18 @@ var isSameTree = function(node1, node2) {
   let isEqual = true;
   const fn = (p, q) => {
     if ((p && !q) || (!p && q)) {
-      isEqual = false
+      isEqual = false;
       return null;
     }
     if (!p && !q) {
       return null;
     }
     if (p.val !== q.val) {
-      isEqual = false
+      isEqual = false;
     }
     fn(p.left, q.left);
     fn(p.right, q.right);
-  }
+  };
   fn(node1, node2);
   return isEqual;
 };

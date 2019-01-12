@@ -19,8 +19,9 @@ const reverseVowels = function(s) {
   if (!s) {
     return s;
   }
-  let vowels = ["a", "e", "i", "o", "u", "A", "E", "I", "O", "U"];
-  let start = 0, end = s.length - 1;
+  let vowels = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'];
+  let start = 0,
+    end = s.length - 1;
   let charArr = s.split('');
 
   while (start < end) {
@@ -44,11 +45,3 @@ const reverseVowels = function(s) {
 
 const res = reverseVowels('leetcode');
 console.log('--', res);
-
-
-
-
-
-
-
-

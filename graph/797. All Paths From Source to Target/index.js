@@ -31,16 +31,17 @@ You can print different paths in any order, but you should keep the order of nod
  * @return {number[][]}
  */
 const allPathsSourceTarget = graph => {
-  let res = [], path = [];
+  let res = [],
+    path = [];
   path.push(0);
   dfsSearch(0);
 
   function dfsSearch(node) {
-    if (node === graph.length - 1){
+    if (node === graph.length - 1) {
       res.push(path.slice(0));
       return;
     }
-    for(let nextNode of graph[node]) {
+    for (let nextNode of graph[node]) {
       path.push(nextNode);
       dfsSearch(nextNode);
       path.pop();
@@ -50,8 +51,7 @@ const allPathsSourceTarget = graph => {
   return res;
 };
 
-allPathsSourceTarget([[1,2], [3], [3], []]);
-
+allPathsSourceTarget([[1, 2], [3], [3], []]);
 
 /**
  * DFS Solution
@@ -83,4 +83,4 @@ const allPathsSourceTarget2 = graph => {
   return results;
 };
 
-allPathsSourceTarget2([[1,2], [3], [3], []]);
+allPathsSourceTarget2([[1, 2], [3], [3], []]);

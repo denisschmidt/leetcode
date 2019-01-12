@@ -26,8 +26,6 @@
 
  */
 
-
-
 /*
   n - число последовательностей
  */
@@ -59,16 +57,16 @@ const generateCodes = (n = 3, k = 3) => {
       } else {
         break;
       }
-      index -= 1
+      index -= 1;
     }
     // если не нашли такого столбца, то алгоритм закончил работу
     if (index < 0) {
       break;
     }
     // либо двигаем на 1 вперед, либо на 1 назад
-    arr[index] += direction[index]*2 - 1;
+    arr[index] += direction[index] * 2 - 1;
     res.push(arr);
-    console.log('----', arr)
+    console.log('----', arr);
   }
   return res;
 };

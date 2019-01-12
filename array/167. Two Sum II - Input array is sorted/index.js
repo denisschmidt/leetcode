@@ -27,9 +27,9 @@ const twoSum = function(nums, target) {
   let result = [];
   nums.sort((a, b) => a - b);
   for (let i = 0; i < len - 1; i++) {
-    if (nums[i] + nums[i+1] > target) break;
+    if (nums[i] + nums[i + 1] > target) break;
     if (nums[i] + nums[len - 1] < target) continue;
-    if (i > 0 && nums[i] === nums[i-1]) continue; //убираем дубли
+    if (i > 0 && nums[i] === nums[i - 1]) continue; //убираем дубли
 
     let j = i + 1;
     while (j < len) {

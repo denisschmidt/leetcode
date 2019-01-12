@@ -25,7 +25,7 @@ Output: 23
  * }
  */
 
-const { makeTreeNodes } = require('../../algorithms/treeNode')
+const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 /**
  * @param {TreeNode} root
@@ -34,7 +34,8 @@ const { makeTreeNodes } = require('../../algorithms/treeNode')
  * @return {number}
  */
 const rangeSumBST = function(root, L, R) {
-  let nodeStack = [], valuesArr = [];
+  let nodeStack = [],
+    valuesArr = [];
   nodeStack.push(root);
 
   while (nodeStack.length) {
@@ -44,7 +45,7 @@ const rangeSumBST = function(root, L, R) {
       nodeStack.push(node.left);
       nodeStack.push(node.right);
       if (node.val >= L && node.val <= R) {
-        valuesArr.push(node.val)
+        valuesArr.push(node.val);
       }
     }
   }
@@ -52,7 +53,7 @@ const rangeSumBST = function(root, L, R) {
   return valuesArr.reduce((acc, item) => acc + item, 0);
 };
 
-const res = rangeSumBST(makeTreeNodes([10,5,15,3,7,13,18,1,null,6]), 6, 10);
+const res = rangeSumBST(makeTreeNodes([10, 5, 15, 3, 7, 13, 18, 1, null, 6]), 6, 10);
 
 console.log('--First solution--', res);
 
@@ -81,4 +82,4 @@ const rangeSumBST2 = (root, L, R) => {
   return res;
 };
 
-rangeSumBST2(makeTreeNodes([10,5,15,3,7,13,18,1,null,6]), 6, 10);
+rangeSumBST2(makeTreeNodes([10, 5, 15, 3, 7, 13, 18, 1, null, 6]), 6, 10);

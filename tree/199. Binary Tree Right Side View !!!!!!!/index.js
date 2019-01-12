@@ -23,7 +23,7 @@ Explanation:
  *     this.left = this.right = null;
  * }
  */
-const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
+const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * Approach #1 Depth-First Search
@@ -33,36 +33,37 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
  * @return {number[]}
  */
 
-let tree = new TreeNode()
+let tree = new TreeNode();
 
 const rightSideView = function(root) {
-  let nodeStack = [], depthStack = []
-  let maxDepth = -1
-  let rightmostValueAtDepth = new Map()
-  nodeStack.push(root)
-  depthStack.push(0)
+  let nodeStack = [],
+    depthStack = [];
+  let maxDepth = -1;
+  let rightmostValueAtDepth = new Map();
+  nodeStack.push(root);
+  depthStack.push(0);
 
   while (nodeStack.length) {
-    let node = nodeStack.pop()
-    let depth = depthStack.pop()
+    let node = nodeStack.pop();
+    let depth = depthStack.pop();
 
     if (node !== null) {
-      maxDepth = Math.max(maxDepth, depth)
+      maxDepth = Math.max(maxDepth, depth);
       if (!rightmostValueAtDepth.has(depth)) {
-        rightmostValueAtDepth.set(depth, node.val)
+        rightmostValueAtDepth.set(depth, node.val);
       }
-      nodeStack.push(node.left)
-      nodeStack.push(node.right)
-      depthStack.push(depth + 1)
-      depthStack.push(depth + 1)
+      nodeStack.push(node.left);
+      nodeStack.push(node.right);
+      depthStack.push(depth + 1);
+      depthStack.push(depth + 1);
     }
   }
-  const arr = []
-  for(let i = 0; i <= maxDepth; i++) {
-    arr.push(rightmostValueAtDepth.get(i))
+  const arr = [];
+  for (let i = 0; i <= maxDepth; i++) {
+    arr.push(rightmostValueAtDepth.get(i));
   }
-  return arr
-}
+  return arr;
+};
 // const res = rightSideView(makeTreeNodes([1, 2, 3, null, 5, null, 4]))
 // console.log('====', res)
 
@@ -74,30 +75,31 @@ const rightSideView = function(root) {
  */
 
 const rightSideView2 = function(root) {
-  let nodeQueue = [], depthQueue = []
-  let maxDepth = -1
-  let rightmostValueAtDepth = new Map()
-  nodeQueue.push(root)
-  depthQueue.push(0)
+  let nodeQueue = [],
+    depthQueue = [];
+  let maxDepth = -1;
+  let rightmostValueAtDepth = new Map();
+  nodeQueue.push(root);
+  depthQueue.push(0);
 
   while (nodeQueue.length) {
-    let node = nodeQueue.shift()
-    let depth = depthQueue.shift()
+    let node = nodeQueue.shift();
+    let depth = depthQueue.shift();
 
     if (node !== null) {
-      maxDepth = Math.max(maxDepth, depth)
-      rightmostValueAtDepth.set(depth, node.val)
+      maxDepth = Math.max(maxDepth, depth);
+      rightmostValueAtDepth.set(depth, node.val);
 
-      nodeQueue.push(node.left)
-      nodeQueue.push(node.right)
-      depthQueue.push(depth + 1)
-      depthQueue.push(depth + 1)
+      nodeQueue.push(node.left);
+      nodeQueue.push(node.right);
+      depthQueue.push(depth + 1);
+      depthQueue.push(depth + 1);
     }
   }
-  const res = []
-  for(let i=0;i<=maxDepth;i++) {
-    res.push(rightmostValueAtDepth.get(i))
+  const res = [];
+  for (let i = 0; i <= maxDepth; i++) {
+    res.push(rightmostValueAtDepth.get(i));
   }
-  return res
-}
-const res = rightSideView2(makeTreeNodes([1, 2, 3, null, 5, null, 4]))
+  return res;
+};
+const res = rightSideView2(makeTreeNodes([1, 2, 3, null, 5, null, 4]));

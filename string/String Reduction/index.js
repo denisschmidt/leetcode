@@ -15,7 +15,8 @@
  */
 
 const compressBab = str => {
-  let resStr = '', count = 0;
+  let resStr = '',
+    count = 0;
   for (let i = 0; i < str.length; i++) {
     count++;
     if (i + 1 >= str.length || str[i] !== str[i + 1]) {

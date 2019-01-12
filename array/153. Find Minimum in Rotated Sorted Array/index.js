@@ -23,6 +23,6 @@ Output: 0
  * @return {number}
  */
 var findMin = function(nums) {
-  nums.sort((a, b) => a - b)
-  return nums[0]
-}
+  nums.sort((a, b) => a - b);
+  return nums[0];
+};

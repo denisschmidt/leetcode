@@ -59,14 +59,16 @@ Could you devise a constant space solution?
  * @param {TreeNode} root
  * @return {void} Do not return anything, modify root in-place instead.
  */
-const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode')
+const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode');
 
-let first = null, second = null, pre = null;
+let first = null,
+  second = null,
+  pre = null;
 
-const inOrder = function (root) {
+const inOrder = function(root) {
   if (root === null) return;
   inOrder(root.left);
-  console.log('===', root.val)
+  console.log('===', root.val);
   if (pre === null) pre = root;
   else {
     if (pre.val > root.val) {
@@ -76,7 +78,6 @@ const inOrder = function (root) {
     pre = root;
   }
   inOrder(root.right);
-
 };
 
 const recoverTree = function(root) {
@@ -91,4 +92,4 @@ const recoverTree = function(root) {
   return root;
 };
 
-recoverTree(makeTreeNodes([1, 3, 8, 6, 7, 4, 10, 13, 14]))
+recoverTree(makeTreeNodes([1, 3, 8, 6, 7, 4, 10, 13, 14]));

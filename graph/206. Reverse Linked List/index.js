@@ -24,25 +24,25 @@ A linked list can be reversed either iteratively or recursively. Could you imple
  * @return {ListNode}
  */
 var reverseList = function(head) {
-  let tmp = head
-  let arr = []
+  let tmp = head;
+  let arr = [];
 
-  while(tmp) {
-    arr.push(tmp.val)
-    tmp = tmp.next
+  while (tmp) {
+    arr.push(tmp.val);
+    tmp = tmp.next;
   }
-  return arr.reverse()
+  return arr.reverse();
 };
 
 const l1 = {
   val: 1,
-  next: { 
-    val: 2, 
-    next: { 
-      val: 3, 
-      next: null 
-    } 
-  } 
-}
+  next: {
+    val: 2,
+    next: {
+      val: 3,
+      next: null,
+    },
+  },
+};
 
-console.log(reverseList(l1))
+console.log(reverseList(l1));

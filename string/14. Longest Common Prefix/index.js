@@ -22,30 +22,30 @@ All given inputs are in lowercase letters a-z.
  * @return {string}
  */
 const longestCommonPrefix = function(strs) {
-  const sortArr = strs.sort((a, b) => a.length - b.length)
-  let str = sortArr[0]
-  let i = 1
-  let isTrue = true
-  
-  if(!sortArr.length) {
-    return ""
+  const sortArr = strs.sort((a, b) => a.length - b.length);
+  let str = sortArr[0];
+  let i = 1;
+  let isTrue = true;
+
+  if (!sortArr.length) {
+    return '';
   }
 
-  while(isTrue && i < sortArr.length) {  
-    if(str === sortArr[i].substr(0, str.length)) {
-      result = str  
+  while (isTrue && i < sortArr.length) {
+    if (str === sortArr[i].substr(0, str.length)) {
+      result = str;
     } else {
-      i = 0
-      str = str.substr(0, str.length - 1)
-      result = ''
+      i = 0;
+      str = str.substr(0, str.length - 1);
+      result = '';
     }
     if (i >= sortArr.length && isTrue) {
-      isTrue = false
-      i = 0
+      isTrue = false;
+      i = 0;
     }
-    i++
+    i++;
   }
-  return str
+  return str;
 };
 
-console.log(longestCommonPrefix(["flower","flow","flight"]))
+console.log(longestCommonPrefix(['flower', 'flow', 'flight']));

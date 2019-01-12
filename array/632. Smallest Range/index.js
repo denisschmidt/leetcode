@@ -36,9 +36,13 @@ const compare = (a, b) => a - b;
  * @return {number[]}
  */
 const smallestRange = function(matrix) {
-  let first = [], last = [], mins = [];
+  let first = [],
+    last = [],
+    mins = [];
   for (let i = 0; i < matrix.length; i++) {
-    let row = matrix[i], max = -10e5, min = Number.MAX_VALUE;
+    let row = matrix[i],
+      max = -10e5,
+      min = Number.MAX_VALUE;
     for (let j = 0; j < row.length; j++) {
       max = Math.max(max, row[j]);
       min = Math.min(min, row[j]);
@@ -64,19 +68,22 @@ const smallestRange = function(matrix) {
   return [min, max];
 };
 
-const res = smallestRange([[1,3,5,7,9],[2,4,6,8,10]]);
+const res = smallestRange([[1, 3, 5, 7, 9], [2, 4, 6, 8, 10]]);
 console.log('<error solution>', res);
 
 // ======================================================================================================
-const smallestRange1 = (nums) => {
+const smallestRange1 = nums => {
   const pointers = new Array(nums.length).fill(0);
-  let minRangeMin = 0, minRangeMax = 0, minRange = Number.MAX_VALUE;
+  let minRangeMin = 0,
+    minRangeMax = 0,
+    minRange = Number.MAX_VALUE;
   let isDone = false;
 
   while (true) {
     // for every iteration of all the lists, we keep track of these values
     let minListIndex = -1;
-    let minValue = Number.MAX_VALUE, maxValue = Number.MIN_VALUE;
+    let minValue = Number.MAX_VALUE,
+      maxValue = Number.MIN_VALUE;
 
     for (let listIndex = 0; listIndex < nums.length; listIndex++) {
       const list = nums[listIndex];
@@ -86,7 +93,7 @@ const smallestRange1 = (nums) => {
         break;
       }
 
-      const value = list[pointers[listIndex]]
+      const value = list[pointers[listIndex]];
       if (value < minValue) {
         minValue = value;
         minListIndex = listIndex;
@@ -103,17 +110,16 @@ const smallestRange1 = (nums) => {
 
     pointers[minListIndex]++;
 
-    if ((maxValue - minValue) < minRange) {
+    if (maxValue - minValue < minRange) {
       minRangeMin = minValue;
       minRangeMax = maxValue;
       minRange = maxValue - minValue;
     }
   }
   return [minRangeMin, minRangeMax];
-
 };
 
-const res1 = smallestRange1([[4,10,15,24,26], [0,9,12,20], [5,18,22,30]]);
+const res1 = smallestRange1([[4, 10, 15, 24, 26], [0, 9, 12, 20], [5, 18, 22, 30]]);
 console.log('<first solution>', res1);
 
 // ======================================================================================================
@@ -132,17 +138,17 @@ console.log('<first solution>', res1);
     O(k) since it requires maintaining k pointers/indicies.
  */
 const smallestRange2 = nums => {
-  let minX = 0, minY = Number.MAX_VALUE;
+  let minX = 0,
+    minY = Number.MAX_VALUE;
   let next = new Array(nums.length).fill(0);
   let flag = true;
   for (let i = 0; i < nums.length && flag; i++) {
     for (let j = 0; j < nums[i].length && flag; j++) {
-      let minI = 0, maxI = 0;
+      let minI = 0,
+        maxI = 0;
       for (let k = 0; k < nums.length; k++) {
-        if (nums[minI][next[minI]] > nums[k][next[k]])
-          minI = k;
-        if (nums[maxI][next[maxI]] < nums[k][next[k]])
-          maxI = k;
+        if (nums[minI][next[minI]] > nums[k][next[k]]) minI = k;
+        if (nums[maxI][next[maxI]] < nums[k][next[k]]) maxI = k;
       }
       if (minY - minX > nums[maxI][next[maxI]] - nums[minI][next[minI]]) {
         minY = nums[maxI][next[maxI]];
@@ -157,6 +163,5 @@ const smallestRange2 = nums => {
   return [minX, minY];
 };
 
-
-const res2 = smallestRange2([[4,10,15,24,26], [0,9,12,20], [5,18,22,30]]);
+const res2 = smallestRange2([[4, 10, 15, 24, 26], [0, 9, 12, 20], [5, 18, 22, 30]]);
 console.log('<second solution>', res2);

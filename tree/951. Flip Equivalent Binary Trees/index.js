@@ -15,7 +15,7 @@ Example 1:
   Explanation: We flipped at nodes with values 1, 3, and 5.
 
  */
-const { makeTreeNodes } = require('../../algorithms/treeNode')
+const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 /**
  * Definition for a binary tree node.
@@ -41,11 +41,14 @@ const flipEquiv = function(root1, root2) {
   if (root1 === null || root2 === null || root1.val !== root2.val) {
     return false;
   }
-  return  (flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right) ||
-    flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left));
+  return (
+    (flipEquiv(root1.left, root2.left) && flipEquiv(root1.right, root2.right)) ||
+    (flipEquiv(root1.left, root2.right) && flipEquiv(root1.right, root2.left))
+  );
 };
 
-let root1 = [1,2,3,4,5,6,null,null,null,7,8], root2 = [1,3,2,null,6,4,5,null,null,null,null,8,7]
+let root1 = [1, 2, 3, 4, 5, 6, null, null, null, 7, 8],
+  root2 = [1, 3, 2, null, 6, 4, 5, null, null, null, null, 8, 7];
 
 const res = flipEquiv(makeTreeNodes(root1), makeTreeNodes(root2));
 

@@ -19,11 +19,18 @@ Output: false
  */
 var isPalindrome = function(s) {
   const str = s.replace(/[^A-Za-z0-9]+/g, '');
-  return str.split('').reverse().join('').toLowerCase() === str.toLowerCase();
+  return (
+    str
+      .split('')
+      .reverse()
+      .join('')
+      .toLowerCase() === str.toLowerCase()
+  );
 };
 
 var isPalindrome2 = function(s) {
-  let left = 0, right = s.length - 1;
+  let left = 0,
+    right = s.length - 1;
 
   while (left < right) {
     if (s[left] !== s[right]) {
@@ -32,7 +39,7 @@ var isPalindrome2 = function(s) {
     left++;
     right--;
   }
-  return true
-}
+  return true;
+};
 
-console.log(isPalindrome2("A man, a plan, a canal: Panama"))
+console.log(isPalindrome2('A man, a plan, a canal: Panama'));

@@ -26,8 +26,8 @@ Recursion solution.
 const generateParenthesis = n => {
   const res = [];
 
-  const fn = (k = 6, list = [], count = 0, index = 0 ) => {
-      // кладем откр. скобку, только если хватает места
+  const fn = (k = 6, list = [], count = 0, index = 0) => {
+    // кладем откр. скобку, только если хватает места
     if (count <= k - index - 2) {
       list[index] = '(';
       fn(k, list, count + 1, index + 1);
@@ -45,7 +45,6 @@ const generateParenthesis = n => {
   fn(n);
   return res;
 };
-
 
 generateParenthesis(6);
 

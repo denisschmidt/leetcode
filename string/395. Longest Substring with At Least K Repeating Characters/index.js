@@ -51,9 +51,12 @@ Comments:
  * @return {number}
  */
 const longestSubstring = function(s, k) {
-  let map = {}, maxLen = 0;
+  let map = {},
+    maxLen = 0;
   for (let i = 1; i <= 26; i++) {
-    let begin = 0, end = 0, uniqueChar = 0;
+    let begin = 0,
+      end = 0,
+      uniqueChar = 0;
     for (let h = 0; h < 26; h++) {
       map[String.fromCharCode(h + 97)] = 0;
     }

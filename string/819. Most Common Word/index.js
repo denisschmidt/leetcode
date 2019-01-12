@@ -30,9 +30,11 @@ and that "hit" isn't the answer even though it occurs more because it is banned.
  * @return {string}
  */
 const mostCommonWord = function(paragraph, banned) {
-  let count = Number.MIN_VALUE, resValue = '';
-  const newParagraph = paragraph.replace(/[!?',;.]/gi, ' ')
-  const arrStr = newParagraph.split(' ')
+  let count = Number.MIN_VALUE,
+    resValue = '';
+  const newParagraph = paragraph.replace(/[!?',;.]/gi, ' ');
+  const arrStr = newParagraph
+    .split(' ')
     .filter(str => str && !banned.includes(str.toLowerCase()))
     .map(str => str.toLowerCase());
   for (let curStr of arrStr) {
@@ -45,8 +47,8 @@ const mostCommonWord = function(paragraph, banned) {
   return resValue;
 };
 
-const paragraph = "Bob. hIt, baLl";
-const ban = ["bob", "hit"];
+const paragraph = 'Bob. hIt, baLl';
+const ban = ['bob', 'hit'];
 
 const res = mostCommonWord(paragraph, ban);
 console.log('-----', res);

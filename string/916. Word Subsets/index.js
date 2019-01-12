@@ -49,16 +49,17 @@ Note:
 
 const { a, b } = require('./mocks');
 
-let A = ["amazon","apple","facebook","google","leetcode"], B = ["e","o"];
-
+let A = ['amazon', 'apple', 'facebook', 'google', 'leetcode'],
+  B = ['e', 'o'];
 
 // ======================================TIME LIMIT==================================================
 
 const onlyUnique = (value, index, self) => self.indexOf(value) === index;
 
 const wordSubsets = function(A, B) {
-  let res = [], count = null;
-  B = B.filter( onlyUnique );
+  let res = [],
+    count = null;
+  B = B.filter(onlyUnique);
   for (let i = 0; i < A.length; i++) {
     count = 0;
     outer: for (let j = 0; j < B.length; j++) {
@@ -81,7 +82,7 @@ const wordSubsets = function(A, B) {
       }
     }
     if (count === B.length) {
-      res.push(A[i])
+      res.push(A[i]);
     }
   }
   return res;
@@ -94,8 +95,9 @@ const wordSubsets = function(A, B) {
 const wordSubsets2 = (A, B) => {
   let tmp;
 
-  for(let b of B) {
-    let t = [], v = [];
+  for (let b of B) {
+    let t = [],
+      v = [];
     for (let c of b) {
       let dif = c.charCodeAt(0) - 'a'.charCodeAt(0);
       t[dif] = dif++;
@@ -107,7 +109,6 @@ const wordSubsets2 = (A, B) => {
     console.log('---', v);
   }
 };
-
 
 const res2 = wordSubsets2(A, B);
 console.log('---', res2);

@@ -16,7 +16,7 @@ This represents the size of the implicit call stack in our recursion.
 
  */
 
-const { TreeNode } = require('../../algorithms/treeNode')
+const { TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * Definition for a binary tree node.
@@ -30,20 +30,21 @@ const { TreeNode } = require('../../algorithms/treeNode')
  * @return {TreeNode}
  */
 var pruneTree = function(node1) {
-  if (!node1) return null
-  node1.left = pruneTree(node1.left)
-  node1.right = pruneTree(node1.right)
-  if (!node1.left && !node1.right && node1.val === 0) return null
-  return node1
-}
+  if (!node1) return null;
+  node1.left = pruneTree(node1.left);
+  node1.right = pruneTree(node1.right);
+  if (!node1.left && !node1.right && node1.val === 0) return null;
+  return node1;
+};
 
 const t1 = {
   val: 0,
   right: {
     val: 0,
     right: { val: 11, right: null, left: null },
-    left: { val: 1, right: null, left: null } },
-  left: null
-}
+    left: { val: 1, right: null, left: null },
+  },
+  left: null,
+};
 
-pruneTree(t1)
+pruneTree(t1);

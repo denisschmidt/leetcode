@@ -22,29 +22,30 @@ Each of two checks of whether some substring is a palindrome is
  * @return {boolean}
  */
 
-var validPalindrome = function (s) {
-  let left = 0, rigth = s.length - 1;
+var validPalindrome = function(s) {
+  let left = 0,
+    rigth = s.length - 1;
 
-  while(left <= rigth) {
+  while (left <= rigth) {
     if (s[left] === s[rigth]) {
       left++;
       rigth--;
     } else {
-      return isPalindromic(s, left, rigth - 1) || isPalindromic(s, left + 1, rigth)
+      return isPalindromic(s, left, rigth - 1) || isPalindromic(s, left + 1, rigth);
     }
   }
-  return true
-}
+  return true;
+};
 
 var isPalindromic = function(s, left, right) {
   while (left <= right) {
     if (s[left] !== s[right]) return false;
-    left++; right--;
+    left++;
+    right--;
   }
-  return true
+  return true;
 };
 
+const res = validPalindrome('cbbcc');
 
-const res = validPalindrome('cbbcc')
-
-console.log('---', res)
+console.log('---', res);

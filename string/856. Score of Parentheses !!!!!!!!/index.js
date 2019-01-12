@@ -1,4 +1,3 @@
-
 /*
 Given a balanced parentheses string S, compute the score of the string based on the following rule:
 
@@ -48,9 +47,9 @@ const res = scoreOfParentheses('(()(()))');
 
 console.log('---', res);
 
-
-const scoreOfParentheses2 = (s) => {
-  let res = 0, depth = 0;
+const scoreOfParentheses2 = s => {
+  let res = 0,
+    depth = 0;
   for (let i = 0; i < s.length; i++) {
     if (s[i] === '(') {
       depth++;
@@ -62,7 +61,7 @@ const scoreOfParentheses2 = (s) => {
     }
   }
   return res;
-}
+};
 
 const res2 = scoreOfParentheses2('(()(()))');
 

@@ -1,4 +1,4 @@
-  /*
+/*
 Given an integer array with no duplicates.
 A maximum tree building on this array is defined as follow:
 
@@ -30,30 +30,30 @@ Construct the maximum tree by the given array and output the root node of this t
  * @return {TreeNode}
  */
 
-'use strict'
+'use strict';
 
-const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode')
+const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode');
 
 var constructMaximumBinaryTree = function(nums) {
-  if(!nums.length) {
-    return null
+  if (!nums.length) {
+    return null;
   }
 
-  let max = 0
-  let maxIndex = 0
+  let max = 0;
+  let maxIndex = 0;
 
   nums.forEach((num, index) => {
     if (max < num) {
-      max = num
-      maxIndex = index
+      max = num;
+      maxIndex = index;
     }
-  })
+  });
 
-  const node = new TreeNode(max)
-  node.left = constructMaximumBinaryTree(nums.slice(0, maxIndex))
-  node.right = constructMaximumBinaryTree(nums.slice(maxIndex + 1))
+  const node = new TreeNode(max);
+  node.left = constructMaximumBinaryTree(nums.slice(0, maxIndex));
+  node.right = constructMaximumBinaryTree(nums.slice(maxIndex + 1));
 
-  return node
-}
+  return node;
+};
 
-console.log(constructMaximumBinaryTree([3,2,1,6,0,5]))
+console.log(constructMaximumBinaryTree([3, 2, 1, 6, 0, 5]));

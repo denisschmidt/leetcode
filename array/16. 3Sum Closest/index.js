@@ -14,39 +14,42 @@ The sum that is closest to the target is 2. (-1 + 2 + 1 = 2).
  * @return {number}
  */
 var threeSumClosest = function(nums, target) {
-  const len = nums.length
-  let result
-  
-  nums.sort((a, b) => a - b)
+  const len = nums.length;
+  let result;
 
-  for (let i = 0; i < len-2; i++) {
-    let low = i + 1
-    let high = len - 1
+  nums.sort((a, b) => a - b);
+
+  for (let i = 0; i < len - 2; i++) {
+    let low = i + 1;
+    let high = len - 1;
 
     while (low < high) {
-      let sum = nums[i] + nums[low] + nums[high]
+      let sum = nums[i] + nums[low] + nums[high];
       if (result === undefined) {
-        result = sum
+        result = sum;
       }
-      if(sum < target) {
-        low++
+      if (sum < target) {
+        low++;
       } else if (sum > target) {
-        high--
+        high--;
       } else {
-        do{low++;}while(nums[low]==nums[low-1] && low<high); //скипаем low дубли
-        do{high--;}while(nums[high]==nums[high+1] && low<high); //скипаем high дубли
-        result = sum
-        break
+        do {
+          low++;
+        } while (nums[low] == nums[low - 1] && low < high); //скипаем low дубли
+        do {
+          high--;
+        } while (nums[high] == nums[high + 1] && low < high); //скипаем high дубли
+        result = sum;
+        break;
       }
-      if (Math.abs(target - sum) < Math.abs(target - result)){
-        result = sum  
+      if (Math.abs(target - sum) < Math.abs(target - result)) {
+        result = sum;
       }
-
     }
   }
-  return result
+  return result;
 };
 
-const res1 = threeSumClosest([1,1,-1,-1,3], -1)
+const res1 = threeSumClosest([1, 1, -1, -1, 3], -1);
 
-console.log(res1)
+console.log(res1);

@@ -28,16 +28,20 @@ Note:
  */
 
 const minWindow = (s, t) => {
-  let begin = 0, end = 0;
+  let begin = 0,
+    end = 0;
   let counter = t.length;
   let minLength = Number.MAX_VALUE;
   let minStartIndex = 0;
 
   /* initialize the hash map here */
-  const map = t.split('').reduce((acc, val) => ({
-    ...acc,
-    [val]: ++acc[val] || 1
-  }), {});
+  const map = t.split('').reduce(
+    (acc, val) => ({
+      ...acc,
+      [val]: ++acc[val] || 1,
+    }),
+    {},
+  );
 
   while (end < s.length) {
     const currentChar = s[end];
@@ -55,7 +59,7 @@ const minWindow = (s, t) => {
     // when count reaches zero, all chars in t have been matched
     while (counter === 0) {
       // update minLength here if finding minimum !!!!
-      if ((end - begin) < minLength) {
+      if (end - begin < minLength) {
         minLength = end - begin;
         minStartIndex = begin;
       }
@@ -73,13 +77,13 @@ const minWindow = (s, t) => {
     }
 
     // update maxLength here if finding maximum !!!
-
   }
 
   return minLength === Number.MAX_VALUE ? '' : s.substr(minStartIndex, minLength);
 };
 
-const s = 'ADOBECODEBANC', t = 'ABC'
+const s = 'ADOBECODEBANC',
+  t = 'ABC';
 // const s = 'bbaa', t = 'aba'; // baa
 const res = minWindow(s, t);
 console.log('===', res);
@@ -91,7 +95,7 @@ const isValid = (s, t) => {
   for (let i = 0; i < t.length; i++) {
     index = s.indexOf(t[i]);
     if (index === -1) {
-      return false
+      return false;
     } else {
       s = s.substring(0, index) + s.substring(index + 1);
     }
@@ -107,9 +111,11 @@ const isValid = (s, t) => {
  * @return {string}
  */
 const minWindow2 = function(s, t) {
-  let left = 0, right = s.length;
+  let left = 0,
+    right = s.length;
   let newS = '';
-  let lastValidLeftIndex = null, lastValidRightIndex = null;
+  let lastValidLeftIndex = null,
+    lastValidRightIndex = null;
   if (s.length < t.length) {
     return '';
   } else if (s === t) {
@@ -131,6 +137,3 @@ const minWindow2 = function(s, t) {
 
 const res2 = minWindow2(s, t);
 console.log('===', res2);
-
-
-

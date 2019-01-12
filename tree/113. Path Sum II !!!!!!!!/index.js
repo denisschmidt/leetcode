@@ -30,7 +30,7 @@ Return:
  * }
  */
 
-const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
+const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * @param {TreeNode} root
@@ -38,25 +38,26 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode')
  * @return {number[][]}
  */
 const pathSum = function(node, sum) {
-  let path = [], paths = []
+  let path = [],
+    paths = [];
 
   function findPaths(root, sum, path, paths) {
-    if (!root) return
+    if (!root) return;
     if (!root.left && !root.right && root.val === sum) {
-      path.push(root.val)
-      paths.push(path.concat([]))
-      path.pop()
+      path.push(root.val);
+      paths.push(path.concat([]));
+      path.pop();
     }
-    path.push(root.val)
-    console.log('===', path)
-    findPaths(root.left, sum - root.val, path, paths)
-    findPaths(root.right, sum - root.val, path, paths)
-    path.pop()
+    path.push(root.val);
+    console.log('===', path);
+    findPaths(root.left, sum - root.val, path, paths);
+    findPaths(root.right, sum - root.val, path, paths);
+    path.pop();
   }
-  findPaths(node, sum, path, paths)
-  return paths
-}
+  findPaths(node, sum, path, paths);
+  return paths;
+};
 
-const res = pathSum(makeTreeNodes([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]), 22)
+const res = pathSum(makeTreeNodes([5, 4, 8, 11, null, 13, 4, 7, 2, null, null, 5, 1]), 22);
 
-console.log('===', res)
+console.log('===', res);

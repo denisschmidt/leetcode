@@ -40,9 +40,10 @@ const minDistance2 = function(s1, s2) {
       matrix[i] = [];
     }
     for (let j = 0; j <= s2.length; j++) {
-      if (i === 0 || j === 0 ) {
+      if (i === 0 || j === 0) {
         matrix[i][j] = 0;
-      } else if (s1[i - 1] === s2[j - 1]) { // Добавляем единицу к длине LCS
+      } else if (s1[i - 1] === s2[j - 1]) {
+        // Добавляем единицу к длине LCS
         matrix[i][j] = 1 + matrix[i - 1][j - 1];
       } else {
         /*
@@ -52,7 +53,7 @@ const minDistance2 = function(s1, s2) {
         нам нужно повторить предыдущую запись,
         чтобы указать, что длина LCS для текущих индексов остается неизменной
          */
-        matrix[i][j] = Math.max(matrix[i - 1][j], matrix[i][j - 1])
+        matrix[i][j] = Math.max(matrix[i - 1][j], matrix[i][j - 1]);
       }
     }
   }
@@ -63,7 +64,6 @@ const minDistance2 = function(s1, s2) {
 const res2 = minDistance2('sea', 'ate');
 
 console.log('---', res2);
-
 
 // ==========================================================================================
 
@@ -100,12 +100,14 @@ const minDistance = function(s1, s2) {
       matrix[i] = [];
     }
     for (let j = 0; j <= s2.length; j++) {
-      if (i === 0 || j === 0 ) {
+      if (i === 0 || j === 0) {
         matrix[i][j] = i + j;
-      } else if (s1[i - 1] === s2[j - 1]) { // повторяем символ
+      } else if (s1[i - 1] === s2[j - 1]) {
+        // повторяем символ
         matrix[i][j] = matrix[i - 1][j - 1];
-      } else { // Минимальное кол-во удалений + 1
-        matrix[i][j] = 1 + Math.min(matrix[i - 1][j], matrix[i][j - 1])
+      } else {
+        // Минимальное кол-во удалений + 1
+        matrix[i][j] = 1 + Math.min(matrix[i - 1][j], matrix[i][j - 1]);
       }
     }
   }

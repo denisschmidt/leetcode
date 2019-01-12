@@ -24,7 +24,8 @@ const oneEditReplace = (s1, s2) => {
 
 /* Проверить, возможно ли превратить s1 в s2 вставкой символа. */
 const oneEditInsert = (s1, s2) => {
-  let index1 = 0, index2 = 0;
+  let index1 = 0,
+    index2 = 0;
   while (index1 < s1.length && index2 < s2.length) {
     if (s1[index1] !== s2[index2]) {
       if (index1 !== index2) {

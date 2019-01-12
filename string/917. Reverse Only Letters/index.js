@@ -24,7 +24,8 @@ const reverseOnlyLetters = str => {
   let arr = str.split('');
   let newArr = arr;
   let size = str.length;
-  let left = 0, right = size - 1;
+  let left = 0,
+    right = size - 1;
 
   while (left < right) {
     if (arr[left].search(/[A-Za-z]/g) === -1) {

@@ -36,10 +36,10 @@ const flipAndInvertImage = matrix => {
   let newMatrix = [];
   for (let i = 0; i < matrix.length; i++) {
     const arr = matrix[i].reverse();
-    const newArr = arr.map(val => val === 1 ? 0 : 1)
+    const newArr = arr.map(val => (val === 1 ? 0 : 1));
     newMatrix.push(newArr);
   }
   return newMatrix;
 };
 
-flipAndInvertImage([[1,1,0],[1,0,1],[0,0,0]]);
+flipAndInvertImage([[1, 1, 0], [1, 0, 1], [0, 0, 0]]);

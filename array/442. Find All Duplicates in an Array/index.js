@@ -19,15 +19,14 @@ Output:
  * @return {number[]}
  */
 var findDuplicates = function(n) {
-  const a = []
-  const set = new Set()
-  for(let i = 0; i < n.length; i++) {
-    if (!set.has(n[i])) set.add(n[i])
-    else
-      a.push(n[i])
+  const a = [];
+  const set = new Set();
+  for (let i = 0; i < n.length; i++) {
+    if (!set.has(n[i])) set.add(n[i]);
+    else a.push(n[i]);
   }
-  return a
+  return a;
 };
 
-const p = [2, 2]
-console.log(findDuplicates(p))
+const p = [2, 2];
+console.log(findDuplicates(p));
