@@ -7,6 +7,10 @@
       "pre-commit": "lint-staged"
     }
   },
+  "scripts": {
+    "pretty": "prettier --write \"./**/*.{js}\"",
+    "precommit": "lint-staged"
+  },
   "lint-staged": {
     "*.{js}": [
       "prettier --write",
