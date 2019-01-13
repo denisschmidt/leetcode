@@ -27,6 +27,13 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 /*
   Solution using DFS
 
+  Let's start from the root and then at each iteration pop the current node out of the stack
+  and push its child nodes. In the implemented strategy we push nodes into stack
+  following the order Top->Bottom and Left->Right.
+
+  Since DFS postorder transversal is Bottom->Top and Left->Right the output list
+  should be reverted after the end of loop.
+
   Time complexity :
     we visit each node exactly once, thus the time complexity is O(N),
     where N is the number of nodes, i.e. the size of tree.
