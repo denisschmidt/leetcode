@@ -1,3 +1,5 @@
+const { PriorityQueue } = require('../../algorithms/priorityQueue');
+
 /*
 Design a class to find the kth largest element in a stream.
 Note that it is the kth largest element in the sorted order, not the kth distinct element.
@@ -27,25 +29,14 @@ class KthLargest {
   constructor(k, nums) {
     this.k = k;
     this.nums = nums;
-  }
-
-  static compare(a, b) {
-    return a - b;
-  }
-
-  get numsLenght() {
-    return this.nums.length;
+    this.pq = new PriorityQueue({ initialValues: nums });
   }
 
   /**
    * @param {number} val
    * @return {number}
    */
-  add(val) {
-    this.nums.push(val);
-    this.nums.sort(KthLargest.compare);
-    return this.nums[this.numsLenght - this.k];
-  }
+  add(val) {}
 }
 
 const obj = new KthLargest(3, [4, 5, 8, 2]);
@@ -54,7 +45,6 @@ obj.add(5);
 obj.add(10);
 obj.add(9);
 const res = obj.add(4);
-console.log('---', res);
 
 /**
  * Your KthLargest object will be instantiated and called as such:
