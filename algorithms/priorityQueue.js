@@ -15,7 +15,6 @@ class PriorityQueue {
     this.data = initialValues;
     this.comparator = comparator;
     this.heapify();
-    console.log('---', this.data);
   }
 
   peek() {
@@ -58,6 +57,10 @@ class PriorityQueue {
 
   toArray() {
     return this.data.slice(0).sort(this.comparator);
+  }
+
+  get list() {
+    return this.data;
   }
 
   heapify() {
