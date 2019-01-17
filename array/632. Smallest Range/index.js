@@ -73,11 +73,11 @@ console.log('<error solution>', res);
 
 // ======================================================================================================
 const smallestRange1 = nums => {
-  const pointers = new Array(nums.length).fill(0);
   let minRangeMin = 0,
     minRangeMax = 0,
-    minRange = Number.MAX_VALUE;
-  let isDone = false;
+    minRange = Number.MAX_VALUE,
+    isDone = false;
+  const pointers = new Array(nums.length).fill(0);
 
   while (true) {
     // for every iteration of all the lists, we keep track of these values
