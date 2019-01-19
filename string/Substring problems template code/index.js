@@ -15,7 +15,7 @@ We should update minimum inside the inner while loop.
 ================================================================================================================
 
  */
-
+/* eslint-disable prettier */
 function findSubstring(s) {
   let map = [];
   let counter = 0, begin = 0, end = 0, len = 0;
