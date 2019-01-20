@@ -8,7 +8,14 @@
 - [ ] [583. Delete Operation for Two Strings](./string/583.%20Delete%20Operation%20for%20Two%20Strings)
 - [ ] [539. Minimum Time Difference](./string/539.%20Minimum%20Time%20Difference)
 - [ ] [539. Minimum Time Difference](./string/539.%20Minimum%20Time%20Difference)
+
+
 - [ ] [632. Smallest Range](./array/632.%20Smallest%20Range)
+
+
 - [ ] [72. Edit Distance](./string/72.%20Edit%20Distance%20!!!!!!!!%20DP)
 - [ ] [76. Minimum Window Substring](./string/76.%20Minimum%20Window%20Substring%20!!!!!!!!)
 - [ ] [3. Longest Substring Without Repeating Characters](./string/3.%20Longest%20Substring%20Without%20Repeating%20Characters)
+- [ ] [159. Longest Substring with At Most Two Distinct Characters](./string/159.%20Longest%20Substring%20with%20At%20Most%20Two%20Distinct%20Characters)
+- [ ] [395. Longest Substring with At Least K Repeating Characters !!!!](./string/395.%20Longest%20Substring%20with%20At%20Least%20K%20Repeating%20Characters%20!!!!)
+
