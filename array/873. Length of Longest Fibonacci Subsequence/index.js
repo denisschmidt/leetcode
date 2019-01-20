@@ -74,4 +74,72 @@ const lenLongestFibSubseq = function(a) {
 const res = lenLongestFibSubseq([2, 4, 7, 8, 9, 10, 14, 15, 18, 23, 32, 50]); // 5
 console.log('---', res);
 
+// =====================================================================================================================
+
 // Solution 2  Dynamic Programming
+
+const lenLongestFibSubSeq = function(a) {
+  let s = a.length,
+    ans = 0,
+    map = {};
+  const dp = [...Array(s)].map(() => Array(s).fill(2));
+
+  for (let i = 0; i < s; i++) {
+    map[a[i]] = i;
+
+    for (let j = 0; j < i; j++) {
+      if (a[i] - a[j] < a[j] && a[i] - a[j] in map) {
+        let diff = a[i] - a[j];
+        let k = map[diff];
+        dp[j][i] = Math.max(dp[j][i], 1 + dp[k][j]);
+      }
+      ans = Math.max(ans, dp[j][i]);
+    }
+  }
+  return ans >= 3 ? ans : 0;
+};
+
+const res2 = lenLongestFibSubSeq([1, 3, 7, 11, 12, 14, 18]); // 3
+console.log('---', res2);
+
+// =====================================================================================================================
+
+// Solution 3  Dynamic Programming
+
+// dp[i][j] represents the length of longest sequence which ends with A[i] and A[j].
+
+const lenLongestFibSubSeqDP = function(a) {
+  let s = a.length,
+    ans = 0,
+    map = new Map();
+  const dp = [...Array(s)].map((v, i) => {
+    map.set(a[i], i);
+    return Array(s).fill(2);
+  });
+
+  for (let i = 2; i < s; i++) {
+    for (let j = i - 1; j > 0; j--) {
+      let prev = a[i] - a[j];
+      if (prev >= a[j]) {
+        break;
+      }
+      if (!map.has(prev)) {
+        continue;
+      }
+      let k = map.get(prev);
+      dp[j][i] = dp[k][j] + 1;
+    }
+  }
+
+  for (let i = 2; i < s; i++) {
+    for (let j = 1; j < s - 1; j++) {
+      if (dp[j][i] > 2) {
+        ans = Math.max(ans, dp[j][i]);
+      }
+    }
+  }
+  return ans;
+};
+
+const res3 = lenLongestFibSubSeqDP([1, 3, 4, 7, 8]); // 3
+console.log('---', res3);
