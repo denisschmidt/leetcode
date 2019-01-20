@@ -68,6 +68,14 @@ and the remaining segment is bcab".
 
 Hence the required string is reverse of "bcab"( = "bacb") + original string( = "abcbabcab") = "bacbabcbabcab".
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Complexity Analysis
+
+Time complexity: O(n^2).
+
+We iterate over the entire length of string ss.
+In each iteration, we compare the substrings which is linear in size of substrings to be compared.
+Hence, the total time complexity is O(n*n)
  */
 
 const shortestPalindrome2 = function(s) {
@@ -84,16 +92,6 @@ const shortestPalindrome2 = function(s) {
   }
   return '';
 };
+
 const res = shortestPalindrome2('abcd');
 console.log('---', res);
-
-/*
-
-Complexity Analysis
-
-Time complexity: O(n^2).
-
-We iterate over the entire length of string ss.
-In each iteration, we compare the substrings which is linear in size of substrings to be compared.
-Hence, the total time complexity is O(n*n)
- */
