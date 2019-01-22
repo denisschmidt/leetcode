@@ -19,3 +19,6 @@
 - [ ] [159. Longest Substring with At Most Two Distinct Characters](./string/159.%20Longest%20Substring%20with%20At%20Most%20Two%20Distinct%20Characters)
 - [ ] [395. Longest Substring with At Least K Repeating Characters !!!!](./string/395.%20Longest%20Substring%20with%20At%20Least%20K%20Repeating%20Characters%20!!!!)
 
+
+- [ ] [673. Number of Longest Increasing Subsequence](./string/673.%20Number%20of%20Longest%20Increasing%20Subsequence)
+- [ ] [300. Longest Increasing Subsequence](./string/300.%20Longest%20Increasing%20Subsequence)
