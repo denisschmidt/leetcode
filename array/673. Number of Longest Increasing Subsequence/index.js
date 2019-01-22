@@ -15,6 +15,13 @@ Note: Length of the given array will be not exceed 2000 and the answer is guaran
 
  */
 
+// Complexity Analysis
+//
+// Time Complexity: O(N^2)
+// where N is the length of nums. There are two for-loops and the work inside is O(1).
+//
+// Space Complexity: O(N), the space used by lengths and counts.
+
 /**
  * @param {number[]} nums
  * @return {number}
