@@ -43,8 +43,8 @@ const myPow = function(x, n) {
   return ans;
 };
 
-let x = 2.0,
-  y = 3;
+let x = 2.0;
+let y = 3;
 const res = myPow(x, y);
 
 console.log('---', res, x ** y);
