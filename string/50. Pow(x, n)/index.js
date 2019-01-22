@@ -44,7 +44,7 @@ const myPow = function(x, n) {
 };
 
 let x = 2.0,
-  y = 10;
+  y = 3;
 const res = myPow(x, y);
 
-console.log('---', res, Math.pow(x, y));
+console.log('---', res, x ** y);

@@ -22,3 +22,6 @@
 
 - [ ] [673. Number of Longest Increasing Subsequence](./string/673.%20Number%20of%20Longest%20Increasing%20Subsequence)
 - [ ] [300. Longest Increasing Subsequence](./string/300.%20Longest%20Increasing%20Subsequence)
+
+- [ ] [69. Sqrt(x)](./string/69.%20Sqrt(x))
+
