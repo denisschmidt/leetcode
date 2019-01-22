@@ -20,12 +20,34 @@ Note: Length of the given array will be not exceed 2000 and the answer is guaran
  * @return {number}
  */
 const findNumberOfLIS = function(nums) {
-  let dp = [];
-  dp[0] = 1;
+  let len = [],
+    cnt = [],
+    maxLen = 0,
+    res = 0;
   for (let i = 0; i < nums.length; i++) {
+    len[i] = 1;
+    cnt[i] = 1;
     for (let j = 0; j < i; j++) {
       if (nums[i] > nums[j]) {
+        if (len[i] === len[j] + 1) {
+          cnt[i] += cnt[j];
+        }
+        if (len[j] + 1 > len[i]) {
+          len[i] = len[j] + 1;
+          cnt[i] = cnt[j];
+        }
       }
     }
+    if (maxLen === len[i]) {
+      res += cnt[i];
+    }
+    if (maxLen < len[i]) {
+      maxLen = len[i];
+      res = cnt[i];
+    }
   }
+  return res;
 };
+
+const res = findNumberOfLIS([1, 2, 4, 3, 5, 4, 7, 2]); // 3
+console.log('---', res);
