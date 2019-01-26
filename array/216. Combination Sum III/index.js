@@ -25,8 +25,7 @@ const combinationSum3 = function(len, target) {
   let ans = [];
   const combination = (ans, comb = [], t, start) => {
     if (comb.length === len && t === 0) {
-      let li = [...comb];
-      ans.push(li);
+      ans.push([...comb]);
       return;
     }
     for (let i = start; i <= 9; i++) {
