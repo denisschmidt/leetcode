@@ -16,6 +16,8 @@ Example 2:
   Output: [[1,2,6], [1,3,5], [2,3,4]]
  */
 
+// Backtracking Solution
+
 /**
  * @param {number} len
  * @param {number} target
