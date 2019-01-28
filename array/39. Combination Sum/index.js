@@ -54,8 +54,8 @@ const combinationSum = (candidates, target) => {
 };
 
 // let candidates = [7,3,2], target = 18;
-let candidates = [2, 3, 5],
-  target = 8;
+let candidates = [2, 3, 5];
+let target = 8;
 
 const res = combinationSum(candidates, target);
 console.log('---', res);
