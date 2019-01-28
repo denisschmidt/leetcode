@@ -25,3 +25,6 @@
 
 - [ ] [69. Sqrt(x)](./string/69.%20Sqrt(x))
 
+
+- [ ] [Backtracking(39, 40, 78, 90, 216, 46) repeat]
+
