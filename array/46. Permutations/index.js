@@ -20,6 +20,7 @@ Example:
  */
 const permute = function(nums) {
   let ans = [];
+
   const combination = (ans = [], comb = []) => {
     if (comb.length === nums.length) {
       ans.push([...comb]);
@@ -31,6 +32,7 @@ const permute = function(nums) {
       comb.pop();
     }
   };
+
   combination(ans, [], 0);
   return ans;
 };
