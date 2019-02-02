@@ -21,15 +21,17 @@ Example:
 const permute = function(nums) {
   let ans = [];
 
-  const combination = (ans = [], comb = []) => {
+  const combination = (ans, comb, index) => {
     if (comb.length === nums.length) {
       ans.push([...comb]);
-    }
-    for (let i = 0; i < nums.length; i++) {
-      if (comb.includes(nums[i])) continue;
-      comb.push(nums[i]);
-      combination(ans, comb);
-      comb.pop();
+      return;
+    } else {
+      for (let i = 0; i < nums.length; i++) {
+        if (comb.includes(nums[i])) continue;
+        comb.push(nums[i]);
+        combination(ans, comb, i + 1);
+        comb.pop();
+      }
     }
   };
 

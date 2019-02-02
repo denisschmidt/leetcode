@@ -19,24 +19,13 @@ Output:
 ]
  */
 
+// Approach to Backtracking !!!!!
+
 /**
  * @param {number[]} nums
  * @return {number[][]}
  */
-const subsets = function(nums) {
-  let ans = [];
-  const combination = (ans = [], comb = [], nums, index = 0) => {
-    ans.push([...comb]);
-    for (let i = index; i < nums.length; i++) {
-      comb.push(nums[i]);
-      combination(ans, comb, nums, i + 1);
-      comb.pop();
-    }
-  };
-  nums.sort((a, b) => a - b);
-  combination(ans, [], nums, 0);
-  return ans;
-};
+const subsets = function(nums) {};
 
 const res = subsets([1, 2, 3]);
 console.log('---', res);
