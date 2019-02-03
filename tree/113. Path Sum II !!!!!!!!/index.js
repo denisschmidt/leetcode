@@ -33,23 +33,21 @@ Return:
 const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 
 /**
- * @param {TreeNode} root
+ * @param node
  * @param {number} sum
  * @return {number[][]}
  */
 const pathSum = function(node, sum) {
-  let path = [],
-    paths = [];
+  let path = [];
+  let paths = [];
 
   function findPaths(root, sum, path, paths) {
     if (!root) return;
-    if (!root.left && !root.right && root.val === sum) {
-      path.push(root.val);
-      paths.push(path.concat([]));
-      path.pop();
-    }
     path.push(root.val);
-    console.log('===', path);
+    if (root.left === null && root.right === null && sum === root.val) {
+      paths.push([...path]);
+      // path.pop();
+    }
     findPaths(root.left, sum - root.val, path, paths);
     findPaths(root.right, sum - root.val, path, paths);
     path.pop();
