@@ -37,7 +37,7 @@ const calcMedian = (A1, A2, n, m) => {
   // index is median i.e. (m+n)/2
   let x = (n + m) / 2;
   if ((m + n) % 2 === 1) {
-    for (count = 0; count < (n + m) / 2; count++) {
+    for (count = 0; count < Math.floor((n + m) / 2); count++) {
       if (i !== n && j !== m) {
         m1 = A1[i] > A2[j] ? A2[j++] : A1[i++];
       } else if (i < n) {

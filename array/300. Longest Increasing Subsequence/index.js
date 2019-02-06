@@ -49,8 +49,29 @@ const lengthOfLIS = function(nums) {
 const res = lengthOfLIS([1, 3, 6, 7, 9, 4, 10, 5, 6]);
 console.log('---', res);
 
+// =====================================================================================================================
+
 // Input: [10,9,2,5,3,7,101,18]
 //   Output: 4
 //   Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
 
-const lengthOfLIS = function(nums) {};
+const lengthOfLIS2 = function(nums) {
+  let dp = [];
+  let ans = 0;
+  let res = 0;
+  dp[0] = 1;
+  for (let i = 0; i < nums.length; i++) {
+    ans = 0;
+    for (let j = 0; j < i; j++) {
+      if (nums[i] > nums[j]) {
+        ans = Math.max(ans, dp[j]);
+      }
+    }
+    dp[i] = ans + 1;
+    res = Math.max(res, dp[i]);
+  }
+  return res;
+};
+
+const res2 = lengthOfLIS2([1, 3, 6, 7, 9, 4, 10, 5, 6]);
+console.log('---', res2);
