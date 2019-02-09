@@ -35,7 +35,6 @@ const calcMedian = (A1, A2, n, m) => {
   // odd
   // if n+m is odd then the middle
   // index is median i.e. (m+n)/2
-  let x = (n + m) / 2;
   if ((m + n) % 2 === 1) {
     for (count = 0; count < Math.floor((n + m) / 2); count++) {
       if (i !== n && j !== m) {

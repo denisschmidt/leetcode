@@ -17,13 +17,20 @@ Note:
  */
 
 /*
-Algorithm:
-  1. Intial put all items in subset B.
-  2. Pull items from B into C.
-  3. If Avg(B) == Avg(C) then terminate search with success.
-  4. Since the items are sorted average of C increases with more higher value items added
-  => termitate seach along current path as it will not lead to solution.
+First, this problem is NP, and the worst case runtime is exponential.
+But the expected runtime for random input could be very fast.
+If the array of size n can be splitted into group A and B with same mean, assuming A is the smaller group, then
+
+totalSum/n = Asum/k = Bsum/(n-k), where k = A.size() and 1 <= k <= n/2;
+Asum = totalSum*k/n, which is an integer. So we have totalSum*k%n == 0;
+
+In general, not many k are valid.
+
+
  */
+
+// =====================================================================================================================
+// Backtracking
 
 const backtracking = (A, sum, partsize, partsum, start) => {
   if (partsize && partsum !== A.length) {
@@ -38,7 +45,7 @@ const backtracking = (A, sum, partsize, partsum, start) => {
   }
 
   for (let i = start; i < A.length; i++) {
-    if (i !== start && A[i] === A[i - 1]) continue;
+    if (i !== start && A[i] === A[i - 1]) continue; //skip equal values
     if (backtracking(A, sum, partsize + 1, partsum + A[i], i + 1)) {
       return true;
     }
@@ -46,10 +53,6 @@ const backtracking = (A, sum, partsize, partsum, start) => {
   return false;
 };
 
-/**
- * @param {number[]} A
- * @return {boolean}
- */
 const splitArraySameAverage = function(A) {
   const sum = A.reduce((acc, item) => acc + item, 0);
   A.sort((a, b) => a - b);
@@ -60,3 +63,61 @@ const res = splitArraySameAverage([1, 2, 3, 4, 5, 6, 7, 8]);
 console.log('---', res);
 
 // =====================================================================================================================
+// DFS
+
+const dfs = (start, n, sum, A) => {
+  if (n === 0) {
+    return sum === 0;
+  }
+  for (let i = start; i < A.length && sum >= A[i] * n; i++) {
+    if (dfs(i + 1, n - 1, sum - A[i], A)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+// The only thing we must know is that the average of each partition is the average of the entire array.
+const splitArraySameAverage2 = function(A) {
+  const sum = A.reduce((acc, item) => acc + item, 0);
+  A.sort((a, b) => a - b);
+
+  for (let i = 1; i < A.length / 2; i++) {
+    if ((i * sum) % A.length === 0 && dfs(0, i, (i * sum) / A.length, A)) {
+      return true;
+    }
+  }
+  return false;
+};
+
+const res2 = splitArraySameAverage2([1, 2, 3, 4, 5, 6, 7, 8]);
+console.log('---', res);
+
+// =====================================================================================================================
+// Backtracking
+
+const combinationSum = (nums, start, k, sum) => {
+  if (k === 0) return sum === 0;
+  for (let i = start; i <= nums.length - k; ++i) {
+    if (nums[i] <= sum && combinationSum(nums, i + 1, k - 1, sum - nums[i])) return true;
+  }
+  return false;
+};
+
+/*
+  Для таких k задача преобразуется в «Найти k sum = Asum, т.е. totalSum * k / n, из массива размера n».
+  Эта подзадача аналогична сумме комбинации LC39, которая может быть решена путем возврата.
+ */
+const splitArraySameAverage3 = function(A) {
+  const totalSum = A.reduce((acc, val) => acc + val, 0);
+  const n = A.length;
+  const m = n / 2;
+  A.sort((a, b) => a - b);
+  for (let i = 1; i <= m; ++i) {
+    if ((totalSum * i) % n === 0 && combinationSum(A, 0, i, (totalSum * i) / n)) return true;
+  }
+  return false;
+};
+
+const res3 = splitArraySameAverage3([1, 2, 3, 4, 5, 6, 7, 8]);
+console.log('---', res3);
