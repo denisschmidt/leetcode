@@ -1,8 +1,6 @@
 /*
 Given an array A of integers, return the number of (contiguous, non-empty) subarrays that have a sum divisible by K.
 
-
-
 Example 1:
   Input: A = [4,5,0,-2,-3,1], K = 5
   Output: 7

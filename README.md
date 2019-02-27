@@ -10,7 +10,7 @@
 - [ ] [539. Minimum Time Difference](./string/539.%20Minimum%20Time%20Difference)
 
 
-- [ ] [632. Smallest Range](./array/632.%20Smallest%20Range)
+- [ ] [632. Smallest Range](dp/632. Smallest Range)
 
 
 - [ ] [72. Edit Distance](./string/72.%20Edit%20Distance%20!!!!!!!!%20DP)
