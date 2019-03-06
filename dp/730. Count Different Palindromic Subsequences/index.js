@@ -36,15 +36,16 @@ const countPalindromicSubsequences = function(s) {
   let l;
   let r;
   const size = s.length;
-  const dp = Array(s.length)
+  const dp = Array(size)
     .fill(null)
-    .map(() => Array(s.length).fill(0));
+    .map(() => Array(size).fill(0));
 
   for (let i = size - 1; i >= 0; i--) {
     for (let j = i; j < size; j++) {
       if (i === j) {
         dp[i][j] = 1;
       } else if (s[i] !== s[j]) {
+        dp[i][j] = (dp[i][j - 1] + dp[i + 1][j] - dp[i + 1][j - 1]) % mod;
       } else {
         dp[i][j] = (2 * dp[i + 1][j - 1]) % mod;
         l = i + 1;
@@ -58,13 +59,69 @@ const countPalindromicSubsequences = function(s) {
         } else if (l === r) {
           dp[i][j] = (1 + dp[i][j]) % mod;
         } else if (r - l >= 2) {
+          dp[i][j] = (dp[i][j] - dp[l + 1][r - 1]) % mod;
         }
       }
+      dp[i][j] = (dp[i][j] + mod) % mod;
     }
   }
+  return dp[0][size - 1];
 };
 
+const res = countPalindromicSubsequences('aaba');
+console.log('---', res);
+
+// ====================================================================================================
+/**
+ * @param {string} S
+ * @return {number}
+ */
+var countPalindromicSubsequences2 = function(s) {
+  let mod = 1000000007;
+  let l;
+  let r;
+  const size = s.length;
+  const dp = Array(size)
+    .fill(null)
+    .map(() => Array(size).fill(0));
+
+  for (let i = size - 1; i >= 0; i--) {
+    for (let j = i; j < size; j++) {
+      if (i === j) {
+        dp[i][j] = 1;
+      } else if (s[i] !== s[j]) {
+        dp[i][j] = dp[i][j - 1] + dp[i + 1][j] - dp[i + 1][j - 1];
+      } else {
+        dp[i][j] = dp[i + 1][j - 1] * 2;
+        l = i + 1;
+        r = j - 1;
+
+        // linear search ???
+        while (l <= r && s[i] !== s[l]) l++;
+        while (l <= r && s[i] !== s[r]) r--;
+
+        if (l === r) {
+          dp[i][j] = dp[i][j] + 1;
+        } else if (l > r) {
+          dp[i][j] = dp[i][j] + 2;
+        } else {
+          dp[i][j] = dp[i][j] - dp[l + 1][r - 1];
+        }
+      }
+      dp[i][j] = (dp[i][j] + mod) % mod;
+    }
+  }
+  return dp[0][size - 1];
+};
+
+const res2 = countPalindromicSubsequences(
+  'dddcabadcbabccdadccbcabcdacdadcbbbcadaabcddccbcadaddbdbdacbcccddabbbcbcdccdaadabadacacbdbbbadcdaaabb',
+);
+console.log('---', res2); // 539524363
+
 // =====================================================================================================
+// wrong answer
+
 const longestPalindrome2 = s => {
   const size = s.length;
   let asn = [];
@@ -103,9 +160,8 @@ const longestPalindrome2 = s => {
       }
     }
   }
-  console.log('---', asn);
   return asn.length;
 };
 
-const res2 = longestPalindrome2('aaba');
-console.log('---', res2);
+const res3 = longestPalindrome2('aaba');
+console.log('---', res3);
