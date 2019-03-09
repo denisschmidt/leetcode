@@ -1,5 +1,6 @@
 /*
-Given a string S, find the number of different non-empty palindromic subsequences in S, and return that number modulo 10^9 + 7.
+Given a string S, find the number of different non-empty palindromic subsequences in S,
+ and return that number modulo 10^9 + 7.
 
 A subsequence of a string S is obtained by deleting 0 or more characters from S.
 
@@ -76,6 +77,9 @@ console.log('---', res);
  * @param {string} S
  * @return {number}
  */
+
+// https://csacademy.com/contest/round-57/task/distinct-palindromes/solution/
+
 var countPalindromicSubsequences2 = function(s) {
   let mod = 1000000007;
   let l;
@@ -90,13 +94,12 @@ var countPalindromicSubsequences2 = function(s) {
       if (i === j) {
         dp[i][j] = 1;
       } else if (s[i] !== s[j]) {
-        dp[i][j] = dp[i][j - 1] + dp[i + 1][j] - dp[i + 1][j - 1];
+        dp[i][j] = dp[i + 1][j] + dp[i][j - 1] - dp[i + 1][j - 1];
       } else {
         dp[i][j] = dp[i + 1][j - 1] * 2;
         l = i + 1;
         r = j - 1;
 
-        // linear search ???
         while (l <= r && s[i] !== s[l]) l++;
         while (l <= r && s[i] !== s[r]) r--;
 
@@ -108,16 +111,17 @@ var countPalindromicSubsequences2 = function(s) {
           dp[i][j] = dp[i][j] - dp[l + 1][r - 1];
         }
       }
+
       dp[i][j] = (dp[i][j] + mod) % mod;
     }
   }
   return dp[0][size - 1];
 };
 
-const res2 = countPalindromicSubsequences(
-  'dddcabadcbabccdadccbcabcdacdadcbbbcadaabcddccbcadaddbdbdacbcccddabbbcbcdccdaadabadacacbdbbbadcdaaabb',
-);
-console.log('---', res2); // 539524363
+const input = 'dddcabadcbabccdadccbcabcdacdadcbbbcadaabcddccbcadaddbdbdacbcccddabbbcbcdccdaadabadacacbdbbbadcdaaabb';
+
+const res2 = countPalindromicSubsequences2(input);
+console.log('---', res2); // 6
 
 // =====================================================================================================
 // wrong answer
