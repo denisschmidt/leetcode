@@ -94,12 +94,13 @@ var countPalindromicSubsequences2 = function(s) {
       if (i === j) {
         dp[i][j] = 1;
       } else if (s[i] !== s[j]) {
-        dp[i][j] = dp[i + 1][j] + dp[i][j - 1] - dp[i + 1][j - 1];
+        dp[i][j] = dp[i][j - 1] + dp[i + 1][j] - dp[i + 1][j - 1];
       } else {
         dp[i][j] = dp[i + 1][j - 1] * 2;
         l = i + 1;
         r = j - 1;
 
+        // linear search ???
         while (l <= r && s[i] !== s[l]) l++;
         while (l <= r && s[i] !== s[r]) r--;
 
@@ -111,7 +112,6 @@ var countPalindromicSubsequences2 = function(s) {
           dp[i][j] = dp[i][j] - dp[l + 1][r - 1];
         }
       }
-
       dp[i][j] = (dp[i][j] + mod) % mod;
     }
   }
