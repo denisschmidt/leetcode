@@ -74,4 +74,4 @@ const generateTrees = function(n) {
   return dfn(1, n);
 };
 
-generateTrees(3);
+generateTrees(19);

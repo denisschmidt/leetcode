@@ -38,7 +38,7 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
  * @param {TreeNode} root
  * @return {number}
  */
-const maxPathSum = function(root) {
+const dfs = function(root) {
   let maxValue = -Number.MAX_VALUE;
 
   const maxPathDown = node => {
@@ -56,7 +56,7 @@ const maxPathSum = function(root) {
 };
 
 const input = [-10, 9, 20, null, null, 15, 7];
-const res = maxPathSum(makeTreeNodes(input));
+const res = dfs(makeTreeNodes(input));
 console.log('---', res);
 
 /*
