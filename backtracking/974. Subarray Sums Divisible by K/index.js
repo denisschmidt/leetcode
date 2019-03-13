@@ -24,7 +24,7 @@ const subarraysDivByK = function(A, K) {
       return;
     } else {
       for (let i = start; i < A.length; i++) {
-        if (i > start && A[i] === A[i - 1]) continue;
+        if (i > start && A[i] === A[i - 1]) continue; // skip doubles
         path.push(A[i]);
         backtracking(A, ++start, sum + A[i], path, paths);
         path.pop();
