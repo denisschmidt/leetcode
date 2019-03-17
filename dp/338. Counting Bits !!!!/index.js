@@ -22,10 +22,10 @@ Follow up:
 
 
 Thinking:
-1) We do not need check the input parameter, because the question has already mentioned that the number is non negative.
+  1) We do not need check the input parameter, because the question has already mentioned that the number is non negative.
 
-2) How we do this? The first idea come up with is find the pattern or rules for the result.
-Therefore, we can get following pattern
+  2) How we do this? The first idea come up with is find the pattern or rules for the result.
+  Therefore, we can get following pattern
 
  */
 
