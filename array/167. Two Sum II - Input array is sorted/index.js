@@ -25,20 +25,20 @@ Example:
 const twoSum = function(nums, target) {
   const len = nums.length;
   let result = [];
-  nums.sort((a, b) => a - b);
+
   for (let i = 0; i < len - 1; i++) {
     if (nums[i] + nums[i + 1] > target) break;
     if (nums[i] + nums[len - 1] < target) continue;
     if (i > 0 && nums[i] === nums[i - 1]) continue; //убираем дубли
 
-    let j = i + 1;
-    while (j < len) {
-      let sum = nums[i] + nums[j];
+    let high = i + 1;
+    while (high < len) {
+      let sum = nums[i] + nums[high];
       if (sum === target) {
-        result.push(i + 1, j + 1);
+        result.push(i + 1, high + 1);
         break;
       } else {
-        j++;
+        high++;
       }
     }
   }
