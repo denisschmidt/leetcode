@@ -68,3 +68,23 @@ const twoSumHash = function(nums, target) {
 
 const res2 = twoSumHash([3, 2, 4], 6);
 console.log('---', res2);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Time complexity : O(n).
+// Space complexity : O(n).
+const findSum = (arr, val) => {
+  let searchValues = [val - arr[0]];
+  for (let i = 1; i < arr.length; i++) {
+    let searchVal = val - arr[i];
+    if (searchValues.includes(arr[i])) {
+      return true;
+    } else {
+      searchValues.push(searchVal);
+    }
+  }
+  return false;
+};
+
+const res3 = findSum([3, 2, 4], 6);
+console.log('---', res3);

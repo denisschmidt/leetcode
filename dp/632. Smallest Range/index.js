@@ -142,6 +142,7 @@ const smallestRange2 = nums => {
     minY = Number.MAX_VALUE;
   let next = new Array(nums.length).fill(0);
   let flag = true;
+
   for (let i = 0; i < nums.length && flag; i++) {
     for (let j = 0; j < nums[i].length && flag; j++) {
       let minI = 0,
@@ -160,6 +161,7 @@ const smallestRange2 = nums => {
       }
     }
   }
+
   return [minX, minY];
 };
 
