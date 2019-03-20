@@ -14,11 +14,11 @@ Example 1:
     [1,0,1,0,1]
  */
 
-/**
- * @param {number[]} A
- * @param {number} S
- * @return {number}
- */
+//Complexity Analysis
+
+// Time Complexity: O(N^2), where N is the length of A.
+
+// Space Complexity: O(N^2) in additional space complexity.
 const numSubarraysWithSum = function(A, S) {
   let ans = 0;
   let sum = 0;
