@@ -43,8 +43,6 @@ const minFallingPathSum = function(A) {
     }
   }
 
-  console.log('---', A);
-
   let ans = Number.MAX_VALUE;
   for (let val of A[0]) {
     ans = Math.min(ans, val);
