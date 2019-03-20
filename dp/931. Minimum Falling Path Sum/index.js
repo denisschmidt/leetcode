@@ -18,11 +18,39 @@ Explanation:
 
 The falling path with the smallest sum is [1,4,7], so the answer is 12.
 
-
-
-
-
-
  */
 
-const minFallingPathSum = function(A) {};
+//Complexity Analysis
+
+// Time Complexity: O(N^2), where N is the length of A.
+
+// Space Complexity: O(1) in additional space complexity.
+
+const minFallingPathSum = function(A) {
+  const size = A.length;
+
+  for (let i = size - 2; i >= 0; i--) {
+    for (let j = 0; j < size; j++) {
+      // val = min(A[r+1][c-1], A[r+1][c], A[r+1][c+1])
+      let val = A[i + 1][j];
+      if (j > 0) {
+        val = Math.min(val, A[i + 1][j - 1]);
+      }
+      if (j + 1 < size) {
+        val = Math.min(val, A[i + 1][j + 1]);
+      }
+      A[i][j] += val;
+    }
+  }
+
+  console.log('---', A);
+
+  let ans = Number.MAX_VALUE;
+  for (let val of A[0]) {
+    ans = Math.min(ans, val);
+  }
+  return ans;
+};
+
+const res = minFallingPathSum([[-80, -13, 22], [83, 94, -5], [73, -48, 61]]);
+console.log('---', res);
