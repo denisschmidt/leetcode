@@ -18,8 +18,6 @@ Given n = 3, there are a total of 5 unique BST's:
 
  */
 
-const { TreeNode } = require('../../algorithms/treeNode');
-
 // DP SOLUTION EASY TO UNDERSTAND
 /**
  * @param {number} n
