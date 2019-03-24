@@ -35,6 +35,10 @@ Example:
  */
 const maxCoins = function(nums) {
   const size = nums.length;
+  if (!size) {
+    return 0;
+  }
+
   const matrix = [...Array(size)].map((v, i) => {
     return Array(size).fill(null);
   });
@@ -76,6 +80,8 @@ const maxCoins = function(nums) {
           after = matrix[k + 1][j];
         }
 
+        // Нам нужен именно максимум для подстроки
+        // У нас идет расчет matrix[i][j], для кадого k по итогу нам нужна самая большая сумма
         matrix[i][j] = Math.max(before + after + leftValue * nums[k] * rightValue, matrix[i][j]);
       }
     }
