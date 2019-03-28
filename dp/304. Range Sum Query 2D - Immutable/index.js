@@ -35,6 +35,7 @@ sumRegion(1, 2, 2, 4) -> 12
  * @param {number[][]} matrix
  */
 const NumMatrix = function(matrix) {
+  this.data = matrix;
   if (matrix.length === 0 || matrix[0].length === 0) return;
 
   this.dp = Array(matrix.length + 1)
@@ -56,12 +57,24 @@ const NumMatrix = function(matrix) {
  * @param {number} col2
  * @return {number}
  */
-NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {
+NumMatrix.prototype.sumDpRegion = function(row1, col1, row2, col2) {
   row1 = row1 + 1;
   col1 = col1 + 1;
   row2 = row2 + 1;
   col2 = col2 + 1;
   return this.dp[row2][col2] - this.dp[row1 - 1][col2] - this.dp[row2][col1 - 1] + this.dp[row1 - 1][col1 - 1];
+};
+
+// Brute Force
+
+NumMatrix.prototype.sumBruteForceRegion = function(row1, col1, row2, col2) {
+  let sum = 0;
+  for (let i = row1; i <= row2; i++) {
+    for (let j = col1; j <= col2; j++) {
+      sum += this.data[i][i];
+    }
+  }
+  return sum;
 };
 
 /**
