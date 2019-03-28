@@ -65,8 +65,16 @@ NumMatrix.prototype.sumDpRegion = function(row1, col1, row2, col2) {
   return this.dp[row2][col2] - this.dp[row1 - 1][col2] - this.dp[row2][col1 - 1] + this.dp[row1 - 1][col1 - 1];
 };
 
-// Brute Force
+/* Brute Force
+ Complexity analysis
 
+ Time complexity : O(mn)O(mn) time per query.
+  Assume that mm and nn represents the number of rows and columns respectively,
+  each sumRegion query can go through at most m \times nm×n elements.
+
+Space complexity : O(1)O(1).
+  Note that data is a reference to matrix and is not a copy of it.
+ */
 NumMatrix.prototype.sumBruteForceRegion = function(row1, col1, row2, col2) {
   let sum = 0;
   for (let i = row1; i <= row2; i++) {
