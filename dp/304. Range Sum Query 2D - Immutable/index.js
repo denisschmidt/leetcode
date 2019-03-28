@@ -21,9 +21,33 @@ sumRegion(1, 2, 2, 4) -> 12
  */
 
 /**
+ * Dynamic Programming Solution
+ *
+ * Given a 2D array find the sum in given range defining a rectangle.
+ *
+ * Time complexity construction O(n*m)
+ * Time complexity of query O(1)
+ * Space complexity is O(n*m)
+ *
+ */
+
+/**
  * @param {number[][]} matrix
  */
-const NumMatrix = function(matrix) {};
+const NumMatrix = function(matrix) {
+  if (matrix.length === 0 || matrix[0].length === 0) return;
+
+  this.dp = Array(matrix.length + 1)
+    .fill(null)
+    .map(() => Array(matrix[0].length + 1).fill(0));
+
+  for (let i = 1; i < this.dp.length; i++) {
+    for (let j = 1; j < this.dp[0].length; j++) {
+      this.dp[i][j] = this.dp[i - 1][j] + this.dp[i][j - 1] + matrix[i - 1][j - 1] - this.dp[i - 1][j - 1];
+    }
+  }
+  console.log('---', this.dp);
+};
 
 /**
  * @param {number} row1
@@ -32,7 +56,13 @@ const NumMatrix = function(matrix) {};
  * @param {number} col2
  * @return {number}
  */
-NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {};
+NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {
+  row1 = row1 + 1;
+  col1 = col1 + 1;
+  row2 = row2 + 1;
+  col2 = col2 + 1;
+  return this.dp[row2][col2] - this.dp[row1 - 1][col2] - this.dp[row2][col1 - 1] + this.dp[row1 - 1][col1 - 1];
+};
 
 /**
  * Your NumMatrix object will be instantiated and called as such:
@@ -40,6 +70,8 @@ NumMatrix.prototype.sumRegion = function(row1, col1, row2, col2) {};
  * var param_1 = obj.sumRegion(row1,col1,row2,col2)
  */
 
-const matrix = [[], []];
+const matrix = [[[[-4, -5]]], [0, 0, 0, 0], [0, 0, 0, 1], [0, 1, 0, 1]];
 
-const sumRegion = () => {};
+new NumMatrix(matrix);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
