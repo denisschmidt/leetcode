@@ -16,12 +16,21 @@ Each element in the result must be unique.
 The result can be in any order.
 */
 
+/*
+Time complexity : O(n + m),
+  where n and m are arrays' lengths.
+  O(n) time is used to convert nums1 into set,
+  O(m) time is used to convert nums2, and contains/in operations are \mathcal{O}(1)O(1) in the average case.
+
+Space complexity : O(m+n) in the worst case when all elements in the arrays are different.
+ */
+
 /**
  * @param {number[]} nums1
  * @param {number[]} nums2
  * @return {number[]}
  */
-var intersection = function(nums1, nums2) {
+const intersection = function(nums1, nums2) {
   let i = 0,
     set = new Set(),
     res = [];
