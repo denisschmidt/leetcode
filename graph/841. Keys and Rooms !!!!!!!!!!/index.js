@@ -54,11 +54,12 @@ var canVisitAllRooms = function(rooms) {
 
   while (stack.length) {
     let node = stack.pop(); // Получаем следующий ключ узла
+    let room = rooms[node];
 
-    for (let i = 0; i < rooms[node].length; i++) {
-      if (!seen[rooms[node][i]]) {
-        seen[rooms[node][i]] = true; // отметка того что мы открыли комнату
-        stack.push(rooms[node][i]); // добавим ключ в стек
+    for (let i = 0; i < room.length; i++) {
+      if (!seen[room[i]]) {
+        seen[room[i]] = true; // отметка того что мы открыли комнату
+        stack.push(room[i]); // добавим ключ в стек
       }
     }
   }

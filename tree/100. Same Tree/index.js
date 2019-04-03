@@ -35,6 +35,7 @@ var isSameTree = function(node1, node2) {
     fn(p.left, q.left);
     fn(p.right, q.right);
   };
+
   fn(node1, node2);
   return isEqual;
 };

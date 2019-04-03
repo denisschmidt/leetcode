@@ -22,9 +22,9 @@ And the value to insert: 5
 You can return this binary search tree:
       4
      /   \
-    2     7
-   / \   /
-  1   3 5
+    2      7
+   / \    /
+  1   3  5
 
  */
 /**
