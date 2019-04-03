@@ -40,8 +40,12 @@ const minDepth = function(root) {
     if (!node.left && !node.right) {
       return depth;
     }
-    if (node.left) nodeStack.push({ node: node.left, depth: depth + 1 });
-    if (node.right) nodeStack.push({ node: node.right, depth: depth + 1 });
+    if (node.left) {
+      nodeStack.push({ node: node.left, depth: depth + 1 });
+    }
+    if (node.right) {
+      nodeStack.push({ node: node.right, depth: depth + 1 });
+    }
   }
 };
 
