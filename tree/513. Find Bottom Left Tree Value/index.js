@@ -51,6 +51,7 @@ const findBottomLeftValue = function(root) {
   while (nodeStack.length) {
     let node = nodeStack.pop();
     let depth = depthStack.pop();
+
     if (node !== null) {
       maxDepth = Math.max(maxDepth, depth);
       if (!rightmostValueAtDepth.has(depth)) {
