@@ -88,11 +88,14 @@ const kthSmallest2 = (root, k) => {
       nodeStack.push(node);
       node = node.left;
     }
+
     console.log('---', nodeStack);
+
     node = nodeStack.pop();
     if (++count === k) {
       return node.val;
     }
+
     node = node.right;
   }
 

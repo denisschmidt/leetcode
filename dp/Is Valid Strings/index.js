@@ -15,6 +15,7 @@ function isValidString(str) {
   let dp = [];
   let ans = 0;
   let maxValue = Number.MIN_VALUE;
+  let minValue = Number.MAX_VALUE;
 
   dp[0] = 1;
   for (let i = 0; i < size; i++) {
@@ -28,48 +29,18 @@ function isValidString(str) {
     maxValue = Math.max(maxValue, dp[i]);
   }
 
-  console.log('---', dp);
-
-  return maxValue;
+  return maxValue === minValue || maxValue - minValue > 1;
 }
 
-// [1, 2, 1, 2, 3, 4, 1, 2]; -> 4 -> 2
-isValidString('aabbaacc');
+const res = isValidString('aaaabbc');
+console.log('---', res);
 
-function isValidString2(str) {
-  let dp = [];
-  let cnt = [];
-  let maxdp = 0;
-  let res = 0;
-  const size = str.length;
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  for (let i = 0; i < size; i++) {
-    dp[i] = 1;
-    cnt[i] = 1;
-    for (let j = 0; j < i; j++) {
-      if (str[i] === str[j]) {
-        if (dp[i] === dp[j] + 1) {
-          cnt[i] += cnt[j];
-        }
-        if (dp[j] + 1 > dp[i]) {
-          dp[i] = dp[j] + 1;
-          cnt[i] = cnt[j];
-        }
-      }
-    }
-    if (maxdp === dp[i]) {
-      res += cnt[i];
-    }
-    if (maxdp < dp[i]) {
-      maxdp = dp[i];
-      res = cnt[i];
-    }
-  }
+// Only check valid or can delete one char
 
-  return res;
-}
-
-isValidString2('aabbaacc');
+// Time complexity : O(n) two loops of n are there.
+// Space complexity : O(n). dp array of size nn is used.
 
 function isValidString3(str) {
   const size = str.length;
@@ -95,3 +66,7 @@ function isValidString3(str) {
 }
 
 isValidString3('aabbaacc');
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+isValidString2('aabbaacc');
