@@ -67,8 +67,8 @@ const maxCoins = function(nums) {
 
         // расчитываем сумму всего подмассива минус того числа на котором находимся
         // допустим подмассив [3, 1] где i = 0, j = 1 при к = i сумма будет за исключением того числа на котором находимся
-        // итого ===> matrix[k+1][j] matrix[1][1]
-        // для k = j сумма будет по формуле matrix[i][k - 1] matrix[0][0]
+        // итого ===> matrix[k+1][j] ====> matrix[1][1]
+        // для k = j сумма будет по формуле matrix[i][k - 1] ===> matrix[0][0]
         let before = 0;
         let after = 0;
 
@@ -92,3 +92,47 @@ const maxCoins = function(nums) {
 
 const res = maxCoins([3, 1, 5, 8]);
 console.log('---', res);
+
+// ================================================================================================================
+const maxCoins2 = arr => {
+  const size = arr.length;
+
+  const matrix = [...Array(size)].map(() => Array(size).fill(null));
+
+  for (let len = 0; len <= size; len++) {
+    for (let i = 0; i <= size - len; i++) {
+      let j = i + len - 1;
+
+      for (let k = i; k <= j; k++) {
+        let leftValue = 1;
+        let rightValue = 1;
+
+        if (i !== 0) {
+          leftValue = arr[i - 1];
+        }
+
+        if (j !== size - 1) {
+          rightValue = arr[j + 1];
+        }
+
+        let before = 0;
+        let after = 0;
+
+        if (i !== k) {
+          before = matrix[i][k - 1];
+        }
+
+        if (j !== k) {
+          after = matrix[k + 1][j];
+        }
+
+        matrix[i][j] = Math.max(after + before + leftValue * arr[k] * rightValue, matrix[i][j]);
+      }
+    }
+  }
+
+  return matrix[0][size - 1];
+};
+
+const res2 = maxCoins2([3, 1, 5, 8]);
+console.log('---', res2);
