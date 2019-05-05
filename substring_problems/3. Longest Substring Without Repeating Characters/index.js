@@ -60,9 +60,11 @@ const lengthOfLongestSubstring2 = s => {
     counter = 0,
     maxLength = 0;
   let map = {};
+
   for (let i = 0; i < 128; i++) {
     map[String.fromCharCode(i)] = 0;
   }
+
   while (end < s.length) {
     if (map[s[end]] > 0) {
       counter++;
