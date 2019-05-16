@@ -93,14 +93,14 @@ const numTrees2 = function(size) {
   const dp = new Array(size + 1).fill(0);
   dp[0] = dp[1] = 1;
 
-  // числа Катлана для 0 и для 1 = 1
+  // числа Катлана для 0 и для 1 === 1
   // Дальше расчитываем для 2 и т.д пока не дойдем до нашего числа
 
   for (let n = 2; n <= size; ++n) {
-    for (let j = 1; j <= i; ++j) {
+    for (let j = 1; j <= n; ++j) {
       //  All possible unique left BST's count is G[j - 1] if we plant at i.
       //  All possible unique right BST's count is G[i - j] if we plant at i.
-      dp[i] += dp[j - 1] * dp[n - j];
+      dp[n] += dp[j - 1] * dp[n - j];
     }
   }
   return dp[size];
