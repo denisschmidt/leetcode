@@ -18,20 +18,3 @@ const recFibbonacci = (i, memo = []) => {
   }
   return memo[i];
 };
-
-const recFibbo = n => {
-  if (n === 0 || n === 1) return n;
-  return recFibbo(n - 1) + recFibbo(n - 2);
-};
-const res1 = fibbonacci(5);
-const res2 = recFibbonacci(5);
-const res3 = recFibbo(5);
-
-console.log('---', res1, res2, res3);
-
-const fact = x => {
-  if (x <= 1) {
-    return 1;
-  }
-  return x * fact(x - 1);
-};
