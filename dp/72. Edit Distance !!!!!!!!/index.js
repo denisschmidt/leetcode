@@ -31,6 +31,23 @@ Example 2:
 
 Solution:
 
+For the base case, that is, to convert a string to an empty string, the mininum number of operations (deletions) is just the length of the string.
+So we have dp[i][0] = i and dp[0][j] = j.
+
+For the general case to convert word1[0..i) to word2[0..j), we break this problem down into sub-problems.
+Suppose we have already known how to convert word1[0..i - 1) to word2[0..j - 1) (dp[i - 1][j - 1]), if word1[i - 1] == word2[j - 1],
+then no more operation is needed and dp[i][j] = dp[i - 1][j - 1].
+
+
+If word1[i - 1] != word2[j - 1], we need to consider three cases.
+
+  1) Replace word1[i - 1] by word2[j - 1] (dp[i][j] = dp[i - 1][j - 1] + 1);
+  2) If word1[0..i - 1) = word2[0..j) then delete word1[i - 1] (dp[i][j] = dp[i - 1][j] + 1);
+  3) If word1[0..i) + word2[j - 1] = word2[0..j) then insert word2[j - 1] to word1[0..i) (dp[i][j] = dp[i][j - 1] + 1).
+
+
+So when word1[i - 1] != word2[j - 1], dp[i][j] will just be the minimum of the above three cases.
+
 Dynamic Programming:
   The edit distance algorithm is very popular among the data scientists.
   It's one of the basic algorithms used for evaluation of machine translation and speech recognition.
@@ -62,6 +79,7 @@ const minDistance = function(word1, word2) {
       } else if (word1[i - 1] === word2[j - 1]) {
         matrix[i][j] = matrix[i - 1][j - 1];
       } else {
+        // If word1[i - 1] != word2[j - 1], we need to consider three cases.
         matrix[i][j] = 1 + Math.min(matrix[i - 1][j], matrix[i][j - 1], matrix[i - 1][j - 1]);
       }
     }
