@@ -71,6 +71,7 @@ const lengthOfLIS2 = nums => {
     dp[i] = ans + 1;
     maxValue = Math.max(maxValue, dp[i]);
   }
+  console.log('====', dp);
   return maxValue;
 };
 
