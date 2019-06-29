@@ -33,6 +33,10 @@ abac => cab
  b | 3 | 3 | 3 | 4 | 5 |
 ---|--------------------
 
+Complexity
+  TIme O(MN) dp,
+
+
  */
 const shortestCommonSupersequence = function(str1, str2) {
   const s1 = str1.length;
