@@ -101,7 +101,7 @@ target = 3 and nums[1, 2]
  1 2
  2 1
 
-Imagine we only need one more number to reach target
+Imagine we only need one more number to reach target !!!!!!!
 
  */
 const combinationSum4DP = function(nums, target) {
@@ -132,6 +132,9 @@ console.log('---', res2);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+/*
+  Recursion
+ */
 const combinationSum4Reqursion = function(nums, target) {
   if (target === 0) {
     return 1;
@@ -144,5 +147,42 @@ const combinationSum4Reqursion = function(nums, target) {
   }
   return res;
 };
+
 const res3 = combinationSum4Reqursion(nums, target);
 console.log('---', res3);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const combinationSum4DFS = function(nums, target) {
+  if (!nums.length) {
+    return 0;
+  }
+  const map = new Map();
+
+  const dfs = (nums, sum, map) => {
+    if (sum === 0) {
+      return 1;
+    }
+
+    if (sum < 0) {
+      return 0;
+    }
+
+    if (map.has(sum)) {
+      return map.get(sum);
+    }
+
+    let count = 0;
+    for (let i = 0; i < nums.length; i++) {
+      count += dfs(nums, sum - nums[i], map);
+    }
+
+    map.set(sum, count);
+    return count;
+  };
+
+  return dfs(nums, target, map);
+};
+
+const res4 = combinationSum4DFS(nums, target);
+console.log('---', res4);
