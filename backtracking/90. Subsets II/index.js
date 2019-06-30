@@ -26,15 +26,18 @@ Output:
 const subsetsWithDup = function(nums) {
   let ans = [];
   nums.sort((a, b) => a - b);
+
   const combination = (ans, comb, index) => {
     ans.push([...comb]);
+
     for (let i = index; i < nums.length; i++) {
-      if (i > index && nums[i] === nums[i - 1]) continue;
+      if (i > index && nums[i] === nums[i - 1]) continue; // duplicates
       comb.push(nums[i]);
       combination(ans, comb, i + 1);
       comb.pop();
     }
   };
+
   combination(ans, [], 0);
   return ans;
 };

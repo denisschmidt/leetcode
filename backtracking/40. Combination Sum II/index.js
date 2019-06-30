@@ -1,5 +1,6 @@
 /*
-Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
+Given a collection of candidate numbers (candidates) and a target number (target),
+find all unique combinations in candidates where the candidate numbers sums to target.
 
 Each number in candidates may only be used once in the combination.
 
@@ -25,10 +26,11 @@ Example 2:
     [1,2,2],
     [5]
   ]
+
+
+Without duplicates combinations !!!!!
+
  */
-
-// Approach to Backtracking !!!!!
-
 /**
  * @param {number[]} candidates
  * @param {number} target
@@ -44,7 +46,7 @@ const combinationSum2 = (candidates, target) => {
       return;
     } else {
       for (let i = index; i < candidates.length; i++) {
-        if (i > index && candidates[i] === candidates[i - 1]) continue;
+        if (i > index && candidates[i] === candidates[i - 1]) continue; // no duplicates
         comb.push(candidates[i]);
         combination(ans, comb, i + 1, sum - candidates[i]);
         comb.pop();

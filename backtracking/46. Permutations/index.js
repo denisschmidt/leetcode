@@ -21,7 +21,7 @@ Example:
 const permute = function(nums) {
   let ans = [];
 
-  const combination = (ans, comb, index) => {
+  const combination = (ans, comb) => {
     if (comb.length === nums.length) {
       ans.push([...comb]);
       return;
@@ -29,13 +29,13 @@ const permute = function(nums) {
       for (let i = 0; i < nums.length; i++) {
         if (comb.includes(nums[i])) continue;
         comb.push(nums[i]);
-        combination(ans, comb, i + 1);
+        combination(ans, comb);
         comb.pop();
       }
     }
   };
 
-  combination(ans, [], 0);
+  combination(ans, []);
   return ans;
 };
 

@@ -25,17 +25,20 @@ Example 2:
  */
 const combinationSum3 = function(len, target) {
   let ans = [];
-  const combination = (ans, comb = [], t, start) => {
+
+  const combination = (ans, comb = [], t, index) => {
     if (comb.length === len && t === 0) {
       ans.push([...comb]);
       return;
     }
-    for (let i = start; i <= 9; i++) {
+
+    for (let i = index; i <= 9; i++) {
       comb.push(i);
       combination(ans, comb, t - i, i + 1);
       comb.pop();
     }
   };
+
   combination(ans, [], target, 1);
   return ans;
 };

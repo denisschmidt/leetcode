@@ -28,15 +28,9 @@ Example 2:
 
  */
 
-// Approach to Backtracking !!!!!
-
-/**
- * @param {number[]} candidates
- * @param {number} target
- * @return {number[][]}
- */
 const combinationSum = (candidates, target) => {
   let ans = [];
+
   const combination = (ans = [], comb = [], index = 0, sum = 0) => {
     if (sum < 0) {
       return;
@@ -56,7 +50,6 @@ const combinationSum = (candidates, target) => {
   return ans;
 };
 
-// let candidates = [7,3,2], target = 18;
 let candidates = [2, 3, 5];
 let target = 8;
 
