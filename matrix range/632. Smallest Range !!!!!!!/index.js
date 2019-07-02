@@ -22,11 +22,6 @@ Example 1:
 
  */
 
-/**
- * @param {number} a
- * @param {number} b
- * @return {number}
- */
 const compare = (a, b) => a - b;
 
 /**
@@ -72,6 +67,8 @@ const res = smallestRange([[1, 3, 5, 7, 9], [2, 4, 6, 8, 10]]);
 console.log('<error solution>', res);
 
 // ======================================================================================================
+
+// Dynamic Programming
 const smallestRange1 = nums => {
   let minRangeMin = 0,
     minRangeMax = 0,
@@ -82,8 +79,8 @@ const smallestRange1 = nums => {
   while (true) {
     // for every iteration of all the lists, we keep track of these values
     let minListIndex = -1;
-    let minValue = Number.MAX_VALUE,
-      maxValue = Number.MIN_VALUE;
+    let minValue = Number.MAX_VALUE;
+    let maxValue = Number.MIN_VALUE;
 
     for (let listIndex = 0; listIndex < nums.length; listIndex++) {
       const list = nums[listIndex];
@@ -94,6 +91,7 @@ const smallestRange1 = nums => {
       }
 
       const value = list[pointers[listIndex]];
+
       if (value < minValue) {
         minValue = value;
         minListIndex = listIndex;
