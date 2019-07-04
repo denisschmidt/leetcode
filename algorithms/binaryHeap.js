@@ -1,11 +1,5 @@
-/*
-
-
-
-
- */
-
 // Heap Helpers functions
+
 // NOTE A lot of these are very similar to the methods used on Djikstra's Algorithm
 
 // Simple formula for getting child indices

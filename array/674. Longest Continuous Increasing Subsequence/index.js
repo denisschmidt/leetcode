@@ -17,9 +17,10 @@ Example 2:
 
  */
 
-/**
- * @param {number[]} nums
- * @return {number}
+/*
+Time Complexity: O(N), where N is the length of nums. We perform one loop through nums.
+
+Space Complexity: O(1), the space used by anchor and ans.
  */
 const findLengthOfLCIS = function(nums) {
   let ans = 1;

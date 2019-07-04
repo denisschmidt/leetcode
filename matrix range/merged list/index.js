@@ -56,6 +56,8 @@ const mergeHead = nums => {
 
   heapify(minHeap);
 
+  console.log('---', minHeap);
+
   /* 
   NOTE: Key Insight
     Each one of the K arrays will have one element in the heap at all times.
