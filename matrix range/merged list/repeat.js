@@ -8,62 +8,70 @@
 
 const input = [[13, 15, 30], [12, 15, 20], [17, 20, 32]];
 
-const getChildIndexes = index => {
-  return [index * 2 + 1, index * 2 + 2];
+const getChildIndices = index => {
+  return [2 * index + 1, 2 * index + 2];
 };
 
 const findMinChildIndex = (minHeap, left, right) => {
-  let leftValue = minHeap[left];
-  let rightValue = minHeap[right];
+  let leftChild = minHeap[left];
+  let rightChild = minHeap[right];
   let minChildIndex;
 
-  if (leftValue !== undefined) {
-    if (rightValue === undefined) {
-      minChildIndex = leftValue;
+  if (leftChild !== undefined) {
+    if (rightChild === undefined) {
+      minChildIndex = left;
     } else {
-      minChildIndex = rightValue.value < leftValue.value ? right : left;
+      minChildIndex = rightChild.value < leftChild.value ? right : left;
     }
   }
-
   return minChildIndex;
 };
 
 const bubbleDown = (minHeap, index) => {
-  let currentValue = minHeap[index];
-  let currentIndex = index;
+  const [leftIndex, rightIndex] = getChildIndices(index);
+  let current = minHeap[index];
 
-  let [leftIndex, rightIndex] = getChildIndexes(currentIndex);
-  let minIndex = findMinChildIndex(minHeap, leftIndex, rightIndex);
-  let minValue = minIndex === undefined ? undefined : minHeap[minIndex];
+  let minChildIndex = findMinChildIndex(minHeap, leftIndex, rightIndex);
+  let minChild = minChildIndex === undefined ? undefined : minHeap[minChildIndex];
 
-  while (minValue !== undefined && currentValue.value > minValue.value) {
-    [minHeap[currentIndex], minHeap[minIndex]] = [minHeap[minIndex], minHeap[currentIndex]];
+  while (minChild !== undefined && current.value > minChild.value) {
+    [minHeap[index], minHeap[minChildIndex]] = [minHeap[minChildIndex], minHeap[index]];
 
-    currentIndex = minIndex;
+    index = minChildIndex;
 
-    [leftIndex, rightIndex] = getChildIndexes(currentIndex);
-    minIndex = findMinChildIndex(minHeap, leftIndex, rightIndex);
-    minValue = minIndex === undefined ? undefined : minHeap[minIndex];
+    [leftIndex, rightIndex] = getChildIndices(index);
+    minChildIndex = findMinChildIndex(minHeap, leftIndex, rightIndex);
+    minChild = minChildIndex === undefined ? undefined : minHeap[minChildIndex];
+  }
+};
+
+const heapify = nums => {
+  for (let i = nums.length - 1; i >= 0; i--) {
+    bubbleDown(nums, i);
   }
 };
 
 const mergeHead = nums => {
-  const minHeap = nums.map((num, index) => ({
-    arrayIndex: index,
-    elementIndex: 0,
-    value: num[0],
-  }));
+  const minHeap = [];
 
-  for (let i = minHeap.length - 1; i >= 0; i--) {
-    bubbleDown(minHeap, i);
-  }
+  nums.forEach((num, index) => {
+    minHeap.push({
+      arrayIndex: index,
+      value: num[0],
+      elementIndex: 0,
+    });
+  });
 
-  let ans = [];
+  heapify(minHeap);
+
+  const ans = [];
 
   while (minHeap[0].value !== Infinity) {
     let top = minHeap[0];
+
     ans.push(top.value);
-    top.elementIndex++;
+
+    top.elementIndex += 1;
 
     if (top.elementIndex >= nums[top.arrayIndex].length) {
       top.value = Infinity;
