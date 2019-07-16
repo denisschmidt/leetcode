@@ -6,53 +6,52 @@
 
  */
 
-const input = [[13, 15, 30], [12, 15, 20], [17, 20, 32]];
+const input = [[1, 3], [2, 6], [8, 10], [15, 18]];
 
-const getChildIndices = index => {
-  return [2 * index + 1, 2 * index + 2];
+const getIndexes = index => {
+  return [index * 2 + 1, index * 2 + 2];
 };
 
 const findMinChildIndex = (minHeap, left, right) => {
+  let minIndex;
   let leftChild = minHeap[left];
   let rightChild = minHeap[right];
-  let minChildIndex;
 
   if (leftChild !== undefined) {
     if (rightChild === undefined) {
-      minChildIndex = left;
+      minIndex = left;
     } else {
-      minChildIndex = rightChild.value < leftChild.value ? right : left;
+      minIndex = leftChild.value > rightChild.value ? right : left;
     }
   }
-  return minChildIndex;
+  return minIndex;
 };
 
 const bubbleDown = (minHeap, index) => {
-  const [leftIndex, rightIndex] = getChildIndices(index);
   let current = minHeap[index];
-
-  let minChildIndex = findMinChildIndex(minHeap, leftIndex, rightIndex);
-  let minChild = minChildIndex === undefined ? undefined : minHeap[minChildIndex];
+  let [left, right] = getIndexes(index);
+  let minIndex = findMinChildIndex(minHeap, left, right);
+  let minChild = minIndex === undefined ? undefined : minHeap[minIndex];
 
   while (minChild !== undefined && current.value > minChild.value) {
-    [minHeap[index], minHeap[minChildIndex]] = [minHeap[minChildIndex], minHeap[index]];
+    [minHeap[index], minHeap[minIndex]] = [minHeap[minIndex], minHeap[index]];
 
-    index = minChildIndex;
-
-    [leftIndex, rightIndex] = getChildIndices(index);
-    minChildIndex = findMinChildIndex(minHeap, leftIndex, rightIndex);
-    minChild = minChildIndex === undefined ? undefined : minHeap[minChildIndex];
+    index = minIndex;
+    [left, right] = getIndexes(index);
+    minIndex = findMinChildIndex(minHeap, left, right);
+    minChild = minIndex === undefined ? undefined : minHeap[minIndex];
   }
 };
 
-const heapify = nums => {
-  for (let i = nums.length - 1; i >= 0; i--) {
-    bubbleDown(nums, i);
+const heapify = minHeap => {
+  for (let i = minHeap.length; i >= 0; i--) {
+    bubbleDown(minHeap, i);
   }
 };
 
 const mergeHead = nums => {
   const minHeap = [];
+  let ans = [];
 
   nums.forEach((num, index) => {
     minHeap.push({
@@ -64,11 +63,8 @@ const mergeHead = nums => {
 
   heapify(minHeap);
 
-  const ans = [];
-
   while (minHeap[0].value !== Infinity) {
     let top = minHeap[0];
-
     ans.push(top.value);
 
     top.elementIndex += 1;
