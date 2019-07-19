@@ -10,11 +10,6 @@ Explanation: There are 7 subarrays with a sum divisible by K = 5:
 
  */
 
-/**
- * @param {number[]} A
- * @param {number} K
- * @return {number}
- */
 const subarraysDivByK = function(A, K) {
   let path = [];
   let paths = [];

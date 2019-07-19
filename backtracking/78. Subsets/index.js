@@ -11,20 +11,16 @@ Output:
   [3],
   [1],
   [2],
-  [1,2,3],
-  [1,3],
-  [2,3],
-  [1,2],
+  [1, 2, 3],
+  [1, 3],
+  [2, 3],
+  [1, 2],
   []
 ]
  */
 
 // Approach to Backtracking !!!!!
 
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
 const subsets = function(nums) {};
 
 const res = subsets([1, 2, 3]);
