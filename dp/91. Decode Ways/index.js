@@ -22,6 +22,7 @@ Example 2:
 
  */
 
+// dp
 // Time: should be O(n), where n is the length of String
 // Space: should be O(n), where n is the length of String
 const numDecodings = function(s) {
