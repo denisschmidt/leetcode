@@ -4,6 +4,34 @@ A general way is to use a hashmap assisted with two pointers.
 
 The template is given below.
 
+*/
+
+const findSubstring = (s) => {
+  let counter; // check whether the substring is valid
+  let begin=0, end=0; //two pointers, one point to tail and one  head
+  let asn; //the length of substring
+
+  for() { /* initialize the hash map here */ }
+
+  while(end<s.size()){
+
+    if(map[s[end++]]-- ?){  /* modify counter here */ }
+
+    while(/* counter condition */){
+
+      /* update d here if finding minimum*/
+
+      //increase begin to make it invalid/valid again
+
+      if(map[s[begin++]]++ ?){ /*modify counter here*/ }
+    }
+
+    /* update d here if finding maximum*/
+  }
+  return ans;
+}
+
+/*
 ================================================================================================================
 
 One thing needs to be mentioned is that when asked to find maximum substring,
