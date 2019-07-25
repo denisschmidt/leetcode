@@ -27,6 +27,7 @@ const minSubArrayLen = function(target, nums) {
   let left = 0;
   for (let right = 0; right < size; right++) {
     sum += nums[right];
+
     while (sum >= target) {
       ans = Math.min(ans, right + 1 - left);
       sum = sum - nums[left++];

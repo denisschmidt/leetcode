@@ -11,13 +11,8 @@ Explanation: [4,-1,2,1] has the largest sum = 6.
 Follow up:
   If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 
-
  */
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
 const maxSubArray = function(nums) {
   const s = nums.length;
   let maxValue = -Number.MAX_VALUE;

@@ -14,20 +14,18 @@ Note:
 // Hashmap solution
 
 // **Complexity Analysis**
-//  Time complexity : O(n)O(n). The entire numsnums array is traversed only once.
+//  Time complexity : O(n). The entire numsnums array is traversed only once.
 //
-//  Space complexity : O(n)O(n). Hashmap mapmap can contain upto nn distinct entries in the worst case.
+//  Space complexity : O(n). Hashmap mapmap can contain upto n distinct entries in the worst case.
 
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {number}
- */
+// Prefix Sum Solution
+// nums[i, j] = nums[j] - nums[i-1]; important !!!!!
 const subarraySum = function(nums, k) {
   let sum = 0;
   let count = 0;
   const map = new Map();
   map.set(0, 1);
+
   for (let i = 0; i < nums.length; i++) {
     sum += nums[i];
 
