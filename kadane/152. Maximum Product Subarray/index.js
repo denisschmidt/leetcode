@@ -13,7 +13,10 @@ Output: 0
 Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 
  */
+const input = [2, 3, -2, 4];
 
+// Time O(N)
+// Space O(1)
 // The main idea is "imax/imin stores the max/min product of subarray that ends with the current number A[I]"
 const maxProduct = function(nums) {
   let max = nums[0];
@@ -35,5 +38,39 @@ const maxProduct = function(nums) {
   return max;
 };
 
-const res = maxProduct([2, 3, -2, 4]);
-console.log('----', res);
+maxProduct(input);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Easy to understand O(n) solution :
+// Its all about having odd or even numbers of negative integers.
+// if the negative numbers are even, then the first pass will give the solution.
+// If the negative numbers are odd, the second pass will give the solution.
+
+const maxProduct2 = nums => {
+  let sum = 1;
+  let ans = nums[0];
+
+  for (let i = 0; i < nums.length; i++) {
+    sum *= nums[i];
+    ans = Math.max(sum, ans);
+
+    if (sum === 0) {
+      sum = 1;
+    }
+  }
+
+  sum = 1;
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    sum *= nums[i];
+    ans = Math.max(sum, ans);
+    if (sum === 0) {
+      sum = 1;
+    }
+  }
+
+  return ans;
+};
+
+maxProduct2(input);
