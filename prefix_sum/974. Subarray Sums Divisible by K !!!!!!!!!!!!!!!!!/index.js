@@ -17,7 +17,9 @@ Explanation: There are 7 subarrays with a sum divisible by K = 5:
 
 // Another thing is very important =>
 
-// if sum[0, i] % K == sum[0, j] % K, sum[i + 1, j] is divisible by by K. !!!!!!!!!!!!
+// if sum[0, i] % K == sum[0, j] % K, => sum[i + 1, j] is divisible by by K. !!!!!!!!!!!!
+
+// So for current index j, we need to find out how many index i (i < j) exit that has the same mod of K.
 
 // Time Complexity: O(N)
 // Space Complexity: O(K)
