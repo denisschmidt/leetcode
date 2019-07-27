@@ -28,34 +28,49 @@ const isAnagram = function(s, t) {
   if (s.length !== t.length) {
     return false;
   }
-  const m1 = new Map();
-  const m2 = new Map();
-
-  for (let i = 0; i < s.length; i++) {
-    let char = s[i];
-    if (m1.has(char)) {
-      m1.set(char, m1.get(char) + 1);
-    } else {
-      m1.set(char, 1);
-    }
-  }
+  const map = s.split('').reduce(
+    (acc, val) => ({
+      ...acc,
+      [val]: ++acc[val] || 1,
+    }),
+    {},
+  );
 
   for (let i = 0; i < t.length; i++) {
     let char = t[i];
-    if (m2.has(char)) {
-      m2.set(char, m2.get(char) + 1);
-    } else {
-      m2.set(char, 1);
-    }
-  }
+    map[char]--;
 
-  for (let [key, value] of m1) {
-    if (!m2.has(key) || m2.get(key) !== value) {
+    if (map[char].toString() === 'NaN' || map[char] < 0) {
       return false;
     }
   }
   return true;
 };
 
-const res = isAnagram('anagram', 'nagaram');
-console.log('===', res);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const isAnagram2 = function(s, t) {
+  if (s.length !== t.length) {
+    return false;
+  }
+
+  const map = s.split('').reduce(
+    (acc, val) => ({
+      ...acc,
+      [val]: ++acc[val] || 1,
+    }),
+    {},
+  );
+
+  for (let i = 0; i < t.length; i++) {
+    if (t[i] in map) {
+      if (--map[t[i]] < 0) return false;
+    } else {
+      return false;
+    }
+  }
+
+  return true;
+};
+
+const res2 = isAnagram2('a', 'b');
+console.log('===', res2);
