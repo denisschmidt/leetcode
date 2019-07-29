@@ -34,6 +34,7 @@ const subarraysDivByK = function(nums, target) {
     let key = sum % target;
 
     if (!map.has(key)) {
+      // don't increment counter
       map.set(key, 1);
     } else {
       ans += map.get(key);

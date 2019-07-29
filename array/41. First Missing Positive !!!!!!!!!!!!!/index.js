@@ -56,7 +56,7 @@ const firstMissingPositive2 = nums => {
   return size + 1;
 };
 
-const res2 = firstMissingPositive2([3, 4, -1, 1]);
+const res2 = firstMissingPositive2([2, 4, 20, 1]);
 console.log('===', res2);
 // =====================================================================================================================
 
