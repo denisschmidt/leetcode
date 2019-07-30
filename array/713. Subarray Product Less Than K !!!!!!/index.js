@@ -17,6 +17,11 @@ Note:
   0 <= k < 10^6.
 
  */
+// Complexity Analysis
+//
+// Time Complexity: O(N), where N is the length of nums. left can only be incremented at most N times.
+//
+// Space Complexity: O(1), the space used by prod, left, and ans.
 
 const numSubarrayProductLessThanK = function(nums, k) {
   let product = nums[0];
