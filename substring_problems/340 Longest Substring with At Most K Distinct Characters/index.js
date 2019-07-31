@@ -6,7 +6,12 @@ Given an integer k and a string s, find the length of the longest substring that
 For example, given s = "abcba" and k = 2, the longest substring with k distinct characters is "bcb".
 
  */
+const str = 'abcba';
+const k = 2;
 
+// Two Pointers
+// Time O(N)
+// Space O(N)
 const lengthOfLongestSubstring = (str, k) => {
   let start = 0;
   let end = 0;
@@ -45,5 +50,37 @@ const lengthOfLongestSubstring = (str, k) => {
   return maxLength === Number.MIN_VALUE ? '' : str.substr(maxStartIndex, maxLength);
 };
 
-const res = lengthOfLongestSubstring('abcba', 2);
+const res = lengthOfLongestSubstring(str, k);
 console.log('---', res);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Brute Force
+// Time O(N^2 * k) since we use N^2 to generate each possible substring, and then take k to check each character.
+const lengthOfLongestSubstring2 = (str, k) => {
+  let currentLongestSubstring = '';
+
+  for (let i = 0; i < str.length; i++) {
+    for (let j = i + 1; j < str.length; j++) {
+      let substring = str.substring(i, j);
+      let set = new Set(substring);
+      if (set.size <= k && currentLongestSubstring.length < substring.length) {
+        currentLongestSubstring = substring;
+      }
+    }
+  }
+  return currentLongestSubstring;
+};
+const res2 = lengthOfLongestSubstring2(str, k);
+console.log('---', res2);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const lengthOfLongestSubstring3 = (str, k) => {
+  let currentLongestSubstring = '';
+
+  for (let i = 0; i < str.length; i++) {}
+  return currentLongestSubstring;
+};
+
+const res3 = lengthOfLongestSubstring3(str, k);
+console.log('---', res3);
