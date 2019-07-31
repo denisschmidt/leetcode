@@ -79,8 +79,10 @@ const lengthOfLongestSubstring2 = s => {
       map[s[begin]]--;
       begin++;
     }
+
     maxLength = Math.max(maxLength, end - begin);
   }
+
   return maxLength;
 };
 
