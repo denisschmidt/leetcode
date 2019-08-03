@@ -113,7 +113,9 @@ const splitArraySameAverage3 = function(A) {
   const totalSum = A.reduce((acc, val) => acc + val, 0);
   const n = A.length;
   const m = n / 2;
+
   A.sort((a, b) => a - b);
+
   for (let i = 1; i <= m; ++i) {
     if ((totalSum * i) % n === 0 && combinationSum(A, 0, i, (totalSum * i) / n)) return true;
   }
