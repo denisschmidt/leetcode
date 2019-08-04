@@ -21,7 +21,27 @@ Output:
 
 // Approach to Backtracking !!!!!
 
-const subsets = function(nums) {};
+const subsets = function(nums) {
+  const ans = [];
 
-const res = subsets([1, 2, 3]);
+  nums.sort((a, b) => a - b);
+
+  const backtrack = (comb, start) => {
+    ans.push([...comb]);
+
+    for (let i = start; i < nums.length; i++) {
+      comb.push(nums[i]);
+      backtrack(comb, ++start);
+      comb.pop();
+    }
+  };
+
+  backtrack([], 0);
+
+  return ans;
+};
+
+const res = subsets([1, 2, 3]); // [[],[1],[2],[1,2],[3],[1,3],[2,3],[1,2,3]]
 console.log('---', res);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
