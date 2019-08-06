@@ -100,6 +100,7 @@ const solveNQueens = function(n) {
         if (isValid(comb)) {
           backtracking(ans, comb, row + 1);
         }
+
         comb.pop(); // undo out choice
       }
     }
