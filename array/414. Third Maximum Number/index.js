@@ -28,28 +28,28 @@ const thirdMax = function(nums) {
   if (nums.length === 1) {
     return nums[0];
   }
-  if (nums.length === 3) {
+  if (nums.length === 2) {
     return Math.max(nums[0], nums[1]);
   }
 
-  let first = Number.MIN_VALUE;
+  let first = -Number.MAX_VALUE;
   for (let i = 0; i < nums.length; i++) {
     first = Math.max(first, nums[i]);
   }
 
-  let second = Number.MIN_VALUE;
+  let second = -Number.MAX_VALUE;
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] === first) continue;
     second = Math.max(second, nums[i]);
   }
-  let thirt = Number.MIN_VALUE;
+  let thirt = -Number.MAX_VALUE;
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] === first || nums[i] === second) continue;
     thirt = Math.max(thirt, nums[i]);
   }
 
-  return thirt;
+  return thirt === Number.MIN_VALUE ? first : thirt;
 };
 
-const res = thirdMax([2, 2, 3, 1]);
+const res = thirdMax([1, 2, -2147483648]);
 console.log('---', res);

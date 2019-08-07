@@ -73,7 +73,9 @@ const lengthLongestPath = input => {
   return maxLen;
 };
 
-const res = lengthLongestPath('dir\\n\\tsubdir1\\n\\tsubdir2\\n\\t\\tfile.ext');
+const res = lengthLongestPath(
+  'dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext',
+);
 console.log('---', res);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -88,25 +90,60 @@ const lengthLongestPath2 = input => {
   }, 0);
 };
 
-const res2 = lengthLongestPath2('dir\\n\\tsubdir1\\n\\tsubdir2\\n\\t\\tfile.ext');
+const res2 = lengthLongestPath2(
+  'dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext',
+);
 console.log('---', res2);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-// Time O(N)
-const lengthLongestPath3 = input => {
-  const files = input.split('\\n');
+// This runs in O(n), since we iterate over the input string twice to build the file system,
+// and then in the worst case we go through the string again to compute the longest path.
+
+const buildFs = input => {
+  const files = input.split('\n');
   const fs = {};
-
   let currentPath = [];
-  for (let file of files) {
-    let level = file.lastIndexOf('\\t') + 1;
 
-    console.log('---', file);
+  for (let file of files) {
+    let level = file.lastIndexOf('\t') + 1;
+    let node = fs;
+
+    for (let i = 0; i < level; i++) {
+      let path = currentPath[i];
+      node = node[path] || {};
+    }
+
+    let newFile = file.slice(level);
+
+    if (newFile.indexOf('.') > -1) {
+      node[newFile] = true;
+    } else {
+      node[newFile] = {};
+    }
+
+    currentPath[level] = newFile;
   }
 
   return fs;
 };
 
-const res3 = lengthLongestPath3('dir\\n\\tsubdir1\\n\\tsubdir2\\n\\t\\tfile.ext');
-console.log('---', res2);
+const longestPath = (root, path = '', ans = []) => {
+  for (let [key, node] of Object.entries(root)) {
+    let str = !path.length ? key : path + '/' + key;
+    if (typeof node === 'boolean') {
+      ans.push(str);
+    } else {
+      longestPath(node, str, ans);
+    }
+  }
+  return ans;
+};
+
+const lengthLongestPath3 = input => {
+  const ans = longestPath(buildFs(input)).map(i => i.length);
+  return ans.length ? Math.max(...ans) : '';
+};
+
+const res3 = lengthLongestPath3('a.txt');
+console.log('---', res3);
