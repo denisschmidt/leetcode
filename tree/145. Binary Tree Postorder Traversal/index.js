@@ -43,10 +43,6 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
  */
 
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
 const postorderTraversal = function(root) {
   let nodeQueue = [];
   let arr = [];
@@ -66,6 +62,8 @@ const postorderTraversal = function(root) {
 
 const res = postorderTraversal(makeTreeNodes([1, null, 2, 3]));
 console.log('---', res);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 const postorderTraversal2 = function(root) {
   let nodeQueue = [];

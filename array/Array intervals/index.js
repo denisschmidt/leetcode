@@ -5,6 +5,7 @@
 
 const arrayIntervals = arr => {
   const ans = [];
+
   for (let i = 0; i < arr.length; i++) {
     let start = i;
     let end = i + 1;
@@ -21,6 +22,7 @@ const arrayIntervals = arr => {
     }
     ans.push(...selectedArr);
   }
+
   return ans;
   console.log('---', ans);
 };

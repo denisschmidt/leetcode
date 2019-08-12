@@ -19,6 +19,7 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
  */
 
+// Time O(N)
 const maxProfit = function(prices) {
   let min = Number.MAX_VALUE;
   let ans = 0;
