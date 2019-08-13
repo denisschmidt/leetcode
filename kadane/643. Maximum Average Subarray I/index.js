@@ -53,6 +53,7 @@ const findMaxAverage = function(nums, k) {
   for (let i = 0; i < k; i++) {
     sum += nums[i];
   }
+
   let maxSum = sum;
   for (let i = k; i < nums.length; i++) {
     sum = sum + nums[i] - nums[i - k];
