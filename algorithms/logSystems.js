@@ -25,7 +25,8 @@ class LogSystems {
     } else {
       this.log.push(orderId);
     }
-    this.lastIndex = (this.lastIndex + 1) % 10;
+    // main solution
+    this.lastIndex = (this.lastIndex + 1) % this.size;
   }
 
   getLast(i) {
