@@ -37,10 +37,11 @@ Example 3:
     
  */
 
-let s = 'leetcode',
-  wordDict = ['leet', 'code'];
+let s = 'leetcode';
+let wordDict = ['leet', 'code'];
 
-// Time O(N)
+// DP
+// Time O(N^2)
 const wordBreak = function(s, wordDict) {
   if (s === null || s.length === 0) return false;
 
@@ -64,3 +65,43 @@ const res = wordBreak(s, wordDict);
 console.log('---', res);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// DFS
+
+// We can use a graph to represent the possible solutions.
+// The vertices of the graph are simply the positions of the first characters of the words and each edge actually represents a word.
+//
+// For example, the input string is "nightmare", there are two ways to break it, "night mare" and "nightmare". The graph would be
+
+// 0-->5-->9
+//
+// |__ __ _^
+
+// O(n^2) and space complexity is O(n)
+const wordBreak2 = function(s, wordDict) {
+  let queue = [];
+  let set = new Set(wordDict);
+  let visited = [];
+
+  visited[0] = true;
+  queue.push(0);
+
+  while (queue.length) {
+    let start = queue.shift();
+
+    for (let end = start + 1; end <= s.length; end++) {
+      if (visited[end]) continue;
+      if (set.has(s.substring(start, end))) {
+        if (end === s.length) {
+          return true;
+        }
+        queue.push(end);
+        visited[end] = true;
+      }
+    }
+  }
+  return false;
+};
+
+const res2 = wordBreak2(s, wordDict);
+console.log('---', res2);
