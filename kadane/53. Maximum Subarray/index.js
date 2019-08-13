@@ -1,4 +1,16 @@
 /*
+Given an integer array nums, find the contiguous subarray (containing at least one number) which has the largest sum and return its sum.
+
+Example:
+
+Input: [-2,1,-3,4,-1,2,1,-5,4],
+Output: 6
+Explanation: [4,-1,2,1] has the largest sum = 6.
+Follow up:
+
+If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
+
+
 
 Kadane’s Algo with O(n) linear complexity
 
@@ -12,28 +24,31 @@ Each time we get a positive sum compare it with max_so_far and update max_so_far
  */
 const INPUT = [-2, -1, -3, -4, -1, -2, -1, -5, -4];
 const allPositives = arr => arr.every(n => n > 0);
-let allNegatives = arr => arr.every(n => n < 0);
+const allNegatives = arr => arr.every(n => n < 0);
 const calcSum = arr => arr.reduce((curr_max, max_so_far) => curr_max + max_so_far, 0);
 
+// Time O(n)
 const maxSequence = arr => {
-  if (arr.length === 0) return null;
+  if (nums.length === 0) return null;
 
-  if (allNegatives(arr)) return 0;
-  if (allPositives(arr)) return calcSum(arr);
+  if (allNegatives(nums)) return Math.max(...nums);
+  if (allPositives(nums)) return calcSum(nums);
 
-  let ans = 0;
   let sum = 0;
-  for (let i = 0; i < arr.length; i++) {
-    sum = Math.max(0, sum + arr[i]);
+  let ans = 0;
+  for (let i = 0; i < nums.length; i++) {
+    sum = Math.max(0, sum + nums[i]);
     ans = Math.max(ans, sum);
   }
-
   return ans;
 };
 
 const res = maxSequence(INPUT); // 0
 console.log('---', res);
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Time O(n)
 const maxSequence2 = arr => {
   if (arr.length === 0) return null;
   if (allNegatives(arr)) return 0;
