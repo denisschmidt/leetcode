@@ -22,11 +22,30 @@ And keep track of maximum sum contiguous segment among all positive segments (ma
 Each time we get a positive sum compare it with max_so_far and update max_so_far if it is greater than max_so_far
 
  */
+
+// Example:
+//         index     0  1   2  3   4  5  6   7  8
+//         Input: [ -2, 1, -3, 4, -1, 2, 1, -5, 4 ]
+//                  -2, 1, -2, 4,  3, 5, 6,  1, 5    'maxEndingHere' at each point
+//
+//         The best subarrays we would take if we took them:
+//           ending at index 0: [ -2 ]           (snippet from index 0 to index 0)
+//           ending at index 1: [ 1 ]            (snippet from index 1 to index 1) [we just took the item at index 1]
+//           ending at index 2: [ 1, -3 ]        (snippet from index 1 to index 2)
+//           ending at index 3: [ 4 ]            (snippet from index 3 to index 3) [we just took the item at index 3]
+//           ending at index 4: [ 4, -1 ]        (snippet from index 3 to index 4)
+//           ending at index 5: [ 4, -1, 2 ]     (snippet from index 3 to index 5)
+//           ending at index 6: [ 4, -1, 2, 1 ]  (snippet from index 3 to index 6)
+//           ending at index 7: [ 4, -1, 2, 1, -5 ]    (snippet from index 3 to index 7)
+//           ending at index 8: [ 4, -1, 2, 1, -5, 4 ] (snippet from index 3 to index 8)
+//         Notice how we are changing the end bound by 1 everytime.
+
 const INPUT = [-2, -1, -3, -4, -1, -2, -1, -5, -4];
 const allPositives = arr => arr.every(n => n > 0);
 const allNegatives = arr => arr.every(n => n < 0);
 const calcSum = arr => arr.reduce((curr_max, max_so_far) => curr_max + max_so_far, 0);
 
+// Kadane's algorithm - Dynamic Programming
 // Time O(n)
 const maxSequence = arr => {
   if (nums.length === 0) return null;
