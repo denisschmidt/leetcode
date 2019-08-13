@@ -95,7 +95,9 @@ const wordBreak2 = function(s, wordDict) {
         if (end === s.length) {
           return true;
         }
+        // next node
         queue.push(end);
+        // is visit this node
         visited[end] = true;
       }
     }
