@@ -21,76 +21,17 @@ Example 2:
 
  */
 
-const maxProfit = function(k, prices) {
-  if (prices == null || prices.length <= 1) return 0;
+// The key point is when there are two v/p pairs (v1, p1) and (v2, p2), satisfying
+// v1 <= v2 and p1 <= p2, we can either make one transaction at [v1, p2], or make
+// two at both [v1, p1] and [v2, p2]. The trick is to treat [v1, p2] as the first
+// transaction, and [v2, p1] as the second. Then we can guarantee the right max
+// profits in both situations, p2 - v1 for one transaction and p1 - v1 + p2 - v2
+// for two.
+//
+// Finding all v/p pairs and calculating the profits takes O(n) since there are
+// up to n/2 such pairs. And extracting k maximums from the heap consumes another O(k*log(n)).
 
-  let max = prices[0];
-  let min = prices[0];
-  let maxValue = -Number.MAX_VALUE;
-  let minIndex = 1;
-  let maxIndex = 1;
-  let paths = [];
-
-  for (let i = 1; i < prices.length; i++) {
-    if (prices[i] <= max) {
-      // price down
-      if (minIndex !== maxIndex) {
-        paths.push([min, max]);
-      }
-      max = min = prices[i];
-      minIndex = maxIndex = i;
-    } else if (prices[i] > max) {
-      // price up
-      max = prices[i];
-      minIndex++;
-    }
-  }
-
-  if (min !== max) {
-    paths.push([min, max]);
-  }
-  let fullDiffs = [];
-  let fullDiffsSum = 0;
-  for (let i = 0; i < paths.length; i++) {
-    let [startLeft, endLeft] = paths[i];
-
-    for (let j = i + 1; j < paths.length; j++) {
-      let ans = 0;
-      let count = k;
-      let [_, endRight] = paths[j];
-      ans = endRight - startLeft;
-      count--;
-
-      for (let l = j + 1; l < paths.length && count > 0; l++) {
-        let [s, e] = paths[l];
-        ans += e - s;
-        count--;
-      }
-      maxValue = Math.max(maxValue, ans);
-    }
-
-    let diff = endLeft - startLeft;
-    if (fullDiffs[fullDiffs.length - 1] > diff) {
-      fullDiffs.push(diff);
-    } else {
-      fullDiffs.unshift(diff);
-    }
-  }
-
-  for (let i = 0; i < k; i++) {
-    if (fullDiffs[i]) fullDiffsSum += fullDiffs[i];
-  }
-
-  maxValue = Math.max(maxValue, fullDiffsSum);
-
-  return maxValue;
-};
-
-const res = maxProfit(2, [6, 5, 4, 8, 6, 8, 7, 8, 9, 4, 5]);
-console.log('---', res);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+// Time O(n + k*log(n))
 const maxProfit2 = function(k, prices) {
   if (prices == null || prices.length <= 1) return 0;
 
