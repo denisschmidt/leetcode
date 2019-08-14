@@ -51,6 +51,7 @@ const oneEditAway = (first, second) => {
   } else if (first.length - 1 === second.length) {
     return oneEditInsert(second, first);
   }
+  return false;
 };
 
 const res = oneEditAway('pale', 'bake');

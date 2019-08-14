@@ -57,11 +57,9 @@ Complexity Analysis
   Space complexity : O(mn) since at each step we keep the results of all previous computations.
 
  */
-/**
- * @param {string} word1
- * @param {string} word2
- * @return {number}
- */
+
+// Time O(s1*s2)
+// Space O(s1*s2)
 const minDistance = function(word1, word2) {
   const matrix = [[]];
   const s1 = word1.length;
@@ -89,3 +87,35 @@ const minDistance = function(word1, word2) {
 
 const res = minDistance('dinitrophenylhydrazine', 'dimethylhydrazine');
 console.log('---', res);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// O(n) space
+const minDistance2 = function(word1, word2) {
+  const s1 = word1.length;
+  const s2 = word2.length;
+
+  let cur = [];
+  let pre = '';
+  cur[s2 + 1] = 0;
+
+  for (let i = 0; i <= s2; i++) {
+    cur[i] = i;
+  }
+
+  for (let i = 1; i <= s1; i++) {
+    pre = cur[0];
+    cur[0] = i;
+    for (let j = 1; j <= s2; j++) {
+      let temp = cur[j];
+      if (word1[i - 1] === word2[j - 1]) {
+        cur[j] = pre;
+      } else {
+        cur[j] = Math.min(pre, Math.min(cur[j - 1], cur[j])) + 1;
+      }
+      pre = temp;
+    }
+  }
+
+  return cur[s2];
+};
