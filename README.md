@@ -1,6 +1,13 @@
-## Leetcode Problems(JS, C/C++)
+## Leetcode Problems(JS)
 
-### Repeat
+## Repeat
+
+#### First time after memorization
+#### After the first hour
+#### After the day
+#### After the week
+
+## Tasks
 
 - [ ] [856. Score of Parentheses](./string/856.%20Score%20of%20Parentheses%20!!!!!!!!)
 - [ ] [647. Palindromic Substrings](dp/647. Palindromic Substrings)
