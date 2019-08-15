@@ -22,6 +22,7 @@ const maxProduct = function(nums) {
   let max = nums[0];
   let iMin = max;
   let iMax = max;
+
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] < 0) {
       let tmp = iMax;
