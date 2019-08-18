@@ -17,4 +17,25 @@ Example 3:
 
  */
 
-var containsNearbyDuplicate = function(nums, k) {};
+// Time O(N)
+// Space O(N)
+const containsNearbyDuplicate = function(nums, k) {
+  let map = new Map();
+
+  for (let i = 0; i < nums.length; i++) {
+    if (!map.has(nums[i])) {
+      map.set(nums[i], i);
+    } else {
+      let val = map.get(nums[i]);
+      let diff = i - val - 1;
+      if (diff < k) {
+        return true;
+      }
+      map.set(nums[i], i);
+    }
+  }
+  return false;
+};
+
+const res = containsNearbyDuplicate([1, 2, 3, 1, 2, 3], 2);
+console.log('---', res);
