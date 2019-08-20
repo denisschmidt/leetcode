@@ -22,19 +22,7 @@ Example 2:
 Example 3:
   Input: s = "catsandog", wordDict = ["cats", "dog", "sand", "and", "cat"]
   Output: false
-  
-     0   1   2   3
-  -----------------
- 0 |   |   |   |   |
-   |---|---|---|---|
- 1 |   |   |   |   |
-   |---|---|---|---|
- 2 |   |   |   |   |
-   |---|---|---|---|
- 3 |   |   |   |   |
-  ------------------
-  
-    
+
  */
 
 let s = 'leetcode';

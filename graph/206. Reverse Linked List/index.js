@@ -45,9 +45,8 @@ const reverseListReq = function(root) {
   }
 
   let cur = reverseListReq(root.next);
-  let next = root.next;
 
-  next.next = root;
+  root.next.next = root;
   root.next = null;
 
   return cur;
