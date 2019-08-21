@@ -26,6 +26,8 @@ const { makeLinkNodes } = require('../../algorithms/linkNode');
 const l1 = makeLinkNodes([9]);
 const l2 = makeLinkNodes([9]);
 
+// Time O(N)
+// Space O(N)
 var addTwoNumbers = function(l1, l2) {
   let c1 = l1;
   let c2 = l2;
@@ -51,7 +53,7 @@ var addTwoNumbers = function(l1, l2) {
   }
 
   if (Math.floor(sum / 10) === 1) {
-    d.next = new ListNode(1);
+    d.next = new ListNode(Math.floor(1));
   }
 
   return sentinel.next;
