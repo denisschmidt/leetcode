@@ -46,55 +46,6 @@ const { makeLinkNodes } = require('../../algorithms/linkNode');
 const l1 = makeLinkNodes([4, 1, 8, 4, 5]);
 const l2 = makeLinkNodes([5, 0, 1, 8, 4, 5]);
 
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-// Time O(N) Space O(1)
-const getIntersectionNode = (headA, headB) => {
-  if (headA === null || headB === null) return null;
-
-  let a = headA;
-  let b = headB;
-
-  while (a !== b) {
-    a = a === null ? headB : a.next;
-    b = b === null ? headA : b.next;
-  }
-
-  return a;
-};
-
-getIntersectionNode(l1, l2);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Time O(N) Space O(1)
-const getIntersectionNode2 = (headA, headB) => {
-  if (headA === null || headB === null) return null;
-
-  let a = headA;
-  let b = headB;
-
-  while (a !== null && b !== null && a !== b) {
-    a = a.next;
-    b = b.next;
-
-    if (a === b) return a;
-
-    if (a === null) a = headB;
-    if (b === null) b = headA;
-  }
-
-  return a;
-};
-
-getIntersectionNode2(l1, l2);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time O(N + M ) - length of links
 // Space O(1)
 const getLen = head => {
@@ -130,3 +81,46 @@ const getIntersectionNode3 = (headA, headB) => {
 
   return a;
 };
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Time O(N) Space O(1)
+const getIntersectionNode2 = (headA, headB) => {
+  if (headA === null || headB === null) return null;
+
+  let a = headA;
+  let b = headB;
+
+  while (a !== null && b !== null && a !== b) {
+    a = a.next;
+    b = b.next;
+
+    if (a === b) return a;
+
+    if (a === null) a = headB;
+    if (b === null) b = headA;
+  }
+
+  return a;
+};
+
+getIntersectionNode2(l1, l2);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Time O(N) Space O(1)
+const getIntersectionNode = (headA, headB) => {
+  if (headA === null || headB === null) return null;
+
+  let a = headA;
+  let b = headB;
+
+  while (a !== b) {
+    a = a === null ? headB : a.next;
+    b = b === null ? headA : b.next;
+  }
+
+  return a;
+};
+
+getIntersectionNode(l1, l2);
