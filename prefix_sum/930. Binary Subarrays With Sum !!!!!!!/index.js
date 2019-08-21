@@ -86,6 +86,7 @@ const numSubarraysWithSum3 = function(nums, target) {
   const map = new Map();
   for (let i = 0; i < size; i++) {
     sum += nums[i];
+
     if (map.has(sum - target)) {
       ans += map.get(sum - target);
     }

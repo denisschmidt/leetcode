@@ -23,6 +23,9 @@ Note:
 //
 // Space Complexity: O(1), the space used by prod, left, and ans.
 
+// Two pointers
+// Prefix sum
+
 const numSubarrayProductLessThanK = function(nums, k) {
   let product = nums[0];
   let end = 1;
