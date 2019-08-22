@@ -60,7 +60,8 @@ const makeLinkNodes2 = (count, root) => {
 
   return res;
 };
-
+// Time O(N)
+// Space O(N)
 var addTwoNumbers = function(l1, l2) {
   let m = getLen(l1);
   let n = getLen(l2);
@@ -91,8 +92,8 @@ var addTwoNumbers = function(l1, l2) {
     let val = isBig ? node.val % 10 : node.val;
     let prefix = isBig ? Math.floor(node.val / 10) : 0;
     node.val = val;
-    let newNode = new ListNode(l1.val + l2.val + prefix);
 
+    let newNode = new ListNode(l1.val + l2.val + prefix);
     newNode.next = node;
 
     return newNode;
@@ -115,3 +116,40 @@ var addTwoNumbers = function(l1, l2) {
 
 const res = addTwoNumbers(l1, l2);
 console.log('---', res);
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+const addTwoNumbers2 = (l1, l2) => {
+  let s1 = [];
+  let s2 = [];
+  let headA = l1;
+  let headB = l2;
+
+  while (headA !== null) {
+    s1.push(headA.val);
+    headA = headA.next;
+  }
+
+  while (headB !== null) {
+    s2.push(headB.val);
+    headB = headB.next;
+  }
+
+  let sum = 0;
+  let list = new ListNode(0);
+
+  while (s1.length || s2.length) {
+    if (s1.length) sum += s1.pop();
+
+    if (s2.length) sum += s2.pop();
+
+    list.val = sum % 10;
+    let head = new ListNode(sum / 10);
+
+    head.next = list;
+    list = head;
+
+    sum /= 10;
+  }
+
+  return list.val === 0 ? list.next : list;
+};
