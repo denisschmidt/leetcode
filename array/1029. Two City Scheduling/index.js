@@ -28,10 +28,8 @@ It is guaranteed that costs.length is even.
 
  */
 
-/**
- * @param {number[][]} costs
- * @return {number}
- */
+// Time O(NlogN)
+// Space O(N)
 var twoCitySchedCost = function(costs) {
   let ans = 0;
   let maxCount = Math.floor(costs.length / 2);
