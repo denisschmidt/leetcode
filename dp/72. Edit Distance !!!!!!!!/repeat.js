@@ -31,4 +31,39 @@ Example 2:
     
  */
 
-const minDistance = function(word1, word2) {};
+const minDistance = function(word1, word2) {
+  const s1 = word1.length;
+  const s2 = word2.length;
+
+  if (s1 === 0) {
+    return s2;
+  }
+
+  if (s2 === 0) {
+    return s1;
+  }
+
+  const dp = [[]];
+
+  for (let i = 0; i <= s1; i++) {
+    if (!dp[i]) {
+      dp[i] = [];
+    }
+    for (let j = 0; j <= s2; j++) {
+      if (i === 0 || j === 0) {
+        dp[i][j] = i || j;
+      } else if (word1[i - 1] === word2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        dp[i][j] = Math.min(dp[i - 1][j - 1], dp[i - 1][j], dp[i][j - 1]) + 1;
+      }
+    }
+  }
+
+  console.log('---', dp);
+
+  return dp[s1][s2];
+};
+
+const res = minDistance('a', 'b');
+console.log('---', res);
