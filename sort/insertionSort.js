@@ -1,5 +1,21 @@
-const insertionSort = nums => {};
+const swap = (nums, i, j) => ([nums[i], nums[j]] = [nums[j], nums[i]]);
 
-const sortedArr = insertionSort([5, 2, 4, 6, 1, 3]);
+// Time O(N^2)
+// Space O(1)
+const insertionSort = nums => {
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = i; j > 0; j--) {
+      if (nums[j - 1] > nums[j]) {
+        swap(nums, j - 1, j);
+      } else {
+        break;
+      }
+    }
+  }
+
+  return nums;
+};
+
+const sortedArr = insertionSort([100, 5, 12, 21, 312, 0, 123, 2, 1, 2, 4, 6, 1, 3, 12]);
 
 console.log('---', sortedArr);
