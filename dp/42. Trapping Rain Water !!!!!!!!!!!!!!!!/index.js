@@ -30,12 +30,11 @@ var trap = function(nums) {
   let right = [];
   let left = [];
   left.push(nums[0]);
+  right[size - 1] = nums[size - 1];
 
   for (let i = 1; i < size; i++) {
     left[i] = Math.max(nums[i], left[i - 1]);
   }
-
-  right[size - 1] = left[size - 1];
 
   for (let i = size - 2; i >= 0; i--) {
     right[i] = Math.max(nums[i], right[i + 1]);

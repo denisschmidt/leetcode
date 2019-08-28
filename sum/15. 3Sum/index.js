@@ -17,46 +17,43 @@ A solution set is:
 ]
 */
 
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
+// Time O(N^2)
+
 var threeSum = function(nums) {
-  const len = nums.length;
-  let result = [];
-
-  if (len < 4) {
-    return result;
-  }
-
+  const size = nums.length;
+  let ans = [];
   nums.sort((a, b) => a - b);
 
-  for (let i = 0; i < len - 2; i++) {
+  for (let i = 0; i < size - 2; i++) {
     if (nums[i] + nums[i + 1] + nums[i + 2] > 0) break;
-    if (nums[i] + nums[len - 1] + nums[len - 2] < 0) continue;
-    if (i > 0 && nums[i] === nums[i - 1]) continue; //убираем дубли
+    if (nums[i] + nums[size - 1] + nums[size - 2] < 0) continue;
+    if (i > 0 && nums[i] === nums[i - 1]) continue;
 
     let low = i + 1;
-    let high = len - 1;
+    let high = size - 1;
 
     while (low < high) {
       let sum = nums[i] + nums[low] + nums[high];
+
       if (sum < 0) {
         low++;
       } else if (sum > 0) {
         high--;
       } else {
-        result.push([nums[i], nums[low], nums[high]]);
+        ans.push([nums[i], nums[low], nums[high]]);
+
         do {
           low++;
-        } while (nums[low] == nums[low - 1] && low < high); //скипаем low дубли
+        } while (nums[low] === nums[low - 1] && low < high);
+
         do {
           high--;
-        } while (nums[high] == nums[high + 1] && low < high); //скипаем high дубли
+        } while (nums[high] === nums[high + 1] && low < high);
       }
     }
   }
-  return result;
+
+  return ans;
 };
 
 const res = threeSum([-1, 0, 1, 2, -1, -4]);

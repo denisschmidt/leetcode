@@ -1,10 +1,8 @@
-/**
-  O(logN)
-  делим  N / 2 N = 2^f(N) 
- */
+// Time O(logN) делим  N / 2 N = 2^f(N)
+// Space O(1)
 function binarySearch(arr, search) {
-  let left = 0,
-    right = arr.length - 1;
+  let left = 0;
+  let right = arr.length - 1;
 
   while (left < right) {
     const mid = Math.floor((left + right) / 2);

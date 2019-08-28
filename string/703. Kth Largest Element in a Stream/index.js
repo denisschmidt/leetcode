@@ -45,14 +45,12 @@ class KthLargest {
    * @return {number}
    */
   add(val) {
-    console.log('---', this.pq.list);
     if (this.pq.size() < this.k) {
       this.pq.insert(val);
     } else if (val > this.pq.peek()) {
       this.pq.poll();
       this.pq.insert(val);
     }
-    console.log('---', this.pq.list);
     return this.pq.peek();
   }
 }

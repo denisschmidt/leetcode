@@ -37,8 +37,10 @@ function getSum(nums, target) {
   for (let i = 0; i < len - 3; i++) {
     // первый список самый большой поиск закончен
     if (nums[i] + nums[i + 1] + nums[i + 2] + nums[i + 3] > target) break;
+
     // первое число маленькое
     if (nums[i] + nums[len - 1] + nums[len - 2] + nums[len - 3] < target) continue;
+
     if (i > 0 && nums[i] === nums[i - 1]) continue; //убираем дубли
 
     for (let j = i + 1; j < len - 2; j++) {
