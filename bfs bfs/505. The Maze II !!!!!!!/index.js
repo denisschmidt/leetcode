@@ -36,6 +36,52 @@ Explanation: One shortest way is : left -> down -> left -> down -> right -> down
 
  */
 
+// Time complexity : O(m*n*max(m,n))
+// Space complexity : O(mn)
+
+var shortestDistance = function(maze, start, end) {
+  const distance = Array(maze.length)
+    .fill(null)
+    .map(() => Array(maze[0].length).fill(Number.MAX_VALUE));
+
+  distance[start[0]][start[1]] = 0;
+
+  let queue = [];
+  let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+
+  queue.push(start);
+
+  while (queue.length) {
+    const coord = queue.shift();
+
+    for (let [from, to] of dirs) {
+      let x = coord[0] + from;
+      let y = coord[1] + to;
+      let count = 0;
+
+      while (x >= 0 && y >= 0 && x < maze.length && y < maze[0].length && maze[x][y] === 0) {
+        x += from;
+        y += to;
+
+        count++;
+      }
+
+      if (distance[coord[0]][coord[1]] + count < distance[x - from][y - to]) {
+        distance[x - from][y - to] = distance[coord[0]][coord[1]] + count;
+        queue.push([x - from, y - to]);
+      }
+    }
+  }
+
+  return distance[end[0]][end[1]] === Number.MAX_VALUE ? -1 : distance[end[0]][end[1]];
+};
+const maze = [[0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 0], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0]];
+
+const res = shortestDistance(maze, [0, 4], [4, 4]);
+console.log('---', res);
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Time O(m * n * max(m,n))
 // Further, for every current node chosen, we can travel upto a maximum depth of max(m,n) in any direction.
 
