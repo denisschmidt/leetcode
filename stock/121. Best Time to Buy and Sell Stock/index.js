@@ -19,6 +19,9 @@ Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
  */
 
+// Если у нас возрастающая последовательность то мы идет от самого мин значения до максимума и считаем самую большую разницу
+// Если есть минимум еще меньше то берем его и повторяет условие 1
+
 // Time O(N)
 const maxProfit = function(prices) {
   let min = Number.MAX_VALUE;
