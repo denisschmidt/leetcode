@@ -23,7 +23,6 @@ Explanation:
  *     this.left = this.right = null;
  * }
  */
-const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 
 /**
  * Approach #1 Depth-First Search
@@ -32,8 +31,6 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
  * @param {TreeNode} root
  * @return {number[]}
  */
-
-let tree = new TreeNode();
 
 const rightSideView = function(root) {
   let nodeStack = [],
@@ -64,8 +61,8 @@ const rightSideView = function(root) {
   }
   return arr;
 };
-// const res = rightSideView(makeTreeNodes([1, 2, 3, null, 5, null, 4]))
-// console.log('====', res)
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
  * Approach #2 Breadth-First Search
@@ -96,10 +93,10 @@ const rightSideView2 = function(root) {
       depthQueue.push(depth + 1);
     }
   }
+
   const res = [];
   for (let i = 0; i <= maxDepth; i++) {
     res.push(rightmostValueAtDepth.get(i));
   }
   return res;
 };
-const res = rightSideView2(makeTreeNodes([1, 2, 3, null, 5, null, 4]));
