@@ -29,44 +29,39 @@ return its level order traversal as:
  * @return {number[][]}
  */
 
-// BFS
+// DFS
 // Time O(N)
 // Space O(N)
 const levelOrder = root => {
   if (root === null) return [];
-
-  let map = new Map();
-  let maxDepth = -Number.MAX_VALUE;
-
-  const queueNode = [];
-  const queueDepth = [];
   const ans = [];
+  const map = new Map();
+  map.set(0, [root.val]);
 
-  queueNode.push(root);
-  queueDepth.push(0);
+  const dfs = (node, depth) => {
+    if (!node || !node.children) return;
 
-  while (queueNode.length) {
-    let node = queueNode.shift();
-    let depth = queueDepth.shift();
+    let n = node.children.length;
 
-    if (node !== null) {
-      maxDepth = Math.max(depth, maxDepth);
+    for (let i = 0; i < n; i++) {
+      let item = node.children[i];
 
-      if (!map.has(depth)) {
-        map.set(depth, [node.val]);
+      if (map.has(depth)) {
+        map.set(depth, [...map.get(depth), item.val]);
       } else {
-        map.set(depth, [...map.get(depth), node.val]);
+        map.set(depth, [item.val]);
       }
 
-      queueNode.push(node.left);
-      queueNode.push(node.right);
-      queueDepth.push(depth + 1);
-      queueDepth.push(depth + 1);
+      if (item.children.length > 0) {
+        dfs(item, depth + 1);
+      }
     }
-  }
+  };
 
-  for (let i = 0; i <= maxDepth; i++) {
-    ans.push(map.get(i));
+  dfs(root, 1);
+
+  for (let [, val] of map) {
+    ans.push(val);
   }
 
   return ans;
