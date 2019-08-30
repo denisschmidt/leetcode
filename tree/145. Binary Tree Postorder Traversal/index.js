@@ -43,46 +43,46 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
  */
 
+// Solution using DFS
+// Time O(N)
+// Space O(N)
 const postorderTraversal = function(root) {
-  let nodeQueue = [];
+  let stack = [];
   let arr = [];
-  nodeQueue.push(root);
+  stack.push(root);
 
-  while (nodeQueue.length) {
-    let node = nodeQueue.pop();
+  while (stack.length) {
+    let node = stack.pop();
+
     if (node !== null) {
       arr.push(node.val);
-      nodeQueue.push(node.left);
-      nodeQueue.push(node.right);
+      stack.push(node.left);
+      stack.push(node.right);
     }
   }
 
   return arr.reverse();
 };
 
-const res = postorderTraversal(makeTreeNodes([1, null, 2, 3]));
-console.log('---', res);
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+// Time O(N)
+// Space O(N)
 const postorderTraversal2 = function(root) {
-  let nodeQueue = [];
-  let arr = [];
-  nodeQueue.push(root);
+  if (root === null) return [];
 
-  while (nodeQueue.length) {
-    let node = nodeQueue.pop();
-    arr.unshift(node.val);
-    if (node.left !== null) {
-      nodeQueue.push(node.left);
-    }
-    if (node.right !== null) {
-      nodeQueue.push(node.right);
-    }
+  const stack = [];
+  const ans = [];
+  stack.push(root);
+
+  while (stack.length) {
+    let node = stack.pop();
+
+    ans.unshift(node.val);
+
+    if (node.left !== null) stack.push(node.left);
+    if (node.right !== null) stack.push(node.right);
   }
 
-  return arr;
+  return ans;
 };
-
-const res2 = postorderTraversal2(makeTreeNodes([1, null, 2, 3]));
-console.log('---', res2);

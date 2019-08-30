@@ -1,6 +1,7 @@
 /*
 Given a binary tree, return the inorder traversal of its nodes' values.
 
+
 Example:
 
 Input: [1,null,2,3]
@@ -39,6 +40,8 @@ Space complexity : O(n)O(n).
 
 const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 
+// Time O(N)
+// Space O(N)
 const inorderTraversal = function(root) {
   let nodeStack = [];
   let node = root;

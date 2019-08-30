@@ -23,10 +23,8 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
  */
 const { makeTreeNodes } = require('../../algorithms/treeNode');
 
-/**
- * @param {TreeNode} root
- * @return {number[]}
- */
+// Time O(N)
+// Space O(N)
 const preorderTraversal = function(root) {
   let nodeStack = [];
   let arr = [];
@@ -44,15 +42,10 @@ const preorderTraversal = function(root) {
   return arr;
 };
 
-const res = preorderTraversal(makeTreeNodes([1, null, 2, 3]));
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-console.log('--1--', res);
-
-/*
- Solution only right children are stored to stack.
-
- */
-
+// Time O(N)
+// Space O(N)
 function preorderTraversal2(node) {
   let rights = [];
   let arr = [];
@@ -69,7 +62,3 @@ function preorderTraversal2(node) {
   }
   return arr;
 }
-
-const res2 = preorderTraversal(makeTreeNodes([1, null, 2, 3]));
-
-console.log('--2--', res2);
