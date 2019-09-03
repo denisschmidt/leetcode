@@ -96,6 +96,7 @@ const end = [3, 2];
 const hasPath2 = (maze, start, end) => {
   let queue = [];
   let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+
   const visited = Array(maze.length)
     .fill(null)
     .map(() => Array(maze[0].length).fill(false));

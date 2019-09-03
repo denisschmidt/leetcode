@@ -32,13 +32,11 @@ Output: 12
 
 Explanation: One shortest way is : left -> down -> left -> down -> right -> down -> right.
              The total distance is 1 + 1 + 3 + 1 + 2 + 2 + 2 = 12.
-
-
  */
 
+// BFS
 // Time complexity : O(m*n*max(m,n))
 // Space complexity : O(mn)
-
 var shortestDistance = function(maze, start, end) {
   const distance = Array(maze.length)
     .fill(null)
@@ -75,10 +73,6 @@ var shortestDistance = function(maze, start, end) {
 
   return distance[end[0]][end[1]] === Number.MAX_VALUE ? -1 : distance[end[0]][end[1]];
 };
-const maze = [[0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 0], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0]];
-
-const res = shortestDistance(maze, [0, 4], [4, 4]);
-console.log('---', res);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -121,8 +115,3 @@ const shortestDistance = (maze, start, end) => {
   dfs(maze, start, distance);
   return distance[end[0]][end[1]] === Number.MAX_VALUE ? -1 : distance[end[0]][end[1]];
 };
-
-const maze = [[0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 0], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0]];
-
-const res = shortestDistance(maze, [0, 4], [4, 4]);
-console.log('---', res);

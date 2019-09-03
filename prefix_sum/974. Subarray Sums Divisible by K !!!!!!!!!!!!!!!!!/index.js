@@ -31,22 +31,16 @@ const subarraysDivByK = function(nums, target) {
 
   for (let i = 0; i < nums.length; i++) {
     sum += nums[i];
-    let key = sum % target;
+    let diff = sum % target;
 
-    if (!map.has(key)) {
+    if (!map.has(diff)) {
       // don't increment counter
-      map.set(key, 1);
+      map.set(diff, 1);
     } else {
-      ans += map.get(key);
-      map.set(key, map.get(key) + 1);
+      ans += map.get(diff);
+      map.set(diff, map.get(diff) + 1);
     }
   }
 
   return ans;
 };
-
-let nums = [4, 5, 0, -2, -3, 1];
-let target = 5;
-
-const res = subarraysDivByK(nums, target);
-console.log('===', res);
