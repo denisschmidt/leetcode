@@ -103,7 +103,7 @@ const dfs = (maze, start, distance) => {
   }
 };
 
-const shortestDistance = (maze, start, end) => {
+const shortestDistance2 = (maze, start, end) => {
   const distance = Array(maze.length)
     .fill(null)
     .map(() => {

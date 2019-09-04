@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 class TreeNode {
   constructor(val) {
     this.val = val;
@@ -7,20 +5,20 @@ class TreeNode {
   }
 }
 
-function makeTestTreeNodes(tests, name = 'root') {
+const makeTestTreeNodes = (tests, name = 'root') => {
   makeTestNodes(makeTreeNodes, tests, name);
-}
+};
 
-function makeTestNodes(iterator, tests, name = 'root') {
-  _.forEach(tests, test => {
+const makeTestNodes = (iterator, tests, name = 'root') => {
+  tests.forEach(test => {
     const array = test[name];
     const root = iterator(array);
     test[name] = root;
     test[`_${name}`] = array;
   });
-}
+};
 
-function makeTreeNodes(array) {
+const makeTreeNodes = array => {
   const l = array.length;
   if (!l) {
     return null;
@@ -28,13 +26,16 @@ function makeTreeNodes(array) {
   let i = 0;
   const root = new TreeNode(array[i++]);
   makeTree([root]);
+
   return root;
 
   function makeTree(parents) {
     if (i >= l) {
       return;
     }
+
     const children = [];
+
     parents.forEach(parent => {
       const left = array[i++];
       const right = array[i++];
@@ -49,9 +50,10 @@ function makeTreeNodes(array) {
         children.push(node);
       }
     });
+
     makeTree(children);
   }
-}
+};
 
 module.exports = {
   TreeNode,

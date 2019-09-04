@@ -1,4 +1,6 @@
 /*
+236. Lowest Common Ancestor of a Binary Tree !!!!!!!!!!!!
+
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
 
 According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes p and q as the lowest node in T that has both p and q as descendants (where we allow a node to be a descendant of itself).”
@@ -24,6 +26,7 @@ Note:
 
  */
 
+// https://www.youtube.com/watch?v=13m9ZCB8gjw
 // Time O(N)
 // Space O(N)
 // Дошел до дна и потом поднимаешься наверх по стеку
@@ -34,12 +37,13 @@ const lowestCommonAncestor3 = (root, p, q) => {
   let left = lowestCommonAncestor3(root.left, p, q);
   let right = lowestCommonAncestor3(root.right, p, q);
 
-  if (left === null) return left;
-
-  if (right === null) return right;
-
   // если у нас есть левая и правая половина вернем root ноду
-  return root;
+  if (left && right) return root;
+
+  if (left === null && right === null) return null;
+
+  // возвращаем ноду которая не null
+  return left === null ? right : left;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

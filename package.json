@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "prettier": "prettier --write \"**/*.js\"",
-    "lint": "./node_modules/.bin/eslint ./src",
+    "lint": "./node_modules/.bin/eslint \"**/*.js\"",
     "release": "release-it",
     "precommit": "lint-staged"
   },
@@ -28,7 +28,6 @@
     "prettier": "^1.15.3"
   },
   "dependencies": {
-    "eslint": "^5.12.0",
-    "lodash": "^4.17.15"
+    "eslint": "^5.12.0"
   }
 }

@@ -48,7 +48,7 @@ const findMaxAverage = function(nums, k) {
 // Time complexity : O(n). We iterate over the given nums array of length n once only.
 //
 // Space complexity : O(1). Constant extra space is used.
-const findMaxAverage = function(nums, k) {
+const findMaxAverage2 = function(nums, k) {
   let sum = 0;
   for (let i = 0; i < k; i++) {
     sum += nums[i];

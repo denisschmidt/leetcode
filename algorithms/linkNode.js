@@ -1,5 +1,3 @@
-const _ = require('lodash');
-
 class LinkNode {
   constructor(val, priority) {
     this.val = val;
@@ -13,17 +11,18 @@ function makeTestLinkNodes(tests, name = 'root') {
 }
 
 function makeLinkNodes(array) {
-  return _.chain(array)
-    .map(n => new LinkNode(n))
-    .reduce((result, node) => {
-      let target = result;
+  return array
+    .map(n => new ListNode(n))
+    .reduce((acc, node) => {
+      let target = acc;
+
       while (target.next) {
         target = target.next;
       }
+
       target.next = node;
-      return result;
-    })
-    .value();
+      return acc;
+    }, new LinkNode());
 }
 
 module.exports = {
