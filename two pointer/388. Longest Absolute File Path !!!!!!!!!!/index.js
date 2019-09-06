@@ -38,47 +38,6 @@ Note:
 Notice that a/aa/aaa/file1.txt is not the longest file path, if there is another path aaaaaaaaaaaaaaaaaaaaa/sth.png.
 
  */
-// Time O(N)
-const lengthLongestPath = input => {
-  let stack = [];
-  const symbol = '\\';
-  let maxLen = 0;
-  let count = 0;
-  for (let i = 3; i < input.length; i++) {
-    let char = input[i];
-    if (char === symbol) {
-      let char = input.slice(i, i + 4);
-      if (char === '\\n\\t') {
-        if (input[i + 4] === symbol) {
-          i = i + 5;
-          count++;
-        } else {
-          i = i + 3;
-          if (stack.length > maxLen && stack.indexOf('.')) {
-            maxLen = stack.length + 3 + count;
-          }
-          count = 1;
-          stack = [];
-        }
-      }
-    } else {
-      stack.push(char);
-    }
-  }
-
-  if (stack.length > maxLen) {
-    maxLen = stack.length + 3 + count;
-  }
-
-  return maxLen;
-};
-
-const res = lengthLongestPath(
-  'dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext',
-);
-console.log('---', res);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Time O(N)
 const lengthLongestPath2 = input => {
@@ -89,11 +48,6 @@ const lengthLongestPath2 = input => {
     return p.indexOf('.') === -1 ? max : Math.max(max, stack[level] + level);
   }, 0);
 };
-
-const res2 = lengthLongestPath2(
-  'dir\n\tsubdir1\n\t\tfile1.ext\n\t\tsubsubdir1\n\tsubdir2\n\t\tsubsubdir2\n\t\t\tfile2.ext',
-);
-console.log('---', res2);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -131,6 +85,7 @@ const buildFs = input => {
 const longestPath = (root, path = '', ans = []) => {
   for (let [key, node] of Object.entries(root)) {
     let str = !path.length ? key : path + '/' + key;
+
     if (typeof node === 'boolean') {
       ans.push(str);
     } else {
@@ -144,6 +99,3 @@ const lengthLongestPath3 = input => {
   const ans = longestPath(buildFs(input)).map(i => i.length);
   return ans.length ? Math.max(...ans) : '';
 };
-
-const res3 = lengthLongestPath3('a.txt');
-console.log('---', res3);

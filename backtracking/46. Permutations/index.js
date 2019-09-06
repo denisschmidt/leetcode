@@ -14,30 +14,24 @@ Example:
   ]
  */
 
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
+// Time O(N!) N факториал
+// Space O(N!)
 const permute = function(nums) {
-  let ans = [];
+  const ans = [];
 
-  const combination = (ans, comb) => {
+  backtrack([]);
+  return ans;
+
+  function backtrack(comb) {
     if (comb.length === nums.length) {
       ans.push([...comb]);
-      return;
     } else {
       for (let i = 0; i < nums.length; i++) {
         if (comb.includes(nums[i])) continue;
         comb.push(nums[i]);
-        combination(ans, comb);
+        backtrack(comb);
         comb.pop();
       }
     }
-  };
-
-  combination(ans, []);
-  return ans;
+  }
 };
-
-const res = permute([1, 2, 3]);
-console.log('---', res);
