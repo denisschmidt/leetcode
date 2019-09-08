@@ -26,32 +26,6 @@ Please optimize your algorithm to use less time and space. The input size may be
 // (помните, что пространственная сложность обхода дерева зависит в основном от глубины дерева;
 // также помните, это пространство стека «возвращается» в систему при возврате рекурсивного метода).
 
-const lexicalOrder = n => {
-  const ans = [];
-
-  for (let i = 1; i <= 9; ++i) {
-    backtrack(i);
-  }
-
-  return ans;
-
-  function backtrack(root) {
-    if (root > n) return;
-
-    ans.push(root);
-    if (root > Number.MAX_VALUE / 10) return;
-
-    let nextVal = root * 10;
-
-    for (let i = 0; i <= 9; i++) {
-      if (nextVal > Number.MAX_VALUE - i) break;
-      backtrack(nextVal + i);
-    }
-  }
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // Time O(N)
 // Space O(N)
 const lexicalOrde2 = n => {
@@ -76,4 +50,31 @@ const lexicalOrde2 = n => {
   }
 
   return ans;
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const lexicalOrder = n => {
+  const ans = [];
+
+  for (let i = 1; i <= 9; ++i) {
+    backtrack(i);
+  }
+
+  return ans;
+
+  function backtrack(root) {
+    if (root > n) return;
+
+    ans.push(root);
+
+    if (root > Number.MAX_VALUE / 10) return;
+
+    let nextVal = root * 10;
+
+    for (let i = 0; i <= 9; i++) {
+      if (nextVal > Number.MAX_VALUE - i) break;
+      backtrack(nextVal + i);
+    }
+  }
 };

@@ -26,7 +26,7 @@ How does it change the problem?
 What limitation we need to add to the question to allow negative numbers?
 
 Credits:
-Special thanks to @pbrother for adding this problem and creating all test cases.
+  Special thanks to @pbrother for adding this problem and creating all test cases.
  */
 
 /*

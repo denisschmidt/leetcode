@@ -19,10 +19,6 @@ Output:
 
 // Approach to Backtracking !!!!!
 
-/**
- * @param {number[]} nums
- * @return {number[][]}
- */
 const subsetsWithDup = function(nums) {
   let ans = [];
   nums.sort((a, b) => a - b);
@@ -31,7 +27,8 @@ const subsetsWithDup = function(nums) {
     ans.push([...comb]);
 
     for (let i = index; i < nums.length; i++) {
-      if (i > index && nums[i] === nums[i - 1]) continue; // duplicates
+      // убираем дубли
+      if (i > index && nums[i] === nums[i - 1]) continue;
       comb.push(nums[i]);
       combination(ans, comb, i + 1);
       comb.pop();

@@ -31,14 +31,12 @@ Example 2:
 Without duplicates combinations !!!!!
 
  */
-/**
- * @param {number[]} candidates
- * @param {number} target
- * @return {number[][]}
- */
+
 const combinationSum2 = (candidates, target) => {
   let ans = [];
+
   candidates.sort((a, b) => a - b);
+
   const combination = (ans = [], comb = [], index = 0, sum = 0) => {
     if (sum < 0) return;
     else if (sum === 0) {
@@ -57,6 +55,3 @@ const combinationSum2 = (candidates, target) => {
   combination(ans, [], 0, target);
   return ans;
 };
-
-const res = combinationSum2([2, 5, 2, 1, 2], 5);
-console.log('---', res);
