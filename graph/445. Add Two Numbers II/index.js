@@ -42,6 +42,7 @@ const getLen = head => {
 
 const makeLinkNodes2 = (count, root) => {
   const arr = Array(count).fill(0);
+
   const res = arr.reduce((acc, val, index) => {
     let node = acc;
 

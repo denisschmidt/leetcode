@@ -24,7 +24,7 @@ Example 2:
              Total amount you can rob = 2 + 9 + 1 = 12.
  */
 
-var rob = function(nums) {
+const rob = function(nums) {
   const size = nums.length;
   if (!size) {
     return 0;
@@ -46,6 +46,3 @@ var rob = function(nums) {
 
   return Math.max(dp[size - 1], dp[size - 2]);
 };
-
-const res = rob([2, 1, 1, 2]);
-console.log('---', res);

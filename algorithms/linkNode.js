@@ -11,8 +11,8 @@ function makeTestLinkNodes(tests, name = 'root') {
 }
 
 function makeLinkNodes(array) {
-  return array
-    .map(n => new ListNode(n))
+  const linkedList = array
+    .map(n => new LinkNode(n))
     .reduce((acc, node) => {
       let target = acc;
 
@@ -23,6 +23,8 @@ function makeLinkNodes(array) {
       target.next = node;
       return acc;
     }, new LinkNode());
+
+  return linkedList.next;
 }
 
 module.exports = {
