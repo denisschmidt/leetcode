@@ -43,8 +43,8 @@ var swapPairs2 = function(head) {
   if (head === null || head.next === null) {
     return head;
   }
-  let n = head.next;
+  let prev = head.next;
   head.next = swapPairs(head.next.next);
-  n.next = head;
-  return n;
+  prev.next = head;
+  return prev;
 };

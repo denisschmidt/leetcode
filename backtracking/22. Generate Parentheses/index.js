@@ -1,4 +1,50 @@
 /*
+22. Generate Parentheses
+
+Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
+
+For example, given n = 3, a solution set is:
+
+[
+  "((()))",
+  "(()())",
+  "(())()",
+  "()(())",
+  "()()()"
+]
+ */
+
+// Space: Aнализ сложности основан на понимании количества элементов в generateParenthesis(n).
+// Оказывается, что это n-е каталонское число O(4^N / sqrt(n))
+
+// Time: Оказывается, что это n-е каталонское число O(4^N / sqrt(n)) и O(N)
+
+const generateParenthesis = function(n) {
+  let ans = [];
+
+  if (n === 0) return ans;
+
+  backtrack('', 0, 0, n);
+
+  return ans;
+
+  function backtrack(comb, open, close, max) {
+    if (max * 2 === comb.length) {
+      ans.push(comb);
+      return;
+    }
+
+    if (open < max) {
+      backtrack(comb + '(', open + 1, close, max);
+    }
+
+    if (close < open) {
+      backtrack(comb + ')', open, close + 1, max);
+    }
+  }
+};
+
+/*
 Recursion solution.
 
 В этом способе предполагается, что мы начинаем перебирать последовательности с пустого списка.
@@ -22,8 +68,7 @@ Recursion solution.
 
  * @return {boolean}
  */
-
-const generateParenthesis = n => {
+const generateParenthesis2 = n => {
   const res = [];
 
   const fn = (k = 6, list = [], count = 0, index = 0) => {
@@ -45,37 +90,3 @@ const generateParenthesis = n => {
   fn(n);
   return res;
 };
-
-generateParenthesis(6);
-
-/*
-
-
-
- */
-const generateParenthesis2 = n => {
-  const ans = [];
-  if (!n) {
-    return [];
-  }
-  const backtrack = (ans, cur, open, close, max) => {
-    if (cur.length === max * 2) {
-      ans.push(cur);
-      return;
-    }
-    // Мы можем открыть скобку, если у нас еще есть один (из n) для размещения.
-    if (open < max) {
-      backtrack(ans, cur + '(', open + 1, close, max);
-    }
-    // не должно привышать кол-во открытых скобок
-    if (close < open) {
-      backtrack(ans, cur + ')', open, close + 1, max);
-    }
-  };
-
-  backtrack(ans, '', 0, 0, n);
-  return ans;
-};
-
-const res = generateParenthesis2(3);
-console.log('---', res);

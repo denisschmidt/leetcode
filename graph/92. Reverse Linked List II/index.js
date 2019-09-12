@@ -18,6 +18,8 @@ Example:
  * }
  */
 
+// Time O(N)
+// Space O(1)
 var reverseBetween = function(head, m, n) {
   if (head === null) return null;
   if (m === n) return head;
@@ -51,4 +53,33 @@ var reverseBetween = function(head, m, n) {
   }
 
   return head;
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+var reverseBetween2 = function(head, m, n) {
+  let successor = null;
+
+  if (m <= 1) {
+    return reverseN(head, n - m + 1);
+  }
+
+  // уменьшаем пока не дойдем до нужного элемента с которого начинается разворот
+  head.next = reverseBetween(head.next, m - 1, n - 1);
+  return head;
+
+  // что если нам надо развернуть первые N элементов
+  function reverseN(head, n) {
+    if (n === 1) {
+      successor = head.next;
+      return head;
+    }
+
+    let last = reverseN(head.next, n - 1);
+    head.next.next = head;
+    // в обычной функции из 206 задаче мы разворачиваем список и для head ставим next = null
+    // здесь next будет список после n === 1
+    head.next = successor;
+    return last;
+  }
 };
