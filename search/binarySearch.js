@@ -2,17 +2,23 @@
 
 // Time O(logN)
 // Space O(1)
-function binarySearch(arr, search) {
+function binarySearch(nums, target) {
   let left = 0;
-  let right = arr.length - 1;
+  let right = nums.length - 1;
 
   while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    if (arr[mid] >= search) {
-      right = mid;
-    } else {
+    // так же середину можно найти вот так: let mid = (right + left) >>> 1;
+    const mid = left + Math.floor((right - left) / 2);
+
+    if (nums[mid] === target) {
+      return mid;
+    }
+
+    if (nums[mid] < target) {
       left = mid + 1;
+    } else {
+      right = mid - 1;
     }
   }
-  return arr[right] === search ? right : -1;
+  return -1;
 }
