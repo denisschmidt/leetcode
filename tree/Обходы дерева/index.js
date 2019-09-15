@@ -24,8 +24,8 @@
 
  */
 
-// Time O(N)
-// Space O(N)
+// Time O(N) - где N - количество узлов в дереве. Мы перебираем каждый узел один раз.
+// Space O(H) - где H - высота дерева. Это пространство, стеком вызовов при вызове dfs.
 const inorderTraversal = root => {
   let stack = [];
   let node = root;
@@ -43,6 +43,24 @@ const inorderTraversal = root => {
   }
 
   return ans;
+};
+
+const inorderTraversal2 = root => {
+  const nums = [];
+
+  dfs(root);
+
+  return nums;
+
+  function dfs(node) {
+    if (node === null) return;
+
+    inorderTraversal2(node.left);
+
+    nums.push(node.val);
+
+    inorderTraversal2(node.right);
+  }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

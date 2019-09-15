@@ -1,4 +1,6 @@
-// Time O(logN) делим  N / 2 N = 2^f(N)
+// На каждом шаге мы делим N => N / 2 -> N / 4 -> ... -> 1 -> 0 что дает O(logN)
+
+// Time O(logN)
 // Space O(1)
 function binarySearch(arr, search) {
   let left = 0;
