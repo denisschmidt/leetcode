@@ -16,17 +16,6 @@ Note:
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 
  */
-
-// Time O(N Log N)
-// Space O(1)
-var findKthLargest = function(nums, k) {
-  let size = nums.length;
-  nums.sort((a, b) => a - b);
-  return nums[size - k];
-};
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 const swap = (nums, i, j) => ([nums[i], nums[j]] = [nums[j], nums[i]]);
 
 const partition = (nums, loIndex, hiIndex) => {
@@ -56,6 +45,7 @@ const partition = (nums, loIndex, hiIndex) => {
 // complexity's going to be O(n^2), because on every iteration you don't gain a lot of information other than the fact that all numbers
 // in the subarray are bigger than the pivot.
 
+// Binary Search + Quick Select
 const findKthLargest2 = (nums, k) => {
   let loIndex = 0;
   let hiIndex = nums.length - 1;
@@ -77,4 +67,12 @@ const findKthLargest2 = (nums, k) => {
   return nums[targetIndex];
 };
 
-findKthLargest2([3, 2, 3, 1, 2, 4, 5, 5, 6], 4);
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Time O(N Log N)
+// Space O(1)
+var findKthLargest = function(nums, k) {
+  let size = nums.length;
+  nums.sort((a, b) => a - b);
+  return nums[size - k];
+};

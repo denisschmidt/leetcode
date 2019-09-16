@@ -17,6 +17,33 @@ Example:
 
  */
 
+const randomInt = (min, max) => min + Math.floor(Math.random() * max - min);
+
+class Solution {
+  constructor(nums) {
+    this.nums = nums;
+  }
+
+  pick(target) {
+    let count = 0;
+    let res = null;
+
+    for (let i = 0; i < this.nums.length; i++) {
+      if (this.nums[i] === target) {
+        count++;
+        let rand = randomInt(0, count);
+
+        if (rand === count - 1) {
+          res = i;
+        }
+      }
+    }
+
+    return res;
+  }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // Наивное решение в котором в память записывается очень большой массив
 // Time O(K) где K кол-вл встречающихся элементов
 // Space O(N)

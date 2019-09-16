@@ -27,31 +27,39 @@ Example 2:
     [5]
   ]
 
-
 Without duplicates combinations !!!!!
 
  */
 
-const combinationSum2 = (candidates, target) => {
-  let ans = [];
-
+// Time O(N^2)
+// Space O(N)
+const combinationSum = (candidates, target) => {
+  const results = [];
   candidates.sort((a, b) => a - b);
+  backtracking(candidates, target, 0, [], results);
+  return results;
+};
 
-  const combination = (ans = [], comb = [], index = 0, sum = 0) => {
-    if (sum < 0) return;
-    else if (sum === 0) {
-      ans.push([...comb]);
-      return;
-    } else {
-      for (let i = index; i < candidates.length; i++) {
-        if (i > index && candidates[i] === candidates[i - 1]) continue; // no duplicates
-        comb.push(candidates[i]);
-        combination(ans, comb, i + 1, sum - candidates[i]);
-        comb.pop();
-      }
+const backtracking = (candidates, target, start, solution, results) => {
+  if (target < 0) {
+    return;
+  }
+
+  if (target === 0) {
+    results.push(solution.slice());
+    return;
+  }
+
+  for (let i = start; i < candidates.length; i++) {
+    // скипаем дубли
+    // Наш массив solution содержит некоторый элемент, выбранный из candidates [0 ... start-1].
+    // Мы начинаем с i = start, теперь i > start, что означает, что мы уже пробовали элементы от start до i - 1 (i - 1 >= start).
+    // Теперь мы  на candidate[i] и candidate[i] == candidate[i-1]. Следоватлеьно нужно попробовать другую последовательность
+    if (i > start && candidates[i] === candidates[i - 1]) {
+      continue;
     }
-  };
-
-  combination(ans, [], 0, target);
-  return ans;
+    solution.push(candidates[i]);
+    backtracking(candidates, target - candidates[i], i + 1, solution, results);
+    solution.pop();
+  }
 };
