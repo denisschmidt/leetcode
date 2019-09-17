@@ -20,9 +20,11 @@ const makeTestNodes = (iterator, tests, name = 'root') => {
 
 const makeTreeNodes = array => {
   const l = array.length;
+
   if (!l) {
     return null;
   }
+
   let i = 0;
   const root = new TreeNode(array[i++]);
   makeTree([root]);

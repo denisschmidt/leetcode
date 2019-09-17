@@ -22,23 +22,17 @@ const l2 = makeLinkNodes([1, 3, 4]);
 
 // Time: O(m + n) (worst case) and O(min(m, n)) (best case)
 // Space: O(m + n) (worst case) and O(min(m, n)) (best case) [ both from call stack]
-const mergeTwoListsReqursion = (l1, l2) => {
-  if (!l1) {
-    return l2;
-  }
-  if (!l2) {
-    return l1;
-  }
-  if (l1.value < l2.value) {
-    l1.next = mergeTwoListsReqursion(l1.next, l2);
+const mergeTwoLists = (l1, l2) => {
+  if (!l1) return l2;
+  else if (!l2) return l1;
+  else if (l1.val < l2.val) {
+    l1.next = mergeTwoLists(l1.next, l2);
     return l1;
   } else {
-    l2.next = mergeTwoListsReqursion(l1, l2.next);
+    l2.next = mergeTwoLists(l1, l2.next);
     return l2;
   }
 };
-
-const res = mergeTwoListsReqursion(l1, l2);
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -66,6 +60,3 @@ const mergeTwoListsIterative = (l1, l2) => {
   ans.next = l1 || l2;
   return danny.next;
 };
-
-const res2 = mergeTwoListsIterative(l1, l2);
-console.log('---', res2);
