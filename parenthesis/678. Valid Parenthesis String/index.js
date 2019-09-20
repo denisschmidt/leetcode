@@ -29,7 +29,7 @@ Note:
 
  */
 
-var checkValidString = function(chars) {
+const checkValidString = function(chars) {
   const leftIds = [];
   const starIds = [];
 
@@ -42,6 +42,7 @@ var checkValidString = function(chars) {
       starIds.push(i);
     } else {
       if (!leftIds.length && !starIds.length) return false;
+
       if (leftIds.length) {
         leftIds.pop();
       } else {
