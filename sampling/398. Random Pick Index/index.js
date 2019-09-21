@@ -68,6 +68,7 @@ class Solution2 {
       return arr[0];
     }
 
+    // shuffle
     for (let i = arr.length - 1; i >= 0; i--) {
       const index = Math.floor(Math.random() * (i + 1));
       [arr[i], arr[index]] = [arr[index], arr[i]];
