@@ -1,5 +1,3 @@
-const { makeTreeNodes } = require('../../algorithms/treeNode');
-
 /*
 Given a binary tree, return the postorder traversal of its nodes' values.
 
@@ -14,75 +12,65 @@ Input: [1,null,2,3]
 
 Output: [3,2,1]
 Follow up: Recursive solution is trivial, could you do it iteratively?
- */
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-
-/*
-  Solution using DFS
-
-  Let's start from the root and then at each iteration pop the current node out of the stack
-  and push its child nodes. In the implemented strategy we push nodes into stack
-  following the order Top->Bottom and Left->Right.
-
-  Since DFS postorder transversal is Bottom->Top and Left->Right the output list
-  should be reverted after the end of loop.
-
-  Time complexity :
-    we visit each node exactly once, thus the time complexity is O(N),
-    where N is the number of nodes, i.e. the size of tree.
-
-  Space complexity: depending on the tree structure, we could keep up to the entire tree,
-    therefore, the space complexity is O(N).
+Посетить узлы нужно в порядке left-right-root
 
  */
 
-// Solution using DFS
+// Решение через один стек
+// https://www.youtube.com/watch?v=xLQKdq0Ffjg
+
 // Time O(N)
-// Space O(N)
+// Space O(H)
 const postorderTraversal = function(root) {
+  let current = root;
   let stack = [];
-  let arr = [];
-  stack.push(root);
+  let ans = [];
 
-  while (stack.length) {
-    let node = stack.pop();
+  while (current != null || stack.length) {
+    if (current != null) {
+      stack.unshift(current);
+      current = current.left;
+    } else {
+      let temp = stack[0].right;
 
-    if (node !== null) {
-      arr.push(node.val);
-      stack.push(node.left);
-      stack.push(node.right);
+      if (temp == null) {
+        temp = stack.shift();
+        ans.push(temp.val);
+
+        while (stack.length && temp === stack[0].right) {
+          temp = stack.shift();
+          ans.push(temp.val);
+        }
+      } else {
+        current = temp;
+      }
     }
   }
 
-  return arr.reverse();
+  return ans;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Time O(N)
 // Space O(N)
+// Решение через два стека s1 и s2
 const postorderTraversal2 = function(root) {
-  if (root === null) return [];
+  if (!root) return [];
 
-  const stack = [];
-  const ans = [];
-  stack.push(root);
+  const s1 = [];
+  const s2 = [];
 
-  while (stack.length) {
-    let node = stack.pop();
+  s1.push(root);
 
-    ans.unshift(node.val);
+  while (s1.length) {
+    let node = s1.pop();
+    s2.push(node.val);
 
-    if (node.left !== null) stack.push(node.left);
-    if (node.right !== null) stack.push(node.right);
+    if (node.left) s1.push(node.left);
+    if (node.right) s1.push(node.right);
   }
 
-  return ans;
+  return s2.reverse();
 };

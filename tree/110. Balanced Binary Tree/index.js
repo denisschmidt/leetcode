@@ -52,7 +52,7 @@ const dfsHeight = root => {
 
   let leftHeight = dfsHeight(root.left);
   if (leftHeight === -1) return -1;
-  kK;
+
   let rightHeight = dfsHeight(root.right);
   if (rightHeight === -1) return -1;
 

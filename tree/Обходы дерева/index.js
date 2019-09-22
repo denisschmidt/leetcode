@@ -52,7 +52,6 @@ const inorderTraversal2 = root => {
   const nums = [];
 
   dfs(root);
-
   return nums;
 
   function dfs(node) {
@@ -145,14 +144,18 @@ const postorderTraversal = root => {
   const ans = [];
   stack.push(root);
 
-  while (stack.length) {
+  while (stack.length !== 0) {
     let node = stack.pop();
 
     ans.unshift(node.val);
 
-    if (node.left !== null) stack.push(node.left);
+    if (node.left !== null) {
+      stack.push(node.left);
+    }
 
-    if (node.right !== null) stack.push(node.right);
+    if (node.right !== null) {
+      stack.push(node.right);
+    }
   }
 
   return ans;
