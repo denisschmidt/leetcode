@@ -10,8 +10,6 @@ Follow up:
 
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 
-
-
 Kadane’s Algo with O(n) linear complexity
 
 The time complexity this solution is O(n) and space used by the program is O(1)
@@ -62,9 +60,6 @@ const maxSequence = arr => {
   return ans;
 };
 
-const res = maxSequence(INPUT); // 0
-console.log('---', res);
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Time O(n)
@@ -91,6 +86,3 @@ const maxSequence2 = arr => {
 
   return ans;
 };
-
-const res2 = maxSequence2(INPUT);
-console.log('---', res2);
