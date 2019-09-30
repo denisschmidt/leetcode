@@ -70,16 +70,17 @@ const findWords = function(board, words) {
     board[i][j] = c; // backtrack
   }
 };
+
 class Trie {
   constructor(words) {
     this.root = new TrieNode();
 
     words.forEach(word => {
-      this.addWord(word);
+      this.insert(word);
     });
   }
 
-  addWord(word) {
+  insert(word) {
     let current = this.root;
 
     for (let i = 0; i < word.length; i++) {

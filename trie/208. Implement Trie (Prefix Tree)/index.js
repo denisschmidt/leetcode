@@ -109,6 +109,7 @@ class Trie {
       }
       current = current.children[w];
     }
+
     return true;
   }
 }
