@@ -60,6 +60,7 @@ var maximalSquare2 = function(matrix) {
       let sqlen = 1;
       let flag = true;
       while (flag && i + sqlen < n && j + sqlen < m) {
+        // row
         for (let k = j; k <= sqlen + j; k++) {
           if (matrix[i + sqlen][k] === '0') {
             flag = false;
@@ -67,6 +68,7 @@ var maximalSquare2 = function(matrix) {
           }
         }
 
+        // cell
         for (let k = i; k <= sqlen + i; k++) {
           if (matrix[k][j + sqlen] === '0') {
             flag = false;

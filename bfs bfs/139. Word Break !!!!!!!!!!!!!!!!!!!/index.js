@@ -35,6 +35,38 @@ Example 3:
 //
 // |__ __ _^
 
+/*
+
+Чтобы избежать вызова рекурсии для определенной строки, мы можем использовать метод мемоизации, который используется для хранения результата подзадач.
+Теперь, когда функция вызывается снова для пройденной подстоки мы сокращаем дерево рекурсии
+ */
+// Time O(N^2)
+// Space O(N)
+const wordBreak = function(s, wordDict) {
+  const visited = new Set();
+  return dfs(s);
+
+  function dfs(s) {
+    if (visited.has(s)) return false;
+
+    for (let i = 0; i < wordDict.length; i++) {
+      const word = wordDict[i];
+      if (s.startsWith(word)) {
+        if (s.length === word.length) {
+          return true;
+        } else if (dfs(s.substring(word.length))) {
+          return true;
+        }
+      }
+    }
+
+    visited.add(s);
+    return false;
+  }
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // O(n^2) and space complexity is O(n)
 const wordBreak2 = function(s, wordDict) {
   let queue = [];
@@ -62,6 +94,3 @@ const wordBreak2 = function(s, wordDict) {
   }
   return false;
 };
-
-const res2 = wordBreak2(s, wordDict);
-console.log('---', res2);
