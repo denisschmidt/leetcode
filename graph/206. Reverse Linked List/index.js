@@ -41,24 +41,22 @@ const l1 = makeLinkNodes([1, 2, 3, 4, 5]);
 //
 // after operate on 1:
 // null <- 1 <- 2 <- 3 <- 4 <- 5
-const reverseListReq = function(root) {
-  if (root === null || root.next === null) {
-    return root;
-  }
 
-  let cur = reverseListReq(root.next);
+const reverseListReq = function(head) {
+  if (head === null || head.next === null) return head;
 
-  root.next.next = root;
-  root.next = null;
+  let cur = reverseListReq(head.next);
+  let prev = head.next;
+
+  // обрубаем текущую ноду
+  head.next = null;
+  prev.next = head;
 
   return cur;
 };
 
-const res = reverseListReq(l1);
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Time complexity : O(n). Assume that nn is the list's length, the time complexity is O(n).
-//
+// Time complexity : O(N). где N длинна листа
 // Space complexity : O(1).
 const reverseListIter = function(root) {
   let prev = null;
@@ -73,5 +71,3 @@ const reverseListIter = function(root) {
 
   return prev;
 };
-
-reverseListIter(l1);

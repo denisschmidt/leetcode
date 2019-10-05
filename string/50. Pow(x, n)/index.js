@@ -17,11 +17,8 @@ Explanation: 2-2 = 1/22 = 1/4 = 0.25
 Note:
  */
 
-/**
- * @param {number} x
- * @param {number} n
- * @return {number}
- */
+// Time O(N)
+// Space O(1)
 const myPow = function(x, n) {
   if (n === 0 || x === 1) {
     return 1;
@@ -43,8 +40,26 @@ const myPow = function(x, n) {
   return ans;
 };
 
-let x = 2.0;
-let y = 3;
-const res = myPow(x, y);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-console.log('---', res, x ** y);
+// Time O(LogN)
+// Space O(LogN)
+const myPow2 = function(x, n) {
+  if (n === 0 || x === 1) return 1;
+  if (n === 1) return x;
+
+  if (n < 0) {
+    n = -n;
+    x = 1 / x;
+  }
+
+  return fastPow(x, n);
+
+  function fastPow(x, n) {
+    if (n === 0) return 1;
+
+    const half = fastPow(x, Math.floor(n / 2));
+    if (n % 2 === 0) return half * half;
+    return half * half * x;
+  }
+};

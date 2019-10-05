@@ -23,10 +23,8 @@ Explanation: There are three ways to climb to the top.
 
  */
 
-/**
- * @param {number} n
- * @return {number}
- */
+// Time O(N)
+// Space O(N)
 const climbStairs = function(n) {
   if (n === 1) {
     return 1;
@@ -43,6 +41,41 @@ const climbStairs = function(n) {
   return matrix[n];
 };
 
-const res = climbStairs(3);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-console.log('---', res);
+// Time O(1)
+// Space O(1)
+const climbStairs1 = function(n) {
+  const sqrt5 = Math.sqrt(5);
+  const fibn = Math.pow((1 + sqrt5) / 2, n + 1) - Math.pow((1 - sqrt5) / 2, n + 1);
+  return Math.round(fibn / sqrt5);
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Time: O(n).
+// Space: O(1)
+const climbStairs2 = function(n) {
+  if (n === 1) {
+    return 1;
+  }
+  let first = 1;
+  let second = 2;
+
+  for (let i = 3; i <= n; i++) {
+    let third = first + second;
+    first = second;
+    second = third;
+  }
+  return second;
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Time: O(n)
+// Space: O(n)
+const climbStairsMemo = function(n, memo = []) {
+  if (n === 0 || n === 1) return 1;
+
+  if (!memo[n]) memo[n] = climbStairsMemo(n - 1, memo) + climbStairsMemo(n - 2, memo);
+
+  return memo[n];
+};
