@@ -22,56 +22,64 @@ The above output corresponds to the 5 unique BST's shown below:
    2     1         2                 3
 
 
+Кол-во возможных деверьев поиска(BST) равно  на самом деле является каталонским числом.
 
-Complexity analysis -> https://leetcode.com/problems/unique-binary-search-trees-ii/solution/
+Выберем любое чистло из масиива от 1 до N
+
+Тогда кол-во левых поддеревьев будет равно i - 1 и n - i число правых поддеревьев
+
+Это приводит к тому, что G (i - 1) - разные левые поддеревья, а G (n - i) - разные правые поддеревья, где G - каталонское число.
+
+
+Теперь давайте повторим шаг выше для последовательности 1 ... i - 1, чтобы построить все левые поддеревья, а затем для последовательности i + 1 ... n,
+чтобы построить все правые поддеревья.
+
+Таким образом, у нас есть корень i и два списка для возможных левых и правых поддеревьев.
+Последний шаг - перебрать оба списка, чтобы связать левое и правое поддеревья с корнем.
 
  */
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {number} n
- * @return {TreeNode[]}
- */
-const { TreeNode } = require('../../algorithms/treeNode');
+// Time O(N * Gn) основные вычисления состоят в том, чтобы построить все возможные деревья с заданным корнем,
+// который на самом деле является каталонским числом Gn * N   как обсуждалось выше. И это делается n раз,
 
-const dfn = (start, end) => {
-  let allTrees = [];
-  if (start > end) {
-    allTrees.push(null);
-    return allTrees;
-  }
+// Space O(N * Gn)
+const generateTrees = n => {
+  if (n <= 0) return [];
 
-  for (let i = start; i <= end; i++) {
-    // all possible left subtrees if i is choosen to be a root
-    let leftTrees = dfn(start, i - 1);
+  return helper(1, n);
 
-    // all possible right subtrees if i is choosen to be a root
-    let rightTrees = dfn(i + 1, end);
+  function helper(lo, hi) {
+    if (lo > hi) {
+      return [null];
+    }
 
-    // connect left and right trees to the root i
-    for (let li = 0; li < leftTrees.length; li++) {
-      for (let ri = 0; ri < rightTrees.length; ri++) {
-        let node = new TreeNode(i);
-        node.left = leftTrees[li];
-        node.right = rightTrees[ri];
-        allTrees.push(node);
+    if (lo === hi) {
+      return [new TreeNode(lo)];
+    }
+
+    const res = [];
+
+    for (let k = lo; k <= hi; k++) {
+      const leftBSTs = helper(lo, k - 1);
+      const rightBSTs = helper(k + 1, hi);
+
+      for (let i = 0; i < leftBSTs.length; i++) {
+        for (let j = 0; j < rightBSTs.length; j++) {
+          const treeNode = new TreeNode(k);
+          treeNode.left = leftBSTs[i];
+          treeNode.right = rightBSTs[j];
+          res.push(treeNode);
+        }
       }
     }
+
+    return res;
   }
-  return allTrees;
 };
 
-const generateTrees = function(n) {
-  if (n === 0) {
-    return [];
+class TreeNode {
+  constructor(val) {
+    this.val = val;
+    this.left = this.right = null;
   }
-  return dfn(1, n);
-};
-
-generateTrees(19);
+}

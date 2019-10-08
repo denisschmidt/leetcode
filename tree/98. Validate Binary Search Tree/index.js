@@ -30,35 +30,47 @@ Output: false
 Explanation: The root node's value is 5 but its right child's value is 4.
  */
 
-const { makeTreeNodes } = require('../../algorithms/treeNode');
-const node = makeTreeNodes([2, 1, 3]);
-
 // Time O(N)
 // Space O(N)
 // Inorder Traversal
-var isValidBST = function(root) {
-  let stack = [];
-  let node = root;
-  let arr = [];
+const isValidBST = function(root) {
+  const stack = [];
+  let inorder = -Number.MAX_VALUE;
 
-  while (stack.length || node !== null) {
-    while (node !== null) {
-      stack.push(node);
-      node = node.left;
+  while (stack.length || root !== null) {
+    while (root) {
+      stack.push(root);
+      root = root.left;
     }
-    node = stack.pop();
-    arr.push(node.val);
-    node = node.right;
-  }
+    let node = stack.pop();
 
-  for (let i = 0; i < arr.length - 1; i++) {
-    if (arr[i] >= arr[i + 1]) {
-      return false;
-    }
+    if (inorder >= node.val) return false;
+
+    inorder = node.val;
+    root = node.right;
   }
 
   return true;
 };
 
-const res = isValidBST(node);
-console.log('---', res);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// Time O(N)
+// Space O(N)
+const isValidBST2 = function(root) {
+  return helper(root, null, null);
+
+  function helper(node, lower, upper) {
+    if (node === null) return true;
+
+    let val = node.val;
+
+    if (lower !== null && val <= lower) return false;
+    if (upper !== null && val >= upper) return false;
+
+    if (!helper(node.right, val, upper)) return false;
+    if (helper(node.left, lower, val)) return false;
+
+    return true;
+  }
+};

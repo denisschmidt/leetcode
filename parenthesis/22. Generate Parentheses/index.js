@@ -20,9 +20,7 @@ For example, given n = 3, a solution set is:
 // Time: Оказывается, что это n-е каталонское число O(4^N / sqrt(n)) и O(N)
 
 const generateParenthesis = function(n) {
-  let ans = [];
-
-  if (n === 0) return ans;
+  const ans = [];
 
   backtrack('', 0, 0, n);
 
