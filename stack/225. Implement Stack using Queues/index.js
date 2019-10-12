@@ -29,73 +29,47 @@ You may assume that all operations are valid (for example, no pop or top operati
  */
 
 // TWO Queues === ONE STACK
-const MyStack = function() {
-  this._q1 = [];
-  this._q2 = [];
-};
-
-/**
- * Push element x onto stack.
- * @param {number} x
- * @return {void}
- */
-MyStack.prototype.push = function(x) {
-  this._q1.push(x);
-};
-
-/**
- * Removes the element on top of the stack and returns that element.
- * @return {number}
- */
-// Time complexity : O(n). The algorithm dequeues N elements from q1 and enqueues n - 1 elements to q2,
-// where N is the stack size. This gives 2N - 1 operations.
-// Space complexity : O(1).
-MyStack.prototype.pop = function() {
-  while (this._q1.length > 1) {
-    let top = this._q1.shift();
-    this._q2.push(top);
+class MyStack {
+  constructor() {
+    this._q1 = [];
+    this._q2 = [];
   }
-  const top = this._q1.shift();
-  let temp = this._q1;
-  this._q1 = this._q2;
-  this._q2 = temp;
-  return top;
-};
 
-/**
- * Get the top element.
- * @return {number}
- */
-// O(1)
-MyStack.prototype.top = function() {
-  return this._q1[this._q1.length - 1];
-};
+  push(x) {
+    this._q1.push(x);
+  }
 
-/**
- * Returns whether the stack is empty.
- * @return {boolean}
- */
-// O(1)
-MyStack.prototype.empty = function() {
-  return !this._q1.length;
-};
+  /*
+    Поскольку очередь представляет собой структуру данных FIFO (первым пришел - первым вышел), 
+    последний вставленный элемент может быть удален только после удаления всех элементов, кроме него. 
+    
+    По этой причине нам нужно поддерживать дополнительную очередь q2, которая будет служить временным хранилищем для постановки в очередь 
+    удаленных элементов из q1. 
+    
+    Последний вставленный элемент в q2 остается верхним. 
+    
+    Затем алгоритм удаляет последний элемент в q1. 
+    
+    Мы поменяем q1 на q2, чтобы избежать копирования всех элементов из q2 в q1.
+   */
+  pop() {
+    while (this._q1.length > 1) {
+      let top = this._q1.shift();
+      this._q2.push(top);
+    }
 
-/**
- * Your MyStack object will be instantiated and called as such:
- * var obj = new MyStack()
- * obj.push(x)
- * var param_2 = obj.pop()
- * var param_3 = obj.top()
- * var param_4 = obj.empty()
- */
+    let top = this._q1.shift();
+    let temp = this._q1;
+    this._q1 = this._q2;
+    this._q2 = temp;
+    return top;
+  }
 
-const obj = new MyStack();
-obj.push(1);
-obj.push(2);
-obj.push(3);
+  top() {
+    return this._q1[this._q1.length - 1];
+  }
 
-const param_2 = obj.top();
-const param_3 = obj.pop();
-const param_4 = obj.pop();
-
-console.log(param_2, param_3, param_4);
+  empty() {
+    return !this._q1.length;
+  }
+}

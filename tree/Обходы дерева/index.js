@@ -51,17 +51,18 @@ const inorderTraversal = root => {
 const inorderTraversal2 = root => {
   const nums = [];
 
-  dfs(root);
+  helper(root);
+
   return nums;
 
-  function dfs(node) {
+  function helper(node) {
     if (node === null) return;
 
-    inorderTraversal2(node.left);
+    helper(node.left);
 
     nums.push(node.val);
 
-    inorderTraversal2(node.right);
+    helper(node.right);
   }
 };
 

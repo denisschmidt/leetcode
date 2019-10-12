@@ -5,41 +5,13 @@ Two binary trees are considered the same if they are structurally identical and 
 
  */
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} p
- * @param {TreeNode} q
- * @return {boolean}
- */
-const { makeTreeNodes } = require('../../algorithms/treeNode');
+// Time O(N)
+// Space O(LogN)
+const isSameTree = function(q, p) {
+  if (p === null && q === null) return true;
+  if (p === null || q === null) return false;
 
-var isSameTree = function(node1, node2) {
-  let isEqual = true;
-  const fn = (p, q) => {
-    if ((p && !q) || (!p && q)) {
-      isEqual = false;
-      return null;
-    }
-    if (!p && !q) {
-      return null;
-    }
-    if (p.val !== q.val) {
-      isEqual = false;
-    }
-    fn(p.left, q.left);
-    fn(p.right, q.right);
-  };
+  if (p.val !== q.val) return false;
 
-  fn(node1, node2);
-  return isEqual;
+  return isSameTree(q.left, p.left) && isSameTree(q.right, p.right);
 };
-
-const res = isSameTree(makeTreeNodes([1, 2, 3]), makeTreeNodes([1, 2, 3]));
-
-console.log('---', res);

@@ -52,64 +52,70 @@ https://github.com/bephrem1/backtobackswe/blob/master/Dynamic%20Programming%2C%2
 
  */
 
-const isValid = comb => {
-  let rowWeAreValidatingOn = comb.length - 1;
+// Time O(N!)
+// Существует N возможностей поставить первую ферзь,
+// не более N (N - 2), чтобы поставить вторую,
+// не более N (N - 2) (N - 4) для третьей и т. Д.
 
-  for (let i = 0; i < rowWeAreValidatingOn; i++) {
-    let absoluteColumnDistance = Math.abs(comb[i] - comb[rowWeAreValidatingOn]);
+// Всего получается  O(N!) временная сложность.
 
-    // If the absolute difference in columns equals the distance in rows from the
-    //  i'th queen we placed then the queen we just placed is attacked diagonally.
-    //  absoluteColumnDistance == rowWeAreValidatingOn - i
-    if (absoluteColumnDistance === 0 || absoluteColumnDistance === rowWeAreValidatingOn - i) {
-      return false;
-    }
-  }
-  return true;
-};
-
-const generateBoardFromPlacements = (comb, n) => {
-  const board = [];
-  const size = comb.length;
-  for (let i = 0; i < size; i++) {
-    let str = [];
-    for (let j = 0; j < n; j++) {
-      if (j === comb[i]) {
-        str.push('Q');
-      } else {
-        str.push('.');
-      }
-    }
-    board.push(str.join(''));
-  }
-  return board;
-};
-
+// Space O(N)
 const solveNQueens = function(n) {
-  let ans = [];
+  const ans = [];
 
-  const backtracking = (ans, comb, row) => {
+  backtrack([], 0);
+
+  return ans;
+
+  function backtrack(comb, row) {
     if (row === n) {
-      ans.push(generateBoardFromPlacements(comb, n)); // out goal
-      return;
+      ans.push(generateSolution(comb));
     } else {
       for (let i = 0; i < n; i++) {
         comb.push(i); // out choice
 
         // out constraints
         if (isValid(comb)) {
-          backtracking(ans, comb, row + 1);
+          backtrack(comb, row + 1);
         }
 
         comb.pop(); // undo out choice
       }
     }
-  };
+  }
 
-  backtracking(ans, [], 0);
+  function isValid(comb) {
+    const addedIndex = comb[comb.length - 1];
+    const size = comb.length - 1;
 
-  return ans;
+    for (let i = 0; i < size; i++) {
+      let absoluteColumnDistance = Math.abs(comb[i] - addedIndex);
+
+      if (absoluteColumnDistance === 0 || absoluteColumnDistance === size - i) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  function generateSolution(comb) {
+    const board = [];
+
+    for (let i = 0; i < comb.length; i++) {
+      let str = [];
+
+      for (let j = 0; j < comb.length; j++) {
+        if (comb[i] === j) {
+          str.push('Q');
+        } else {
+          str.push('.');
+        }
+      }
+
+      board.push(str.join(''));
+    }
+
+    return board;
+  }
 };
-
-const res = solveNQueens(4);
-console.log('---', res);
