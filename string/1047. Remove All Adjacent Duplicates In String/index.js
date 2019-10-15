@@ -16,11 +16,30 @@ Example 1:
   S consists only of English lowercase letters.
  */
 
-/**
- * @param {string} str
- * @return {string}
- */
-const removeDuplicates = function(str) {
+// Time O(N)
+// Space O(N)
+const removeDuplicates = str => {
+  if (str.length === 0) return str;
+
+  let i = 1;
+  let stack = [str[0]];
+
+  while (i < str.length) {
+    if (str[i] === stack[stack.length - 1]) {
+      stack.pop();
+    } else {
+      stack.push(str[i]);
+    }
+    i++;
+  }
+
+  return stack.join('');
+};
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Time O(N)
+// Space O(1)
+const removeDuplicates2 = str => {
   let i = 0;
 
   while (i < str.length) {
@@ -33,31 +52,3 @@ const removeDuplicates = function(str) {
   }
   return str;
 };
-
-const res = removeDuplicates('aaaab');
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// using stack O(N)
-/**
- * @param {string} str
- * @return {string}
- */
-const removeDuplicates2 = function(str) {
-  let i = 0;
-  let stack = [];
-  stack.push(str[0]);
-
-  while (i < str.length - 1) {
-    if (stack[stack.length - 1] === str[i + 1]) {
-      stack.pop();
-    } else {
-      stack.push(str[i + 1]);
-    }
-    i++;
-  }
-  return stack.join('');
-};
-
-const res2 = removeDuplicates2('abbaca');
-console.log('====', res2);

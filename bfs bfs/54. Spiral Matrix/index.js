@@ -73,5 +73,49 @@ const spiralOrder = function(matrix) {
   return ans;
 };
 
-const res = spiralOrder([[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]]);
-console.log(res);
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const spiralOrder2 = function(matrix) {
+  if (matrix.length === 0) return [];
+
+  const n = matrix.length;
+  const m = matrix[0].length;
+  const ans = [];
+
+  let rowBegin = 0;
+  let rowEnd = n - 1;
+  let colBegin = 0;
+  let colEnd = m - 1;
+
+  while (rowBegin <= rowEnd && colBegin <= colEnd) {
+    // right
+    for (let i = colBegin; i <= colEnd; i++) {
+      ans.push(matrix[rowBegin][i]);
+    }
+    rowBegin++;
+
+    // down
+    for (let i = rowBegin; i <= rowEnd; i++) {
+      ans.push(matrix[i][colEnd]);
+    }
+    colEnd--;
+
+    // left
+    if (rowBegin <= rowEnd) {
+      for (let i = colEnd; i >= colBegin; i--) {
+        ans.push(matrix[rowEnd][i]);
+      }
+    }
+    rowEnd--;
+
+    // up
+    if (colBegin <= colEnd) {
+      for (let i = rowEnd; i >= rowBegin; i--) {
+        ans.push(matrix[i][colBegin]);
+      }
+    }
+    colBegin++;
+  }
+
+  return ans;
+};
