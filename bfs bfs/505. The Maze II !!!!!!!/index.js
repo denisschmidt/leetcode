@@ -113,5 +113,6 @@ const shortestDistance2 = (maze, start, end) => {
   distance[start[0]][start[1]] = 0;
 
   dfs(maze, start, distance);
+
   return distance[end[0]][end[1]] === Number.MAX_VALUE ? -1 : distance[end[0]][end[1]];
 };
