@@ -25,9 +25,7 @@ const restoreIpAddresses = function(s) {
       return;
     } else {
       for (let i = index; i < index + 3; i++) {
-        const ip = s.substring(index, i + 1);
-
-        comb.push(ip);
+        comb.push(s.substring(index, i + 1));
         backtrack(comb, index + 1, count + 1);
         comb.pop();
       }
