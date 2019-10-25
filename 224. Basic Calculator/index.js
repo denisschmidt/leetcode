@@ -1,19 +1,20 @@
 /*
 Implement a basic calculator to evaluate a simple expression string.
 
-The expression string contains only non-negative integers, +, -, *, / operators and empty spaces . The integer division should truncate toward zero.
+The expression string may contain open ( and closing parentheses ), the plus + or minus sign -, non-negative integers and empty spaces .
 
 Example 1:
-  Input: "3+2*2"
-  Output: 7
+
+  Input: "1 + 1"
+  Output: 2
 
 Example 2:
-  Input: " 3/2 "
-  Output: 1
+  Input: " 2-1 + 2 "
+  Output: 3
 
 Example 3:
-  Input: " 3+5 / 2 "
-  Output: 5
+  Input: "(1+(4+5+2)-3)+(6+8)"
+  Output: 23
 
 Note:
   You may assume that the given expression is always valid.
@@ -23,51 +24,57 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const calculate = str => {
-  if (str.length === 0) return 0;
+const calculate = s => {
+  if (!s || s.length === 0) return 0;
 
   const nums = [];
   const ops = [];
 
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === ' ') {
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] === ' ') {
       continue;
     }
 
-    if (str[i] >= '0' && str[i] <= '9') {
+    if (s[i] === '(') {
+      ops.push(s[i]);
+    } else if (s[i] === ')') {
+      while (ops[ops.length - 1] !== '(') {
+        nums.push(calcSum(ops.pop(), nums.pop(), nums.pop()));
+      }
+
+      // избавляемся от '(' в стеке ops
+      ops.pop();
+    } else if (s[i] >= '0' && s[i] <= '9') {
       let buffer = '';
 
-      while (i < str.length && str[i] >= '0' && str[i] <= '9') {
-        buffer += str[i];
-        i++;
+      while (i < s.length && s[i] >= '0' && s[i] <= '9') {
+        buffer += s[i++];
       }
 
       nums.push(parseInt(buffer));
 
       // обязательно нужно уменьшить индекс
       i--;
-    } else if (str[i] === '+' || str[i] === '-' || str[i] === '*' || str[i] === '/') {
+    } else if (s[i] === '+' || s[i] === '-' || s[i] === '*' || s[i] === '/') {
       //
       // В цикле до тех пор пока в стеке оператор больше или равен текущему оператору
       // Расчитываем значение для двух значений из стека
       //
-
-      while (ops.length && hasPrecedence(str[i], ops[ops.length - 1])) {
-        nums.push(applyOp(ops.pop(), nums.pop(), nums.pop()));
+      while (ops.length && hasPrecedence(s[i], ops[ops.length - 1])) {
+        nums.push(calcSum(ops.pop(), nums.pop(), nums.pop()));
       }
 
-      ops.push(str[i]);
+      ops.push(s[i]);
     }
   }
 
-  // выполняем все операции над числами с конца
   while (ops.length) {
-    nums.push(applyOp(ops.pop(), nums.pop(), nums.pop()));
+    nums.push(calcSum(ops.pop(), nums.pop(), nums.pop()));
   }
 
   return nums.pop();
 
-  function applyOp(op, b, a) {
+  function calcSum(op, b, a) {
     switch (op) {
       case '+':
         return a + b;
@@ -84,8 +91,6 @@ const calculate = str => {
     return 0;
   }
 
-  // Returns true if 'op2' has higher or same precedence as 'op1',
-  // otherwise returns false.
   function hasPrecedence(op1, op2) {
     if (op2 === '(' || op2 === ')') {
       return false;
@@ -95,3 +100,6 @@ const calculate = str => {
     return true;
   }
 };
+
+const res = calculate('1 - (-7)');
+console.log(res);
