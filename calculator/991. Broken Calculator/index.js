@@ -56,10 +56,10 @@ Note:
 // Time O (log (Y / X)).
 // Space O(1)
 const brokenCalc = function(X, Y) {
-  let ans = 0;
+  let cnt = 0;
 
   while (Y > X) {
-    ans++;
+    cnt++;
     if (Y % 2 === 1) {
       Y++;
     } else {
@@ -67,7 +67,7 @@ const brokenCalc = function(X, Y) {
     }
   }
 
-  return ans + X - Y;
+  return cnt + X - Y;
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
