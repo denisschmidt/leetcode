@@ -9,12 +9,6 @@
 
 Пример реализации алгоритма top-down merge sort 
 
- */
-
-// Time O(N * LogN)
-// Space O(N)
-/*
-
 1)
 Мы рекурсивно разделяем входной список на два подсписка, пока не останется подсписок с одним элементом.
 Этот шаг деления вычисляет среднюю точку каждого из подсписков, что занимает O(1) время.
@@ -29,7 +23,10 @@
 
  */
 
+// Time O(N * LogN)
+// Space O(N)
 const mergeSort = nums => {
+  // точка выхода их рекурсии
   if (nums.length <= 1) {
     return nums;
   }
@@ -53,12 +50,11 @@ function merge(leftNums, rightNums) {
     if (leftNums[left] < rightNums[right]) {
       result[index] = leftNums[left];
       left++;
-      index++;
     } else {
       result[index] = rightNums[right];
       right++;
-      index++;
     }
+    index++;
   }
 
   // добавляем оставшиеся списки
