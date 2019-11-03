@@ -4,6 +4,11 @@
 
 // Cуществуют разные способы посещения всех узлов или поиска значения в двоичном дереве.
 
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 // In Order Traversal
 
 // ВАЖНО!!!! Только если у нас только BST дерево то мы можем использовать подобный обход для получения значений в порядке возрастания
@@ -23,7 +28,6 @@
 3
 
 [3, 4, 5, 10, 15, 30, 40]
-
 
  */
 
@@ -50,18 +54,16 @@ const inorderTraversal = root => {
 
 const inorderTraversal2 = root => {
   const nums = [];
-
   helper(root);
-
   return nums;
 
   function helper(node) {
-    if (node === null) return;
+    if (node === null) {
+      return;
+    }
 
     helper(node.left);
-
     nums.push(node.val);
-
     helper(node.right);
   }
 };
@@ -111,6 +113,22 @@ const preorderTraversal = root => {
   return ans;
 };
 
+const preorderTraversal2 = root => {
+  const ans = [];
+  helper(root, ans);
+  return ans;
+
+  function helper(node, ans) {
+    if (node === null) {
+      return;
+    }
+
+    ans.push(node.val); // visit the root
+    helper(node.left, ans); // traverse left subtree
+    helper(node.right, ans); // traverse right subtree
+  }
+};
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -134,30 +152,51 @@ const preorderTraversal = root => {
 
 [3, 4, 5, 15, 40, 30, 10]
 
+145 Задача
+
  */
 
 // Time O(N)
 // Space O(N)
 const postorderTraversal = root => {
-  if (root === null) return [];
+  if (root === null) {
+    return [];
+  }
 
-  const stack = [];
-  const ans = [];
-  stack.push(root);
+  const stack1 = [];
+  const stack2 = [];
 
-  while (stack.length !== 0) {
-    let node = stack.pop();
+  stack1.push(root);
 
-    ans.unshift(node.val);
+  while (stack1.length) {
+    const node = stack1.pop();
+    stack2.push(node.val);
 
-    if (node.left !== null) {
-      stack.push(node.left);
+    if (node.left) {
+      stack1.push(node.left);
     }
 
-    if (node.right !== null) {
-      stack.push(node.right);
+    if (node.right) {
+      stack1.push(node.right);
     }
   }
 
+  return stack2.reverse();
+};
+
+// Bottom - Up recursive solution
+const postorderTraversal2 = root => {
+  const ans = [];
+  helper(root, ans);
   return ans;
+
+  function helper(node, ans) {
+    if (root === null) {
+      return;
+    }
+
+    helper(node.left, ans); // traverse left subtree
+    helper(node.right, ans); // traverse right subtree
+    ans.push(node.val); // visit the root
+  }
 };

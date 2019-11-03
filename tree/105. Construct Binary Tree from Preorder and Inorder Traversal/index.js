@@ -20,8 +20,6 @@ Return the following binary tree:
 
 /*
 
-Напомним определения предзаказа и прохождения обхода:
-
 Для preorder:
   - Оценить корневой узел
   - Оценить левый узел рекурсивно
@@ -56,11 +54,11 @@ d  e f  g
 
 Все элементы после корня будут правым поддеревом.
 
-Preorder:
+Preorder: root - left - right
 [a, b, d, e, c, f, g]
 | r | left  | right |
 
-Inorder:
+Inorder: left - root - right
 [d, b, e, a, f, c, g]
 | left  | r | right |
 
@@ -76,33 +74,34 @@ Inorder:
 
 // Time O(N)
 // Space O(N)
-const buildTree = function(preorder, inorder) {
+const buildTree = (preorder, inorder) => {
   // preorder root-left-right
   // inorder left-root-right
-
-  let preIdx = 0;
-  let map = new Map();
-
-  let i = 0;
-  for (let val of inorder) {
-    map.set(val, i++);
+  if (!preorder.length && !inorder.length) {
+    return null;
   }
 
-  return dfs(0, inorder.length);
+  let preIndex = 0;
+  const map = new Map();
 
-  function dfs(left, right) {
+  inorder.forEach((v, i) => map.set(v, i));
+
+  return helper(0, preorder.length);
+
+  function helper(left, right) {
     // если нет элементов для построения поддеревьев
-    if (left === right) return null;
+    if (left === right) {
+      return null;
+    }
 
-    let val = preorder[preIdx];
-    const root = new TreeNode(val);
+    let val = preorder[preIndex];
+    let root = new TreeNode(val);
+    let rootIndex = map.get(val);
 
-    let index = map.get(val);
+    preIndex++;
 
-    preIdx++;
-
-    root.left = dfs(left, index);
-    root.right = dfs(index + 1, right);
+    root.left = helper(left, rootIndex);
+    root.right = helper(rootIndex + 1, right);
 
     return root;
   }

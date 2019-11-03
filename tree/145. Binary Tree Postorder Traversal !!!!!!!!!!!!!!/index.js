@@ -28,11 +28,7 @@ Follow up: Recursive solution is trivial, could you do it iteratively?
 
 ans -> 8 -6 15 10
 
- */
 
-// Time O(N)
-// Space O(H)
-/*
       10
      /  \
    -6    15
@@ -51,8 +47,11 @@ left - right - root
 и пытаемся уйти в правую ветку
 если нету ни левой ни правой ветки то добавляем знаение в ответ
 
+Time O(N)
+Space O(H)
+
  */
-var postorderTraversal = function(root) {
+const postorderTraversal = root => {
   let cur = root;
   const stack = [];
   const ans = [];
@@ -97,20 +96,25 @@ var postorderTraversal = function(root) {
 // Space O(N)
 // Решение через два стека s1 и s2
 const postorderTraversal2 = function(root) {
-  if (!root) return [];
+  if (root === null) return [];
 
-  const s1 = [];
-  const s2 = [];
+  const stack1 = [];
+  const stack2 = [];
 
-  s1.push(root);
+  stack1.push(root);
 
-  while (s1.length) {
-    let node = s1.pop();
-    s2.push(node.val);
+  while (stack1.length) {
+    const node = stack1.pop();
+    stack2.push(node.val);
 
-    if (node.left) s1.push(node.left);
-    if (node.right) s1.push(node.right);
+    if (node.left) {
+      stack1.push(node.left);
+    }
+
+    if (node.right) {
+      stack1.push(node.right);
+    }
   }
 
-  return s2.reverse();
+  return stack2.reverse();
 };
