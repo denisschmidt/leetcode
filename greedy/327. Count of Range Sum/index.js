@@ -47,7 +47,6 @@ const countRangeSum = function(nums, lower, upper) {
     sums[i] = sum;
   }
 
-  console.log(sums);
   mergeSort(sums);
 
   return cnt;
