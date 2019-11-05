@@ -28,8 +28,6 @@ Note:
 // Space O(N)
 const canFinish = (numCourses, prerequisites) => {
   const adjList = [];
-  const visited = [];
-  const stack = [];
 
   for (let i = 0; i < numCourses; i++) {
     adjList[i] = [];
@@ -38,6 +36,8 @@ const canFinish = (numCourses, prerequisites) => {
   // создаем структуру [id курса] -> [массив курсов необходимых для этого курса]
   prerequisites.forEach(([u, v]) => adjList[u].push(v));
 
+  const visited = [];
+  const stack = [];
   for (let i = 0; i < numCourses; i++) {
     if (hasCycle(i)) {
       return false;
