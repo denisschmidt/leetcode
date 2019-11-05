@@ -45,15 +45,13 @@ const minWindow = (s, t) => {
   );
 
   while (end < s.length) {
-    const currentChar = s[end];
-
     /* modify counter here */
-    if (map[currentChar] > 0) {
+    if (map[s[end]] > 0) {
       counter--;
     }
 
     // уменьшаем счетчик для символа и передвигаем указатель конца
-    map[currentChar]--;
+    map[s[end]]--;
     end++;
 
     // состояние счетчика

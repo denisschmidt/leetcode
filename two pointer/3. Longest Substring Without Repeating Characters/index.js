@@ -19,72 +19,38 @@ Explanation: The answer is "wke", with the length of 3.
 
 */
 
-/**
- * @param {string} s
- * @return {number}
- */
-const lengthOfLongestSubstring = s => {
-  let countArr = [];
-  let currentStr = '';
-  for (let i = 0; i < s.length; i++) {
-    for (let j = i; j < s.length; j++) {
-      if (currentStr.indexOf(s[j]) === -1) {
-        currentStr = currentStr + s[j];
-      } else {
-        countArr.push(currentStr.length);
-        currentStr = '';
-        break;
-      }
-    }
-  }
-  countArr.push(currentStr.length);
-  return countArr.sort((a, b) => b - a)[0];
-};
-
-const res = lengthOfLongestSubstring('abcabcbb');
-console.log('---', res);
-
-// ==============================================================================================
-
-/*
-  Solution using two pointers and hashmap
- */
-
-/**
- * @param {string} s
- * @return {number}
- */
-const lengthOfLongestSubstring2 = s => {
-  let begin = 0,
-    end = 0,
-    counter = 0,
-    maxLength = 0;
-  let map = {};
+// Two Pointers
+// Time O(N)
+// Space O(N)
+const lengthOfLongestSubstring = str => {
+  const map = {};
 
   for (let i = 0; i < 128; i++) {
     map[String.fromCharCode(i)] = 0;
   }
 
-  while (end < s.length) {
-    if (map[s[end]] > 0) {
-      counter++;
+  let start = 0;
+  let end = 0;
+  let cnt = 0;
+  let maxLen = 0;
+
+  while (end < str.length) {
+    if (map[str[end]] > 0) {
+      cnt++;
     }
-    map[s[end]]++;
+    map[str[end]]++;
     end++;
 
-    while (counter > 0) {
-      if (map[s[begin]] > 1) {
-        counter--;
+    while (cnt > 0) {
+      if (map[str[start]] > 1) {
+        cnt--;
       }
-      map[s[begin]]--;
-      begin++;
+      map[str[start]]--;
+      start++;
     }
 
-    maxLength = Math.max(maxLength, end - begin);
+    maxLen = Math.max(maxLen, end - start);
   }
 
-  return maxLength;
+  return maxLen;
 };
-
-const res2 = lengthOfLongestSubstring2('abcabcbb');
-console.log('---', res2); // 3
