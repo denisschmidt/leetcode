@@ -21,37 +21,34 @@ const input = [4, 2, 3];
 // Time O(N)
 // Space O(N)
 // DP
-var trap = function(nums) {
+const trap = nums => {
   if (nums.length === 0) return 0;
 
-  let ans = 0;
-  let size = nums.length;
+  const n = nums.length;
+  const left = [nums[0]];
+  const right = [];
+  right[n - 1] = nums[n - 1];
 
-  let right = [];
-  let left = [];
-  left.push(nums[0]);
-  right[size - 1] = nums[size - 1];
-
-  for (let i = 1; i < size; i++) {
-    left[i] = Math.max(nums[i], left[i - 1]);
+  for (let i = 1; i < n; i++) {
+    left[i] = Math.max(left[i - 1], nums[i]);
   }
 
-  for (let i = size - 2; i >= 0; i--) {
+  for (let i = n - 2; i >= 0; i--) {
     right[i] = Math.max(nums[i], right[i + 1]);
   }
 
-  for (let i = 0; i < size - 1; i++) {
+  let ans = 0;
+  for (let i = 0; i < n; i++) {
     ans += Math.min(left[i], right[i]) - nums[i];
   }
 
   return ans;
 };
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Stack
 // Time O(n)
 // Space O(N)
-// Stack
-var trap2 = function(nums) {
+const trap2 = nums => {
   let ans = 0;
   let stack = [];
   let index = 0;
@@ -75,15 +72,10 @@ var trap2 = function(nums) {
   return ans;
 };
 
-const res = trap2(input);
-console.log('--', res);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Two pointers
 // Time O(N)
 // Space O(1)
-
-// Two pointers
-var trap3 = function(nums) {
+const trap3 = nums => {
   let left = 0;
   let right = nums.length - 1;
   let ans = 0;

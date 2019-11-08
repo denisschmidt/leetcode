@@ -28,111 +28,45 @@ Note:
  Мы должны обновить минимум внутри внутреннего цикла while.
  */
 
+// Time O(N)
+// Space O(N)
 const minWindow = (s, t) => {
-  let begin = 0,
-    end = 0;
-  let counter = t.length;
+  const map = {};
+
+  for (let x of t) {
+    map[x] = ~~map[x] + 1;
+  }
+
+  let start = 0;
+  let end = 0;
   let minLength = Number.MAX_VALUE;
   let minStartIndex = 0;
-
-  /* initialize the hash map here */
-  const map = t.split('').reduce(
-    (acc, val) => ({
-      ...acc,
-      [val]: ++acc[val] || 1,
-    }),
-    {},
-  );
+  let cnt = t.length;
 
   while (end < s.length) {
-    /* modify counter here */
     if (map[s[end]] > 0) {
-      counter--;
+      cnt--;
     }
+    map[s[end]]--; // уменьшаем счетчик для символа и передвигаем указатель конца
 
-    // уменьшаем счетчик для символа и передвигаем указатель конца
-    map[s[end]]--;
     end++;
 
-    // состояние счетчика
-    // when count reaches zero, all chars in t have been matched
-    while (counter === 0) {
+    while (cnt === 0) {
       // update minLength here if finding minimum !!!!
-      if (end - begin < minLength) {
-        minLength = end - begin;
-        minStartIndex = begin;
+      if (minLength > end - start) {
+        minLength = end - start;
+        minStartIndex = start;
+      }
+      map[s[start]]++;
+
+      if (map[s[start]] > 0) {
+        cnt++;
       }
 
-      //increase begin to make it invalid/valid again
-      map[s[begin]]++;
-
-      // the window has lost a char in t
-      if (map[s[begin]] > 0) {
-        counter++;
-      }
-
-      // minimize the window by advancing the start pointer
-      begin++;
+      start++; // minimize the window by advancing the start pointer
     }
-
     // update maxLength here if finding maximum !!!
   }
 
   return minLength === Number.MAX_VALUE ? '' : s.substr(minStartIndex, minLength);
 };
-
-const s = 'ADOBECODEBANC',
-  t = 'ABC';
-// const s = 'bbaa', t = 'aba'; // baa
-const res = minWindow(s, t);
-console.log('===', res);
-
-// ===========================================================================================
-
-const isValid = (s, t) => {
-  let index = 0;
-  for (let i = 0; i < t.length; i++) {
-    index = s.indexOf(t[i]);
-    if (index === -1) {
-      return false;
-    } else {
-      s = s.substring(0, index) + s.substring(index + 1);
-    }
-  }
-  return true;
-};
-
-/**
- * TIME LIMIT SOLUTION
- *
- * @param {string} s
- * @param {string} t
- * @return {string}
- */
-const minWindow2 = function(s, t) {
-  let left = 0,
-    right = s.length;
-  let newS = '';
-  let lastValidLeftIndex = null,
-    lastValidRightIndex = null;
-  if (s.length < t.length) {
-    return '';
-  } else if (s === t) {
-    return s;
-  }
-  while (left < right && right >= t.length) {
-    newS = s.substring(left, right);
-    if (isValid(newS, t)) {
-      lastValidLeftIndex = left;
-      lastValidRightIndex = right;
-      left++;
-    } else {
-      left--;
-      right--;
-    }
-  }
-  return lastValidLeftIndex !== null ? s.substring(lastValidLeftIndex, lastValidRightIndex) : '';
-};
-
-const res2 = minWindow2(s, t);
-console.log('===', res2);

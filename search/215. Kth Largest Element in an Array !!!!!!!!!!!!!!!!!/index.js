@@ -16,27 +16,6 @@ Note:
 You may assume k is always valid, 1 ≤ k ≤ array's length.
 
  */
-const swap = (nums, i, j) => ([nums[i], nums[j]] = [nums[j], nums[i]]);
-
-const partition = (nums, loIndex, hiIndex) => {
-  let pivotValue = nums[loIndex];
-  let pivotIndex = loIndex;
-  loIndex++;
-
-  while (loIndex <= hiIndex) {
-    if (nums[loIndex] < pivotValue) {
-      loIndex++;
-    } else if (nums[hiIndex] >= pivotValue) {
-      hiIndex--;
-    } else {
-      swap(nums, loIndex, hiIndex);
-    }
-  }
-
-  swap(nums, pivotIndex, hiIndex);
-
-  return hiIndex;
-};
 
 // Time O(N)
 // Worth case O(N^2)
@@ -46,7 +25,7 @@ const partition = (nums, loIndex, hiIndex) => {
 // in the subarray are bigger than the pivot.
 
 // Binary Search + Quick Select
-const findKthLargest2 = (nums, k) => {
+const findKthLargest = (nums, k) => {
   let loIndex = 0;
   let hiIndex = nums.length - 1;
   let targetIndex = nums.length - k;
@@ -67,12 +46,26 @@ const findKthLargest2 = (nums, k) => {
   return nums[targetIndex];
 };
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+function swap(nums, i, j) {
+  return ([nums[i], nums[j]] = [nums[j], nums[i]]);
+}
 
-// Time O(N Log N)
-// Space O(1)
-var findKthLargest = function(nums, k) {
-  let size = nums.length;
-  nums.sort((a, b) => a - b);
-  return nums[size - k];
-};
+function partition(nums, loIndex, hiIndex) {
+  let pivotValue = nums[loIndex];
+  let pivotIndex = loIndex;
+  loIndex++;
+
+  while (loIndex <= hiIndex) {
+    if (nums[loIndex] < pivotValue) {
+      loIndex++;
+    } else if (nums[hiIndex] >= pivotValue) {
+      hiIndex--;
+    } else {
+      swap(nums, loIndex, hiIndex);
+    }
+  }
+
+  swap(nums, pivotIndex, hiIndex);
+
+  return hiIndex;
+}

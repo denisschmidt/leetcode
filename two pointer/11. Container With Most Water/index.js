@@ -44,9 +44,10 @@ const maxArea2 = function(height) {
   let ans = -Number.MAX_VALUE;
   const n = height.length;
 
-  for (let i = 0; i < n - 1; i++) {
+  for (let i = 0; i < n; i++) {
     for (let j = i + 1; j < n; j++) {
-      ans = Math.max(ans, Math.abs(i - j) * Math.min(height[i], height[j]));
+      const min = Math.min(height[i], height[j]);
+      ans = Math.max(ans, min * (j - i));
     }
   }
   return ans;

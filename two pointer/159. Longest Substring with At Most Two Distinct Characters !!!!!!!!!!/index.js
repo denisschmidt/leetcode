@@ -16,44 +16,36 @@ Example 2:
 
 // Time O(N)
 // Space O(K)
-var lengthOfLongestSubstringTwoDistinct = function(str) {
-  let n = str.length;
+const lengthOfLongestSubstringTwoDistinct = function(str) {
+  const map = {};
+  for (let x of str) {
+    map[x] = 0;
+  }
+
   let start = 0;
   let end = 0;
-  let count = 0;
-  let ans = 0;
+  let cnt = 0;
+  let maxLen = 0;
 
-  const map = str.split('').reduce(
-    (acc, s) => ({
-      ...acc,
-      [s]: 0,
-    }),
-    {},
-  );
-
-  while (end < n) {
-    let s = str[end];
-
-    if (map[s] === 0) {
-      count++;
+  while (end < str.length) {
+    if (map[str[end]] === 0) {
+      cnt++;
     }
 
-    map[s]++;
+    map[str[end]]++;
     end++;
 
-    while (count > 2) {
+    while (cnt > 2) {
       if (map[str[start]] === 1) {
-        count--;
+        cnt--;
       }
       map[str[start]]--;
       start++;
     }
 
-    ans = Math.max(ans, end - start);
+    if (maxLen < end - start) {
+      maxLen = end - start;
+    }
   }
-
-  return ans;
+  return maxLen;
 };
-
-const res = lengthOfLongestSubstringTwoDistinct('aaaaabc');
-console.log('---', res);
