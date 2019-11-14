@@ -1,4 +1,4 @@
-// Heap Helpers functions
+//  Двоичная куча
 
 // NOTE A lot of these are very similar to the methods used on Djikstra's Algorithm
 
