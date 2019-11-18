@@ -1,6 +1,5 @@
-const { PriorityQueue } = require('../../algorithms/priorityQueue');
-
 /*
+
 Design a class to find the kth largest element in a stream.
 Note that it is the kth largest element in the sorted order, not the kth distinct element.
 
@@ -25,43 +24,26 @@ You may assume that nums' length ≥ k-1 and k ≥ 1.
 
  */
 
-class KthLargest {
-  /**
-   * @param {number} k
-   * @param {number[]} nums
-   */
-  constructor(k, nums) {
-    this.k = k;
-    this.nums = nums;
-    this.pq = new PriorityQueue({ initialValues: nums });
+const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
-    while (this.pq.size() > this.k) {
-      this.pq.poll();
+class KthLargest {
+  constructor(k, nums) {
+    this.heap = new PriorityQueue({ comparator: (a, b) => a - b, initialValues: nums });
+    this.k = k;
+
+    while (this.heap.size() > k) {
+      this.heap.poll();
     }
   }
 
-  /**
-   * @param {number} val
-   * @return {number}
-   */
-  add(val) {
-    if (this.pq.size() < this.k) {
-      this.pq.insert(val);
-    } else if (val > this.pq.peek()) {
-      this.pq.poll();
-      this.pq.insert(val);
+  add(value) {
+    if (this.heap.size() < this.k) {
+      this.heap.offer(value);
+    } else if (value > this.heap.peek()) {
+      this.heap.poll();
+      this.heap.offer(value);
     }
-    return this.pq.peek();
+
+    return this.heap.peek();
   }
 }
-
-let res;
-const obj = new KthLargest(2, [4, 5, 8, 2]);
-
-res = obj.add(3); // return 4
-console.log('---', res);
-/**
- * Your KthLargest object will be instantiated and called as such:
- * var obj = Object.create(KthLargest).createNew(k, nums)
- * var param_1 = obj.add(val)
- */

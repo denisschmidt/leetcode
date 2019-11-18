@@ -17,16 +17,12 @@ class PriorityQueue {
     this.heapify();
   }
 
-  swap(i, j) {
-    return ([this.data[i], this.data[j]] = [this.data[j], this.data[i]]);
-  }
-
-  getChildIndices(index) {
-    return [2 * index + 1, 2 * index + 2];
-  }
-
   clear() {
     this.data = [];
+  }
+
+  size() {
+    return this.data.length;
   }
 
   isEmpty() {
@@ -37,8 +33,12 @@ class PriorityQueue {
     return this.data.slice(0).sort(this.comparator);
   }
 
-  size() {
-    return this.data.length;
+  heapify() {
+    if (this.data.length > 0) {
+      for (let i = 1; i < this.data.length; i++) {
+        this.bubbleUp(i);
+      }
+    }
   }
 
   peek() {
@@ -51,9 +51,12 @@ class PriorityQueue {
 
   offer(value) {
     this.data.push(value);
+    // поднимаемся вверх
+    // проверяем условие min heap или max heap
     this.bubbleUp(this.data.length - 1);
   }
 
+  // удаляем head из очереди
   poll() {
     if (this.size() === 0) {
       return null;
@@ -62,7 +65,7 @@ class PriorityQueue {
     const result = this.data[0];
     const last = this.data.pop();
 
-    if (this.size() > 0) {
+    if (this.data.length > 0) {
       this.data[0] = last;
       this.bubbleDown(0);
     }
@@ -70,22 +73,20 @@ class PriorityQueue {
     return result;
   }
 
-  heapify() {
-    if (this.data.length) {
-      for (let i = 1; i < this.data.length; i++) {
-        this.bubbleUp(i);
-      }
-    }
-  }
+  getChildIndexes = index => {
+    return [index * 2 + 1, index * 2 + 2];
+  };
 
   // поднимаемся вверх
-  // проверяем чтобы родитель был меньше ребенка
   bubbleUp(pos) {
-    while (pos > 1) {
+    while (pos > 0) {
       let parent = (pos - 1) >>> 1; // целочисленное деление на 2
 
-      if (this.data[pos] < this.data[parent]) {
-        this.swap(parent, pos);
+      // делаем swap если не выполняется условие min heap или max heap
+      if (this.comparator(this.data[pos], this.data[parent]) < 0) {
+        const temp = this.data[parent];
+        this.data[parent] = this.data[pos];
+        this.data[pos] = temp;
         pos = parent;
       } else {
         break;
@@ -94,23 +95,24 @@ class PriorityQueue {
   }
 
   bubbleDown(pos) {
-    const lastIndex = this.data.length - 1;
+    const last = this.data.length - 1;
 
     while (true) {
-      let [leftIndex, rightIndex] = this.getChildIndices(pos);
-
+      let [left, right] = this.getChildIndexes(pos);
       let minIndex = pos;
 
-      if (leftIndex <= lastIndex && this.data[minIndex] > this.data[leftIndex]) {
-        minIndex = leftIndex;
+      if (left <= last && this.comparator(this.data[left], this.data[minIndex]) < 0) {
+        minIndex = left;
       }
 
-      if (rightIndex <= lastIndex && this.data[minIndex] > this.data[rightIndex]) {
-        minIndex = rightIndex;
+      if (right <= last && this.comparator(this.data[right], this.data[minIndex]) < 0) {
+        minIndex = right;
       }
 
       if (minIndex !== pos) {
-        this.swap(minIndex, pos);
+        const temp = this.data[minIndex];
+        this.data[minIndex] = this.data[pos];
+        this.data[pos] = temp;
         pos = minIndex;
       } else {
         break;
@@ -118,6 +120,7 @@ class PriorityQueue {
     }
   }
 }
+
 module.exports = {
   PriorityQueue,
 };
