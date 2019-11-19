@@ -2,8 +2,7 @@
 Given an integer array nums, return the number of range sum that lie in [lower, upper] inclusive.
 Range sum S(i, j) is defined as the sum of the elements in nums between indices i and j (i ≤ j), inclusive.
 
-Note:
-A naive algorithm of O(n2) is trivial. You MUST do better than that.
+Note: A naive algorithm of O(n2) is trivial. You MUST do better than that.
 
 Example:
   Input: nums = [-2,5,-1], lower = -2, upper = 2,
@@ -24,7 +23,8 @@ Example:
 Тогда количество сумм в [lower, upper] равно j-k.
 
 Несмотря на вложенные циклы, временная сложность этапа «слияния и подсчета» остается линейной.
-Поскольку индексы k, j, t будут только увеличиваться, но не уменьшаться, каждый из них будет проходить только правую половину не более одного раза.
+Поскольку индексы k, j, t будут только увеличиваться, но не уменьшаться,
+каждый из них будет проходить только правую половину не более одного раза.
 
 Общая временная сложность этого решения «разделяй и властвуй» тогда равна O(N * logN).
 
