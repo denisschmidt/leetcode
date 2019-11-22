@@ -73,9 +73,9 @@ class PriorityQueue {
     return result;
   }
 
-  getChildIndexes = index => {
+  getChildIndexes(index) {
     return [index * 2 + 1, index * 2 + 2];
-  };
+  }
 
   // поднимаемся вверх
   bubbleUp(pos) {

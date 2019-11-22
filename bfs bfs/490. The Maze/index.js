@@ -51,7 +51,23 @@ Note:
 
  */
 
-const dfs = (maze, visited, start, end, dirs) => {
+// Time O(M*N)
+// Space O(M*N)
+const hasPath = (maze, start, end) => {
+  let dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
+  const visited = Array(maze.length)
+    .fill(null)
+    .map(() => Array(maze[0].length).fill(false));
+
+  return dfs(maze, visited, start, end, dirs);
+};
+
+function dfs(maze, visited, start, end, dirs) {
   if (visited[start[0]][start[1]]) return false;
 
   if (start[0] === end[0] && start[1] === end[1]) return true;
@@ -73,20 +89,15 @@ const dfs = (maze, visited, start, end, dirs) => {
   }
 
   return false;
-};
+}
 
-// Time O(M*N)
-// Space O(M*N)
-const hasPath = (maze, start, end) => {
-  let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
-  const visited = Array(maze.length)
-    .fill(null)
-    .map(() => Array(maze[0].length).fill(false));
-
-  return dfs(maze, visited, start, end, dirs);
-};
-
-const maze = [[0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 0], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0]];
+const maze = [
+  [0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0],
+  [1, 1, 0, 1, 1],
+  [0, 0, 0, 0, 0],
+];
 const start = [0, 4];
 const end = [3, 2];
 
@@ -95,7 +106,12 @@ const end = [3, 2];
 // Space O(m*n)
 const hasPath2 = (maze, start, end) => {
   let queue = [];
-  let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  let dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
 
   const visited = Array(maze.length)
     .fill(null)

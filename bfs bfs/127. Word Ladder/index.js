@@ -37,6 +37,7 @@ Example 2:
 
 // Time O(M * N) где M - длина слова, а N - общее количество слов в списке входных слов.
 // Space O(M * N)
+
 const ladderLength = function(beginWord, endWord, wordList) {
   if (!wordList.includes(endWord)) return 0;
 
@@ -51,57 +52,28 @@ const ladderLength = function(beginWord, endWord, wordList) {
     let char = queue.shift();
 
     if (queue.includes(endWord) || char === endWord) {
-      let count = map.get(endWord);
-
-      ans = Math.min(ans, count);
+      ans = Math.min(ans, map.get(endWord));
     }
 
-    for (let i = 0; i < wordList.length; i++) {
-      if (oneEditReplace(wordList[i], char) && !visited.has(i)) {
-        queue.push(wordList[i]);
-        visited.add(i);
+    wordList.forEach((word, index) => {
+      if (oneEditReplace(word, char) && !visited.has(index)) {
+        visited.add(index);
+        queue.push(word);
 
         if (map.has(char)) {
-          map.set(wordList[i], map.get(char) + 1);
+          map.set(word, map.get(char) + 1);
         } else {
-          map.set(wordList[i], 1);
+          map.set(word, 1);
         }
       }
-    }
+    });
   }
 
   return ans === Number.MAX_VALUE ? 0 : ans;
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const ladderLength2 = function(beginWord, endWord, wordList) {
-  let ans = Number.MAX_VALUE;
-
-  if (!wordList.includes(endWord)) return 0;
-
-  backtrack(beginWord, [beginWord]);
-  return ans === Number.MAX_VALUE ? 0 : ans;
-
-  function backtrack(char, comb) {
-    if (comb[comb.length - 1] === endWord) {
-      ans = Math.min(ans, comb.length);
-      return;
-    } else {
-      for (let i = 0; i < wordList.length; i++) {
-        if (comb.includes(wordList[i])) continue;
-        let last = comb[comb.length - 1];
-        if (oneEditReplace(wordList[i], last)) {
-          comb.push(wordList[i]);
-          backtrack(char, comb);
-          comb.pop();
-        }
-      }
-    }
-  }
 };
 
 function oneEditReplace(s1, s2) {
+  if (s1 === s2) return false;
   let foundDifference = false;
   for (let i = 0; i < s1.length; i++) {
     if (s1[i] !== s2[i]) {

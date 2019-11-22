@@ -33,11 +33,17 @@ Output: 12
 Explanation: One shortest way is : left -> down -> left -> down -> right -> down -> right.
              The total distance is 1 + 1 + 3 + 1 + 2 + 2 + 2 = 12.
  */
+const dirs = [
+  [0, 1],
+  [0, -1],
+  [-1, 0],
+  [1, 0],
+];
 
 // BFS
 // Time complexity : O(m*n*max(m,n))
 // Space complexity : O(mn)
-var shortestDistance = function(maze, start, end) {
+const shortestDistance = function(maze, start, end) {
   const distance = Array(maze.length)
     .fill(null)
     .map(() => Array(maze[0].length).fill(Number.MAX_VALUE));
@@ -45,8 +51,6 @@ var shortestDistance = function(maze, start, end) {
   distance[start[0]][start[1]] = 0;
 
   let queue = [];
-  let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
-
   queue.push(start);
 
   while (queue.length) {
@@ -80,9 +84,22 @@ var shortestDistance = function(maze, start, end) {
 // Further, for every current node chosen, we can travel upto a maximum depth of max(m,n) in any direction.
 
 // Space O(mn). distance array of size m * n is used
-const dfs = (maze, start, distance) => {
-  let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
 
+const shortestDistance2 = (maze, start, end) => {
+  const distance = Array(maze.length)
+    .fill(null)
+    .map(() => {
+      return Array(maze[0].length).fill(Number.MAX_VALUE);
+    });
+
+  distance[start[0]][start[1]] = 0;
+
+  dfs(maze, start, distance);
+
+  return distance[end[0]][end[1]] === Number.MAX_VALUE ? -1 : distance[end[0]][end[1]];
+};
+
+function dfs(maze, start, distance) {
   for (let dir of dirs) {
     let x = start[0] + dir[0];
     let y = start[1] + dir[1];
@@ -101,18 +118,4 @@ const dfs = (maze, start, distance) => {
       dfs(maze, [x - dir[0], y - dir[1]], distance);
     }
   }
-};
-
-const shortestDistance2 = (maze, start, end) => {
-  const distance = Array(maze.length)
-    .fill(null)
-    .map(() => {
-      return Array(maze[0].length).fill(Number.MAX_VALUE);
-    });
-
-  distance[start[0]][start[1]] = 0;
-
-  dfs(maze, start, distance);
-
-  return distance[end[0]][end[1]] === Number.MAX_VALUE ? -1 : distance[end[0]][end[1]];
-};
+}

@@ -68,7 +68,12 @@ Example 2:
 // Space O(N)
 const findShortestWay = function(maze, ball, hole) {
   let path = '';
-  const dirs = [[1, 0, 'd'], [0, -1, 'l'], [0, 1, 'r'], [-1, 0, 'u']];
+  const dirs = [
+    [1, 0, 'd'],
+    [0, -1, 'l'],
+    [0, 1, 'r'],
+    [-1, 0, 'u'],
+  ];
   const distance = Array(maze.length)
     .fill(null)
     .map(() => Array(maze[0].length).fill(Number.MAX_VALUE));
@@ -112,7 +117,13 @@ const findShortestWay = function(maze, ball, hole) {
   }
 };
 
-const maze = [[0, 0, 0, 0, 0], [1, 1, 0, 0, 1], [0, 0, 0, 0, 0], [0, 1, 0, 0, 1], [0, 1, 0, 0, 0]];
+const maze = [
+  [0, 0, 0, 0, 0],
+  [1, 1, 0, 0, 1],
+  [0, 0, 0, 0, 0],
+  [0, 1, 0, 0, 1],
+  [0, 1, 0, 0, 0],
+];
 let x = [4, 3];
 let y = [0, 1];
 
@@ -121,7 +132,12 @@ let y = [0, 1];
 const findShortestWay2 = function(maze, ball, hole) {
   const n = maze.length;
   const m = maze[0].length;
-  const dirs = [[1, 0, 'd'], [0, -1, 'l'], [0, 1, 'r'], [-1, 0, 'u']];
+  const dirs = [
+    [1, 0, 'd'],
+    [0, -1, 'l'],
+    [0, 1, 'r'],
+    [-1, 0, 'u'],
+  ];
 
   const distance = Array(n)
     .fill(null)
