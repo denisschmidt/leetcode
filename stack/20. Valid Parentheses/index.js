@@ -26,40 +26,13 @@ Example 4:
 Example 5:
   Input: "{[]}"
   Output: true
-
  */
 
+// Stack
+// Time O(N)
+// Space O(N)
 const validBraces = str => {
-  if (!str.length) {
-    return true;
-  }
-  if (str.length % 2 !== 0) {
-    return false;
-  }
-  let queueOpenSymbols = [],
-    countOpenSymbols = 0;
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === '{' || str[i] === '[' || str[i] === '(') {
-      queueOpenSymbols.push(str[i]);
-    } else {
-      countOpenSymbols = queueOpenSymbols.length;
-      if (
-        (str[i] === '}' && queueOpenSymbols[countOpenSymbols - 1] === '{') ||
-        (str[i] === ']' && queueOpenSymbols[countOpenSymbols - 1] === '[') ||
-        (str[i] === ')' && queueOpenSymbols[countOpenSymbols - 1] === '(')
-      ) {
-        queueOpenSymbols.pop();
-      }
-    }
-  }
-  return !queueOpenSymbols.length;
-};
-
-const res = validBraces('{}[]()]');
-console.log('---', res);
-
-const validBraces2 = str => {
-  let stack = [];
+  const stack = [];
 
   for (let i = 0; i < str.length; i++) {
     if (str[i] === '(') {
@@ -74,6 +47,3 @@ const validBraces2 = str => {
   }
   return !stack.length;
 };
-
-const res2 = validBraces2('{}[]()]');
-console.log('---', res2);
