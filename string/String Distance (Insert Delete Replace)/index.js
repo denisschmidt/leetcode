@@ -40,10 +40,40 @@ const oneEditInsert = (s1, s2) => {
   return true;
 };
 
-/*
-  Время О(n), где n длина более короткой строки.
- */
+// Time O(N)
+// Space O(1)
 const oneEditAway = (first, second) => {
+  if (Math.abs(first.length - second.length) > 1) return false;
+
+  let s1 = first.length < second.length ? first : second; // меньшая строка
+  let s2 = first.length < second.length ? second : first; // большая строка
+
+  let index1 = 0;
+  let index2 = 0;
+  let foundDiff = false;
+
+  while (index1 < s1.length && index2 < s2.length) {
+    if (s1[index1] !== s2[index2]) {
+      if (foundDiff) return false;
+
+      foundDiff = true;
+
+      if (s1.length === s2.length) {
+        index1++; // при замене сместить указатель короткой строки
+      }
+    } else {
+      index1++; // При совпадении сместить указатель короткой строки
+    }
+
+    index2++; // Всегда смещать указатель длинной строки
+  }
+
+  return true;
+};
+
+// Time О(n), где n длина более короткой строки.
+// Space O(1)
+const oneEditAway2 = (first, second) => {
   if (first.length === second.length) {
     return oneEditReplace(first, second);
   } else if (first.length + 1 === second.length) {
@@ -55,5 +85,4 @@ const oneEditAway = (first, second) => {
 };
 
 const res = oneEditAway('pale', 'bake');
-
 console.log('---', res);

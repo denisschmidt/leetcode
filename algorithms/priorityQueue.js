@@ -57,6 +57,7 @@ class PriorityQueue {
   }
 
   // извлекаем первый элемент из очереди
+  // Time O(Log*N)
   poll() {
     if (this.size() === 0) {
       return null;
