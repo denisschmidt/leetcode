@@ -9,7 +9,6 @@ Each allowed triple is represented as a string of length 3.
 Return true if we can build the pyramid all the way to the top, otherwise false.
 
 Example 1:
-
   Input: bottom = "BCD", allowed = ["BCG", "CDE", "GEA", "FFF"]
   Output: true
   Explanation:
@@ -36,3 +35,62 @@ Note:
   Letters in all strings will be chosen from the set {'A', 'B', 'C', 'D', 'E', 'F', 'G'}.
 
  */
+
+const pyramidTransition = (bottom, allowed) => {
+  let dict = new Map();
+
+  for (let s of allowed) {
+    const key = s.substring(0, 2);
+    const val = s.substring(2);
+
+    if (!dict.has(key)) {
+      dict.set(key, []);
+    }
+    dict.get(key).push(val);
+  }
+
+  return helper(bottom, dict);
+
+  function helper(bottom, dict) {
+    if (bottom.length === 1) {
+      return true;
+    }
+
+    for (let j = 0; j < bottom.length - 1; j++) {
+      let key = bottom.substring(j, j + 2);
+
+      if (dict.has(key) === false) {
+        return false;
+      }
+    }
+
+    const comb = [];
+    getBottoms(bottom, 0, [], comb, dict);
+
+    for (let c of comb) {
+      if (helper(c, dict)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  // получаем следующий Bottom уровень
+  function getBottoms(bottom, index, solution, bottoms, dict) {
+    if (index === bottom.length - 1) {
+      bottoms.push(solution.join(''));
+      return;
+    }
+
+    const key = bottom.substring(index, index + 2);
+
+    for (let c of dict.get(key)) {
+      solution.push(c);
+      getBottoms(bottom, index + 1, solution, bottoms, dict);
+      solution.pop();
+    }
+  }
+};
+
+const res = pyramidTransition('AABA', ['AAA', 'AAB', 'ABA', 'ABB', 'BAC']);
+console.log(res);

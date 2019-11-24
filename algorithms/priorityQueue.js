@@ -56,7 +56,7 @@ class PriorityQueue {
     this.bubbleUp(this.data.length - 1);
   }
 
-  // удаляем head из очереди
+  // извлекаем первый элемент из очереди
   poll() {
     if (this.size() === 0) {
       return null;
@@ -77,7 +77,8 @@ class PriorityQueue {
     return [index * 2 + 1, index * 2 + 2];
   }
 
-  // поднимаемся вверх
+  // всплываем вверх по дереву
+  // Time O(Log*N)
   bubbleUp(pos) {
     while (pos > 0) {
       let parent = (pos - 1) >>> 1; // целочисленное деление на 2
