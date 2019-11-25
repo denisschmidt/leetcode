@@ -39,6 +39,7 @@ Note:
   The cells are adjacent in only four directions: up, down, left and right.
  */
 
+// BFS
 // Time O(N * M)
 // Space O(N * M)
 const updateMatrix = matrix => {
@@ -51,6 +52,10 @@ const updateMatrix = matrix => {
     [-1, 0],
   ];
   let queue = [];
+
+  // ВАЖНАЯ ЧАСТЬ и полезный прием
+  // новую матрицу мы инициализируем как Number.MAX_VALUE
+  // это те значения по которым мы еще не прошлись и которые мы еще не заполнили
   let grid = Array(n)
     .fill(null)
     .map(() => Array(m).fill(Number.MAX_VALUE));

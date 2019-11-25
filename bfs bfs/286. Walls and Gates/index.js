@@ -25,6 +25,9 @@ Example:
   0  -1   3   4
  */
 
+// BFS
+// Time O(N * M)
+// Space O(N * M)
 const wallsAndGates = rooms => {
   if (rooms.length === 0) return;
 

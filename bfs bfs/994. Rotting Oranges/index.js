@@ -41,22 +41,22 @@ Note:
 
  */
 
-// Time
+// BFS
+// Time O(N)
 // Space O(N)
 const orangesRotting = grid => {
   if (grid.length === 0) return -1;
 
   const n = grid.length;
   const m = grid[0].length;
-
-  let ans = 0;
-  let rotted = [];
   let fresh = 0;
+  let queue = [];
+  let ans = 0;
 
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < m; j++) {
       if (grid[i][j] === 2) {
-        rotted.push([i, j]);
+        queue.push([i, j]);
       } else if (grid[i][j] === 1) {
         fresh++;
       }
@@ -65,36 +65,34 @@ const orangesRotting = grid => {
 
   if (fresh === 0) return 0;
 
-  while (rotted.length > 0) {
-    const temp = [];
+  while (queue.length > 0) {
+    const tmp = [];
 
-    for (let [i, j] of rotted) {
+    for (let [i, j] of queue) {
       if (i - 1 >= 0 && grid[i - 1][j] === 1) {
-        temp.push([i - 1, j]);
+        tmp.push([i - 1, j]);
         grid[i - 1][j] = 2;
         fresh--;
       }
       if (i + 1 < grid.length && grid[i + 1][j] === 1) {
-        temp.push([i + 1, j]);
+        tmp.push([i + 1, j]);
         grid[i + 1][j] = 2;
         fresh--;
       }
       if (j - 1 >= 0 && grid[i][j - 1] === 1) {
-        temp.push([i, j - 1]);
+        tmp.push([i, j - 1]);
         grid[i][j - 1] = 2;
         fresh--;
       }
       if (j + 1 < grid[0].length && grid[i][j + 1] === 1) {
-        temp.push([i, j + 1]);
+        tmp.push([i, j + 1]);
         grid[i][j + 1] = 2;
         fresh--;
       }
     }
-    rotted = temp;
     ans++;
+    queue = tmp;
   }
 
-  if (fresh > 0) return -1;
-
-  return --ans;
+  return fresh > 0 ? -1 : --ans;
 };
