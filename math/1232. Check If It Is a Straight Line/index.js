@@ -10,18 +10,15 @@ Example 1:
 Example 2:
   Input: coordinates = [[1,1],[2,2],[3,4],[4,5],[5,6],[7,7]]
   Output: false
- 
 
 Constraints:
-
   2 <= coordinates.length <= 1000
   coordinates[i].length == 2
   -10^4 <= coordinates[i][0], coordinates[i][1] <= 10^4
   coordinates contains no duplicate point.
 
-Формула площади треугольника
-
-0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
+ВАЖНО!!!
+  Формула площади треугольника 0.5 * (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
 
  */
 
@@ -41,7 +38,6 @@ const checkStraightLine = coordinates => {
   return true;
 
   function isCollinear([x1, y1], [x2, y2], [x3, y3]) {
-    const sum = x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2);
-    return sum === 0;
+    return x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2) === 0;
   }
 };

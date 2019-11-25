@@ -10,25 +10,20 @@ Example 2:
   Output: 8
 
 Note:
+  Your algorithm should run in linear runtime complexity.
+  Could you implement it using only constant extra space complexity?
 
-Your algorithm should run in linear runtime complexity.
-Could you implement it using only constant extra space complexity?
+
+ВАЖНО !!!!!
+Формула Гаусса: Cумма чисел от 1 до n (n * (n + 1)) / 2
 
  */
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
+// Time O(N)
+// Space O(1)
 const missingNumber = function(nums) {
   const size = nums.length;
   const total = (size * (size + 1)) / 2;
-  let sum = 0;
-  for (let i = 0; i < size; i++) {
-    sum += nums[i];
-  }
+  const sum = nums.reduce((acc, v) => acc + v, 0);
   return total - sum;
 };
-
-const res = missingNumber([3, 0, 1]);
-console.log('---', res);

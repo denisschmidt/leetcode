@@ -20,13 +20,16 @@ Constraints:
   3 <= arr.length <= 1000
   0 <= arr[i] <= 10^5
 
+
+ВАЖНО !!!!! Сумма n членов арифметической прогрессии: S(n) = (a(1) + a(n) * n) / 2
+
  */
+
 // Time O(N)
 // Space O(1)
 const missingNumber = arr => {
   const n = arr.length;
-
-  const s1 = ((n + 1) * (arr[0] + arr[arr.length - 1])) / 2;
+  const s1 = ((arr[0] + arr[arr.length - 1]) * (n + 1)) / 2;
   const s2 = arr.reduce((acc, v) => acc + v, 0);
   return s1 - s2;
 };

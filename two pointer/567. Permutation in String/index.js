@@ -25,6 +25,7 @@ const checkInclusion = function(s1, s2) {
   let end = 0;
   let cnt = s1.length;
   let minLen = Number.MAX_VALUE;
+
   for (let s of s1) {
     map[s] = ~~map[s] + 1;
   }
