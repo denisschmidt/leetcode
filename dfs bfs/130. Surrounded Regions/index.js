@@ -29,7 +29,12 @@ const solve = board => {
   if (!board.length) return [];
   const n = board.length;
   const m = board[0].length;
-  const dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  const dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
 
   // scan the borders and mark the 'O's to '1'
   for (let i = 0; i < n; i++) {

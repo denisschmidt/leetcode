@@ -24,7 +24,12 @@ Given word = "ABCB", return false.
 const exist = function(board, word) {
   const n = board.length;
   const m = board[0].length;
-  let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  let dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
 
   const visited = Array(n)
     .fill(null)
@@ -64,7 +69,11 @@ const exist = function(board, word) {
   }
 };
 
-const board = [['A', 'B', 'C', 'E'], ['S', 'F', 'C', 'S'], ['A', 'D', 'E', 'E']];
+const board = [
+  ['A', 'B', 'C', 'E'],
+  ['S', 'F', 'C', 'S'],
+  ['A', 'D', 'E', 'E'],
+];
 
 const res = exist(board, 'ABCCED');
 console.log('---', res);

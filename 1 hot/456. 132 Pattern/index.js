@@ -22,51 +22,47 @@ Example 3:
   Explanation: There are three 132 patterns in the sequence: [-1, 3, 2], [-1, 3, 0] and [-1, 2, 0].
 
  */
-const find132pattern = nums => {
-  let stack = [0];
 
-  for (let j = 1; j < nums.length; j++) {
-    if (stack.length === 3) {
+// Stack
+// Time O(N)
+// Space O(N)
+
+// Очень крутая идея в стеке у нас уже будут значения в нужном нам порядке
+const find132pattern = nums => {
+  let s3 = -Number.MAX_VALUE;
+  let stack = [];
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    // Если у нас новое значения меньше s3 значит такая последовательность существуетЗ
+    if (nums[i] < s3) {
       return true;
     }
 
-    let lastIndex = stack[stack.length - 1];
+    // В стеке будет максимальное значение это s2
+    while (stack.length && nums[i] > stack[stack.length - 1]) {
+      s3 = stack.pop();
+    }
 
-    if (stack.length === 1) {
-      let i = lastIndex + 1;
-      while (i < nums.length) {
-        if (nums[lastIndex] < nums[i]) {
-          stack.push(i);
-          break;
-        }
-        i++;
-      }
+    stack.push(nums[i]);
+  }
 
-      if (stack.length === 1) {
-        stack = [stack[0] + 1];
-        j = stack[0];
-      }
-    } else if (stack.length === 2) {
-      let i = lastIndex + 1;
+  return false;
+};
 
-      while (i < nums.length) {
-        if (nums[lastIndex] > nums[i] && nums[i] > nums[stack[0]]) {
-          stack.push(i);
-          break;
-        }
-        i++;
-      }
-
-      if (stack.length === 2) {
-        stack = [stack[0] + 1];
-        j = stack[0];
+// Time O(N^2)
+// Space O(1)
+const find132pattern2 = nums => {
+  let min = Number.MAX_VALUE;
+  for (let i = 0; i < nums.length - 1; i++) {
+    min = Math.min(nums[i], min);
+    for (let k = i + 1; k < nums.length; k++) {
+      if (nums[k] < nums[i] && min < nums[k]) {
+        return true;
       }
     }
   }
 
-  console.log(stack);
-
-  return stack.length === 3;
+  return false;
 };
 
 const res = find132pattern([-2, 1, 2, -2, 1, 2]);

@@ -59,7 +59,12 @@ const uniquePathsIII = grid => {
   const n = grid.length;
   const m = grid[0].length;
   const start = [];
-  const dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  const dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
 
   for (let i = 0; i < n; i++) {
     if (start.length) break;

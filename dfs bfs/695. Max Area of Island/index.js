@@ -33,7 +33,12 @@ const maxAreaOfIsland = grid => {
   let n = grid.length;
   let m = grid[0].length;
   let ans = 0;
-  const dirs = [[1, 0, 'd'], [0, -1, 'l'], [0, 1, 'r'], [-1, 0, 'u']];
+  const dirs = [
+    [1, 0, 'd'],
+    [0, -1, 'l'],
+    [0, 1, 'r'],
+    [-1, 0, 'u'],
+  ];
   let count = 0;
 
   for (let i = 0; i < n; i++) {

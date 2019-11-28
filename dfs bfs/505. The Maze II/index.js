@@ -33,17 +33,17 @@ Output: 12
 Explanation: One shortest way is : left -> down -> left -> down -> right -> down -> right.
              The total distance is 1 + 1 + 3 + 1 + 2 + 2 + 2 = 12.
  */
-const dirs = [
-  [0, 1],
-  [0, -1],
-  [-1, 0],
-  [1, 0],
-];
 
 // BFS
 // Time complexity : O(m*n*max(m,n))
 // Space complexity : O(mn)
 const shortestDistance = function(maze, start, end) {
+  const dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
   const distance = Array(maze.length)
     .fill(null)
     .map(() => Array(maze[0].length).fill(Number.MAX_VALUE));

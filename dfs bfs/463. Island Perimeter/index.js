@@ -35,7 +35,12 @@ const islandPerimeter = grid => {
 
   let ans = 0;
 
-  const dirs = [[0, 1], [1, 0], [-1, 0], [0, -1]];
+  const dirs = [
+    [0, 1],
+    [1, 0],
+    [-1, 0],
+    [0, -1],
+  ];
 
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < m; j++) {

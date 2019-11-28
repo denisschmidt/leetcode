@@ -26,7 +26,12 @@ const spiralOrder = function(matrix) {
   const n = matrix.length;
   const m = matrix[0].length;
   const ans = [];
-  const dirs = [[0, 1, 'r'], [1, 0, 'd'], [0, -1, 'l'], [-1, 0, 'u']];
+  const dirs = [
+    [0, 1, 'r'],
+    [1, 0, 'd'],
+    [0, -1, 'l'],
+    [-1, 0, 'u'],
+  ];
 
   helper(0, 0);
 
