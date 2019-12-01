@@ -23,6 +23,7 @@ class DSU {
    */
   find(x) {
     if (this.parent[x] !== x) {
+      // Path compression
       this.parent[x] = this.find(this.parent[x]);
     }
     return this.parent[x];
@@ -34,10 +35,8 @@ class DSU {
    *  где find(x) => find(4) = 4, find(1) = 4, find(2) = 2, find(3) = 5
    * */
   union(x, y) {
-    let xr = this.find(x),
-      yr = this.find(y);
-
-    console.log('---', xr, this.rank[xr], yr, this.rank[yr]);
+    let xr = this.find(x);
+    let yr = this.find(y);
 
     if (xr === yr) {
       return false;
@@ -46,8 +45,8 @@ class DSU {
     } else if (this.rank[xr] > this.rank[yr]) {
       this.parent[yr] = xr;
     } else {
+      // если не равны xr и yr
       this.parent[yr] = xr;
-
       this.rank[xr]++;
     }
     return true;

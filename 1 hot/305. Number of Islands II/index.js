@@ -49,6 +49,14 @@ Can you do it in time complexity O(k log mn), where k is the length of the posit
 
  */
 
+// Time
+// Space O(N)
+
+// Union-Find полезен для нахождения отношений между непересекающимися подмножествами (в данном случае островками),
+// мы можем использовать этот простой, но удивительный алгоритм для обнаружения циклов в неориентированном графе
+
+// Для этой проблемы мы просматриваем каждую входную позицию, сначала помечаем ее как новый остров,
+// затем выполняем поиск объединения с соседями, которые являются островами.
 const numIslands2 = (m, n, positions) => {
   const dirs = [
     [1, 0],
@@ -77,10 +85,10 @@ const numIslands2 = (m, n, positions) => {
 
         if (nx < 0 || nx >= m || ny < 0 || ny >= n || nums[y] === -1) continue;
 
-        // найти и объединить острова
         y = find(nums, y);
         x = find(nums, x);
 
+        // union
         nums[y] = x;
 
         if (y !== x) cnt--;
@@ -93,8 +101,10 @@ const numIslands2 = (m, n, positions) => {
   return ans;
 
   function find(nums, i) {
+    // нашли root
     if (nums[i] === i) return i;
 
+    // ищем root и соответственно обновляем ячейку
     nums[i] = find(nums, nums[i]);
 
     return nums[i];
@@ -107,7 +117,7 @@ let pos = [
   [0, 0],
   [0, 1],
   [1, 2],
-  [1, 2],
+  [2, 1],
 ];
 
 const res = numIslands2(m, n, pos);
