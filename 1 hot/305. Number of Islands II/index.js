@@ -31,7 +31,22 @@ Example:
     0 1 0
     Follow up:
 
-Can you do it in time complexity O(k log mn), where k is the length of the positions?
+[0, 1],
+[1, 2],
+[2, 1],
+[1, 0],
+
+[0, 2],
+[0, 0],
+[1, 1],
+
+
+110
+001
+000
+
+Can you do it in time complexity O(k log mn), where k is the length of the positions ?
+
  */
 
 const numIslands2 = (m, n, positions) => {
@@ -41,40 +56,60 @@ const numIslands2 = (m, n, positions) => {
     [0, 1],
     [-1, 0],
   ];
-  const matrix = Array(m)
-    .fill(null)
-    .map(() => Array(n).fill(0));
+  const ans = [];
+  const nums = Array(n * m).fill(-1);
+  let cnt = 0;
 
-  console.log(matrix);
-
-  let ans = 0;
   for (let [i, j] of positions) {
-    let isIsland = false;
+    // для каждой позиции помечаем ее как новый остров
+    let x = i * n + j;
 
-    for (let dir of dirs) {
-      let x = dir[0] + i;
-      let y = dir[1] + j;
+    if (nums[x] !== -1) {
+      ans.push(cnt);
+    } else {
+      nums[x] = x;
+      cnt++;
 
-      if (x < 0 || y < 0 || x >= m || y >= n) continue;
+      for (let dir of dirs) {
+        let nx = dir[0] + i;
+        let ny = dir[1] + j;
+        let y = nx * n + ny;
 
-      if (matrix[x][y] === 1) {
-        isIsland = true;
+        if (nx < 0 || nx >= m || ny < 0 || ny >= n || nums[y] === -1) continue;
+
+        // найти и объединить острова
+        y = find(nums, y);
+        x = find(nums, x);
+
+        nums[y] = x;
+
+        if (y !== x) cnt--;
       }
-    }
 
-    if (!isIsland) {
-      ans++;
+      ans.push(cnt);
     }
   }
 
   return ans;
+
+  function find(nums, i) {
+    if (nums[i] === i) return i;
+
+    nums[i] = find(nums, nums[i]);
+
+    return nums[i];
+  }
 };
 
-const res = numIslands2(3, 3, [
+let m = 3;
+let n = 3;
+let pos = [
   [0, 0],
   [0, 1],
   [1, 2],
-  [2, 1],
-]);
+  [1, 2],
+];
+
+const res = numIslands2(m, n, pos);
 
 console.log(res);
