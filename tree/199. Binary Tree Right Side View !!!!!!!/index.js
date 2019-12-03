@@ -16,25 +16,12 @@ Explanation:
 
  */
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-
-/**
- * Approach #1 Depth-First Search
- *
- *
- * @param {TreeNode} root
- * @return {number[]}
- */
-
+// DFS
+// Time O(N)
+// Space O(N)
 const rightSideView = function(root) {
-  let nodeStack = [],
-    depthStack = [];
+  let nodeStack = [];
+  let depthStack = [];
   let maxDepth = -1;
   let rightmostValueAtDepth = new Map();
   nodeStack.push(root);
@@ -62,19 +49,14 @@ const rightSideView = function(root) {
   return arr;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-/*
- * Approach #2 Breadth-First Search
- *
- * @param {TreeNode} root
- * @return {number[]}
- */
-
+// BFS
+// Time O(N)
+// Space O(N)
 const rightSideView2 = function(root) {
-  let nodeQueue = [],
-    depthQueue = [];
+  let nodeQueue = [];
+  let depthQueue = [];
   let maxDepth = -1;
+
   let rightmostValueAtDepth = new Map();
   nodeQueue.push(root);
   depthQueue.push(0);
