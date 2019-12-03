@@ -121,5 +121,4 @@ let pos = [
 ];
 
 const res = numIslands2(m, n, pos);
-
 console.log(res);
