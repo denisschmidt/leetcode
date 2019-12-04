@@ -9,46 +9,37 @@ Example 2:
   Input: nums = [1], k = 1
   Output: [1]
 
-Note:
+Example 2:
+  Input: nums = [3,0,1,0], k = 1
+  Output: [0]
+1
 
+Note:
   You may assume k is always valid, 1 ≤ k ≤ number of unique elements.
   Your algorithm's time complexity must be better than O(n log n), where n is the array's size.
-
  */
 
-/**
- * @param {number[]} nums
- * @param {number} k
- * @return {number[]}
- */
+// Time O(2N)
+// Space O(N)
 const topKFrequent = function(nums, k) {
+  const map = {};
   const ans = [];
-  const map = new Map();
-  const bucket = Array(nums.length + 1)
-    .fill()
+  const stack = Array(nums.length + 1)
+    .fill(null)
     .map(() => []);
-
-  for (let i = 0; i < nums.length; i++) {
-    let val = nums[i];
-    if (!map.has(val)) {
-      map.set(val, 1);
-    } else {
-      map.set(val, map.get(val) + 1);
-    }
+  for (let num of nums) {
+    map[num] = ~~map[num] + 1;
   }
 
-  // main loop
-  for (let [key, value] of map) {
-    bucket[value].push(parseInt(key));
-  }
+  Object.keys(map).forEach(key => {
+    const value = map[key];
+    stack[value].push(key);
+  });
 
-  for (let i = nums.length; i >= 0 && k > 0; k--) {
-    while (bucket[i].length === 0) i--;
-    ans.push(bucket[i].shift());
+  for (let i = stack.length - 1; i >= 0, k > 0; k--) {
+    while (stack[i].length === 0 && i >= 0) i--;
+    ans.push(stack[i].shift());
   }
 
   return ans;
 };
-
-const res = topKFrequent([1, 1, 1, 2, 2, 3], 2);
-console.log('---', res);

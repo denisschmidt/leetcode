@@ -38,10 +38,8 @@ Explanation:
 // Time complexity : O(n)
 // Space complexity : O(n)
 
-/**
- * @param {string} s
- * @return {string}
- */
+// Time O(N + NLogN)
+// Space O(N)
 const frequencySort = s => {
   const arr = s.split('');
   const size = arr.length;
