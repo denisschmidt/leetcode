@@ -23,58 +23,38 @@ Note:
 
  */
 
-const { makeTreeNodes } = require('../../algorithms/treeNode');
-
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- */
-var BSTIterator = function(root) {
-  let stack = [];
-  let node = root;
-  let arr = [];
-
-  while (stack.length || node !== null) {
-    while (node) {
-      stack.push(node);
-      node = node.left;
-    }
-    node = stack.pop();
-    arr.push(node.val);
-    node = node.right;
+class BSTIterator {
+  constructor(root) {
+    this.comb = this.dfs(root);
   }
 
-  this.arr = arr.reverse();
-};
+  // Time O(N)
+  // Space O(N)
+  dfs(root) {
+    const stack = [];
+    let node = root;
+    let comb = [];
 
-/**
- * @return the next smallest number
- * @return {number}
- */
-BSTIterator.prototype.next = function() {
-  return this.arr.pop();
-};
+    while (stack.length || node !== null) {
+      while (node !== null) {
+        stack.push(node);
+        node = node.left;
+      }
+      node = node.pop();
+      comb.push(node.val);
+      node = node.right;
+    }
 
-/**
- * @return whether we have a next smallest number
- * @return {boolean}
- */
-BSTIterator.prototype.hasNext = function() {
-  return !!this.arr.length;
-};
+    return comb.reverse();
+  }
 
-/**
- * Your BSTIterator object will be instantiated and called as such:
- * var obj = new BSTIterator(root)
- * var param_1 = obj.next()
- * var param_2 = obj.hasNext()
- */
-const l = makeTreeNodes([7, 3, 15, null, null, 9, 20]);
+  // Time O(1)
+  next() {
+    return this.comb.pop();
+  }
 
-BSTIterator(l);
+  // Time O(1)
+  hasNext() {
+    return this.comb.length;
+  }
+}

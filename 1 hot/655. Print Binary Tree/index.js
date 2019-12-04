@@ -38,7 +38,7 @@ Example 3:
      /
     4
   Output:
-  [["",  "",  "", "",  "", "", "", "1", "",  "",  "",  "",  "", "", ""]
+  [["",  "",  "", "",  "", "", "", "1", "",  "",  "",  "",  "", "", ""] 15
    ["",  "",  "", "2", "", "", "", "",  "",  "",  "",  "5", "", "", ""]
    ["",  "3", "", "",  "", "", "", "",  "",  "",  "",  "",  "", "", ""]
    ["4", "",  "", "",  "", "", "", "",  "",  "",  "",  "",  "", "", ""]]
@@ -47,8 +47,55 @@ Note: The height of binary tree is in the range of [1, 10].
 
  */
 
-const { makeTreeNodes } = require('../../algorithms/treeNode');
+// Time O(N)
+// Space O(N)
 
-const printTree = root => {};
+// Для выходной матрицы количество строк равно height дерева.
+// Количество столбцов может быть получено по формуле числа листьев для полного дерева (2 ^ (height) - 1)
+const printTree = root => {
+  const ans = [];
 
-printTree(makeTreeNodes([1, 2, 5, 3, null, null, null, 4, null]));
+  if (root === null) return ans;
+
+  const rows = getHeight(root);
+  const cols = Math.pow(2, rows) - 1;
+
+  for (let i = 0; i < rows; i++) {
+    const row = [];
+    for (let j = 0; j < cols; j++) {
+      row.push('');
+    }
+    ans.push(row);
+  }
+
+  let queue = [root];
+  let indexes = [[0, cols - 1]];
+  let row = -1;
+
+  while (queue.length) {
+    const size = queue.length;
+    row++;
+
+    for (let i = 0; i < size; i++) {
+      const node = queue.shift();
+      const [left, right] = indexes.shift();
+      const mid = left + Math.floor((right - left) / 2);
+
+      if (node !== null) {
+        ans[row][mid] = node.val.toString();
+
+        queue.push(node.left);
+        queue.push(node.right);
+        indexes.push([left, mid - 1]);
+        indexes.push([mid + 1, right]);
+      }
+    }
+  }
+
+  return ans;
+
+  function getHeight(node) {
+    if (node === null) return 0;
+    return Math.max(getHeight(node.left), getHeight(node.right)) + 1;
+  }
+};
