@@ -43,11 +43,12 @@ const deleteAndEarn = nums => {
   dp[0] = buckets[0];
   dp[1] = Math.max(buckets[0], buckets[1]);
 
-  console.log(buckets);
-
-  for (let i = 2; i < buckets.length; i++) {
+  // условие того что мы не можем выбрать соседние значение как в задаче House Robber
+  for (let i = 2; i < 10001; i++) {
     dp[i] = Math.max(dp[i - 1], dp[i - 2] + buckets[i]);
   }
+
+  console.log(buckets);
 
   return dp[buckets.length - 1];
 };

@@ -24,24 +24,39 @@ Example 2:
              Total amount you can rob = 2 + 9 + 1 = 12.
  */
 
-const rob = function(nums) {
-  const size = nums.length;
-  if (!size) {
-    return 0;
-  }
+// Time O(N)
+// Space O(N)
+const rob = nums => {
+  let size = nums.length;
+  let dp = Array(nums.length).fill(0);
 
-  if (size === 1) {
-    return nums[0];
-  }
+  if (size === 0) return 0;
+  if (size === 1) return nums[0];
 
-  const dp = [];
+  dp[0] = nums[0];
+  dp[1] = Math.max(nums[1], dp[0]);
+
+  for (let i = 2; i < size; i++) {
+    dp[i] = Math.max(dp[i - 1], nums[i] + dp[i - 2]);
+  }
+  return dp[size - 1];
+};
+
+// Time O(N)
+// Space O(N)
+const rob2 = nums => {
+  let size = nums.length;
+  let dp = Array(nums.length).fill(0);
+
+  if (size === 0) return 0;
+  if (size === 1) return nums[0];
 
   dp[0] = nums[0];
   dp[1] = nums[1];
+  dp[2] = dp[0] + nums[2];
 
-  for (let i = 2; i < size; i++) {
-    let max = dp[i - 3] ? Math.max(dp[i - 2], dp[i - 3]) : dp[i - 2];
-    dp[i] = max + nums[i];
+  for (let i = 3; i < size; i++) {
+    dp[i] = nums[i] + Math.max(dp[i - 2], dp[i - 3]);
   }
 
   return Math.max(dp[size - 1], dp[size - 2]);
