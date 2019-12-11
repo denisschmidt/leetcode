@@ -24,10 +24,53 @@ Note:
 
 1(3)(1)
 
+Работа алгоритма:
+  
+У нас есть стек в который мы добавляем:
+  1) Предыдущее состояние всего дерева, которое у нас к определенному моменту
+  2) И последнюю созданную ноду, но эта нода удаляется из стека при встрече символа ')'
+
+  При большой вложенности мы будем удалять все лишние ноды при нахождении ')' при этом увеличивая вложенность самой главной ноды 
 
  */
 
-const str2tree = s => {};
+// Time O(N)
+// Space O(N)
+const str2tree = s => {
+  if (s == '' || s.length == 0) return null;
+  let stack = [];
+
+  for (let i = 0; i < s.length; i++) {
+    if (s[i] == ')') {
+      stack.pop();
+    } else if ((s[i] >= 0 && s[i] <= 9) || s[i] === '-') {
+      let num = s[i] === '-' ? '-' : '';
+      if (s[i] === '-') i++;
+
+      while (i < s.length && s[i] >= 0 && s[i] <= 9) {
+        num += s[i];
+        i++;
+      }
+      i--;
+
+      let currentNode = new TreeNode(Number(num));
+
+      if (stack.length > 0) {
+        let parent = stack.pop();
+
+        if (parent.left != null) {
+          parent.right = currentNode;
+        } else {
+          parent.left = currentNode;
+        }
+        stack.push(parent);
+      }
+
+      stack.push(currentNode);
+    }
+  }
+  return stack.pop();
+};
 
 class TreeNode {
   constructor(val) {
@@ -36,4 +79,5 @@ class TreeNode {
   }
 }
 
-str2tree('4(2(3)(1))(6(5))');
+const res = str2tree('-4(2(3)(1))(6(5)(7))');
+console.log(res);

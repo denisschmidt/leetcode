@@ -36,7 +36,7 @@ const firstMissingPositive2 = nums => {
 
   const size = nums.length;
   for (let i = 0; i < size; i++) {
-    while (i + 1 !== nums[i] && (0 < nums[i] && nums[i] <= size)) {
+    while (i + 1 !== nums[i] && 0 < nums[i] && nums[i] <= size) {
       // swap
       let swap = nums[i];
       nums[i] = nums[swap - 1];

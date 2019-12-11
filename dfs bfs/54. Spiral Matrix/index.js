@@ -59,13 +59,7 @@ const spiralOrder = function(matrix) {
         x += dir[0];
         y += dir[1];
 
-        if (
-          x + dir[0] >= 0 &&
-          y + dir[1] >= 0 &&
-          x + dir[0] < n &&
-          y + dir[1] < m &&
-          matrix[x + dir[0]][y + dir[1]] !== Number.MAX_VALUE
-        ) {
+        if (x + dir[0] >= 0 && y + dir[1] >= 0 && x + dir[0] < n && y + dir[1] < m && matrix[x + dir[0]][y + dir[1]] !== Number.MAX_VALUE) {
           ans.push(matrix[x][y]);
           matrix[x][y] = Number.MAX_VALUE;
         }

@@ -16,7 +16,7 @@ Example 1:
  
 
 Example 2:
-  Input: nums = [2, 2, 3, 3, 3, 4]
+  Input: nums = [2, 2, 3, 3, 3, 4] 3 => [3,3] 3 => [3] 3 => [] -> 3 + 3 + 3 = 9
   Output: 9
   Explanation: 
     Delete 3 to earn 3 points, deleting both 2's and the 4.
@@ -30,4 +30,27 @@ Note:
 
  */
 
-const deleteAndEarn = nums => {};
+// Time O(N)
+// Space O(N)
+const deleteAndEarn = nums => {
+  const buckets = Array(10001).fill(0);
+
+  for (let i = 0; i < nums.length; i++) {
+    buckets[nums[i]] += nums[i];
+  }
+
+  const dp = Array(buckets.length).fill(0);
+  dp[0] = buckets[0];
+  dp[1] = Math.max(buckets[0], buckets[1]);
+
+  console.log(buckets);
+
+  for (let i = 2; i < buckets.length; i++) {
+    dp[i] = Math.max(dp[i - 1], dp[i - 2] + buckets[i]);
+  }
+
+  return dp[buckets.length - 1];
+};
+
+const res = deleteAndEarn([2, 2, 3, 3, 3, 4]);
+console.log(res);

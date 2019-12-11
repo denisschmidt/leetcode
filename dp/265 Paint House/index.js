@@ -55,5 +55,9 @@ const buildHouses = costs => {
   return costs[m - 1][min1];
 };
 
-const res = buildHouses([[17, 2, 17], [16, 16, 5], [13, 3, 19]]);
+const res = buildHouses([
+  [17, 2, 17],
+  [16, 16, 5],
+  [13, 3, 19],
+]);
 console.log('---', res);

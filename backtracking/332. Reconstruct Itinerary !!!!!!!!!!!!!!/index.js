@@ -91,5 +91,11 @@ const findItinerary = function(tickets) {
   return ans;
 };
 
-const res = findItinerary([['JFK', 'SFO'], ['JFK', 'ATL'], ['SFO', 'ATL'], ['ATL', 'JFK'], ['ATL', 'SFO']]);
+const res = findItinerary([
+  ['JFK', 'SFO'],
+  ['JFK', 'ATL'],
+  ['SFO', 'ATL'],
+  ['ATL', 'JFK'],
+  ['ATL', 'SFO'],
+]);
 console.log(res);

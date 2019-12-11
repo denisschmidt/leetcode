@@ -28,7 +28,12 @@ Note:
 // Time O(N^2)
 // Space O(N)
 const findWords = function(board, words) {
-  const dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  const dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
   const ans = [];
   const n = board.length;
   const m = board[0].length;

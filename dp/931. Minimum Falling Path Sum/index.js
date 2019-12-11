@@ -50,5 +50,9 @@ const minFallingPathSum = function(A) {
   return ans;
 };
 
-const res = minFallingPathSum([[-80, -13, 22], [83, 94, -5], [73, -48, 61]]);
+const res = minFallingPathSum([
+  [-80, -13, 22],
+  [83, 94, -5],
+  [73, -48, 61],
+]);
 console.log('---', res);

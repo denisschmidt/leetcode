@@ -6,7 +6,12 @@
 
  */
 
-const input = [[1, 3], [2, 6], [8, 10], [15, 18]];
+const input = [
+  [1, 3],
+  [2, 6],
+  [8, 10],
+  [15, 18],
+];
 
 const getIndexes = index => {
   return [index * 2 + 1, index * 2 + 2];

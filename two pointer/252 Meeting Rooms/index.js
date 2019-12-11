@@ -43,7 +43,11 @@ const max_overlapping = intervals => {
   return ans;
 };
 
-const res = max_overlapping([[30, 75], [0, 50], [60, 150]]);
+const res = max_overlapping([
+  [30, 75],
+  [0, 50],
+  [60, 150],
+]);
 console.log('----', res);
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -74,5 +78,9 @@ const max_overlapping2 = intervals => {
   return ans;
 };
 
-const res2 = max_overlapping2([[30, 75], [0, 50], [60, 150]]);
+const res2 = max_overlapping2([
+  [30, 75],
+  [0, 50],
+  [60, 150],
+]);
 console.log('----', res2);

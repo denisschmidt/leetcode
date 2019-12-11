@@ -74,5 +74,10 @@ var twoCitySchedCost = function(costs) {
   return ans;
 };
 
-const res = twoCitySchedCost([[1, 2], [3, 4], [5, 6], [7, 8]]);
+const res = twoCitySchedCost([
+  [1, 2],
+  [3, 4],
+  [5, 6],
+  [7, 8],
+]);
 console.log('---', res);

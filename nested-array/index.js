@@ -40,7 +40,10 @@ const output = [
             id: 4,
             title: 'hello',
             parent: 3,
-            children: [{ id: 5, title: 'hello', parent: 4 }, { id: 6, title: 'hello', parent: 4 }],
+            children: [
+              { id: 5, title: 'hello', parent: 4 },
+              { id: 6, title: 'hello', parent: 4 },
+            ],
           },
           { id: 7, title: 'hello', parent: 3 },
         ],

@@ -63,7 +63,10 @@ const smallestRange = function(matrix) {
   return [min, max];
 };
 
-const res = smallestRange([[1, 3, 5, 7, 9], [2, 4, 6, 8, 10]]);
+const res = smallestRange([
+  [1, 3, 5, 7, 9],
+  [2, 4, 6, 8, 10],
+]);
 console.log('<error solution>', res);
 
 // ======================================================================================================
@@ -117,7 +120,11 @@ const smallestRange1 = nums => {
   return [minRangeMin, minRangeMax];
 };
 
-const res1 = smallestRange1([[4, 10, 15, 24, 26], [0, 9, 12, 20], [5, 18, 22, 30]]);
+const res1 = smallestRange1([
+  [4, 10, 15, 24, 26],
+  [0, 9, 12, 20],
+  [5, 18, 22, 30],
+]);
 console.log('<first solution>', res1);
 
 // ======================================================================================================
@@ -163,5 +170,9 @@ const smallestRange2 = nums => {
   return [minX, minY];
 };
 
-const res2 = smallestRange2([[4, 10, 15, 24, 26], [0, 9, 12, 20], [5, 18, 22, 30]]);
+const res2 = smallestRange2([
+  [4, 10, 15, 24, 26],
+  [0, 9, 12, 20],
+  [5, 18, 22, 30],
+]);
 console.log('<second solution>', res2);

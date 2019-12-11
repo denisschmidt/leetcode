@@ -10,7 +10,11 @@ O(KN log KN), since we have K * N total elements.
 
 const { bubbleDown, heapify } = require('../../algorithms/binaryHeap');
 
-const input = [[10, 15, 30], [12, 15, 20], [17, 20, 32]];
+const input = [
+  [10, 15, 30],
+  [12, 15, 20],
+  [17, 20, 32],
+];
 
 // Brute Force
 const mergeBruteForce = nums => {

@@ -53,7 +53,12 @@ const minDistance = (distance, visited) => {
 };
 
 const dijkstra = (maze, distance, visited) => {
-  let dirs = [[0, 1], [0, -1], [-1, 0], [1, 0]];
+  let dirs = [
+    [0, 1],
+    [0, -1],
+    [-1, 0],
+    [1, 0],
+  ];
 
   while (true) {
     let s = minDistance(distance, visited);
@@ -101,7 +106,13 @@ const shortestDistance = (maze, start, end) => {
   return distance[end[0]][end[1]] === Number.MAX_VALUE ? -1 : distance[end[0]][end[1]];
 };
 
-const maze = [[0, 0, 1, 0, 0], [0, 0, 0, 0, 0], [0, 0, 0, 1, 0], [1, 1, 0, 1, 1], [0, 0, 0, 0, 0]];
+const maze = [
+  [0, 0, 1, 0, 0],
+  [0, 0, 0, 0, 0],
+  [0, 0, 0, 1, 0],
+  [1, 1, 0, 1, 1],
+  [0, 0, 0, 0, 0],
+];
 
 const res = shortestDistance(maze, [0, 4], [4, 4]);
 console.log('---', res);

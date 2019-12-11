@@ -31,13 +31,7 @@ const checkPossibility = nums => {
     }
   }
 
-  return (
-    index === -1 ||
-    index === 1 ||
-    index === nums.length - 1 ||
-    nums[index - 2] <= nums[index] ||
-    nums[index - 1] <= nums[index + 1]
-  );
+  return index === -1 || index === 1 || index === nums.length - 1 || nums[index - 2] <= nums[index] || nums[index - 1] <= nums[index + 1];
 };
 
 const input = [-1, 4, 2, 3];

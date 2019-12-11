@@ -23,11 +23,7 @@ Example 2:
  * @return {boolean}
  */
 const detectCapitalUse = function(word) {
-  return (
-    word.toLowerCase() === word ||
-    word.toUpperCase() === word ||
-    word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() === word
-  );
+  return word.toLowerCase() === word || word.toUpperCase() === word || word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() === word;
 };
 
 const res = detectCapitalUse('USD');
