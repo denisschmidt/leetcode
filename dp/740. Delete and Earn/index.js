@@ -32,26 +32,24 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const deleteAndEarn = nums => {
-  const buckets = Array(10001).fill(0);
+const deleteAndEarn = function(nums) {
+  const size = 10001;
+  const buckets = Array(size).fill(0);
 
-  for (let i = 0; i < nums.length; i++) {
-    buckets[nums[i]] += nums[i];
+  // считаем сумму чисел которые нам попадаются
+  for (const num of nums) {
+    buckets[num] += num;
   }
 
-  const dp = Array(buckets.length).fill(0);
+  const dp = Array(size).fill(0);
   dp[0] = buckets[0];
-  dp[1] = Math.max(buckets[0], buckets[1]);
+  dp[1] = buckets[1];
+  dp[2] = dp[0] + buckets[2];
 
   // условие того что мы не можем выбрать соседние значение как в задаче House Robber
-  for (let i = 2; i < 10001; i++) {
-    dp[i] = Math.max(dp[i - 1], dp[i - 2] + buckets[i]);
+  for (let i = 3; i < size; i++) {
+    dp[i] = buckets[i] + Math.max(dp[i - 2], dp[i - 3]);
   }
 
-  console.log(buckets);
-
-  return dp[buckets.length - 1];
+  return Math.max(dp[size - 1], dp[size - 2]);
 };
-
-const res = deleteAndEarn([2, 2, 3, 3, 3, 4]);
-console.log(res);

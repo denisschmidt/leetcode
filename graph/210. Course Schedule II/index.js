@@ -49,14 +49,14 @@ const findOrder = (numCourses, prerequisites) => {
   const stack = [];
   for (let i = 0; i < numCourses; i++) {
     // начинаем поиск с каждого нового узла
-    if (helper(i)) {
+    if (hasCycle(i)) {
       return [];
     }
   }
 
   return ans;
 
-  function helper(index) {
+  function hasCycle(index) {
     if (visited[index]) {
       return false;
     }
@@ -72,7 +72,7 @@ const findOrder = (numCourses, prerequisites) => {
         return true;
       }
 
-      if (!visited[v] && helper(v)) {
+      if (!visited[v] && hasCycle(v)) {
         return true;
       }
     }
@@ -138,12 +138,14 @@ const findOrder2 = (numCourses, prerequisites) => {
   }
 
   const topologicalOrder = [];
+
   while (queue.length) {
     let node = queue.shift();
     topologicalOrder.push(node);
 
     if (adjList.has(node)) {
       const arr = adjList.get(node);
+
       for (let neighbor of arr) {
         indegree[neighbor]--;
 

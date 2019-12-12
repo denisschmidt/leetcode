@@ -31,8 +31,6 @@ const validTree = (n, edges) => {
     adjList[v].push(u);
   });
 
-  console.log(adjList);
-
   if (hasCycle(0, -1)) {
     return false;
   }
