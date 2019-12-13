@@ -42,6 +42,31 @@ Constraints:
 
 [[1,3]]
 
+
+5
+[[1,0],[2,0],[3,2],[4,2],[4,3],[3,0],[4,0]]
+
+              1
+               \
+                0----4
+              /  \  /
+             3----2/
+            /
+          2
+         /
+        4
+
+
+
+P@ssw0rd2NX
+
+7bsz36k7@TS4xkwj5
+
+=zy$J&{6:(}9V{XL
+
+
+8 800 100 12 99 (222)
+
 */
 
 const criticalConnections = (numConnections, connections) => {
@@ -57,28 +82,74 @@ const criticalConnections = (numConnections, connections) => {
     adjList[v].push(u);
   });
 
-  console.log(adjList);
+  let visited = [];
+  let stack = [];
+  let path = [];
+  let paths = [];
+  let ans = [];
 
-  /*
-  connections.forEach(([u, v]) => {
-    if (!adjList.has(u)) {
-      adjList.set(u, [v]);
-    } else {
-      adjList.set(u, [...adjList.get(u), v]);
+  for (let i = 0; i < numConnections; i++) {
+    if (hasCycle(i)) {
+      paths.push([...path]);
+      path = [];
     }
-    counter[u] = +1;
+  }
+
+  console.log(paths);
+
+  adjList.forEach((neighbors, index) => {
+    for (const neighbor of neighbors) {
+      let found = true;
+      paths.forEach(cycle => {
+        if (cycle.includes(index) && cycle.includes(neighbor)) {
+          found = false;
+        }
+      });
+      if (found) {
+        ans.push([index, neighbor]);
+      }
+    }
   });
-  */
+
+  return ans;
+
+  function hasCycle(u) {
+    path.push(u);
+
+    if (visited[u]) {
+      return false;
+    }
+
+    visited[u] = true;
+    stack[u] = true;
+
+    const neighbors = adjList[u];
+    for (let i = 0; i < neighbors.length; i++) {
+      const v = neighbors[i];
+
+      if (stack[v]) {
+        return true;
+      }
+
+      if (!visited[v] && hasCycle(v)) {
+        return true;
+      }
+    }
+
+    stack[u] = false;
+
+    return false;
+  }
 };
 
-const res = criticalConnections(6, [
-  [0, 1],
-  [1, 2],
+const res = criticalConnections(5, [
+  [1, 0],
   [2, 0],
-  [1, 3],
-  [3, 4],
-  [4, 5],
-  [5, 3],
+  [3, 2],
+  [4, 2],
+  [4, 3],
+  [3, 0],
+  [4, 0],
 ]);
 
 console.log(res);
