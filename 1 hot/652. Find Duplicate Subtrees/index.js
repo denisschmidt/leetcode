@@ -27,33 +27,12 @@ Therefore, you need to return above trees' root in the form of a list.
  */
 
 // Time O(N^2)
-// N - количество узлов в дереве.
-// Мы посещаем каждый узел один раз, но каждое создание пути может потребовать O(N) работы.
-//
 // Space O(N^2)
+// Конкатенация строк - это операция O(N).
+// Таким образом, шаг, node.val + "," + x + "," + y.
+// Может показаться атомарной операцией, но на самом деле это занимает время пропорционально длине объединенной строки.
+// Таким образом, в основном на каждом узле, когда вы делаете этот шаг, вы снова тратите O(N) время. Вот почему N * N
 const findDuplicateSubtrees = root => {
-  let ans = [];
-  let map = {};
-
-  dfs(root);
-
-  return ans;
-
-  function dfs(root) {
-    if (!root) return '#';
-
-    let path = root.val + ',' + dfs(root.left) + ',' + dfs(root.right);
-    map[path] = ~~map[path] + 1;
-
-    if (map[path] === 2) {
-      ans.push(root);
-    }
-
-    return path;
-  }
-};
-
-const findDuplicateSubtrees2 = root => {
   let map = {};
   let ans = [];
   dfs(root);
@@ -72,6 +51,33 @@ const findDuplicateSubtrees2 = root => {
 
     if (map[path] === 2) {
       ans.push(node);
+    }
+
+    return path;
+  }
+};
+
+// Time O(N^2)
+// N - количество узлов в дереве.
+// Мы посещаем каждый узел один раз, но каждое создание пути может потребовать O(N) работы.
+//
+// Space O(N^2)
+const findDuplicateSubtrees2 = root => {
+  let ans = [];
+  let map = {};
+
+  dfs(root);
+
+  return ans;
+
+  function dfs(root) {
+    if (!root) return '#';
+
+    let path = root.val + ',' + dfs(root.left) + ',' + dfs(root.right);
+    map[path] = ~~map[path] + 1;
+
+    if (map[path] === 2) {
+      ans.push(root);
     }
 
     return path;
