@@ -76,22 +76,26 @@ const criticalConnections = (numConnections, connections) => {
     adjList[v].push(u);
   });
 
+  let ans = [];
   let visited = [];
 
-  let time = 0; // отметка времени при обходе графа
+  // отметка времени при входе в вершину
+  let time = 0;
 
-  // записываем самую низкую вершину, которую можем достичь
-  // у нас будет цикл если время дочернего узла
+  // отслеживает вершину с наименьшим номером которую можем достичь
+  // нужно для определения моста между связями
+  // если есть цикл значения всегда будут одинаковые и равны минимальному значению в цикле
   let lowTime = Array(numConnections).fill(0);
 
+  // записываем номер верншин при обходе
   let visitedTime = Array(numConnections).fill(0);
-
-  let ans = [];
 
   dfs(0, -1);
 
   return ans;
 
+  // u - parent
+  // v - child
   function dfs(u, parent) {
     visited[u] = true;
     time++;
@@ -107,10 +111,14 @@ const criticalConnections = (numConnections, connections) => {
       if (v === parent) continue;
 
       if (!visited[v]) {
+        // dfs
         dfs(v, u);
+
         // во время backtracking прослеживаем минимальное значение
         lowTime[u] = Math.min(lowTime[u], lowTime[v]);
 
+        // если ДОСТИГНУТОЕ значения родителя меньше чем МИНИМАЛЬНОЕ значение ребенка
+        // значит мы нашли мост
         if (visitedTime[u] < lowTime[v]) {
           ans.push([u, v]);
         }
