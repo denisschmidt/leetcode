@@ -46,32 +46,26 @@ Constraints:
 5
 [[1,0],[2,0],[3,2],[4,2],[4,3],[3,0],[4,0]]
 
-              1
-               \
-                0----4
-              /  \  /
-             3----2/
-            /
-          2
-         /
-        4
+             0
+           / | \
+          /  |  \
+         1   |   2
+             |  /  \
+             | /    \
+             |3------4
 
 
+Цель - найти ребра которые не приводят к циклу
 
-P@ssw0rd2NX
-
-7bsz36k7@TS4xkwj5
-
-=zy$J&{6:(}9V{XL
-
-
-8 800 100 12 99 (222)
 
 */
 
+// E = общее количество ребер
+// V = общее количество вершин
+// Time O(V + E)
+// Space O(V + E)
 const criticalConnections = (numConnections, connections) => {
   let adjList = [];
-  let counter = Array(numConnections).fill(0);
 
   for (let i = 0; i < numConnections; i++) {
     adjList[i] = [];
@@ -83,62 +77,47 @@ const criticalConnections = (numConnections, connections) => {
   });
 
   let visited = [];
-  let stack = [];
-  let path = [];
-  let paths = [];
+
+  let time = 0; // отметка времени при обходе графа
+
+  // записываем самую низкую вершину, которую можем достичь
+  // у нас будет цикл если время дочернего узла
+  let lowTime = Array(numConnections).fill(0);
+
+  let visitedTime = Array(numConnections).fill(0);
+
   let ans = [];
 
-  for (let i = 0; i < numConnections; i++) {
-    if (hasCycle(i)) {
-      paths.push([...path]);
-      path = [];
-    }
-  }
-
-  console.log(paths);
-
-  adjList.forEach((neighbors, index) => {
-    for (const neighbor of neighbors) {
-      let found = true;
-      paths.forEach(cycle => {
-        if (cycle.includes(index) && cycle.includes(neighbor)) {
-          found = false;
-        }
-      });
-      if (found) {
-        ans.push([index, neighbor]);
-      }
-    }
-  });
+  dfs(0, -1);
 
   return ans;
 
-  function hasCycle(u) {
-    path.push(u);
-
-    if (visited[u]) {
-      return false;
-    }
-
+  function dfs(u, parent) {
     visited[u] = true;
-    stack[u] = true;
+    time++;
+    lowTime[u] = time;
+    visitedTime[u] = time;
 
     const neighbors = adjList[u];
+
     for (let i = 0; i < neighbors.length; i++) {
       const v = neighbors[i];
 
-      if (stack[v]) {
-        return true;
-      }
+      // в неориентированном графе внешний край может вернуться сразу
+      if (v === parent) continue;
 
-      if (!visited[v] && hasCycle(v)) {
-        return true;
+      if (!visited[v]) {
+        dfs(v, u);
+        // во время backtracking прослеживаем минимальное значение
+        lowTime[u] = Math.min(lowTime[u], lowTime[v]);
+
+        if (visitedTime[u] < lowTime[v]) {
+          ans.push([u, v]);
+        }
+      } else {
+        lowTime[u] = Math.min(lowTime[u], visitedTime[v]);
       }
     }
-
-    stack[u] = false;
-
-    return false;
   }
 };
 
