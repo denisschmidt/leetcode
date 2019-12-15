@@ -37,7 +37,12 @@ const groupStrings = words => {
     }
 
     let key = diff > 0 ? diff : word.length;
-    results.set(key, results.has(key) ? [...results.get(key), word] : [word]);
+
+    if (!results.has(key)) {
+      results.set(key, []);
+    }
+
+    results.get(key).push(word);
   }
 
   for (let result of results.values()) {
