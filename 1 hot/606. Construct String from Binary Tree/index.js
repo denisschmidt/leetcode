@@ -20,14 +20,14 @@ Example 1:
     And it will be "1(2(4))(3)".
 
 Example 2:
-  Input: Binary tree: [1,2,3,null,4]
+  Input: Binary tree: [1,2,3,5,6]
        1
      /   \
     2     3
-     \
-      4
+   /  \
+  5    6
 
-Output: "1(2()(4))(3)"
+Output: "1(2(5)(6))(3)"
 
 Explanation: Almost the same as the first example,
 except we can't omit the first parenthesis pair to break the one-to-one mapping relationship between the input and the output.
@@ -71,15 +71,34 @@ const tree2str = function(t) {
 };
 
 /*
-There are 4 cases to check:
 
-  the current node is null, return empty string
-  both left and right nodes are null, return the root value, e.g. "1"
-  only the right node is null, return root value and left value, e.g. "1(2)"
-  both left and right nodes are not null, return both left and right values, e.g. "1(2)(3)"
+Необходимо проверить 4 случая:
+  1) текущий узел равен нулю, вернуть пустую строку
+  2) левый и правый узлы равны нулю, вернуть корневое значение например, «1»
+  3) только правый узел является нулевым, возвращает корневое значение и левое значение, например, «1(2)»
+  4) левый и правый узлы не равны нулю, возвращают как левые, так и правые значения, например, "1(2)(3)"
+
  */
 // Time O(N)
 // Space O(N)
+
+/*
+Пример:
+       1
+     /   \
+    2     3
+   /  \
+  5    6
+
+Bottom-top рекурсия дошли до низу и поднимаемся вверх по стеку
+
+5 '' ''
+6 '' ''
+2 '5' '6'
+3 '' ''
+1 '2(5)(6)' '3'
+
+ */
 const tree2str2 = root => {
   if (!root) return '';
 
@@ -87,6 +106,8 @@ const tree2str2 = root => {
 
   let left = tree2str2(root.left);
   let right = tree2str2(root.right);
+
+  console.log(val, left, right);
 
   if (!left && !right) {
     return `${val}`; // both left and right are empty
@@ -98,3 +119,7 @@ const tree2str2 = root => {
 
   return `${val}(${left})(${right})`; // left and right are not empty
 };
+
+const { makeTreeNodes } = require('../../algorithms/treeNode');
+
+tree2str2(makeTreeNodes([1, 2, 3, 5, 6]));
