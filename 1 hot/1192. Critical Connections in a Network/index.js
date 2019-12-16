@@ -55,8 +55,10 @@ Constraints:
              |3------4
 
 
-Цель - найти ребра которые не приводят к циклу
+Цель - найти ребра которые не приводят к циклу 
+Данный алгоритм работает только для undirected графа
 
+http://www.cs.umd.edu/class/fall2017/cmsc451-0101/Lects/lect04-edge-connectivity.pdf
 
 */
 
@@ -82,7 +84,7 @@ const criticalConnections = (numConnections, connections) => {
   // отметка времени при входе в вершину
   let time = 0;
 
-  // отслеживает вершину с наименьшим номером которую можем достичь
+  // low discovery time
   // нужно для определения моста между связями
   // если есть цикл значения всегда будут одинаковые и равны минимальному значению в цикле
   let lowTime = Array(numConnections).fill(0);
@@ -98,9 +100,9 @@ const criticalConnections = (numConnections, connections) => {
   // v - child
   function dfs(u, parent) {
     visited[u] = true;
-    time++;
-    lowTime[u] = time;
-    visitedTime[u] = time;
+
+    // установить время обнаружения и инициировать низкий уровень
+    lowTime[u] = visitedTime[u] = ++time;
 
     const neighbors = adjList[u];
 
@@ -111,9 +113,9 @@ const criticalConnections = (numConnections, connections) => {
       if (v === parent) continue;
 
       if (!visited[v]) {
-        // dfs
         dfs(v, u);
 
+        // back edge
         // во время backtracking прослеживаем минимальное значение
         lowTime[u] = Math.min(lowTime[u], lowTime[v]);
 
