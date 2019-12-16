@@ -58,39 +58,44 @@ Example 3:
 
 */
 
+// Time O(N * D) - где D макс число узлов на последнем уровне
+// Space O(N)
 const pathSum = nums => {
-  const map = new Map();
+  const map = [];
   let maxValue = 1;
 
   for (let i = 0; i < nums.length; i++) {
-    let key = Math.floor(nums[i] / 100);
-    let maxNums = Math.pow(2, key - 1);
-    maxValue = Math.max(maxValue, key);
+    let index = Math.floor(nums[i] / 100);
+    let maxNums = Math.pow(2, index - 1);
+    maxValue = Math.max(maxValue, index);
 
-    if (!map.has(key)) {
-      let array = Array(maxNums).fill(0);
-      map.set(key, array);
+    if (!map[index]) {
+      map[index] = Array(maxNums).fill(null);
     }
-    map.get(key)[Math.floor((nums[i] % 100) / 10) - 1] = nums[i] % 10;
+    map[index][Math.floor((nums[i] % 100) / 10) - 1] = nums[i] % 10;
   }
 
-  console.log(map);
+  let result = 0;
 
   for (let i = 1; i <= maxValue; i++) {
-    const a = map.get(i);
-    const b = map.get(i + 1);
-    let index = 0;
+    const a = map[i];
+    const b = map[i + 1];
     if (!b) break;
+    let index = 0;
     for (let j = 0; j < a.length; j++) {
-      for (let k = index; k < index + 2 && index < b.length; k++) {
-        if (b[k] === 0) continue;
+      let k = index;
+      if (a[j] !== null && b[k] === null && b[k + 1] === null) {
+        result += a[j];
+      }
+      for (; k < index + 2 && index < b.length; k++) {
+        if (b[k] === null) continue;
         b[k] = a[j] + b[k];
       }
+      index = k;
     }
   }
 
-  return map.get(maxValue).reduce((acc, v) => acc + v, 0);
-};
+  result += map[maxValue].reduce((acc, v) => (v === null ? acc : acc + v), 0);
 
-const res = pathSum([115, 215, 224, 325, 336, 446, 458]);
-console.log(res);
+  return result;
+};
