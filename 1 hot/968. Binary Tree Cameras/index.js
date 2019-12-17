@@ -23,71 +23,96 @@ Note:
 
  */
 
+/*
+Вместо того, чтобы пытаться покрыть каждый узел сверху вниз, 
+давайте попробуем покрыть его снизу вверх - подумав о том, чтобы сначала поместить камеру с самыми глубокими узлами 
+и продвигаться вверх по дереву.
+
+Если у узла есть дочерние узлы, и у него есть родительский элемент, 
+тогда строго лучше поместить камеру в родительский узел этого узла.
+
+       1
+     /  \ 
+    2    3
+     \    \
+      4    5
+[1,2,3,null,4,null,5]
+
+Возвращаемое значение DFS() имеет следующие значения. 
+  1) 0: в этом узле нет камеры, и камера не контролируется ни одним из его дочерних узлов, 
+    что означает, что ни у одного из дочерних узлов нет камеры. 
+
+  2) 1: в этом узле нет камеры; однако этот узел контролируется по крайней мере одним из его дочерних элементов, 
+    что означает, что по крайней мере у одного из его дочерних элементов есть камера. 
+  
+  3) 2: есть камера в этом узле.
+*/
+
+// Bottom-up recursion
+// Time O(N)
+// Space O(H) где H - высота данного дерева.
 const minCameraCover = root => {
-  if (!root || (root && !root.left && !root.right)) return 1;
-
-  let comb = [];
   let cnt = 0;
+  let NOT_MONITOR = 0;
+  let MONITOR_BY_OTHER = 1;
+  let CAMERA_HERE = 2;
 
-  reCalc(root);
-  dfs(root, null);
+  const status = dfs(root);
 
-  let result = 0;
-  let visited = new Set();
+  return status === NOT_MONITOR ? ++cnt : cnt;
 
-  console.log(comb);
-
-  while (visited.size < cnt) {
-    let maxLen = -Number.MAX_VALUE;
-    let maxIndex = 0;
-    for (let j = 0; j < comb.length; j++) {
-      let f = comb[j].filter(n => !visited.has(n));
-      if (f.length > maxLen) {
-        maxIndex = j;
-        maxLen = f.length;
-      }
+  function dfs(node) {
+    if (!node) {
+      return MONITOR_BY_OTHER;
     }
 
-    if (maxLen !== -Number.MAX_VALUE) {
-      result++;
-      comb[maxIndex].forEach(n => visited.add(n));
-    }
-  }
+    let left = dfs(node.left);
+    let right = dfs(node.right);
 
-  return result;
-
-  function dfs(node, parent) {
-    if (!node) return;
-
-    if (!parent && !node.left && node.right) {
-      comb.push([node.val, node.right.val]);
-    } else if (!parent && node.left && !node.right) {
-      comb.push([node.val, node.left.val]);
-    } else if (!parent && node.left && node.right) {
-      comb.push([node.val, node.left.val, node.right.val]);
-    } else if (parent && !node.left && !node.right) {
-      comb.push([parent.val, node.val]);
-    } else if (parent && !node.left && node.right) {
-      comb.push([parent.val, node.val, node.right.val]);
-    } else if (parent && node.left && !node.right) {
-      comb.push([parent.val, node.val, node.left.val]);
-    } else if (parent && node.left && node.right) {
-      comb.push([parent.val, node.val, node.left.val, node.right.val]);
+    // если хотя бы 1 дочерний элемент не отслеживается, нам нужно поместить камеру в текущий узел
+    if (left === NOT_MONITOR || right === NOT_MONITOR) {
+      cnt++;
+      return CAMERA_HERE;
     }
 
-    dfs(node.left, node);
-    dfs(node.right, node);
-  }
+    // если хотя бы у одного ребенка есть камера, текущий узел отслеживается. Таким образом, нам не нужно размещать камеру здесь
+    if (left === CAMERA_HERE || right === CAMERA_HERE) {
+      return MONITOR_BY_OTHER;
+    }
 
-  function reCalc(node) {
-    if (!node) return;
-    node.val = ++cnt;
-    reCalc(node.left);
-    reCalc(node.right);
+    // если оба ребенка находятся под наблюдением, но у них нет камеры, нам не нужно размещать камеру здесь. Мы помещаем камеру в родительский узел на более высоком уровне.
+    return NOT_MONITOR;
   }
 };
 
 const { makeTreeNodes } = require('../../algorithms/treeNode');
-
-const res = minCameraCover(makeTreeNodes([0, 0, 0, 0, null, null, null, 0, 0, null, 0, null, 0]));
+const res = minCameraCover(makeTreeNodes([1, 2, 3, null, 4, null, 5]));
 console.log(res);
+
+// Bottom-up recursion
+// Time O(N)
+// Space O(H) где H - высота данного дерева.
+const minCameraCover2 = root => {
+  let cnt = 0;
+  let set = new Set();
+  set.add(null);
+
+  dfs(root, null);
+
+  return cnt;
+
+  function dfs(node, parent) {
+    if (!node) return;
+
+    dfs(node.left, node);
+    dfs(node.right, node);
+
+    if ((parent === null && !set.has(node)) || !set.has(node.left) || !set.has(node.right)) {
+      cnt++;
+      set.add(node);
+      set.add(parent);
+      set.add(node.left);
+      set.add(node.right);
+    }
+  }
+};
