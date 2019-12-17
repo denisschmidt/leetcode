@@ -129,7 +129,7 @@ const alienOrder = words => {
       }
     }
 
-    stack.delete(u);
+    stack.delete(u); // backtrack
     ans.push(u);
 
     return false;

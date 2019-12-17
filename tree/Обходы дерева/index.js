@@ -187,16 +187,14 @@ const postorderTraversal = root => {
 // Bottom - Up recursive solution
 const postorderTraversal2 = root => {
   const ans = [];
-  helper(root, ans);
+  helper(root);
   return ans;
 
-  function helper(node, ans) {
-    if (root === null) {
-      return;
-    }
+  function helper(node) {
+    if (node === null) return;
 
-    helper(node.left, ans); // traverse left subtree
-    helper(node.right, ans); // traverse right subtree
+    helper(node.left); // traverse left subtree
+    helper(node.right); // traverse right subtree
     ans.push(node.val); // visit the root
   }
 };
