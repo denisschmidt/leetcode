@@ -17,16 +17,56 @@ Example 4:
   Input: 45
   Output: false
 
-Follow up:
-Could you do it without using any loop / recursion?
+3^0 = 1
 
- */
+3^1 = 3
 
-const isPowerOfThree_II = function(n) {
+3^2 = 6
+
+Follow up: Could you do it without using any loop / recursion?
+
+*/
+
+/*
+  в двоичной  в десятичной
+  10          2
+  100         4
+  1000        8
+
+
+Тип int - это 4 байта
+
+Максимальное значение этого типа данных - 2147483647
+
+MaxInt 2^32 поскольку мы используем 32 бита для представления числа,
+половина диапазона используется для отрицательных чисел, а 0 - часть положительных чисел
+
+
+Зная ограничение n, мы можем теперь сделать вывод,
+что максимальное значение n, которое также является степенью три, равно 1162261467.
+
+Мы рассчитываем это как: 3⌊log^3 MaxInt⌋ = 3⌊19.56⌋= 3^19 =1162261467
+
+*/
+
+// Time O(1)
+// Space O(1)
+const isPowerOfThree = n => {
+  if (n < 1) return false;
+
+  return 1162261467 % n === 0;
+};
+
+// Time O(LogN) -> O(log3N)
+// Space O(1)
+const isPowerOfThree_II = n => {
   if (n < 1) return false;
 
   while (n % 3 === 0) {
     n = Math.floor(n / 3);
   }
+
   return n === 1;
 };
+
+isPowerOfThree(27);
