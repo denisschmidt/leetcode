@@ -24,7 +24,37 @@ Array: [6, 2, 4]
   6    8 (2 * 4)
       / \
      2   4
+
+
+[6,2,4]
+
+
+Мы уменьшаем сложную проблему до легкой
+Просто найдите следующий больший элемент в массиве, слева и справа.
+
  */
+
+const mctFromLeafValues = nums => {
+  let result = 0;
+  let stack = [Number.MAX_VALUE];
+
+  for (let num of nums) {
+    while (stack[stack.length - 1] <= num) {
+      let mid = stack.pop();
+
+      // стоимость удаление числа a из массива === a * min(left, right)
+      result += mid * Math.min(stack[stack.length - 1], num);
+    }
+
+    stack.push(num);
+  }
+
+  while (stack.length > 2) {
+    result += stack.pop() * stack[stack.length - 1];
+  }
+
+  return result;
+};
 
 // Time O(N^2)
 // Space O(N)
@@ -65,3 +95,5 @@ const mctFromLeafValues_II = arr => {
     return arr[maxIndex];
   }
 };
+
+mctFromLeafValues_II([6, 2, 4]);
