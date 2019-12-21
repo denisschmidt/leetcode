@@ -52,11 +52,14 @@ const findRedundantDirectedConnection = edges => {
   for (let i = 0; i < edges.length; i++) {
     // u родитель v.
     const [u, v] = edges[i];
+
     if (parent[v] === 0) {
       parent[v] = u;
     } else {
+      // записываем эти ребра у который у ребенка два родителя
       canB = [u, v];
       canA = [parent[v], v];
+      // край не действительный
       edges[i][1] = 0;
     }
   }
@@ -73,6 +76,7 @@ const findRedundantDirectedConnection = edges => {
     const x = find(edge[0]);
     const y = find(edge[1]);
 
+    // если x и y относятся к одному подмножеству
     if (x === y) {
       if (canA[0] === -1) {
         return edge;
