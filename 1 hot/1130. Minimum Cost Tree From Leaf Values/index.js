@@ -32,6 +32,8 @@ Array: [6, 2, 4]
 Мы уменьшаем сложную проблему до легкой
 Просто найдите следующий больший элемент в массиве, слева и справа.
 
+Алгоритм аналогичен этой задаче https://leetcode.com/problems/next-greater-element-ii/
+
  */
 
 const mctFromLeafValues = nums => {

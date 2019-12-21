@@ -18,9 +18,33 @@ Explanation:
 
 Note: The length of given array won't exceed 10000.
 
+C памощью одного цикла, мы можем получить следующее большее число нормального массива.
+Зациклившись дважды, мы можем получить следующее большее число кругового массива.
+
  */
 
+// Time O(N)
+// Space O(N)
 const nextGreaterElements = nums => {
+  let size = nums.length;
+  let stack = [];
+  let result = Array(size).fill(-1);
+
+  for (let i = 0; i < nums.length * 2; i++) {
+    while (stack.length && nums[stack[stack.length - 1]] < nums[i % size]) {
+      let index = stack.pop();
+      result[index] = nums[i % size];
+    }
+
+    stack.push(i % size);
+  }
+
+  return result;
+};
+
+// Time O(N) worst case O(N^2)
+// Space O(N)
+const nextGreaterElements_II = nums => {
   if (!nums.length) return [];
 
   const stack = [Number.MAX_VALUE];
@@ -51,6 +75,3 @@ const nextGreaterElements = nums => {
 
   return result;
 };
-
-const res = nextGreaterElements([1, 1, 1, 1, 1]);
-console.log(res);
