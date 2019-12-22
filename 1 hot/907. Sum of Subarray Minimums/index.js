@@ -10,33 +10,77 @@ Example 1:
   Minimums are 3, 1, 2, 4, 1, 1, 2, 1, 1, 1.  Sum is 17.
 
 
+[1, 2, ]
+
+
 Note:
   1 <= A.length <= 30000
   1 <= A[i] <= 30000
 
  */
 
-// Time O(N^3)
+/*
+res = sum(A[i] * f(i))
+
+где f(i) - число подмассивов,
+
+в которой nums[i] является минимумом.
+
+Чтобы получить f (i), нам нужно выяснить
+
+left[i], длина строгих больших чисел слева от nums[i],
+right [i], длина больших чисел справа от nums[i].
+
+Чтобы вычислить left[i] и right[i], мы используем увеличивающийся стек.
+
+ */
+
+// Time O(N)
+// Space O(N)
 const sumSubarrayMins = nums => {
-  let size = nums.length;
-  let ans = 0;
-  let min;
-  let mod = Math.pow(10, 9) + 7;
+  let stack = [];
+  let left = [];
+  let right = [];
+  let mod = 1e9 + 7;
 
-  for (let len = 0; len < size; len++) {
-    for (let i = 0; i < size - len; i++) {
-      min = Number.MAX_VALUE;
+  // найти все элементы PLE(Previous Less Element).
+  for (let i = 0; i < nums.length; i++) {
+    let cnt = 1;
 
-      for (let j = i; j <= i + len; j++) {
-        min = Math.min(min, nums[j]);
-      }
-
-      ans += min;
-      ans = ans % mod;
+    // prev less
+    while (stack.length && stack[stack.length - 1][0] > nums[i]) {
+      let item = stack.pop();
+      cnt += item[1];
     }
+
+    stack.push([nums[i], cnt]);
+    left[i] = cnt;
   }
 
-  return ans;
+  stack = [];
+
+  // найти все элементы NLE(Next Less Element).
+  for (let i = nums.length - 1; i >= 0; i--) {
+    let cnt = 1;
+
+    // next less
+    while (stack.length && stack[stack.length - 1][0] >= nums[i]) {
+      let item = stack.pop();
+      cnt += item[1];
+    }
+
+    stack.push([nums[i], cnt]);
+    right[i] = cnt;
+  }
+
+  let result = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    // left[i] * right[i] -
+    result = (result + nums[i] * left[i] * right[i]) % mod;
+  }
+
+  return result;
 };
 
 const res = sumSubarrayMins([3, 1, 2, 4]);
