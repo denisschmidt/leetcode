@@ -28,6 +28,25 @@ function findPreviousLessElement() {
   let previousLess = [];
 
   for (let i = 0; i < nums.length; i++) {
+    let cnt = 1;
+
+    while (stack.length && stack[stack.length - 1][0] > nums[i]) {
+      let item = stack.pop();
+      cnt += item[1];
+    }
+
+    stack.push([nums[i], cnt]);
+    previousLess[i] = i - cnt;
+  }
+
+  return previousLess;
+}
+
+function findPreviousLessElement_II() {
+  let stack = [];
+  let previousLess = [];
+
+  for (let i = 0; i < nums.length; i++) {
     while (stack.length && nums[stack[stack.length - 1]] > nums[i]) {
       stack.pop();
     }
@@ -53,7 +72,29 @@ function findPreviousLessElement() {
 
  */
 
+// let nums = [3, 7, 8, 4];
+
 function findNextLessElement() {
+  let stack = [];
+  let nextLess = [];
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    let cnt = 1;
+
+    // next less
+    while (stack.length && stack[stack.length - 1][0] >= nums[i]) {
+      let item = stack.pop();
+      cnt += item[1];
+    }
+
+    stack.push([nums[i], cnt]);
+    nextLess[i] = i + cnt > nums.length - 1 ? -1 : i + cnt;
+  }
+
+  return nextLess;
+}
+
+function findNextLessElement_II() {
   let stack = [];
   let nextLess = Array(nums.length).fill(-1);
 
@@ -67,3 +108,8 @@ function findNextLessElement() {
 
   return nextLess;
 }
+
+let a = findNextLessElement();
+let b = findNextLessElement_II();
+
+console.log(a, b);
