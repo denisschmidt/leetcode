@@ -76,7 +76,7 @@ const sumSubarrayMins = nums => {
   let result = 0;
 
   for (let i = 0; i < nums.length; i++) {
-    // left[i] * right[i] -
+    // left[i] * right[i] - кол-во подмассивов
     result = (result + nums[i] * left[i] * right[i]) % mod;
   }
 
