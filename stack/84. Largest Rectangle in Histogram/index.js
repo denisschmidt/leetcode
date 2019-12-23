@@ -16,7 +16,7 @@ Example:
 
 // Time O(N)
 // Space O(N)
-// Монотонное увеличение стека
+// Монотонное увеличение стека. Каждый индекс push() и pop() один раз и обрабатывается один раз.
 // PLE => Previous Less Element
 const largestRectangleArea = heights => {
   let size = heights.length;
