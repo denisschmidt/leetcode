@@ -49,6 +49,8 @@ ABF => A B F AB BF ABF
 
  */
 
+// Time O(N + K)
+// Space O(N)
 const uniqueLetterString = str => {
   let mod = 1e9 + 7;
   let size = str.length;
@@ -59,7 +61,7 @@ const uniqueLetterString = str => {
   for (let i = 0; i < str.length; i++) {
     let s = str[i];
     if (map.has(s)) {
-      left[i] = map.get(s);
+      left[i] = map.get(s) + 1;
       right[map.get(s)] = i;
     }
     map.set(s, i);
@@ -77,4 +79,20 @@ const uniqueLetterString = str => {
 };
 
 const res = uniqueLetterString('ABA');
+
 console.log(res);
+
+// Time O(N * K)
+// Space O(1)
+const uniqueLetterString_II = str => {
+  let mod = 1e9 + 7;
+  let size = str.length;
+  let result = 0;
+  for (let i = 0, l = 0, r = 0; i < size; i++) {
+    for (l = i - 1; l >= 0 && str[i] !== str[l]; l--) {}
+    for (r = i + 1; r < size && str[i] !== str[r]; r++) {}
+    result = (result + (i - l) * (r - i)) % mod;
+  }
+
+  return result;
+};
