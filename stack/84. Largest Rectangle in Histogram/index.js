@@ -16,48 +16,43 @@ Example:
 
 // Time O(N)
 // Space O(N)
-const largestRectangleArea = function(heights) {
-  let ans = 0;
-  const stack = [];
-  const n = heights.length;
+// Монотонное увеличение стека
+// PLE => Previous Less Element
+const largestRectangleArea = heights => {
+  let size = heights.length;
+  let stack = [];
+  let result = 0;
 
-  for (let i = 0; i <= n; i++) {
-    // Если мы закончили все элементы ИЛИ текущий элемент меньше верхнего
-    while (stack.length && (i === n || heights[i] < heights[stack[stack.length - 1]])) {
+  for (let i = 0; i <= size; i++) {
+    while (stack.length && (heights[stack[stack.length - 1]] > heights[i] || i === size)) {
       let index = stack.pop();
-      const height = heights[index];
-      const width = !stack.length ? i : i - 1 - stack[stack.length - 1];
-
-      ans = Math.max(ans, width * height);
+      let height = heights[index];
+      let width = stack.length ? i - 1 - stack[stack.length - 1] : i;
+      result = Math.max(result, height * width);
     }
 
     stack.push(i);
   }
 
-  return ans;
+  return result;
 };
-
-largestRectangleArea([2, 1, 5, 6, 2, 3]);
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Time O(N^2)
 // Space O(1)
-const largestRectangleArea2 = function(heights) {
-  if (heights.length === 0) return 0;
-  if (heights.length === 1) return heights[0];
+const largestRectangleArea_II = heights => {
+  let size = heights.length;
+  let result = 0;
 
-  const n = heights.length;
-  let ans = 0;
-
-  for (let i = 0; i < n; i++) {
-    let min = Number.MAX_VALUE;
-
-    for (let j = i; j < n; j++) {
-      min = Math.min(min, heights[j]);
-      ans = Math.max(ans, min * (j - i + 1));
+  for (let i = 0; i < size; i++) {
+    let height = heights[i];
+    for (let j = i; j < size; j++) {
+      height = Math.min(height, heights[j]);
+      let width = j - i + 1;
+      if (height * width > result) {
+        result = height * width;
+      }
     }
   }
 
-  return ans;
+  return result;
 };

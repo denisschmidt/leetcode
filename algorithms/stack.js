@@ -94,6 +94,8 @@ function findNextLessElement() {
   return nextLess;
 }
 
+console.log(findNextLessElement([3, 7, 8, 4]));
+
 function findNextLessElement_II() {
   let stack = [];
   let nextLess = Array(nums.length).fill(-1);
@@ -108,8 +110,3 @@ function findNextLessElement_II() {
 
   return nextLess;
 }
-
-let a = findNextLessElement();
-let b = findNextLessElement_II();
-
-console.log(a, b);
