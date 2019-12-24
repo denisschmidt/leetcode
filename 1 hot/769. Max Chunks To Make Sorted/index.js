@@ -25,5 +25,28 @@ Note:
   arr[i] will be a permutation of [0, 1, ..., arr.length - 1].
 
  */
+/*
 
-const maxChunksToSorted = arr => {};
+Основная идея состоит в том, чтобы использовать массив max[], чтобы отслеживать максимальное значение до текущей позиции,
+и сравнивать его с отсортированным массивом (индексы от 0 до arr.length - 1).
+Если max [i] равен элементу с индексом i в отсортированном массиве, то итоговый счет ++.
+
+ */
+
+// Time O(N)
+// Space O(N)
+const maxChunksToSorted = arr => {
+  let size = arr.length;
+  let max = [arr[0]];
+  let result = 0;
+
+  for (let i = 1; i < size; i++) {
+    max[i] = Math.max(max[i - 1], arr[i]);
+  }
+
+  for (let i = 0; i < size; i++) {
+    if (i === max[i]) result++;
+  }
+
+  return result;
+};
