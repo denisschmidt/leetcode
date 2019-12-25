@@ -29,28 +29,29 @@ Note:
 
  */
 
+// Time O(N)
+// Space O(N)
 const maxChunksToSorted = nums => {
-  let max = [...nums];
-  let s = nums.length;
+  let size = nums.length;
+  let leftMax = [nums[0]];
+  let rightMin = [];
+
+  for (let i = 1; i < size; i++) {
+    leftMax[i] = Math.max(leftMax[i - 1], nums[i]);
+  }
+
+  rightMin[size - 1] = nums[size - 1];
+
+  for (let i = size - 2; i >= 0; i--) {
+    rightMin[i] = Math.min(rightMin[i + 1], nums[i]);
+  }
+
   let cnt = 0;
 
-  for (let i = 1; i < s; i++) {
-    if (nums[i - 1] === nums[i] && max[i - 1] !== nums[i]) continue;
-    max[i] = Math.max(max[i - 1], nums[i]);
+  for (let i = 0; i < size - 1; i++) {
+    // когда вы находитесь в индексе i, вы должны сравнить max(0, ..., i) с min(i + 1, ..., len - 1).
+    if (leftMax[i] <= rightMin[i + 1]) cnt++;
   }
 
-  nums.sort((a, b) => a - b);
-
-  console.log(max, nums);
-
-  for (let i = 0; i < s; i++) {
-    if (max[i] === nums[i]) {
-      cnt++;
-    }
-  }
-
-  return cnt;
+  return cnt + 1;
 };
-
-const c = maxChunksToSorted([1, 1, 0, 0, 1]);
-console.log(c);

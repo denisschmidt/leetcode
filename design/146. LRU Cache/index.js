@@ -29,53 +29,14 @@ cache.get(4);       // returns 4
 
 */
 
-class DataNode {
-  constructor(key, value) {
-    this.key = key;
-    this.value = value;
-    this.prev = null;
-    this.next = null;
-  }
-}
-
-// Double Linked List
-class DataList {
-  constructor() {
-    this.head = new DataNode();
-    this.tail = new DataNode();
-
-    this.head.next = this.tail;
-    this.tail.prev = this.head;
-  }
-
-  remove(node) {
-    node.prev.next = node.next;
-    node.next.prev = node.prev;
-  }
-
-  insert(node) {
-    node.next = this.head.next;
-    node.prev = this.head;
-
-    this.head.next.prev = node;
-    this.head.next = node;
-  }
-
-  getLast() {
-    return this.tail.prev;
-  }
-}
+const { DoubleLinkedList, List } = require('../../algorithms/doubleLinkedList');
 
 // Используем Hash Map и Double List
 class LRUCache {
   constructor(capacity) {
     this.capacity = capacity;
-
-    // hash
     this.map = new Map();
-
-    // Doubly linked list
-    this.dataList = new DataList();
+    this.dataList = new DoubleLinkedList();
   }
 
   // Если элемента нету вернем -1
@@ -101,9 +62,7 @@ class LRUCache {
   // Как только мы добавляем новые элементы - наш первый добавленный элемент перемещается в направлении заголовка.
   // Если список достигает емкости, мы удаляем следующий элемент в заголовок (и из словаря) и добавляем его перед хвостом
   put(key, value) {
-    if (this.capacity === 0) {
-      return;
-    }
+    if (this.capacity === 0) return;
 
     let node;
 
@@ -111,28 +70,73 @@ class LRUCache {
     if (this.map.has(key)) {
       node = this.map.get(key);
       node.value = value;
+
       this.dataList.remove(node);
       this.dataList.insert(node);
+
       return;
     }
 
     // Если в кэше уже N элементов, то вытесним самый старый
     if (this.map.size === this.capacity) {
       node = this.dataList.getLast();
+
       this.map.delete(node.key);
       this.dataList.remove(node);
     }
 
     // Добавим в таблицу, и в очередь
-    node = new DataNode(key, value);
+    node = new List(key, value);
     this.map.set(key, node);
+
     this.dataList.insert(node);
   }
 }
 
-/**
- * Your LRUCache object will be instantiated and called as such:
- * var obj = new LRUCache(capacity)
- * var param_1 = obj.get(key)
- * obj.put(key,value)
- */
+/*
+  Решение через OrdererMap
+
+  В теории O(1), но, да, реально немного медленнее. 
+  То же самое относится и к литералу объекта JS. 
+  Согласно международной спецификации ECMA: 
+    «map должен быть реализован с использованием либо хеш-таблиц, 
+    либо других механизмов, которые в среднем обеспечивают время доступа, 
+    которое сублинейно по количеству элементов в коллекции» 
+    
+  http://www.ecma-international.org/ecma-262/6.0/index.html#sec-map-objects
+*/
+
+class LRUCache_II {
+  constructor(capacity) {
+    this.capacity = capacity;
+    this.map = new Map();
+  }
+
+  get(key) {
+    if (!this.map.has(key)) {
+      return -1;
+    }
+
+    // если элемент существует меняем его порядок в map
+    let val = this.map.get(key);
+    this.map.delete(key);
+    this.map.set(key, val);
+
+    return val;
+  }
+
+  put(key, value) {
+    // если элемент существует меняем его порядок в map
+    if (this.map.has(key)) {
+      this.map.delete(key);
+    }
+
+    this.map.set(key, value);
+    let keys = this.map.keys();
+
+    // удаляем элементы в порядке вставки
+    while (this.map.size > this.capacity) {
+      this.map.delete(keys.next().value);
+    }
+  }
+}
