@@ -10,6 +10,7 @@
  * size: Returns the number of elements in this collection.
  * toArray: Returns an array containing all of the elements in this queue.
  */
+
 class PriorityQueue {
   constructor({ comparator = (a, b) => a - b, initialValues = [] } = {}) {
     this.comparator = comparator;
@@ -49,6 +50,14 @@ class PriorityQueue {
     return this.data[0];
   }
 
+  pok() {
+    if (this.size() === 0) {
+      return null;
+    }
+
+    return this.data[1];
+  }
+
   offer(value) {
     this.data.push(value);
     // поднимаемся вверх
@@ -63,7 +72,7 @@ class PriorityQueue {
       return null;
     }
 
-    const result = this.data[0];
+    const first = this.data[0];
     const last = this.data.pop();
 
     if (this.data.length > 0) {
@@ -71,7 +80,7 @@ class PriorityQueue {
       this.bubbleDown(0);
     }
 
-    return result;
+    return first;
   }
 
   getChildIndexes(index) {
