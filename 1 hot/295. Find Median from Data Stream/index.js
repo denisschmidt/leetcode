@@ -26,44 +26,82 @@ Follow up:
   If 99% of all integer numbers from the stream are between 0 and 100, how would you optimize it?
 
 
-[-1, -2, -3]
-
 */
 
 const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
 class MedianFinder {
   constructor() {
-    this.count = 0;
-    this.heap = new PriorityQueue({ comparator: (a, b) => a - b });
+    this.minHeap = new PriorityQueue({ comparator: (a, b) => a - b });
+    this.maxHeap = new PriorityQueue({ comparator: (a, b) => b - a });
+    this.even = true;
+  }
+
+  addNum(num) {}
+
+  findMedian() {}
+}
+
+class MedianFinder_II {
+  constructor() {
+    this.nums = [];
   }
 
   addNum(num) {
-    this.count++;
-
-    if (this.count > 1 && this.count % 2 !== 0) {
-      console.log(this.heap.toArray());
-      this.heap.poll();
-      console.log(this.heap.toArray());
+    if (this.nums.length === 0) {
+      this.nums.push(num);
+    } else {
+      let index = this.search(num);
+      this.nums.splice(index, 0, num);
     }
-
-    this.heap.offer(num);
   }
 
   findMedian() {
-    let a = this.heap.peek();
-    let b = this.heap.pok();
+    let s = this.nums.length;
+    let mid = Math.floor(this.nums.length / 2);
+    return s % 2 === 0 ? (this.nums[mid - 1] + this.nums[mid]) / 2.0 : this.nums[mid];
+  }
 
-    console.log(this.heap.toArray());
+  search(num) {
+    let l = 0;
+    let r = this.nums.length - 1;
 
-    return this.count % 2 === 0 ? (a + b) / 2 : a;
+    if (!this.nums.length) {
+      this.nums.push(num);
+      return;
+    }
+
+    while (l <= r) {
+      let mid = l + Math.floor((r - l) / 2);
+
+      if (num[mid] === num) {
+        return mid;
+      }
+
+      if (this.nums[mid] < num) {
+        l = mid + 1;
+      } else {
+        r = mid - 1;
+      }
+    }
+
+    return l;
   }
 }
 
 const mid = new MedianFinder();
-mid.addNum(-1);
-mid.addNum(-2);
-mid.addNum(-3);
+mid.addNum(6);
+mid.addNum(10);
+mid.addNum(2);
+mid.addNum(6);
+mid.addNum(5);
+mid.addNum(0);
+mid.addNum(6);
+mid.addNum(3);
+mid.addNum(1);
+mid.addNum(0);
+mid.addNum(0);
+
 let b = mid.findMedian(); //-> 2
 
 console.log(b);

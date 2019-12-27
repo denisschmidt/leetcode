@@ -50,14 +50,6 @@ class PriorityQueue {
     return this.data[0];
   }
 
-  pok() {
-    if (this.size() === 0) {
-      return null;
-    }
-
-    return this.data[1];
-  }
-
   offer(value) {
     this.data.push(value);
     // поднимаемся вверх
