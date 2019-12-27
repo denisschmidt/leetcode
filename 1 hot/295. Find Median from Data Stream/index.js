@@ -30,18 +30,66 @@ Follow up:
 
 const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
+// Time O(LogN) + O(1)
+/*
+  Алгоритм:
+
+  1) Обе кучи сбалансированы (или почти сбалансированы)
+  2) Максимальная куча содержит все меньшие числа, в то время как минимальная куча содержит все большие числа
+
+  maxHeap, хранит меньшую половину чисел 
+  minHeap хранит большую половину чисел 
+  
+  В maxHeap в худшем случае можно хранить на один элемент больше, чем miHneap. 
+  
+  Если k = 2 * n + 1 то maxHeap может содержать n + 1 элементов  
+  В то время как miHneap может содержать n элементов. 
+  
+  Если k = 2 * n то обе кучи сбалансированы и содержат по n элементов каждый. 
+  Это дает нам замечательное свойство: когда кучи идеально сбалансированы, медиана может быть получена из вершин обеих куч. 
+  
+  В противном случае вершина maxHeap содержит законную медиану.
+
+  https://www.programcreek.com/2015/01/leetcode-find-median-from-data-stream-java/
+
+
+  1) Каждый элемент добавляется в minHeap 
+  
+  2) Затем минимальный элемент выталкавается из minHeap и добавляется в maxHeap
+
+  3) Из этого мы получается что все элементы в minHeap больше чем элементы в maxHeap
+
+  4) В итоге две кучи необходимо сбалансировать
+
+
+  */
+
 class MedianFinder {
   constructor() {
-    this.minHeap = new PriorityQueue({ comparator: (a, b) => a - b });
-    this.maxHeap = new PriorityQueue({ comparator: (a, b) => b - a });
-    this.even = true;
+    this.minHeap = new PriorityQueue({ comparator: (a, b) => a - b }); // 1, 2, 3, 4, 5
+
+    this.maxHeap = new PriorityQueue({ comparator: (a, b) => b - a }); // 7, 6, 5, 4
   }
 
-  addNum(num) {}
+  addNum(num) {
+    this.minHeap.offer(num);
+    this.maxHeap.offer(this.minHeap.poll());
 
-  findMedian() {}
+    if (this.minHeap.size() < this.maxHeap.size()) {
+      this.minHeap.offer(this.maxHeap.poll());
+    }
+  }
+
+  findMedian() {
+    if (this.minHeap.size() > this.maxHeap.size()) {
+      return this.minHeap.peek();
+    }
+
+    return (this.minHeap.peek() + this.maxHeap.peek()) / 2.0;
+  }
 }
 
+// Time O(LogN) + O(N)
 class MedianFinder_II {
   constructor() {
     this.nums = [];
@@ -90,17 +138,12 @@ class MedianFinder_II {
 }
 
 const mid = new MedianFinder();
-mid.addNum(6);
-mid.addNum(10);
-mid.addNum(2);
-mid.addNum(6);
+mid.addNum(41);
+mid.addNum(35);
+mid.addNum(62);
 mid.addNum(5);
-mid.addNum(0);
-mid.addNum(6);
-mid.addNum(3);
-mid.addNum(1);
-mid.addNum(0);
-mid.addNum(0);
+mid.addNum(97);
+mid.addNum(108);
 
 let b = mid.findMedian(); //-> 2
 
