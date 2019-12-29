@@ -22,11 +22,14 @@ const partition = (nums, loIndex, hiIndex) => {
 
 //  O(NlogN)
 const quickSort = (nums, low, high) => {
-  if (low < high) {
-    let pi = partition(nums, low, high);
-    quickSort(nums, low, pi - 1);
-    quickSort(nums, pi + 1, high);
+  if (low >= high) {
+    return;
   }
+
+  let pivot = partition(nums, low, high);
+
+  quickSort(nums, low, pivot - 1);
+  quickSort(nums, pivot + 1, high);
 };
 
 const input = [10, 16, 8, 12, 15, 6, 3, 9, 5];
