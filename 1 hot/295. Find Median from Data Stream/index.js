@@ -31,6 +31,7 @@ Follow up:
 const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
 // Time O(LogN) + O(1)
+
 /*
   Алгоритм:
 
@@ -60,7 +61,6 @@ const { PriorityQueue } = require('../../algorithms/priorityQueue');
   3) Из этого мы получается что все элементы в minHeap больше чем элементы в maxHeap
 
   4) В итоге две кучи необходимо сбалансировать
-
 
   */
 
