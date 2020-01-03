@@ -36,12 +36,38 @@ Explanation: The array cannot be partitioned into equal sum subsets.
 
 // Есть ли в наборе несколько чисел, которые могут суммироваться до определенного значения (в этой задаче это значение sum / 2).
 
+// Time O(N^2)
+// Space O(N)
+const canPartition = function(nums) {
+  let sum = nums.reduce((acc, v) => acc + v, 0);
+
+  let target = sum >> 1;
+
+  // Позволяет на ответить на вопрос.
+  // Есть ли в наборе несколько чисел, которые могут суммироваться до определенного значения
+  let dp = Array(target + 1).fill(false);
+  dp[0] = true;
+
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = target; j >= nums[i]; j--) {
+      dp[j] = dp[j] || dp[j - nums[i]];
+    }
+  }
+
+  let i = target;
+  while (!dp[i]) {
+    i--;
+  }
+
+  return sum === i * 2;
+};
+
+//
 // Предположим, что dp[i][j] означает, что конкретная сумма j может быть получена из первых чисел i.
 // Если мы можем выбрать такую ​​серию чисел из 0-i, чья сумма равна j, dp[i][j] будет истинным, в противном случае - ложным.
-
 // Time O(N^2)
 // Space O(N^2)
-const canPartition = nums => {
+const canPartition_II = nums => {
   let sum = nums.reduce((acc, val) => acc + val, 0);
 
   if (sum % 2 !== 0) return false;
@@ -52,7 +78,6 @@ const canPartition = nums => {
   const n = nums.length;
   const m = sum + 1;
 
-  // Создаем матрицу
   const dp = Array(n + 1)
     .fill(null)
     .map(() => Array(m).fill(false));
@@ -85,30 +110,4 @@ const canPartition = nums => {
   }
 
   return dp[n][sum];
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// TLE
-const canPartition2 = function(nums) {
-  let sum = nums.reduce((acc, val) => acc + val, 0);
-
-  if (sum % 2 !== 0) return false;
-
-  nums.sort((a, b) => a - b);
-
-  return backtrack(sum / 2, 0, nums);
-
-  function backtrack(sum, index, nums) {
-    if (sum === 0) return true;
-    else if (sum < 0) return false;
-    else {
-      for (let i = index; i < nums.length; i++) {
-        if (backtrack(sum - nums[i], i + 1, nums)) {
-          return true;
-        }
-      }
-      return false;
-    }
-  }
 };
