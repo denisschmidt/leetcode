@@ -1,3 +1,4 @@
+/* eslint-disable */
 /*
 For most substring problem, we are given a string and need to find a substring of it which satisfy some restrictions.
 A general way is to use a hashmap assisted with two pointers.
