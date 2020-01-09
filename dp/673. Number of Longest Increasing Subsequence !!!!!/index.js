@@ -9,23 +9,14 @@ Example 1:
 Example 2:
   Input: [2,2,2,2,2]
   Output: 5
-  Explanation: The length of longest continuous increasing subsequence is 1, and there are 5 subsequences' length is 1, so output 5.
+  Explanation: 
+    The length of longest continuous increasing subsequence is 1, and there are 5 subsequences' 
+    length is 1, so output 5.
 
 Note: Length of the given array will be not exceed 2000 and the answer is guaranteed to be fit in 32-bit signed int.
 
  */
 
-// Complexity Analysis
-//
-// Time Complexity: O(N^2)
-// where N is the length of nums. There are two for-loops and the work inside is O(1).
-//
-// Space Complexity: O(N), the space used by lengths and counts.
-
-/**
- * @param {number[]} nums
- * @return {number}
- */
 const findNumberOfLIS = function(nums) {
   let len = [],
     cnt = [],
@@ -56,5 +47,7 @@ const findNumberOfLIS = function(nums) {
   return res;
 };
 
-const res = findNumberOfLIS([1, 2, 4, 3, 5, 4, 7, 2]); // 3
+var findNumberOfLIS_II = function(nums) {};
+
+const res = findNumberOfLIS_II([1, 2, 4, 3, 5, 4, 7, 2]); // 3
 console.log('---', res);
