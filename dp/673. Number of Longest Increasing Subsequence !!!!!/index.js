@@ -17,37 +17,35 @@ Note: Length of the given array will be not exceed 2000 and the answer is guaran
 
  */
 
-const findNumberOfLIS = function(nums) {
-  let len = [],
-    cnt = [],
-    maxLen = 0,
-    res = 0;
+const findNumberOfLIS = nums => {
+  let len = Array(nums.length).fill(1);
+  let cnt = Array(nums.length).fill(1);
+  let maxLen = 0;
+  let ans = 0;
+
   for (let i = 0; i < nums.length; i++) {
-    len[i] = 1;
-    cnt[i] = 1;
     for (let j = 0; j < i; j++) {
       if (nums[i] > nums[j]) {
-        if (len[i] === len[j] + 1) {
+        if (len[j] + 1 === len[i]) {
           cnt[i] += cnt[j];
         }
+
         if (len[j] + 1 > len[i]) {
           len[i] = len[j] + 1;
           cnt[i] = cnt[j];
         }
       }
     }
+
     if (maxLen === len[i]) {
-      res += cnt[i];
+      ans += cnt[i];
     }
+
     if (maxLen < len[i]) {
       maxLen = len[i];
-      res = cnt[i];
+      ans = cnt[i];
     }
   }
-  return res;
+
+  return ans;
 };
-
-var findNumberOfLIS_II = function(nums) {};
-
-const res = findNumberOfLIS_II([1, 2, 4, 3, 5, 4, 7, 2]); // 3
-console.log('---', res);
