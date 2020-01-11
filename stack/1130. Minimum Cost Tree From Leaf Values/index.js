@@ -36,6 +36,9 @@ Array: [6, 2, 4]
 
  */
 
+// Монотонный стек
+// Time O(N)
+// Space O(N)
 const mctFromLeafValues = nums => {
   let result = 0;
   let stack = [Number.MAX_VALUE];
@@ -58,6 +61,7 @@ const mctFromLeafValues = nums => {
   return result;
 };
 
+// DFS
 // Time O(N^2)
 // Space O(N)
 // Алгоритм: Найти maxIndex, затем сократить массив до 3 частей. [Low, maxIndex -1] [maxIndex] [maxIndex + 1, high].
