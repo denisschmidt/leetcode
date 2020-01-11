@@ -42,24 +42,7 @@ let neighbors = {
   '0': ['4', '6'],
 };
 
-const knightDialer = N => {
-  // Наш базовый случай - 1 прыжок для каждого возможного числа
-  let currentCounts = Array.from({ length: 10 }, () => 1);
-
-  for (let hops = 1; hops < N; hops++) {
-    let nextCounts = Array.from({ length: 10 }, () => 0);
-
-    for (let number = 0; number < 10; number++) {
-      for (let neighbor of neighbors[number]) {
-        nextCounts[neighbor] += currentCounts[number] % mod;
-      }
-    }
-    currentCounts = nextCounts;
-  }
-
-  return currentCounts.reduce((acc, v) => acc + v, 0) % mod;
-};
-
+// DFS
 // Time O(N)
 // Space O(N)
 const knightDialer_II = N => {
@@ -90,4 +73,25 @@ const knightDialer_II = N => {
 
     return cache[key];
   }
+};
+
+// DP
+// Time O(n * m * k)
+// Space O(N)
+const knightDialer = N => {
+  // Наш базовый случай - 1 прыжок для каждого возможного числа
+  let currentCounts = Array.from({ length: 10 }, () => 1);
+
+  for (let hops = 1; hops < N; hops++) {
+    let nextCounts = Array.from({ length: 10 }, () => 0);
+
+    for (let number = 0; number < 10; number++) {
+      for (let neighbor of neighbors[number]) {
+        nextCounts[neighbor] += currentCounts[number] % mod;
+      }
+    }
+    currentCounts = nextCounts;
+  }
+
+  return currentCounts.reduce((acc, v) => acc + v, 0) % mod;
 };

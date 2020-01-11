@@ -22,6 +22,8 @@ Note:
   N is in range [0,50].
 */
 
+// Time O(m * n * N)
+// Space O(N)
 const findPaths = (m, n, N, i, j) => {
   let dirs = [
     [0, 1],
@@ -29,28 +31,33 @@ const findPaths = (m, n, N, i, j) => {
     [-1, 0],
     [1, 0],
   ];
+  let mod = 1e9 + 7;
+  let cache = {};
 
-  const c = helper(i, j, N);
-
-  console.log(c);
+  return helper(i, j, N);
 
   function helper(i, j, hop) {
-    if (i < 0 || j < 0 || i >= m || j >= n || hop === 0) {
-      return 1;
+    // забавно что если убрать разделитель '|' тесты не пройдут
+    let key = [i, j, hop].join('|');
+
+    if (!(key in cache)) {
+      if (i < 0 || j < 0 || i >= m || j >= n) {
+        return 1;
+      }
+
+      if (hop === 0) {
+        return 0;
+      }
+
+      let cnt = 0;
+
+      for (let dir of dirs) {
+        cnt += helper(dir[0] + i, dir[1] + j, hop - 1);
+      }
+
+      cache[key] = cnt % mod;
     }
 
-    if (hop < 0) {
-      return 0;
-    }
-
-    let cnt = 0;
-
-    for (let dir of dirs) {
-      cnt += helper(dir[0] + i, dir[1] + j, hop - 1);
-    }
-
-    return cnt;
+    return cache[key];
   }
 };
-
-findPaths(2, 2, 2, 0, 0);
