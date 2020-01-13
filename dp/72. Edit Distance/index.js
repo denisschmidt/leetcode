@@ -58,37 +58,34 @@ Complexity Analysis
 
  */
 
-// Time O(s1*s2)
-// Space O(s1*s2)
+// Time O(n*m)
+// Space O(n*m)
 const minDistance = function(word1, word2) {
-  const matrix = [[]];
-  const s1 = word1.length;
-  const s2 = word2.length;
+  let n = w1.length;
+  let m = w2.length;
 
-  for (let i = 0; i <= s1; i++) {
-    if (!matrix[i]) {
-      matrix[i] = [];
-    }
-    for (let j = 0; j <= s2; j++) {
-      if (i === 0) {
-        matrix[i][j] = j;
+  if (n === 0 && m === 0) return 0;
+  let dp = Array(n + 1)
+    .fill(null)
+    .map(() => Array(m + 1).fill(0));
+
+  for (let i = 0; i <= n; i++) {
+    for (let j = 0; j <= m; j++) {
+      if (i === 0 && j === 0) {
+        dp[i][j] = 0;
+      } else if (i === 0) {
+        dp[i][j] = dp[i][j - 1] + 1;
       } else if (j === 0) {
-        matrix[i][j] = i;
-      } else if (word1[i - 1] === word2[j - 1]) {
-        matrix[i][j] = matrix[i - 1][j - 1];
+        dp[i][j] = dp[i - 1][j] + 1;
+      } else if (w1[i - 1] === w2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1];
       } else {
-        // If word1[i - 1] != word2[j - 1], we need to consider three cases.
-        matrix[i][j] = 1 + Math.min(matrix[i - 1][j], matrix[i][j - 1], matrix[i - 1][j - 1]);
+        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
       }
     }
   }
-  return matrix[s1][s2];
+  return dp[w1.length][w2.length];
 };
-
-const res = minDistance('dinitrophenylhydrazine', 'dimethylhydrazine');
-console.log('---', res);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // O(n) space
 const minDistance2 = function(word1, word2) {

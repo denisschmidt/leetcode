@@ -47,5 +47,33 @@ const longestPalindrome = s => {
   return res;
 };
 
-const res = longestPalindrome('baab');
+const longestPalindrome_II = s => {
+  let n = s.length;
+  let maxLen = 0;
+  let ans = '';
+  let dp = Array(n)
+    .fill(null)
+    .map(() => Array(n).fill(0));
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = i; j < n; j++) {
+      if (i === j) {
+        dp[i][j] = 1;
+      } else if (s[i] === s[j] && dp[i + 1][j - 1] === j - i - 1) {
+        dp[i][j] = dp[i + 1][j - 1] + 2;
+      } else {
+        dp[i][j] = 0;
+      }
+
+      if (dp[i][j] > maxLen) {
+        maxLen = dp[i][j];
+        ans = s.substring(i, j + 1);
+      }
+    }
+  }
+
+  return ans;
+};
+
+const res = longestPalindrome_II('cbbd');
 console.log('---', res);

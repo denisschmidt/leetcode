@@ -16,40 +16,6 @@ Example 2:
 
  */
 
-/**
- * @param {string} s
- * @return {boolean}
- */
-const isPalidrome = s => {
-  let left = 0,
-    right = s.length - 1;
-  while (left < right) {
-    if (s[left] !== s[right]) {
-      return false;
-    }
-    left++;
-    right--;
-  }
-  return true;
-};
-
-const countSubstrings = s => {
-  let count = 0,
-    str = '';
-  for (let i = 0; i < s.length; i++) {
-    for (let j = i; j <= s.length; j++) {
-      str = str + s[j];
-      if (isPalidrome(str)) {
-        count++;
-      }
-    }
-    str = '';
-  }
-  return count;
-};
-
-const res1 = countSubstrings('aaa');
-
 /*
 State
   state[i][j] is true if substring s[i, j] is palindromic
@@ -63,26 +29,31 @@ State Transition
   state[i][j] is true (j - i == 0)
 
  */
-const countSubstringsDP = str => {
-  const size = str.length;
-  let res = 0;
-  const dp = [[]];
 
-  for (let i = 0; i < size; i++) {
-    if (!dp[i]) dp[i] = [];
-  }
+// Time O(N^2)
+// Space O(N^2)
+/**
+ * @param {string} s
+ * @return {number}
+ */
+var countSubstrings = function(s) {
+  let n = s.length;
+  let ans = 0;
+  let dp = Array(n)
+    .fill(null)
+    .map(() => Array(n).fill(false));
 
-  for (let i = size - 1; i >= 0; i--) {
-    for (let j = i; j < size; j++) {
-      dp[i][j] = str[i] === str[j] && (j - i < 3 || dp[i + 1][j - 1]);
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = i; j < n; j++) {
+      if (s[i] === s[j] && (j - i < 3 || dp[i + 1][j - 1])) {
+        dp[i][j] = true;
+      }
+
       if (dp[i][j]) {
-        res++;
+        ans++;
       }
     }
   }
-  return res;
+
+  return ans;
 };
-
-const res2 = countSubstringsDP('aaa');
-
-console.log('--', res2);
