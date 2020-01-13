@@ -21,6 +21,8 @@ Note:
   All elements of each string will have an ASCII value in [97, 122].
 */
 
+// Time O(N*M)
+// Space O(N*M)
 const minimumDeleteSum = (s1, s2) => {
   let n = s1.length;
   let m = s2.length;

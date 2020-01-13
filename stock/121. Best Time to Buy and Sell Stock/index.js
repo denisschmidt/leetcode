@@ -6,16 +6,15 @@ If you were only permitted to complete at most one transaction (i.e., buy one an
 Note that you cannot sell a stock before you buy one.
 
 Example 1:
-
-Input: [7,1,5,3,6,4]
-Output: 5
-Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
+  Input: [7,1,5,3,6,4]
+  Output: 5
+  Explanation: Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5.
              Not 7-1 = 6, as selling price needs to be larger than buying price.
-Example 2:
 
-Input: [7,6,4,3,1]
-Output: 0
-Explanation: In this case, no transaction is done, i.e. max profit = 0.
+Example 2:
+  Input: [7,6,4,3,1]
+  Output: 0
+  Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
  */
 
@@ -28,16 +27,12 @@ const maxProfit = function(prices) {
   let ans = 0;
 
   for (let i = 0; i < prices.length; i++) {
-    if (prices[i] > min) {
-      ans = Math.max(ans, prices[i] - min);
-    }
     if (prices[i] < min) {
       min = prices[i];
+    } else {
+      ans = Math.max(ans, prices[i] - min);
     }
   }
 
   return ans;
 };
-
-const res = maxProfit([7, 6, 4, 3, 1]);
-console.log('---', res);

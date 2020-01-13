@@ -26,26 +26,6 @@ Example 2:
 
 // Time O(N)
 // Space O(N)
-const rob = nums => {
-  let size = nums.length;
-  let dp = Array(nums.length).fill(0);
-
-  if (size === 0) return 0;
-  if (size === 1) return nums[0];
-
-  dp[0] = nums[0];
-  dp[1] = nums[1];
-  dp[2] = dp[0] + nums[2];
-
-  for (let i = 3; i < size; i++) {
-    dp[i] = nums[i] + Math.max(dp[i - 2], dp[i - 3]);
-  }
-
-  return Math.max(dp[size - 1], dp[size - 2]);
-};
-
-// Time O(N)
-// Space O(N)
 const rob2 = nums => {
   let size = nums.length;
   let dp = Array(nums.length).fill(0);
