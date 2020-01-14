@@ -56,7 +56,11 @@ const maxProfit2 = function(prices) {
       max = prices[i];
     }
   }
-  if (min !== max) ans += max - min;
+
+  if (min !== max) {
+    ans += max - min;
+  }
+
   return ans;
 };
 
