@@ -44,27 +44,43 @@ SK3-3344-4341-3838-1507-5548
   
 */
 
-var maxProfit = function(prices, fee) {
-  let n = prices.length;
-  let dp = Array(n + 1)
-    .fill(null)
-    .map(() => Array(n + 1).fill(0));
+// Time O(N)
+// Space O(1)
+const maxProfit = (prices, fee) => {
+  // Если я не владею акцией после сегодняшнего дня, то либо у меня не было акции вчера,
+  // либо у меня была акция вчера, но я решил продать ее сегодня: price_0 = max(price_0, price_1 + price[i] - fee)
+  let price_0 = 0;
 
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= n; j++) {
-      let sum = prices[j - 1] - prices[i - 1] - fee;
+  // Если я держу акцию после сегодняшнего дня, то либо я просто продолжаю владеть акцией, которая была у меня вчера,
+  // либо я не держал акции вчера, но купил одну акцию сегодня: price_1 = max(price_1, price_0 - price[i])
+  let price_1 = -Number.MAX_VALUE; // акция остается после текущего дня
 
-      if (sum > 0) {
-        dp[i][j] = sum + dp[i - 1][j - 1];
-      } else {
-        dp[i][j] = dp[i - 1][j - 1];
-      }
-    }
+  /*
+    1) 
+      let oldPrice_0 = price_0;
+      price_0 = Math.max(price_0, price_1 + prices[i]);
+      price_1 = Math.max(price_1, oldPrice_0 - prices[i] - fee);
+
+    2) 
+      let oldPrice_0 = price_0;
+      price_0 = Math.max(price_0, price_1 + prices[i] - fee);
+      price_1 = Math.max(price_1, oldPrice_0 - prices[i]);
+
+
+    Обратите внимание, у нас есть два варианта относительно того, когда вычитать плату. 
+    Это связано с тем, что (как я уже упоминал выше) каждая транзакция характеризуется двумя действиями в паре - покупка и продажа.
+    
+    Плата может быть выплачена либо при покупке акций (соответствует первому набору уравнений), 
+    либо при продаже (соответствует второму набору уравнений). НО взымается только ОДИН раз!
+    
+  */
+
+  for (let i = 0; i < prices.length; i++) {
+    let oldPrice_0 = price_0;
+
+    price_0 = Math.max(price_0, price_1 + prices[i] - fee); // операция удержания или продажи
+    price_1 = Math.max(price_1, oldPrice_0 - prices[i]); // операция удержания или покупки
   }
 
-  console.log(dp, dp[n - 1][n - 1]);
-
-  return dp[n - 1][n - 1];
+  return price_0;
 };
-
-maxProfit([1, 5, 2, 8], 2);

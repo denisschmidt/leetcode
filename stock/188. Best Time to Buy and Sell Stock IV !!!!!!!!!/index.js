@@ -21,6 +21,8 @@ Example 2:
 
  */
 
+const maxProfit = (k, prices) => {};
+
 // The key point is when there are two v/p pairs (v1, p1) and (v2, p2), satisfying
 // v1 <= v2 and p1 <= p2, we can either make one transaction at [v1, p2], or make
 // two at both [v1, p1] and [v2, p2]. The trick is to treat [v1, p2] as the first
@@ -32,7 +34,7 @@ Example 2:
 // up to n/2 such pairs. And extracting k maximums from the heap consumes another O(k*log(n)).
 
 // Time O(n + k*log(n))
-const maxProfit2 = function(k, prices) {
+const maxProfit_II = function(k, prices) {
   if (prices == null || prices.length <= 1) return 0;
 
   const pairs = [];
@@ -88,5 +90,5 @@ const maxProfit2 = function(k, prices) {
   return ans;
 };
 
-const res2 = maxProfit2(5, [1, 4, 7, 5, 6, 2, 5, 1, 9, 7, 9, 7, 0, 6, 8]);
+const res2 = maxProfit_II(5, [1, 4, 7, 5, 6, 2, 5, 1, 9, 7, 9, 7, 0, 6, 8]);
 console.log('---', res2);
