@@ -76,10 +76,8 @@ const maxProfit = (prices, fee) => {
   */
 
   for (let i = 0; i < prices.length; i++) {
-    let oldPrice_0 = price_0;
-
     price_0 = Math.max(price_0, price_1 + prices[i] - fee); // операция удержания или продажи
-    price_1 = Math.max(price_1, oldPrice_0 - prices[i]); // операция удержания или покупки
+    price_1 = Math.max(price_1, price_0 - prices[i]); // операция удержания или покупки
   }
 
   return price_0;
