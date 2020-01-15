@@ -1,4 +1,5 @@
 /*
+
   0-1 Knapsack problem
   
   Тип задач очень похож на 0/1 Knapsack
@@ -15,6 +16,10 @@
   1) увеличение j, то предыдущий частичный результат dp[j - coin] - это результат, который уже рассматривал эту монету
   2) уменьшая j, тогда предыдущий частичный результат dp[j - coin] является результатом, который еще не рассматривал монету
   
+
+  Хороший пост по dp
+  https://leetcode.com/discuss/general-discussion/458695/dynamic-programming-patterns
+
 */
 
 function coinRepeat(coins, target) {

@@ -14,19 +14,28 @@ Example:
   Explanation: transactions = [buy, sell, cooldown, buy, sell]
 */
 
-/**
- * @param {number[]} prices
- * @return {number}
- */
-var maxProfit = function(prices) {
+// Time O(N)
+// Space O(1)
+const maxProfit = prices => {
   let price_0 = 0;
   let price_1 = -Number.MAX_VALUE;
+  let price_i_2_0 = 0;
 
   for (const price of prices) {
-    price_0 = Math.max(price_0, price_1 + price); // sell
-    price_1 = Math.max(price_1, price_0 - price); // buy
+    /*
+      C "перезарядкой" мы не можем покупать в i-й день, если акция продана в (i-1) -й день. 
+      Следовательно, во втором приведенном выше уравнении вместо T[i-1][k][0] 
+      мы должны фактически использовать T[i-2][k][0], если мы намерены покупать в i-й день. 
+      Все остальное остается прежним.
+    */
+    let oldPrice_i_1_0 = price_0;
 
-    console.log(price_0, price_1);
+    price_0 = Math.max(price_0, price_1 + price); // sell
+
+    // price_i_2_0 - теперь у нас не предыдущий день (i-1), а (i-2)
+    price_1 = Math.max(price_1, price_i_2_0 - price); // buy
+
+    price_i_2_0 = oldPrice_i_1_0;
   }
 
   return price_0;
