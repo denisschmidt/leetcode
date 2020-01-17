@@ -49,3 +49,36 @@ Example 5:
   Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 
 */
+
+// Time O(N)
+// Space O(N)
+const romanToInt = str => {
+  let map = {
+    I: 1,
+    V: 5,
+    X: 10,
+    L: 50,
+    C: 100,
+    D: 500,
+    M: 1000,
+    IV: 4,
+    IX: 9,
+    XL: 40,
+    XC: 90,
+    CD: 400,
+    CM: 900,
+  };
+
+  let ans = 0;
+
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] + str[i + 1] in map) {
+      ans += map[str[i] + str[i + 1]];
+      i++;
+    } else {
+      ans += map[str[i]];
+    }
+  }
+
+  return ans;
+};
