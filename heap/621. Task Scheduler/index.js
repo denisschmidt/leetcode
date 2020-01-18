@@ -30,6 +30,7 @@ const { PriorityQueue } = require('../../algorithms/priorityQueue');
 // Space O(1) == O(26)
 var leastInterval = function(tasks, n) {
   let map = Array(26).fill(0);
+
   for (const task of tasks) {
     let index = task.charCodeAt(0) - 'A'.charCodeAt(0);
     map[index]++;
