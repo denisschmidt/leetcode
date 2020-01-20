@@ -60,33 +60,31 @@ https://github.com/bephrem1/backtobackswe/blob/master/Dynamic%20Programming%2C%2
 // Всего получается  O(N!) временная сложность.
 
 // Space O(N)
-const solveNQueens = function(n) {
-  const ans = [];
-
-  backtrack([], 0);
+const solveNQueens = n => {
+  let ans = [];
+  backtrack();
 
   return ans;
 
-  function backtrack(comb, row) {
+  function backtrack(comb = [], row = 0) {
     if (row === n) {
       ans.push(generateSolution(comb));
-    } else {
-      for (let i = 0; i < n; i++) {
-        comb.push(i); // out choice
+      return;
+    }
+    for (let i = 0; i < n; i++) {
+      comb.push(i);
 
-        // out constraints
-        if (isValid(comb)) {
-          backtrack(comb, row + 1);
-        }
-
-        comb.pop(); // undo out choice
+      if (isValid(comb)) {
+        backtrack(comb, row + 1);
       }
+
+      comb.pop();
     }
   }
 
   function isValid(comb) {
-    const addedIndex = comb[comb.length - 1];
-    const size = comb.length - 1;
+    let addedIndex = comb[comb.length - 1];
+    let size = comb.length - 1;
 
     for (let i = 0; i < size; i++) {
       let absoluteColumnDistance = Math.abs(comb[i] - addedIndex);
@@ -100,22 +98,17 @@ const solveNQueens = function(n) {
   }
 
   function generateSolution(comb) {
-    const board = [];
-
-    for (let i = 0; i < comb.length; i++) {
-      let str = [];
-
-      for (let j = 0; j < comb.length; j++) {
-        if (comb[i] === j) {
-          str.push('Q');
+    let size = comb.length;
+    return comb.map(index => {
+      let str = '';
+      for (let i = 0; i < size; i++) {
+        if (i === index) {
+          str += 'Q';
         } else {
-          str.push('.');
+          str += '.';
         }
       }
-
-      board.push(str.join(''));
-    }
-
-    return board;
+      return str;
+    });
   }
 };

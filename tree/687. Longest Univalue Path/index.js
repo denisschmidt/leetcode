@@ -39,27 +39,35 @@ Note: The given binary tree has not more than 10000 nodes. The height of the tre
 
 // Time O(N)
 // Space O(H) H - высота дерева
+
 const longestUnivaluePath = root => {
   let ans = 0;
 
-  const dfs = root => {
-    if (root === null) return 0;
+  helper(root);
 
-    let left = dfs(root.left, ans);
-    let right = dfs(root.right, ans);
+  return ans;
+
+  function helper(node) {
+    if (node === null) {
+      return 0;
+    }
+
+    let left = helper(node.left);
+    let right = helper(node.right);
+
     let x = 0;
     let y = 0;
 
-    if (root.left && root.val === root.left.val) x = left + 1;
-    if (root.right && root.val === root.right.val) y = right + 1;
+    if (node.left && node.val === node.left.val) {
+      y = left + 1;
+    }
 
-    ans = Math.max(ans, x + y);
+    if (node.right && node.val === node.right.val) {
+      x = right + 1;
+    }
+
+    ans = Math.max(ans, y + x);
+
     return Math.max(x, y);
-  };
-
-  dfs(root);
-
-  return ans;
+  }
 };
-
-longestUnivaluePath();

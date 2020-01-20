@@ -23,9 +23,8 @@ Example 3:
  
 
 Note:
-
-The number of nodes in the tree will be between 2 and 100.
-Each node has a unique integer value from 1 to 100.
+  The number of nodes in the tree will be between 2 and 100.
+  Each node has a unique integer value from 1 to 100.
 
  */
 
@@ -37,54 +36,61 @@ Each node has a unique integer value from 1 to 100.
  * }
  */
 
-const getPath = (root, x, arr = []) => {
-  if (root === null) {
-    return [];
-  }
-  if (root.val === x) return [root.val];
-
-  let left = getPath(root.left, x, arr);
-  let right = getPath(root.right, x, arr);
-
-  if (left.length) {
-    left.push(root.val);
-  }
-
-  if (right.length) {
-    right.push(root.val);
-  }
-
-  return [...left, ...right];
-};
-
 // Time O(N)
 // Space O(N)
 const isCousins = (root, x, y) => {
   let path1 = getPath(root, x);
   let path2 = getPath(root, y);
-  if (!path1.length || !path2.length) return false;
-  if (path1.length !== path2.length) return false;
-  return path1[1] !== path2[1];
-};
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (!path1.length || !path2.length) return false;
+
+  if (path1.length !== path2.length) return false;
+
+  return path1[1] !== path2[1];
+
+  function getPath(root, x) {
+    if (root === null) {
+      return [];
+    }
+
+    if (root.val === x) {
+      return [root.val];
+    }
+
+    let left = getPath(root.left, x);
+    let right = getPath(root.right, x);
+
+    if (left.length) {
+      left.push(root.val);
+    }
+
+    if (right.length) {
+      right.push(root.val);
+    }
+
+    return [...left, ...right];
+  }
+};
 
 // Time O(N)
 // Space O(N)
-const isCousins2 = function(root, x, y) {
-  const depth = new Map();
-  const parent = new Map();
-  dfs(root, null);
+const isCousins_II = (root, x, y) => {
+  let depth = new Map();
+  let map = new Map();
 
-  function dfs(node, par) {
-    if (node !== null) {
-      depth.set(node.val, par !== null ? 1 + depth.get(par.val) : 0);
-      parent.set(node.val, par);
+  helper(root, null);
 
-      dfs(node.left, node);
-      dfs(node.right, node);
+  return depth.get(x) === depth.get(y) && map.get(x) !== map.get(y);
+
+  function helper(node, parent) {
+    if (!node) {
+      return;
     }
-  }
 
-  return depth.get(x) === depth.get(y) && parent.get(x) !== parent.get(y);
+    depth.set(node.val, parent !== null ? depth.get(parent.val) + 1 : 0);
+    map.set(node.val, parent);
+
+    helper(node.left, node);
+    helper(node.right, node);
+  }
 };
