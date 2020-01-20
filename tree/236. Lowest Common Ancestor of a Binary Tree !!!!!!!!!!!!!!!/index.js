@@ -30,7 +30,7 @@ Note:
 // Time O(N)
 // Space O(N)
 // Дошел до дна и потом поднимаешься наверх по стеку
-const lowestCommonAncestor3 = (root, p, q) => {
+const lowestCommonAncestor = (root, p, q) => {
   if (root === null) return null;
   if (root === p || root === q) return root;
 
@@ -40,18 +40,14 @@ const lowestCommonAncestor3 = (root, p, q) => {
   // если у нас есть левая и правая половина вернем root ноду
   if (left && right) return root;
 
-  if (left === null && right === null) return null;
-
   // возвращаем ноду которая не null
-  return left === null ? right : left;
+  return left !== null ? left : right;
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // DFS + HashMap
 // Time O(N)
 // Space O(N)
-const lowestCommonAncestor2 = (root, p, q) => {
+const lowestCommonAncestor_II = (root, p, q) => {
   const stack = [];
 
   // итерируемся по дереву и
@@ -90,10 +86,9 @@ const lowestCommonAncestor2 = (root, p, q) => {
   while (!ancestors.has(q)) {
     q = parent.get(q);
   }
+
   return q;
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Time O(N), где N - количество узлов в двоичном дереве.
 // В худшем случае мы могли бы посетить все узлы двоичного дерева.
@@ -103,7 +98,7 @@ const lowestCommonAncestor2 = (root, p, q) => {
 // поскольку высота перекошенного двоичного дерева может быть N.
 
 // Дошел до дна и потом поднимаешься наверх по стеку
-const lowestCommonAncestor = (root, p, q) => {
+const lowestCommonAncestor_III = (root, p, q) => {
   let ans = {};
 
   const find = (currentNode, p, q) => {

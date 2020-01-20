@@ -28,8 +28,8 @@ Please optimize your algorithm to use less time and space. The input size may be
 
 // Time O(N)
 // Space O(N)
-const lexicalOrde2 = n => {
-  const ans = [];
+const lexicalOrder = n => {
+  let ans = [];
   let curr = 1;
 
   for (let i = 1; i <= n; i++) {
@@ -52,9 +52,7 @@ const lexicalOrde2 = n => {
   return ans;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const lexicalOrder = n => {
+const lexicalOrder_II = n => {
   const ans = [];
 
   for (let i = 1; i <= 9; ++i) {
@@ -77,4 +75,10 @@ const lexicalOrder = n => {
       backtrack(nextVal + i);
     }
   }
+};
+
+const lexicalOrder_III = n => {
+  return Array.from({ length: n })
+    .map((_, index) => index + 1)
+    .sort();
 };

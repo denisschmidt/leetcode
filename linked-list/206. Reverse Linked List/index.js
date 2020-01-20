@@ -21,11 +21,7 @@ A linked list can be reversed either iteratively or recursively. Could you imple
  * }
  */
 
-const { makeLinkNodes } = require('../../algorithms/linkNode');
-
-const l1 = makeLinkNodes([1, 2, 3, 4, 5]);
-
-// Time complexity : O(n). Assume that nn is the list's length, the time complexity is O(n)O(n).
+// Time complexity : O(n). Assume that nn is the list's length, the time complexity is O(n).
 //
 // Space complexity : O(n). The extra space comes from implicit stack space due to recursion.
 // The recursion could go up to n levels deep.
@@ -41,24 +37,21 @@ const l1 = makeLinkNodes([1, 2, 3, 4, 5]);
 //
 // after operate on 1:
 // null <- 1 <- 2 <- 3 <- 4 <- 5
+const reverseList = function(head) {
+  if (!head) return null;
+  if (head && !head.next) return head;
 
-const reverseListReq = function(head) {
-  if (head === null || head.next === null) return head;
+  let dummy = reverseList(head.next);
 
-  let cur = reverseListReq(head.next);
-  let prev = head.next;
-
-  // обрубаем текущую ноду
+  head.next.next = head;
   head.next = null;
-  prev.next = head;
 
-  return cur;
+  return dummy;
 };
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time complexity : O(N). где N длинна листа
 // Space complexity : O(1).
-const reverseListIter = function(root) {
+const reverseList_II = function(root) {
   let prev = null;
   let curr = root;
 
