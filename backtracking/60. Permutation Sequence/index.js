@@ -48,6 +48,7 @@ const getPermutation = function(n, k) {
 
       comb.push(i);
       used[i] = true;
+
       let result = helper(comb, used);
 
       if (result) {

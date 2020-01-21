@@ -11,19 +11,18 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 3,2,1 → 1,2,3
 1,1,5 → 1,5,1
 
- */
+[0, 1, 2, 5, 3, 3, 0] → [0, 1, 3, 0, 2, 3, 5]
 
-/*
+
 https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
 
 
-Лучший подход к генерации всех перестановок - начать с самой низкой перестановки и многократно вычислять следующую перестановку на месте.
+Лучший подход к генерации всех перестановок - начать с самой низкой перестановки 
+И многократно вычислять следующую перестановку на месте.
 
-[0, 1, 2, 5, 3, 3, 0]
+Во-первых, определите самый длинный суффикс, который не увеличивается (то есть слабо уменьшается если считать слева на право).
 
-Во-первых, определите самый длинный суффикс, который не увеличивается (то есть слабо уменьшается).
-
-В нашем примере суффикс с этим свойством равен (5, 3, 3, 0).
+В нашем примере суффикс с этим свойством равен [5, 3, 3, 0].
 
 Этот суффикс уже является самой высокой перестановкой !!!!!!
 
@@ -31,41 +30,49 @@ https://www.nayuki.io/page/next-lexicographical-permutation-algorithm
 
 
 Алгоритм Narayana Pandita:
+  1) Найдити наибольший индекс i такой, что array[i - 1] < array[i]. 
+    Если такого i не существует, то это уже последняя перестановка.
 
-Найдите наибольший индекс i такой, что array [i - 1] <array [i]. (Если такого i не существует, то это уже последняя перестановка.)
+  2) Найдити наибольший индекс j такой, что j ≥ i и array[j] > array[i - 1].
 
-Найдите наибольший индекс j такой, что j ≥ i и array [j]> array [i - 1].
+  3) Swap array[j] и array[i − 1].
 
-Swap array[j] и array[i − 1].
-
-Реверснуть суффикс начинающийся с array[i]
-
+  4) Реверснуть суффикс начинающийся с индекса i + 1 и заканчивающийся j = nums.lenght - 1
 
  */
-const swap = (nums, i, j) => ([nums[i], nums[j]] = [nums[j], nums[i]]);
 
 // Time O(N)
 // Space O(1)
-const nextPermutation = function(nums) {
-  let i = nums.length - 1;
-
-  while (i > 0 && nums[i - 1] >= nums[i]) i--;
+const nextPermutation = nums => {
+  let n = nums.length;
+  let i = n - 1;
+  while (i >= 0 && nums[i - 1] >= nums[i]) i--;
 
   if (i <= 0) {
     nums.sort((a, b) => a - b);
-    return;
+    return nums;
   }
 
-  let j = nums.length - 1;
+  i--;
 
-  while (nums[j] <= nums[i - 1]) j--;
+  let j = n - 1;
 
-  swap(nums, i - 1, j);
+  while (j >= 0 && nums[i] >= nums[j]) j--;
 
-  j = nums.length - 1;
-  while (i < j) {
+  swap(nums, i, j);
+
+  j = n - 1;
+  i++;
+
+  while (i <= j) {
     swap(nums, i, j);
     i++;
     j--;
   }
+
+  return nums;
 };
+
+function swap(nums, i, j) {
+  return ([nums[i], nums[j]] = [nums[j], nums[i]]);
+}
