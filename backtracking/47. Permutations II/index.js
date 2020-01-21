@@ -48,6 +48,7 @@ const permuteUnique = nums => {
     for (let i = 0; i < n; i++) {
       if (used[i]) continue;
 
+      // только уникальные комбинации
       if (i > 0 && nums[i - 1] === nums[i] && !used[i - 1]) continue;
 
       used[i] = true;
