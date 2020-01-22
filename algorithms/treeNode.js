@@ -21,7 +21,7 @@ const makeTestNodes = (iterator, tests, name = 'root') => {
 const makeTreeNodes = array => {
   const l = array.length;
 
-  if (!l) {
+  if (l === 0) {
     return null;
   }
 
@@ -41,11 +41,13 @@ const makeTreeNodes = array => {
     parents.forEach(parent => {
       const left = array[i++];
       const right = array[i++];
+
       if (left !== null && left !== undefined) {
         const node = new TreeNode(left);
         parent.left = node;
         children.push(node);
       }
+
       if (right !== null && right !== undefined) {
         const node = new TreeNode(right);
         parent.right = node;
