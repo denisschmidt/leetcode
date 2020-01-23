@@ -12,19 +12,27 @@ Example 2:
 
 */
 
+// Time O(N!)
+// Space O(N)
 const generatePalindromes = s => {
-  let ans = [];
   let str = s.split('').sort((a, b) => a.localeCompare(b));
   let n = str.length;
   let used = Array(n + 1).fill(false);
+  let ans = [];
 
+  // проверка того можно ли вообще из стороки сделать палидром
+  if (!possibleCreatePalidrome(s)) {
+    return [];
+  }
+
+  // генерация всех последовательностей
   helper();
 
-  return ans;
+  return ans.map(item => item.join(''));
 
   function helper(comb = []) {
     if (n === comb.length) {
-      if (isValid(comb)) {
+      if (isPalidrome(comb)) {
         ans.push([...comb]);
       }
       return;
@@ -46,7 +54,29 @@ const generatePalindromes = s => {
     }
   }
 
-  function isValid(str) {
+  // Time O(N)
+  function possibleCreatePalidrome(str) {
+    let map = {};
+
+    for (let i = 0; i < str.length; i++) {
+      map[str[i]] = ~~map[str[i]] + 1;
+    }
+
+    let cnt = 0;
+    for (let key of Object.keys(map)) {
+      if (map[key] % 2 !== 0) {
+        cnt++;
+      }
+      if (cnt > 1) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
+  // Time O(N)
+  function isPalidrome(str) {
     let i = 0;
     let j = str.length - 1;
     while (i < j) {
@@ -59,6 +89,3 @@ const generatePalindromes = s => {
     return true;
   }
 };
-
-let r = generatePalindromes('civic');
-console.log(r);
