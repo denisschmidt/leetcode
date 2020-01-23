@@ -34,6 +34,7 @@ const checkInclusion = function(s1, s2) {
     if (map[s2[end]] > 0) {
       cnt--;
     }
+
     map[s2[end]]--;
     end++;
 

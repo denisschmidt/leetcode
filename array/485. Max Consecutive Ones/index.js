@@ -13,29 +13,20 @@ Note:
 
  */
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-const findMaxConsecutiveOnes = function(nums) {
-  let dp = [],
-    maxLen = 0;
+// Time O(N)
+// Space O(1)
+const findMaxConsecutiveOnes = nums => {
+  let maxLen = 0;
+  let cnt = 0;
+
   for (let i = 0; i < nums.length; i++) {
-    dp[i] = 0;
-    for (let j = 0; j <= i; j++) {
-      if (nums[j] === 1) {
-        dp[i] = dp[i] + 1;
-      } else {
-        dp[i] = 0;
-      }
-    }
-    if (maxLen < dp[i]) {
-      maxLen = dp[i];
+    if (nums[i] === 1) {
+      cnt++;
+    } else {
+      maxLen = Math.max(maxLen, cnt);
+      cnt = 0;
     }
   }
-  console.log('---', dp);
-  return maxLen;
-};
 
-const res = findMaxConsecutiveOnes([1, 1, 1, 1, 1, 0, 0, 1, 1]);
-console.log('---', res);
+  return Math.max(maxLen, cnt);
+};
