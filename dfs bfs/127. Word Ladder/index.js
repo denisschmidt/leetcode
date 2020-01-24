@@ -1,6 +1,6 @@
 /*
-Given two words (beginWord and endWord), and a dictionary's 
-word list, find the length of shortest transformation sequence from beginWord to endWord, such that:
+Given two words (beginWord and endWord), and a dictionary's word list, 
+find the length of shortest transformation sequence from beginWord to endWord, such that:
 
 Only one letter can be changed at a time.
 Each transformed word must exist in the word list. Note that beginWord is not a transformed word.
@@ -37,44 +37,39 @@ Example 2:
 
 // Time O(M * N) где M - длина слова, а N - общее количество слов в списке входных слов.
 // Space O(M * N)
-
-const ladderLength = function(beginWord, endWord, wordList) {
-  if (!wordList.includes(endWord)) return 0;
-
-  let ans = Number.MAX_VALUE;
-  let queue = [];
-  queue.push(beginWord);
-  const visited = new Set();
-  const map = new Map();
-  map.set(beginWord, 1);
+const ladderLength = (beginWord, endWord, wordList) => {
+  let n = wordList.length;
+  let minLen = Number.MAX_VALUE;
+  let visited = new Set();
+  let queue = [beginWord];
+  let depth = [0];
 
   while (queue.length) {
-    let char = queue.shift();
+    let current = queue.shift();
+    let d = depth.shift();
 
-    if (queue.includes(endWord) || char === endWord) {
-      ans = Math.min(ans, map.get(endWord));
+    if (current === endWord) {
+      minLen = Math.min(minLen, d);
     }
 
-    wordList.forEach((word, index) => {
-      if (oneEditReplace(word, char) && !visited.has(index)) {
-        visited.add(index);
-        queue.push(word);
-
-        if (map.has(char)) {
-          map.set(word, map.get(char) + 1);
-        } else {
-          map.set(word, 1);
+    if (current.length) {
+      for (let i = 0; i < n; i++) {
+        if (oneEditReplace(current, wordList[i]) && !visited.has(i)) {
+          queue.push(wordList[i]);
+          depth.push(d + 1);
+          visited.add(i);
         }
       }
-    });
+    }
   }
 
-  return ans === Number.MAX_VALUE ? 0 : ans;
+  return minLen !== Number.MAX_VALUE ? minLen + 1 : 0;
 };
 
 function oneEditReplace(s1, s2) {
   if (s1 === s2) return false;
   let foundDifference = false;
+
   for (let i = 0; i < s1.length; i++) {
     if (s1[i] !== s2[i]) {
       if (foundDifference) {

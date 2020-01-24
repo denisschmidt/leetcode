@@ -34,36 +34,29 @@ function ListNode(val) {
 // В приведенном выше коде применяется метод на месте, стоимость которого O (1).
 // А очередь с приоритетами (часто реализуемая с помощью куч) стоит O (k) пространства
 // В большинстве случаев она намного меньше, чем N).
-
 const mergeKLists = lists => {
-  if (!lists || lists.length === 0) {
-    return null;
-  }
+  let pq = new PriorityQueue({ comparator: (a, b) => a.val - b.val });
 
-  const heap = new PriorityQueue({
-    comparator: (a, b) => a.val - b.val,
-  });
-
-  const dummy = new ListNode(0);
-  let p = dummy;
-
-  // Initialize
-  for (let list of lists) {
+  // инициализируем min кучу
+  for (const list of lists) {
     if (list) {
-      heap.offer(list);
+      pq.offer(list);
     }
   }
 
-  while (heap.size() > 0) {
-    p.next = heap.poll();
-    p = p.next;
+  let dummy = new ListNode();
+  let a = dummy;
 
-    if (p && p.next) {
-      heap.offer(p.next);
+  while (pq.size() > 0) {
+    let list = pq.poll();
+
+    if (list && list.next) {
+      pq.offer(list);
     }
+
+    a.next = list;
+    a = a.next;
   }
 
   return dummy.next;
 };
-
-mergeKLists([l1, l2, l3]);
