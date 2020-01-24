@@ -17,9 +17,46 @@ Explanation:
 
 Note: The total number of elements of the given matrix will not exceed 10,000.
 */
+
+// Time O(N*M)
+// Space O(min(N, M))
+const findDiagonalOrder = function(matrix) {
+  if (matrix.length === 0) {
+    return [];
+  }
+
+  let n = matrix.length;
+  let m = matrix[0].length;
+  let nums = [];
+
+  for (let i = 0; i < n + m - 1; i++) {
+    let comb = [];
+
+    // если i > m тогда мы считаем разницу между ними и добавляем + 1
+    let r = i < m ? 0 : i - m + 1;
+
+    // если i > m тогда возвращаемся на последнюю ячейку
+    let c = i < m ? i : m - 1;
+
+    while (r < n && c > -1) {
+      comb.push(matrix[r][c]);
+      c--;
+      r++;
+    }
+
+    if (i % 2 === 0) {
+      comb.reverse();
+    }
+
+    nums = [...nums, ...comb];
+  }
+
+  return nums;
+};
+
 // Time O(N^3)
 // Space O(N^2)
-const findDiagonalOrder = function(matrix) {
+const findDiagonalOrder_II = function(matrix) {
   if (matrix.length === 0) {
     return [];
   }
@@ -57,11 +94,3 @@ const findDiagonalOrder = function(matrix) {
     return helper(i + 1, j - 1, comb);
   }
 };
-
-let r = findDiagonalOrder([
-  [1, 2, 3],
-  [4, 5, 6],
-  [7, 8, 9],
-]);
-
-console.log(r);
