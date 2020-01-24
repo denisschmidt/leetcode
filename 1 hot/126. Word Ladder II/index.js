@@ -36,11 +36,8 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 
 */
 
-/*
-  Для решения используется обычный BFS
-
-  Единственная хитрость , которую вам нужно запомнить, это BFS путей, а не слов.
-*/
+// Для решения используется обычный BFS
+// Единственная хитрость , которую вам нужно запомнить, это BFS путей, а не слов.
 
 // Time O(N^2)
 // Space O(N^2)
@@ -119,7 +116,7 @@ const findLadders = (beginWord, endWord, wordList) => {
   return result;
 };
 
-// TLE
+// TLE Backtrack генерация всех перестановок и проверка каждой перестановки на валидность
 // Time O(N!)
 // Space O(N^2)
 const findLadders_II = (beginWord, endWord, wordList) => {
