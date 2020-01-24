@@ -36,7 +36,93 @@ Explanation: The endWord "cog" is not in wordList, therefore no possible transfo
 
 */
 
+/*
+  Для решения используется обычный BFS
+
+  Единственная хитрость , которую вам нужно запомнить, это BFS путей, а не слов.
+*/
+
+// Time O(N^2)
+// Space O(N^2)
 const findLadders = (beginWord, endWord, wordList) => {
+  let queue = [[beginWord]];
+  let dict = new Set(wordList);
+  let result = [];
+  let minLen = Number.MAX_VALUE;
+  let level = 1;
+
+  // записи всех посещенных узлов на level
+  // эти слова никогда не будут посещаться снова после этого уровня и должены быть удалены из wordList
+  // это гарантировано даст нам кратчайший путь
+  let visited = new Set();
+
+  while (queue.length > 0) {
+    let path = queue.shift();
+
+    if (path.length > level) {
+      // удяляем все слова из справочника которые были посещены на текущем уровне
+      for (let [word] of visited.entries()) {
+        dict.delete(word);
+      }
+
+      visited.clear();
+
+      level = path.length;
+
+      // выходим из цикла все кратчайшие пути найдены
+      if (level > minLen) {
+        break;
+      }
+    }
+
+    // получаем значение последнего слова в пути
+    let lastPath = path[path.length - 1];
+
+    // разбиваем это слово на символы из которых оно состоит
+    let characters = lastPath.split('');
+
+    for (let i = 0; i < characters.length; i++) {
+      // получаем символ
+      let char = characters[i];
+
+      // Пытаемся найти следующую перестановку которая существует в словаре
+      // Генерируем все возможные перестановки для заменяя i-ы символ
+      for (let j = 0; j < 26; j++) {
+        characters[i] = String.fromCharCode(97 + j);
+
+        let newWord = characters.join('');
+
+        if (!dict.has(newWord)) {
+          continue;
+        }
+
+        visited.add(newWord);
+
+        // создаем копию пути и добавляем новое слово в путь
+        let newPath = [...path];
+
+        newPath.push(newWord);
+
+        if (newWord === endWord) {
+          result.push(newPath);
+          minLen = level;
+        } else {
+          queue.push(newPath);
+        }
+      }
+
+      // возвращаем исходный символ в i-ы индекс
+      characters[i] = char;
+    }
+  }
+
+  return result;
+};
+
+// TLE
+// Time O(N!)
+// Space O(N^2)
+const findLadders_II = (beginWord, endWord, wordList) => {
   let n = wordList.length;
   let minLen = Number.MAX_VALUE;
   let ans = [];
@@ -79,109 +165,6 @@ const findLadders = (beginWord, endWord, wordList) => {
     }
   }
 };
-
-let beginWord = 'qa',
-  endWord = 'sq',
-  wordList = [
-    'si',
-    'go',
-    'se',
-    'cm',
-    'so',
-    'ph',
-    'mt',
-    'db',
-    'mb',
-    'sb',
-    'kr',
-    'ln',
-    'tm',
-    'le',
-    'av',
-    'sm',
-    'ar',
-    'ci',
-    'ca',
-    'br',
-    'ti',
-    'ba',
-    'to',
-    'ra',
-    'fa',
-    'yo',
-    'ow',
-    'sn',
-    'ya',
-    'cr',
-    'po',
-    'fe',
-    'ho',
-    'ma',
-    're',
-    'or',
-    'rn',
-    'au',
-    'ur',
-    'rh',
-    'sr',
-    'tc',
-    'lt',
-    'lo',
-    'as',
-    'fr',
-    'nb',
-    'yb',
-    'if',
-    'pb',
-    'ge',
-    'th',
-    'pm',
-    'rb',
-    'sh',
-    'co',
-    'ga',
-    'li',
-    'ha',
-    'hz',
-    'no',
-    'bi',
-    'di',
-    'hi',
-    'qa',
-    'pi',
-    'os',
-    'uh',
-    'wm',
-    'an',
-    'me',
-    'mo',
-    'na',
-    'la',
-    'st',
-    'er',
-    'sc',
-    'ne',
-    'mn',
-    'mi',
-    'am',
-    'ex',
-    'pt',
-    'io',
-    'be',
-    'fm',
-    'ta',
-    'tb',
-    'ni',
-    'mr',
-    'pa',
-    'he',
-    'lr',
-    'sq',
-    'ye',
-  ];
-
-let r = findLadders(beginWord, endWord, wordList);
-console.log(r);
 
 function oneEditReplace(s1, s2) {
   if (s1 === s2) return false;
