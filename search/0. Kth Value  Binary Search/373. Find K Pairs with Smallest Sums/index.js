@@ -58,3 +58,38 @@ const kSmallestPairs = (nums1, nums2, k) => {
 
   return ans;
 };
+
+/*
+
+
+
+
+*/
+
+var kSmallestPairs_II = function(nums1, nums2, k) {
+  if (nums1.length === 0 || nums2.length === 0 || k === 0) {
+    return [];
+  }
+
+  let pq = new PriorityQueue({ comparator: (a, b) => a[0] + a[0] - (b[0] + b[1]) });
+
+  for (let i = 0; i < nums1.length && i < k; i++) {
+    pq.offer([nums1[i], nums2[0], 0]);
+  }
+
+  let result = [];
+
+  while (!pq.isEmpty() && k > 0) {
+    let [u, v, prevIndex] = pq.poll();
+
+    result.push([u, v]);
+
+    if (pq.isEmpty()) {
+      for (let i = 0; i < nums1.length && i < k; i++) {
+        pq.offer([nums1[i], nums2[0], prevIndex + 1]);
+      }
+    }
+  }
+
+  return result;
+};
