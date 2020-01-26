@@ -37,7 +37,7 @@ const smallestDistancePair = (nums, k) => {
     let mid = lo + Math.floor((hi - lo) / 2);
     let cnt = 0;
 
-    // Возвращаем количество пар с абсолютной разницей, меньшей или равной mid.
+    // Возвращаем количество пар, у которых разница будет меньше или равна mid.
     for (let i = 0; i < n; i++) {
       let j = i;
       while (j < n && nums[j] - nums[i] <= mid) j++;
