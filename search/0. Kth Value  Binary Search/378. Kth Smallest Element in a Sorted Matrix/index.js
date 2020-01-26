@@ -35,7 +35,7 @@ Note: You may assume k is always valid, 1 ≤ k ≤ n2.
 
 */
 
-// Time O(NLog)
+// Time O(N * Log(MAX - MIN))
 // Space O(1)
 const kthSmallest = (matrix, k) => {
   let n = matrix.length;

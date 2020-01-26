@@ -69,7 +69,7 @@ const minmaxGasDist = function(stations, k) {
   }
 
   while (hi - lo >= 1e-6) {
-    // средняя точка
+    // это просто средняя точка
     let mid = (hi + lo) / 2;
 
     let cnt = 0;

@@ -35,14 +35,20 @@ Note:
 // Наш бинарный поиск делит интервал на [lo, hi] половину на каждом шаге это будет Log(M * N)
 // Так же на каждом шаге мы вызываем helper, что требует O(M) времени
 // Space O(1)
-const findKthNumber = (m, n, k) => {
+
+var findKthNumber = function(m, n, k) {
   let lo = 1;
   let hi = m * n;
 
   while (lo < hi) {
     let mid = lo + Math.floor((hi - lo) / 2);
 
-    let cnt = helper(mid);
+    let cnt = 0;
+    let j = n - 1;
+    for (let i = 0; i < m; i++) {
+      while (j >= 0 && (i + 1) * (j + 1) > mid) j--;
+      cnt += j + 1;
+    }
 
     if (cnt < k) {
       lo = mid + 1;
@@ -52,17 +58,33 @@ const findKthNumber = (m, n, k) => {
   }
 
   return lo;
-
-  function helper(mid) {
-    let cnt = 0;
-    let j = n - 1;
-    for (let i = 0; i < m; i++) {
-      while (j >= 0 && (i + 1) * (j + 1) > mid) j--;
-      cnt += j + 1;
-    }
-    return cnt;
-  }
 };
 
-const r = findKthNumber(3, 3, 1);
+const findKthNumber_II = (m, n, k) => {
+  let lo = 1;
+  let hi = m * m;
+
+  while (lo < hi) {
+    let mid = lo + Math.floor((hi - lo) / 2);
+
+    let cnt = 0;
+    for (let i = 0; i < m; i++) {
+      let j = n - 1;
+
+      while (j >= 0 && (i + 1) * (j + 1) > mid) j--;
+
+      cnt += j + 1;
+    }
+
+    if (cnt < k) {
+      lo = mid + 1;
+    } else {
+      hi = mid;
+    }
+  }
+
+  return lo;
+};
+
+const r = findKthNumber_II(3, 3, 1);
 console.log(r);
