@@ -51,7 +51,7 @@ const mergeKLists = lists => {
     let list = pq.poll();
 
     if (list && list.next) {
-      pq.offer(list);
+      pq.offer(list.next);
     }
 
     a.next = list;
