@@ -13,14 +13,41 @@ Note:
 
 Although the above answer is in lexicographical order, your answer could be in any order you want.
  */
-/**
- * @param {string} digits
- * @return {string[]}
- */
-const letterCombinations = function(digits) {
+
+/*
+  Алгоритм работы бектрека!
+
+  Довольно важный момент - это увеличение счетчика значений
+  
+  Пример: 23 
+    1) при i = 0 берем ключ 2 и все его значения из мапы 
+    добавляем значение в comb и увеличиваем индекс следущей цифры comb = ['a']
+
+    2) при i = 1 берем ключ 3 и все его значения из мапы 
+    добавляем значение в comb и увеличиваем индекс следущей цифры comb = ['a', 'd']
+
+    3) достигаем ограничения comb.length === digits.length следовательно 
+        добавляем значение comb = ['a', 'd'] в результат
+
+    4) удаляем из стека последнее занчение 'd' comb становится равным comb = ['a']
+
+    5) берем следущее значение из мапы при индексе равным i = 1 добавляем его в comb 
+        comb становится равным comb = ['a', 'e'] 
+
+    6) повторяем шаг 3 
+
+    7) когда значения при i = 1 закончатся поднимается по стеку до уровня i = 0 где символ будет равен 'b'
+
+    8) генерируем все последовательности для 'b'
+*/
+
+// Time O(N!)
+// Space O(N)
+const letterCombinations = digits => {
   if (digits.length === 0) return [];
 
-  const map = {
+  let ans = [];
+  let map = {
     '1': '',
     '2': ['a', 'b', 'c'],
     '3': ['d', 'e', 'f'],
@@ -32,24 +59,24 @@ const letterCombinations = function(digits) {
     '9': ['w', 'x', 'y', 'z'],
   };
 
-  const ans = [];
+  helper();
 
-  backtrack([], 0);
   return ans;
 
-  function backtrack(comb, start) {
-    if (comb.length > digits.length) {
-      return;
-    } else if (comb.length === digits.length) {
+  function helper(comb = [], start = 0) {
+    if (comb.length === digits.length) {
       ans.push(comb.join(''));
       return;
-    } else {
-      for (let index = start; index < digits.length; index++) {
-        for (let word of map[digits[index]]) {
-          comb.push(word);
-          backtrack(comb, index + 1);
-          comb.pop();
-        }
+    }
+
+    for (let i = start; i < digits.length; i++) {
+      let words = map[digits[i]];
+      for (let word of words) {
+        comb.push(word);
+
+        helper(comb, i + 1);
+
+        comb.pop();
       }
     }
   }

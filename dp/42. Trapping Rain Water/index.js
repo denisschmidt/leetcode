@@ -16,25 +16,32 @@ Input: [0,1,0,2,1,0,1,3,2,1,2,1]
 Output: 6
  */
 
-const input = [4, 2, 3];
+/*
+  Алгоримт работы
 
+  1) Найти максимальную высоту бара от левого конца до индекса i в массиве
+  2) Найти максимальную высоту бара от правого конца до индекса i в массиве
+  3) Итерируемся по массиву находим минимальную высоту, которой ограничена точка i и отнимает от нее nums[i]
+
+*/
+
+// DP
 // Time O(N)
 // Space O(N)
-// DP
 const trap = nums => {
   if (nums.length === 0) return 0;
+  let n = nums.length;
+  let left = [];
 
-  const n = nums.length;
-  const left = [nums[0]];
-  const right = [];
-  right[n - 1] = nums[n - 1];
-
+  left[0] = nums[0];
   for (let i = 1; i < n; i++) {
     left[i] = Math.max(left[i - 1], nums[i]);
   }
 
+  let right = [];
+  right[n - 1] = nums[n - 1];
   for (let i = n - 2; i >= 0; i--) {
-    right[i] = Math.max(nums[i], right[i + 1]);
+    right[i] = Math.max(right[i + 1], nums[i]);
   }
 
   let ans = 0;
@@ -48,7 +55,7 @@ const trap = nums => {
 // Stack
 // Time O(n)
 // Space O(N)
-const trap2 = nums => {
+const trap_II = nums => {
   let ans = 0;
   let stack = [];
   let index = 0;
@@ -75,7 +82,7 @@ const trap2 = nums => {
 // Two pointers
 // Time O(N)
 // Space O(1)
-const trap3 = nums => {
+const trap_III = nums => {
   let left = 0;
   let right = nums.length - 1;
   let ans = 0;
