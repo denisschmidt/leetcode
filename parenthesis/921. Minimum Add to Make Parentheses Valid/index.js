@@ -35,19 +35,23 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const minAddToMakeValid = str => {
-  const stack = [];
+const minAddToMakeValid = S => {
+  let stack = [];
   let cnt = 0;
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === '(') {
-      stack.push(i);
-    } else {
-      if (!stack.length) {
-        cnt++;
-      } else {
+
+  for (let i = 0; i < S.length; i++) {
+    if (S[i] !== '(' && S[i] !== ')') continue;
+
+    if (S[i] === '(') {
+      stack.push('(');
+    } else if (S[i] === ')') {
+      if (stack.length) {
         stack.pop();
+      } else {
+        cnt++;
       }
     }
   }
-  return stack.length ? stack.length + cnt : cnt;
+
+  return cnt + stack.length;
 };
