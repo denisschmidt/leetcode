@@ -12,43 +12,54 @@ Input: [-2,0,-1]
 Output: 0
 Explanation: The result cannot be 2, because [-2,-1] is not a subarray.
 
- */
-const input = [2, 3, -2, 4];
+*/
+
+/*
+
+  Ахуенная идея!
+
+  Сохраняем две переменные bestMin и bestMax
+
+
+*/
 
 // Time O(N)
 // Space O(1)
-// The main idea is "imax/imin stores the max/min product of subarray that ends with the current number A[I]"
-const maxProduct = function(nums) {
-  let max = nums[0];
-  let iMin = max;
-  let iMax = max;
+const maxProduct = nums => {
+  let n = nums.length;
 
-  for (let i = 1; i < nums.length; i++) {
+  let max = nums[0];
+  let bestMin = max;
+  let bestMax = max;
+
+  for (let i = 1; i < n; i++) {
     if (nums[i] < 0) {
-      let tmp = iMax;
-      iMax = iMin;
-      iMin = tmp;
+      let t = bestMin;
+      bestMin = bestMax;
+      bestMax = t;
     }
 
-    iMax = Math.max(nums[i], iMax * nums[i]);
-    iMin = Math.min(nums[i], iMin * nums[i]);
+    bestMin = Math.min(nums[i], nums[i] * bestMin);
+    bestMax = Math.max(nums[i], nums[i] * bestMax);
 
-    max = Math.max(iMax, max);
+    max = Math.max(max, bestMax);
   }
 
   return max;
 };
 
-maxProduct(input);
+/* 
+  Алгоритм:  
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Все дело в том, какое кол-во четных или нечетных числе у нас есть.
+  Если кол-во отрицательных чисел четное, то первый проход даст решение.
+  Если кол-во отрицательных чисел нечетные, второй проход даст решение.
 
-// Easy to understand O(n) solution :
-// Its all about having odd or even numbers of negative integers.
-// if the negative numbers are even, then the first pass will give the solution.
-// If the negative numbers are odd, the second pass will give the solution.
+*/
 
-const maxProduct2 = nums => {
+// Time O(N)
+// Space O(1)
+const maxProduct_II = nums => {
   let sum = 1;
   let ans = nums[0];
 
@@ -66,6 +77,7 @@ const maxProduct2 = nums => {
   for (let i = nums.length - 1; i >= 0; i--) {
     sum *= nums[i];
     ans = Math.max(sum, ans);
+
     if (sum === 0) {
       sum = 1;
     }
@@ -74,4 +86,26 @@ const maxProduct2 = nums => {
   return ans;
 };
 
-maxProduct2(input);
+// Time O(N^2)
+// Space O(N)
+const maxProduct_III = nums => {
+  let n = nums.length;
+  let best = Array(n).fill(-Number.MAX_VALUE);
+
+  for (let i = 0; i < n; i++) {
+    let sum = nums[i];
+    let max = nums[i];
+    for (let j = i + 1; j < n; j++) {
+      sum = sum * nums[j];
+      max = Math.max(max, sum);
+    }
+    best[i] = Math.max(best[i], max);
+  }
+
+  let ans = -Number.MAX_VALUE;
+  for (let i = 0; i < n; i++) {
+    ans = Math.max(ans, best[i]);
+  }
+
+  return ans;
+};

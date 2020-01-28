@@ -52,31 +52,39 @@ const trap = nums => {
   return ans;
 };
 
-// Stack
+/* 
+ 
+  Решение через монотонный стек
+
+  Основное внимание тут тому, что мы расчитываем площадь постепенно 
+  Можно сказать по уровням, а не сразу для всего промежутка
+
+*/
 // Time O(n)
 // Space O(N)
 const trap_II = nums => {
-  let ans = 0;
   let stack = [];
-  let index = 0;
+  let result = 0;
 
-  while (index < nums.length) {
-    while (stack.length && nums[index] > nums[stack[stack.length - 1]]) {
+  for (let i = 0; i < nums.length; i++) {
+    while (stack.length && nums[stack[stack.length - 1]] < nums[i]) {
       let prevIndex = stack.pop();
 
-      if (!stack.length) break;
+      if (!stack.length) {
+        break;
+      }
 
-      let diff = index - stack[stack.length - 1] - 1;
+      let width = i - stack[stack.length - 1] - 1;
 
-      let height = Math.min(nums[index], nums[stack[stack.length - 1]]) - nums[prevIndex];
-      ans += diff * height;
+      let height = Math.min(nums[i], nums[stack[stack.length - 1]] - nums[prevIndex]);
+
+      result += width * height;
     }
 
-    stack.push(index);
-    index++;
+    stack.push(i);
   }
 
-  return ans;
+  return result;
 };
 
 // Two pointers

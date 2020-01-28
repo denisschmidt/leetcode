@@ -50,6 +50,3 @@ const productExceptSelf = function(nums) {
 
   return dp;
 };
-
-const res = productExceptSelf([1, 2, 3, 4]);
-console.log('---', res);
