@@ -37,57 +37,27 @@ const { PriorityQueue } = require('../../../algorithms/priorityQueue');
 // Time O(K*Log*K) поскольку pq.size <= k, и мы делаем не более k цикла.
 // Space O(N)
 
-const kSmallestPairs = (nums1, nums2, k) => {
-  if (nums1.length === 0 || nums2.length === 0 || k === 0) return [];
-  const heap = new PriorityQueue({ comparator: (a, b) => a[0] + a[1] - (b[0] + b[1]) });
-  const ans = [];
-
-  // инициализируем heap
-  for (let i = 0; i < nums1.length && i < k; i++) {
-    heap.offer([nums1[i], nums2[0], 0]);
-  }
-
-  while (k-- > 0 && !heap.isEmpty()) {
-    const [f, s, t] = heap.poll();
-    ans.push([f, s]);
-
-    if (t === nums2.length - 1) continue;
-
-    heap.offer([f, nums2[t + 1], t + 1]);
-  }
-
-  return ans;
-};
-
-/*
-
-
-
-
-*/
-
-var kSmallestPairs_II = function(nums1, nums2, k) {
+const kSmallestPairs = function(nums1, nums2, k) {
   if (nums1.length === 0 || nums2.length === 0 || k === 0) {
     return [];
   }
 
   let pq = new PriorityQueue({ comparator: (a, b) => a[0] + a[0] - (b[0] + b[1]) });
 
+  // инициализируем heap
   for (let i = 0; i < nums1.length && i < k; i++) {
     pq.offer([nums1[i], nums2[0], 0]);
   }
 
   let result = [];
 
-  while (!pq.isEmpty() && k > 0) {
+  while (!pq.isEmpty() && --k > 0) {
     let [u, v, prevIndex] = pq.poll();
 
     result.push([u, v]);
 
     if (pq.isEmpty()) {
-      for (let i = 0; i < nums1.length && i < k; i++) {
-        pq.offer([nums1[i], nums2[0], prevIndex + 1]);
-      }
+      pq.offer([u, nums2[prevIndex + 1], prevIndex + 1]);
     }
   }
 

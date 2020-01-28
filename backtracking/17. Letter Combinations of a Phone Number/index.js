@@ -71,6 +71,7 @@ const letterCombinations = digits => {
 
     for (let i = start; i < digits.length; i++) {
       let words = map[digits[i]];
+
       for (let word of words) {
         comb.push(word);
 
