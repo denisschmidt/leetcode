@@ -24,39 +24,45 @@ Explanation:
 
  */
 
-const findAnagrams = (s, p) => {
+// Time O(N)
+// Space O(N)
+const findAnagrams = function(s, p) {
   let map = {};
-  const ans = [];
-  for (let x of p) {
-    map[x] = ~~map[x] + 1;
+
+  for (let i = 0; i < p.length; i++) {
+    map[p[i]] = ~~map[p[i]] + 1;
   }
 
-  let n = Object.keys(map).length;
-  let start = 0;
-  let end = 0;
-  let cnt = n;
+  let lo = 0;
+  let hi = 0;
+  let cnt = 0;
+  let result = [];
 
-  while (end < s.length) {
-    if (s[end] in map) {
-      map[s[end]]--;
-      if (map[s[end]] === 0) cnt--;
+  while (hi < s.length) {
+    if (map[s[hi]] > 0) {
+      cnt++;
     }
-    end++;
+    map[s[hi]]--;
 
-    while (cnt === 0) {
-      if (s[start] in map) {
-        map[s[start]]++;
-        if (map[s[start]] > 0) cnt++;
+    hi++;
+
+    while (cnt === p.length) {
+      map[s[lo]]++;
+
+      if (map[s[lo]] > 0) {
+        cnt--;
       }
-      if (end - start === p.length) ans.push(start);
-      start++;
+
+      if (hi - lo === p.length) {
+        result.push(lo);
+      }
+
+      lo++;
     }
   }
 
-  return ans;
+  return result;
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Time O(N^2)
 // Space O(N)

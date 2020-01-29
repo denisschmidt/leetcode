@@ -13,40 +13,39 @@ Example 2:
   Output: "bb"
  */
 
-/**
- * @param {string} s
- * @return {string}
- */
-
-// Complexity Analysis
-// Time complexity : O(n^2) This gives us a runtime complexity of O(n^2)
-// Space complexity : O(n^2) It uses O(n^2)
-
 /*
  Рассмотрим случай "ababa".
  Если мы уже знали, что «bab» - это палиндром, то очевидно, что «ababa» должна быть палиндромом,
  поскольку две левые и правые буквы одинаковы.
  */
 
+// Time O(N^2)
+// Space O(N^2)
 const longestPalindrome = s => {
-  let res = '';
-  const size = s.length;
-  const dp = Array(s.length)
+  let maxLen = 0;
+  let startIndex = 0;
+  let dp = Array(s.length)
     .fill(null)
-    .map(() => Array(s.length).fill(null));
+    .map(() => Array(s.length).fill(false));
 
-  for (let i = size - 1; i >= 0; i--) {
-    for (let j = i; j < size; j++) {
-      dp[i][j] = s[i] === s[j] && (j - i < 3 || dp[i + 1][j - 1]);
+  for (let i = s.length - 1; i >= 0; i--) {
+    for (let j = i; j < s.length; j++) {
+      if (s[i] === s[j]) {
+        dp[i][j] = j - i < 3 || dp[i + 1][j - 1];
+      }
 
-      if (dp[i][j] && (res === null || j - i + 1 > res.length)) {
-        res = s.substring(i, j + 1);
+      if (dp[i][j] && j - i + 1 > maxLen) {
+        maxLen = Math.max(maxLen, j - i + 1);
+        startIndex = i;
       }
     }
   }
-  return res;
+
+  return s.substring(startIndex, startIndex + maxLen);
 };
 
+// Time O(N^2)
+// Space O(N^2)
 const longestPalindrome_II = s => {
   let n = s.length;
   let maxLen = 0;
@@ -74,6 +73,3 @@ const longestPalindrome_II = s => {
 
   return ans;
 };
-
-const res = longestPalindrome_II('cbbd');
-console.log('---', res);

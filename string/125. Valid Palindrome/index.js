@@ -13,22 +13,9 @@ Input: "race a car"
 Output: false
  */
 
-/**
- * @param {string} s
- * @return {boolean}
- */
-var isPalindrome = function(s) {
-  const str = s.replace(/[^A-Za-z0-9]+/g, '');
-  return (
-    str
-      .split('')
-      .reverse()
-      .join('')
-      .toLowerCase() === str.toLowerCase()
-  );
-};
-
-var isPalindrome2 = function(s) {
+// Time O(N)
+// Space O(1)
+const isPalindrome = function(s) {
   let left = 0,
     right = s.length - 1;
 
@@ -42,4 +29,15 @@ var isPalindrome2 = function(s) {
   return true;
 };
 
-console.log(isPalindrome2('A man, a plan, a canal: Panama'));
+// Time O(N)
+// Space O(1)
+const isPalindrome_II = function(s) {
+  const str = s.replace(/[^A-Za-z0-9]+/g, '');
+  return (
+    str
+      .split('')
+      .reverse()
+      .join('')
+      .toLowerCase() === str.toLowerCase()
+  );
+};
