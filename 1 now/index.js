@@ -42,6 +42,10 @@ var accountsMerge = function(accounts) {
         }
       }
     }
+
+    stack[index] = false;
+
+    return false;
   }
 
   console.log(map, graph);
