@@ -1,27 +1,55 @@
-var longestArithSeqLength = function(A) {
-  let maxLen = 1;
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {boolean}
+ */
+var canFinish = function(numCourses, prerequisites) {
+  let adjList = [];
 
-  for (let i = 0; i < A.length; i++) {
-    for (let j = i + 1; j < A.length; j++) {
-      let diff = A[i] - A[j];
-      cnt = 1;
+  for (let i = 0; i < numCourses; i++) {
+    adjList[i] = [];
+  }
 
-      let pre = i;
-      let k = j;
+  for (let i = 0; i < prerequisites.length; i++) {
+    let [u, v] = prerequisites[i];
 
-      while (k < A.length) {
-        if (A[pre] - A[k] === diff) {
-          pre = k;
-          cnt++;
-        }
-        k++;
-      }
+    adjList[u].push(v);
+  }
 
-      maxLen = Math.max(maxLen, cnt);
+  let visited = new Set();
+  let stack = [];
+
+  for (let index = 0; index < numCourses; index++) {
+    if (hasCycle(index)) {
+      return false;
     }
   }
-  return maxLen;
+
+  return true;
+
+  function hasCycle(index) {
+    visited.add(index);
+    stack[index] = true;
+
+    for (let i = 0; i < adjList[index].length; i++) {
+      let edge = adjList[index][i];
+
+      if (stack[edge]) {
+        return true;
+      }
+
+      if (!visited.has(edge) && hasCycle(edge)) {
+        return true;
+      }
+    }
+
+    stack[index] = false;
+
+    return false;
+  }
 };
 
-let a = longestArithSeqLength([20, 1, 15, 3, 10, 5, 8]);
-console.log('---', a);
+canFinish(2, [
+  [1, 0],
+  [0, 1],
+]);
