@@ -7,9 +7,11 @@ class DSU {
   constructor(size) {
     this.parent = [];
     this.rank = [];
+
     for (let i = 0; i < size; i++) {
       this.parent[i] = i;
     }
+
     this.rank = this.parent;
   }
 

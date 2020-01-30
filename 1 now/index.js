@@ -1,27 +1,58 @@
-var longestArithSeqLength = function(A) {
-  let maxLen = 1;
+var accountsMerge = function(accounts) {
+  let map = new Map();
+  let graph = new Map();
 
-  for (let i = 0; i < A.length; i++) {
-    for (let j = i + 1; j < A.length; j++) {
-      let diff = A[i] - A[j];
-      cnt = 1;
+  for (let i = 0; i < accounts.length; i++) {
+    let [name, ...emails] = accounts[i];
 
-      let pre = i;
-      let k = j;
+    for (let i = 0; i < emails.length; i++) {
+      let email = emails[i];
 
-      while (k < A.length) {
-        if (A[pre] - A[k] === diff) {
-          pre = k;
-          cnt++;
-        }
-        k++;
+      if (!map.has(email)) {
+        map.set(email, []);
       }
 
-      maxLen = Math.max(maxLen, cnt);
+      if (!graph.has(email)) {
+        graph.set(email, new Set());
+      }
+
+      map.get(email).push(name);
+
+      if (i === 0) continue;
+
+      graph.get(emails[i]).add(emails[i - 1]);
+      graph.get(emails[i - 1]).add(emails[i]);
     }
   }
-  return maxLen;
+
+  let visited = new Set();
+
+  for (let [email] of map.entries()) {
+    let queue = [email];
+    let list = [];
+
+    while (queue.length) {
+      let current = queue.shift();
+
+      list.push(current);
+
+      for (let [value] of graph.get(current).entries()) {
+        if (!visited.has(value)) {
+          queue.push(value);
+        }
+      }
+    }
+  }
+
+  console.log(map, graph);
 };
 
-let a = longestArithSeqLength([20, 1, 15, 3, 10, 5, 8]);
-console.log('---', a);
+let a = accountsMerge([
+  ['Alex', 'Alex5@m.co', 'Alex4@m.co', 'Alex0@m.co'],
+  ['Ethan', 'Ethan3@m.co', 'Ethan3@m.co', 'Ethan0@m.co'],
+  ['Kevin', 'Kevin4@m.co', 'Kevin2@m.co', 'Kevin2@m.co'],
+  ['Gabe', 'Gabe0@m.co', 'Gabe3@m.co', 'Gabe2@m.co'],
+  ['Gabe', 'Gabe3@m.co', 'Gabe4@m.co', 'Gabe2@m.co'],
+]);
+
+console.log(a);
