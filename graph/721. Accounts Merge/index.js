@@ -75,9 +75,12 @@ const accountsMerge = accounts => {
   const visited = new Set();
   for (let [email] of nameMap.entries()) {
     const list = [];
+
     if (!visited.has(email)) {
       visited.add(email);
+
       dfs(email, list);
+
       list.sort();
       list.unshift(nameMap.get(email));
       ans.push(list);
@@ -88,6 +91,7 @@ const accountsMerge = accounts => {
 
   function dfs(email, list) {
     list.push(email);
+
     for (let [value] of graph.get(email).entries()) {
       if (!visited.has(value)) {
         visited.add(value);
@@ -97,38 +101,56 @@ const accountsMerge = accounts => {
   }
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-const accountsMerge2 = accounts => {
-  const arr = accounts.map(item => new Set(item));
+const accountsMerge_II = function(accounts) {
+  let nameMap = new Map();
+  let graph = new Map();
 
-  let size = 0;
-  while (arr.length !== size) {
-    size = arr.length;
-    for (let i = 0; i < arr.length; i++) {
-      for (let j = i + 1; j < arr.length; j++) {
-        if (intersection(arr[i], arr[j]).size > 1) {
-          arr[i] = new Set([...arr[i], ...arr[j]]);
-          arr.splice(j, 1);
-          j--;
-        }
+  for (let i = 0; i < accounts.length; i++) {
+    let [name, ...emails] = accounts[i];
+
+    for (let i = 0; i < emails.length; i++) {
+      let email = emails[i];
+
+      if (!graph.has(email)) {
+        graph.set(email, new Set());
       }
+
+      nameMap.set(email, name);
+
+      if (i === 0) continue;
+
+      graph.get(emails[i]).add(emails[i - 1]);
+      graph.get(emails[i - 1]).add(emails[i]);
     }
   }
 
-  return arr.map(item => [...item].sort());
+  let visited = new Set();
+  let result = [];
 
-  function intersection(a, b) {
-    return new Set([...a].filter(item => b.has(item)));
+  for (let [email] of nameMap.entries()) {
+    let queue = [email];
+    let list = [];
+
+    while (queue.length) {
+      let current = queue.shift();
+
+      if (visited.has(current)) {
+        continue;
+      }
+
+      visited.add(current);
+      list.push(current);
+
+      for (let [value] of graph.get(current).entries()) {
+        queue.push(value);
+      }
+    }
+
+    if (list.length) {
+      list.sort();
+      list.unshift(nameMap.get(email));
+      result.push(list);
+    }
   }
+  return result;
 };
-
-let accounts = [
-  ['David', 'David0@m.co', 'David1@m.co'],
-  ['David', 'David3@m.co', 'David4@m.co'],
-  ['David', 'David4@m.co', 'David5@m.co'],
-  ['David', 'David2@m.co', 'David3@m.co'],
-  ['David', 'David1@m.co', 'David2@m.co'],
-];
-
-const res = accountsMerge(accounts);
-console.log(res);

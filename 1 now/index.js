@@ -1,62 +1,60 @@
-var accountsMerge = function(accounts) {
-  let map = new Map();
-  let graph = new Map();
+var minimumSemesters = function(N, relations) {
+  let adjList = [];
 
-  for (let i = 0; i < accounts.length; i++) {
-    let [name, ...emails] = accounts[i];
+  for (let i = 1; i <= N; i++) {
+    adjList[i] = [];
+  }
 
-    for (let i = 0; i < emails.length; i++) {
-      let email = emails[i];
+  for (let index = 0; index < relations.length; index++) {
+    let [u, v] = relations[index];
 
-      if (!map.has(email)) {
-        map.set(email, []);
-      }
+    adjList[u].push(v);
+  }
 
-      if (!graph.has(email)) {
-        graph.set(email, new Set());
-      }
+  let visited = [];
+  let stack = [];
+  let order = [];
 
-      map.get(email).push(name);
-
-      if (i === 0) continue;
-
-      graph.get(emails[i]).add(emails[i - 1]);
-      graph.get(emails[i - 1]).add(emails[i]);
+  for (let index = 1; index <= N; index++) {
+    if (hasCycle(index)) {
+      return [];
     }
   }
 
-  let visited = new Set();
+  let maxPath = 0;
 
-  for (let [email] of map.entries()) {
-    let queue = [email];
-    let list = [];
+  for (let i = 0; i < order.length; i++) {
+    for (let j = 0; j < adjList[order[i]]; j++) {
+      const element = array[j];
+    }
+  }
 
-    while (queue.length) {
-      let current = queue.shift();
+  console.log(order);
 
-      list.push(current);
+  function hasCycle(index) {
+    visited[index] = true;
+    stack[index] = true;
 
-      for (let [value] of graph.get(current).entries()) {
-        if (!visited.has(value)) {
-          queue.push(value);
-        }
+    for (let i = 0; i < adjList[index].length; i++) {
+      let v = adjList[index][i];
+
+      if (stack[v]) {
+        return true;
+      }
+
+      if (!visited[v] && hasCycle(v)) {
+        return true;
       }
     }
 
     stack[index] = false;
+    order.push(index);
 
     return false;
   }
-
-  console.log(map, graph);
 };
 
-let a = accountsMerge([
-  ['Alex', 'Alex5@m.co', 'Alex4@m.co', 'Alex0@m.co'],
-  ['Ethan', 'Ethan3@m.co', 'Ethan3@m.co', 'Ethan0@m.co'],
-  ['Kevin', 'Kevin4@m.co', 'Kevin2@m.co', 'Kevin2@m.co'],
-  ['Gabe', 'Gabe0@m.co', 'Gabe3@m.co', 'Gabe2@m.co'],
-  ['Gabe', 'Gabe3@m.co', 'Gabe4@m.co', 'Gabe2@m.co'],
+minimumSemesters(3, [
+  [1, 3],
+  [2, 3],
 ]);
-
-console.log(a);
