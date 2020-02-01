@@ -66,7 +66,6 @@ function coinNonRepealett(coins, target) {
   // from i to j
   dp[i][j] = dp[i][k] + result[k] + dp[k+1][j]  
 
-
   */
 
 /* 
