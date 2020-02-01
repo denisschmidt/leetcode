@@ -17,23 +17,12 @@ Construct the maximum tree by the given array and output the root node of this t
 
 */
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
+const { TreeNode } = require('../../algorithms/treeNode');
 
-/**
- * @param {number[]} nums
- * @return {TreeNode}
- */
-
-const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode');
-
-var constructMaximumBinaryTree = function(nums) {
-  if (!nums.length) {
+// Time O(N)
+// Space O(N)
+const constructMaximumBinaryTree = nums => {
+  if (nums.length === 0) {
     return null;
   }
 
@@ -54,4 +43,50 @@ var constructMaximumBinaryTree = function(nums) {
   return node;
 };
 
-console.log(constructMaximumBinaryTree([3, 2, 1, 6, 0, 5]));
+// Time O(N)
+// Space O(N)
+const constructMaximumBinaryTree_II = function(nums) {
+  let dummy = new TreeNode(null);
+
+  helper(dummy, nums);
+
+  return dummy;
+
+  function helper(node, array) {
+    if (array.length == 0) {
+      return;
+    }
+
+    let max = 0;
+    let maxIndex = -1;
+
+    for (let i = 0; i < array.length; i++) {
+      if (max < array[i]) {
+        max = array[i];
+        maxIndex = i;
+      }
+    }
+
+    let left = array.slice(0, maxIndex);
+    let right = array.slice(maxIndex + 1);
+
+    if (left.length === 1) {
+      node.left = new TreeNode(left[0]);
+      left = [];
+    } else if (left.length > 1) {
+      node.left = new TreeNode(null);
+    }
+
+    if (right.length === 1) {
+      node.right = new TreeNode(right[0]);
+      right = [];
+    } else if (right.length > 1) {
+      node.right = new TreeNode(null);
+    }
+
+    node.val = max;
+
+    helper(node.left, left);
+    helper(node.right, right);
+  }
+};
