@@ -4,7 +4,6 @@ Two elements of a binary search tree (BST) are swapped by mistake.
 Recover the tree without changing its structure.
 
 Example 1:
-
   Input: [1,3,null,null,2]
 
      1
@@ -22,74 +21,98 @@ Example 1:
      2
 
 Example 2:
+  Input: [3,1,4,null,null,2]
 
-Input: [3,1,4,null,null,2]
-
-    3
-   / \
-  1   4
-     /
+      3
+     / \
+    1   4
+      /
     2
 
-  Output: [2,1,4,null,null,3]
+    Output: [2,1,4,null,null,3]
 
-    2
-   / \
-  1   4
-     /
+      2
+     / \
+    1   4
+      /
     3
 
 Follow up:
-
-A solution using O(n) space is pretty straight forward.
-
-Could you devise a constant space solution?
-
+  A solution using O(n) space is pretty straight forward.
+  Could you devise a constant space solution?
 
  */
 
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @return {void} Do not return anything, modify root in-place instead.
- */
-const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode');
+/*
 
-let first = null,
-  second = null,
-  pre = null;
+  Идея проста: найти два узла, которые поменялись местами по ошибке, а затем обменять их значения.   
+  
+  Вопрос в том, как узнать эти два узла?  
+  
+  Как мы знаем, обход по BST дает нам отсортированный массив, если два элемента в массиве поменялись местами,  
+  
+  Мы можем найти их в одном сканировании, то есть всякий раз, когда мы видим, что предыдущее значение больше текущего значения,
+  
+  Мы можем пометить их.  
+  
+  Например, скажем, у нас есть отсортированный массив [0, 1], и мы меняем значения, так что массив становится [1, 0],  
+  когда мы просматриваем, мы обнаружили, что 1 > 0, мы знаем, что 1 и 0 - это узлы, которые поменялись местами по ошибке.
+  
+  Возьмем другой пример, в этом массиве [0, 1, 2, 5, 4, 3], 3 и 5 перепутаны по ошибке, когда мы сканируем массив, 
+  мы заметили, что 5 > 4 и 4 > 3. 
+  
+  Как получить 3 и 5? 
+  
+  Всякий раз, когда мы находим ошибку, если это ошибка встречается впервые пометить оба узла как «first» и «second», 
+  для второй ошибки нам просто нужно обновить «second»
+  
+  Но мы еще не там, вопрос просит нас использовать постоянное пространство
 
-const inOrder = function(root) {
-  if (root === null) return;
-  inOrder(root.left);
-  console.log('===', root.val);
-  if (pre === null) pre = root;
-  else {
-    if (pre.val > root.val) {
-      if (first === null) first = pre;
-      second = root;
-    }
-    pre = root;
+  Поэтому мы не можем хранить значения BST в массиве, это будет O (n) сложность пространства. 
+  
+  Решением является использование DFS и обход дерева по порядку (inOrder).   
+  
+  Таким образом: 
+  1) Cложность времени равна O(n) 
+  2) Cложность пространства равна O(1) (если мы не заботимся о стеке рекурсии, в противном случае это  высота дерева).
+
+ */
+
+// Time O(N)
+// Space O(1)
+const recoverTree = root => {
+  if (root == null) {
+    return;
   }
-  inOrder(root.right);
-};
 
-const recoverTree = function(root) {
-  if (!root) return null;
-  pre = null;
-  first = null;
-  second = null;
-  inOrder(root);
+  // first и second - два узла, которые по ошибке поменялись местами
+  let prev = null;
+  let second = null;
+  let first = null;
+
+  helper(root);
+
+  // Меняем значения двух узлов
   let temp = first.val;
   first.val = second.val;
   second.val = temp;
-  return root;
-};
 
-recoverTree(makeTreeNodes([1, 3, 8, 6, 7, 4, 10, 13, 14]));
+  function helper(node) {
+    if (node === null) {
+      return;
+    }
+
+    helper(node.left);
+
+    if (prev && prev.val > node.val) {
+      if (!first) {
+        first = prev; // устанавливаем «first» первый раз
+      }
+      second = node; // всегда обновляем «second»
+    }
+
+    prev = node;
+
+    helper(node.right);
+  }
+};

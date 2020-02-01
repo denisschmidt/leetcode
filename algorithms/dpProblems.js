@@ -30,7 +30,7 @@ function coinRepeat(coins, target) {
 
   for (let i = 0; i < coins.length; i++) {
     for (let j = coins[i]; j <= target; i++) {
-      dp[j] += dp[j - coins[i]];
+      dp[j] = dp[j] + dp[j - coins[i]];
     }
   }
 
