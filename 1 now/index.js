@@ -1,43 +1,57 @@
 const { TreeNode, makeTreeNodes } = require('../algorithms/treeNode');
 
-const insertIntoMaxTree = (root, val) => {
-  let nums = [];
+/*
 
-  inOrder(root);
-  nums.push(val);
+  Bottom-up рекурсия
+  
+  Результат функции хранит левое поддерево и правое поддерево
 
-  return create(nums);
+  В данной рекурсии мы доходим до конца рекурсии
 
-  function inOrder(node) {
+     2
+   /  \
+  1    3
+
+  
+  Доходим до значения 3, слева и справа [null, null] 
+  Устанавливаем значение для текущей ноды node.right = null
+
+  Поднимаемся по стеку следущее значение 2 [3, null] 
+
+  Устанавливаем значение для текущей ноды node.right = 3;
+
+  Выходим из рекурсии
+
+*/
+
+var splitBST = function(root, V) {
+  return helper(root);
+
+  function helper(node) {
     if (node === null) {
-      return;
+      return [null, null];
     }
 
-    inOrder(node.left);
-    nums.push(node.val);
-    inOrder(node.right);
-  }
+    if (node.val > V) {
+      let [left, right] = helper(node.left);
 
-  function create(nums) {
-    if (nums.length === 0) {
-      return null;
+      node.left = right;
+
+      console.log('-1-', node.val, right);
+
+      return [left, node];
+    } else {
+      let [left, right] = helper(node.right);
+
+      console.log('-2-', node.val, left);
+
+      node.right = left;
+
+      return [node, right];
     }
-
-    let max = 0;
-    let maxIndex = 0;
-
-    for (let i = 0; i < nums.length; i++) {
-      if (nums[i] > max) {
-        max = nums[i];
-        maxIndex = i;
-      }
-    }
-
-    let node = new TreeNode(max);
-
-    node.left = create(nums.slice(0, maxIndex));
-    node.right = create(nums.slice(maxIndex + 1));
-
-    return node;
   }
 };
+
+let node = makeTreeNodes([4, 2, 6, 1, 3, 5, 7]);
+
+splitBST(node, 5);
