@@ -27,31 +27,15 @@ You can return this binary search tree:
   1   3  5
 
  */
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @param {number} val
- * @return {TreeNode}
- */
-const { TreeNode, makeTreeNodes } = require('../../algorithms/treeNode');
 
-const newNode = val => {
-  const node = new TreeNode(val);
-  node.left = null;
-  node.right = null;
-  return node;
-};
+const { TreeNode } = require('../../algorithms/treeNode');
 
 const insertIntoBST = function(root, val) {
   if (root == null) {
-    return newNode(val);
+    let node = new TreeNode(val);
+    return node;
   }
+
   if (val > root.val) {
     root.right = insertIntoBST(root.right, val);
   } else if (val < root.val) {
@@ -59,6 +43,3 @@ const insertIntoBST = function(root, val) {
   }
   return root;
 };
-const arr = [4, 2, 7, 1, 3];
-const res = insertIntoBST(makeTreeNodes(arr), 5);
-console.log('---', res);

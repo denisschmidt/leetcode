@@ -76,7 +76,6 @@ Example:
 
   Если текущий узел 33 то Predecessor - 25 Successor - 34
 
-
 */
 
 // Time O(LogH)
