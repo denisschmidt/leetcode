@@ -13,26 +13,43 @@ Explanation: You need one step to make "sea" to "ea" and another step to make "e
   Characters in given words can only be lower-case letters.
 
  */
-// ===========================================================================================================
-/**
- *
- * SOLUTION DP
- *
- * FIND LONGEST COMMON SUBSEQUENCE (LCS)
- *
- * Complexity Analysis
- *  Time complexity : O(m*n).
- *  We need to fill in the dpdp array of size mmxnn.
- *  Here, mm and nn refer to the lengths of s1s1 and s2s2.
- *
- * Space complexity : O(m*n). dpdp array of size mmxnn is used.
- *
- * @param {string} word1
- * @param {string} word2
- * @return {number}
- */
 
-const minDistance2 = function(s1, s2) {
+// Time O(N^2)
+// Space O(N^2)
+const minDistance = function(word1, word2) {
+  let n = word1.length;
+  let m = word2.length;
+
+  // Содержит состояние требуемых удалений для текущих индексов.
+  let dp = Array(n + 1)
+    .fill(null)
+    .map(() => Array(m + 1).fill(0));
+
+  for (let i = 0; i <= n; i++) {
+    for (let j = 0; j <= m; j++) {
+      if (i === 0) {
+        dp[0][j] = j;
+      } else if (j === 0) {
+        dp[i][0] = i;
+      } else if (word1[i - 1] === word2[j - 1]) {
+        // повторяем символ
+        dp[i][j] = dp[i - 1][j - 1];
+      } else {
+        // Минимальное кол-во удалений + 1
+        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1]) + 1;
+      }
+    }
+  }
+
+  return dp[n][m];
+};
+
+// SOLUTION DP
+// FIND LONGEST COMMON SUBSEQUENCE (LCS)
+
+// Time O(N^2)
+// Space O(N^2)
+const minDistance_II = function(s1, s2) {
   const matrix = [[]];
 
   for (let i = 0; i <= s1.length; i++) {
@@ -60,61 +77,3 @@ const minDistance2 = function(s1, s2) {
   // определили наибольшую LCS и рассчитываем кол0во удалений
   return s1.length + s2.length - 2 * matrix[s1.length][s2.length];
 };
-
-const res2 = minDistance2('sea', 'ate');
-
-console.log('---', res2);
-
-// ==========================================================================================
-
-/**
- *
- * SOLUTION DP
- *
- * FIND LONGEST COMMON SUBSEQUENCE
- *
- * Complexity Analysis
- *  Time complexity : O(m*n).
- *  We need to fill in the dpdp array of size mmxnn.
- *  Here, mm and nn refer to the lengths of s1s1 and s2s2.
- *
- * Space complexity : O(m*n). dpdp array of size mmxnn is used.
- *
- * @param {string} word1
- * @param {string} word2
- * @return {number}
- */
-
-/*
-
-Вместо того, чтобы находить длину LCS и затем определять требуемое количество удалений,
-мы можем напрямую определять количество требуемых удалений для текущих индексов.
-
- */
-
-const minDistance = function(s1, s2) {
-  const matrix = [[]];
-
-  for (let i = 0; i <= s1.length; i++) {
-    if (!matrix[i]) {
-      matrix[i] = [];
-    }
-    for (let j = 0; j <= s2.length; j++) {
-      if (i === 0 || j === 0) {
-        matrix[i][j] = i + j;
-      } else if (s1[i - 1] === s2[j - 1]) {
-        // повторяем символ
-        matrix[i][j] = matrix[i - 1][j - 1];
-      } else {
-        // Минимальное кол-во удалений + 1
-        matrix[i][j] = 1 + Math.min(matrix[i - 1][j], matrix[i][j - 1]);
-      }
-    }
-  }
-  // дает требуемое минимальное количество удалений.
-  return matrix[s1.length][s2.length];
-};
-
-const res = minDistance('sea', 'ate');
-
-console.log('---', res);
