@@ -15,40 +15,26 @@ Note:
 Elements of the given array will be in the range [-10,000, 10,000].
 
  */
-//Complexity Analysis
-//
-// Time complexity : O(n^2).
 
+/*
+  Алгоритм:
+
+  Вместо того, чтобы сначала создавать массив кумулятивных сумм, а затем обходить его, чтобы определить требуемую сумму
+  мы можем просто пройти через nums только один раз, и на ходу продолжать определять суммы, возможные для подмассивов длины k. 
+  
+  Чтобы понять идею, предположим, что мы уже знаем сумму элементов от индекса i до индекса i + k, скажем, это x. 
+  
+  Теперь, чтобы определить сумму элементов от индекса i + 1 до индекса i + k + 1, все, что нам нужно сделать,
+  Это вычесть элемент nums[i] из x и добавить элемент nums[i + k + 1] в x. 
+  
+  Мы можем провести наш процесс на основе этой идеи и определить максимально возможное среднее.
+
+*/
+
+// Prefix Sum
+// Time O(N)
+// Space O(1)
 const findMaxAverage = function(nums, k) {
-  const size = nums.length - 1;
-  let start = 0;
-  let maxSum;
-  if (size - 1 === 0) return nums[0];
-
-  while (size - start + 1 >= k) {
-    let end = start + 1;
-    let sum = nums[start];
-
-    while (end < k + start) {
-      sum += nums[end];
-      end++;
-    }
-    if (!maxSum || sum > maxSum) {
-      maxSum = sum;
-    }
-    start++;
-  }
-  return maxSum / k;
-};
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-//Complexity Analysis
-//
-// Time complexity : O(n). We iterate over the given nums array of length n once only.
-//
-// Space complexity : O(1). Constant extra space is used.
-const findMaxAverage2 = function(nums, k) {
   let sum = 0;
   for (let i = 0; i < k; i++) {
     sum += nums[i];
@@ -56,25 +42,32 @@ const findMaxAverage2 = function(nums, k) {
 
   let maxSum = sum;
   for (let i = k; i < nums.length; i++) {
-    sum = sum + nums[i] - nums[i - k];
+    sum = sum - nums[i - k] + nums[i];
     maxSum = Math.max(maxSum, sum);
   }
 
   return maxSum / k;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Time: O(n^2)
+// Space O(1)
+const findMaxAverage_II = function(nums, k) {
+  let n = nums.length;
+  let max = -Number.MAX_VALUE;
+  for (let i = 0; i <= n - k; i++) {
+    let sum = nums[i];
+    for (let j = i + 1; j < i + k; j++) {
+      sum += nums[j];
+    }
+    max = Math.max(max, sum / k);
+  }
+  return max;
+};
 
 // Cumulative Sum
-
-//Complexity Analysis
-//
-// Time complexity : O(n). We iterate over the nums array of length n once to fill the sum array.
-// Then, we iterate over n-k elements of sum to determine the required result.
-//
-// Space complexity : O(n). We make use of a sum array of length n to store the cumulative sum.
-
-const findMaxAverage2 = function(nums, k) {
+// Time O(N)
+// Space O(1)
+const findMaxAverage_III = function(nums, k) {
   let sum = [];
   sum.push(nums[0]);
   for (let i = 1; i < nums.length; i++) {
