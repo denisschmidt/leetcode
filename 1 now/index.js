@@ -1,29 +1,26 @@
 /**
  * @param {number} n
- * @param {number[]} rollMax
  * @return {number}
  */
-var dieSimulator = function(N, rollMax) {
-  let dp = Array(N + 1)
-    .fill(null)
-    .map(() => Array(6).fill(0));
+var countVowelPermutation = function(n) {
+  let ans = 0;
+  let vec = [[1], [0, 2], [0, 1, 3, 4], [2, 4], [0]];
 
-  let total = 6;
+  helper(n, 0);
 
-  for (let i = 0; i < 6; i++) {
-    dp[1][i] = 1;
-  }
+  return ans;
 
-  for (let n = 2; n <= N; n++) {
-    for (let j = 0; j < rollMax.length; j++) {
-      dp[n][j] = (total - rollMax[j]) * dp[n - 1][j];
+  function helper(cnt, currIndex) {
+    if (cnt === 0) {
+      ans++;
+      return;
+    }
+
+    for (let i = 0; i < vec[currIndex].length; i++) {
+      helper(cnt - 1, vec[currIndex][i]);
     }
   }
-
-  console.log(dp);
-
-  return dp[N].reduce((acc, v) => acc + v, 0);
 };
 
-let a = dieSimulator(2, [2, 2, 2, 2, 2, 2]);
+let a = countVowelPermutation(1);
 console.log(a);
