@@ -37,6 +37,44 @@ Constraints:
 
 // Time O(N)
 // Space O(N)
+const insert = (head, insertVal) => {
+  if (head == null) {
+    let node = new Node(insertVal);
+    node.next = node;
+    return node;
+  }
+
+  let prev = head;
+  let next = head.next;
+  let insert = false;
+
+  while (true) {
+    if (
+      (prev.val <= insertVal && next.val >= insertVal) ||
+      (prev.val > next.val && next.val > insertVal) ||
+      (prev.val > next.val && prev.val < insertVal)
+    ) {
+      insert = true;
+      prev.next = new Node(insertVal, next);
+      break;
+    }
+
+    prev = next;
+    next = next.next;
+
+    if (prev == head) break;
+  }
+
+  // для случая когда у нас список их 1 эл-та [1]
+  if (!insert) {
+    prev.next = new Node(insertVal, next);
+  }
+
+  return head;
+};
+
+// Time O(N)
+// Space O(N)
 const insert_II = (head, insertVal) => {
   if (!head) {
     let node = new Node(insertVal);

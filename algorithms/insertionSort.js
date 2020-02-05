@@ -1,5 +1,3 @@
-const swap = (nums, i, j) => ([nums[i], nums[j]] = [nums[j], nums[i]]);
-
 // Time O(N^2)
 // Space O(1)
 const insertionSort = nums => {
@@ -16,6 +14,8 @@ const insertionSort = nums => {
   return nums;
 };
 
-const sortedArr = insertionSort([100, 5, 12, 21, 312, 0, 123, 2, 1, 2, 4, 6, 1, 3, 12]);
+function swap(nums, i, j) {
+  return ([nums[i], nums[j]] = [nums[j], nums[i]]);
+}
 
-console.log('---', sortedArr);
+insertionSort([100, 5, 12, 21, 312, 0, 123, 2, 1, 2, 4, 6, 1, 3, 12]);

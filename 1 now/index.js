@@ -1,75 +1,36 @@
-var insert = function(head, insertVal) {
-  if (!head) {
-    let node = new Node(insertVal);
-    node.next = node;
-    return node;
-  }
+/**
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @return {ListNode}
+ */
+var insertionSortList = function(head) {
+  if (head == null || head.next == null) return head;
 
-  let cnt = 1;
-  let a = head.next;
-  while (a !== head) {
-    cnt++;
-    a = a.next;
-  }
+  let dummyHead = new ListNode(0);
+  dummyHead.next = head;
 
-  if (cnt === 1) {
-    swap(a, insertVal);
-    return head;
-  }
-
-  let prev = head;
-  let next = head.next;
-  let i = 0;
-  let min = head.val;
-
-  a = head;
-  let b = null;
-
-  while (i < cnt) {
-    if (min > next.val) {
-      min = next.val;
-      a = next;
-      b = prev;
-    }
-    prev = next;
-    next = next.next;
-    i++;
-  }
-
-  if (a.val > insertVal) {
-    if (b == null) {
-      b = head;
-      i = 1;
-      while (i < cnt) {
-        b = b.next;
-        i++;
-      }
-      swap(b, insertVal);
+  while (head !== null && head.next !== null) {
+    if (head.val <= head.next.val) {
+      head = head.next;
     } else {
-      swap(b, insertVal);
-    }
+      let insert = head.next;
+      let start = dummyHead;
 
-    return head;
+      while (start.next.val < insert.val) {
+        start = start.next;
+      }
+
+      head.next = insert.next;
+      insert.next = start.next;
+      start.next = insert;
+    }
   }
 
-  prev = a;
-  next = a.next;
-
-  while (next !== a) {
-    if (next.val >= insertVal && prev.val <= insertVal) {
-      swap(prev, insertVal);
-      return head;
-    }
-    prev = next;
-    next = next.next;
-  }
-
-  return head;
+  return dummyHead.next;
 };
-
-function swap(a, v) {
-  let node = new Node(v);
-  let t = a.next;
-  a.next = node;
-  node.next = t;
-}
