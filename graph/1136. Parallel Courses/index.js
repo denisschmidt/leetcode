@@ -45,7 +45,6 @@ const minimumSemesters = function(N, relations) {
 
   let visited = [];
   let stack = [];
-  let order = [];
   let maxLevel = 0;
 
   let count = Array(N + 1).fill(1);
@@ -82,7 +81,6 @@ const minimumSemesters = function(N, relations) {
     }
 
     stack[index] = false;
-    order.push(index);
 
     return false;
   }

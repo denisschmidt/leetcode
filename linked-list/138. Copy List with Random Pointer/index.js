@@ -15,6 +15,8 @@ Explanation:
 Note: You must return the copy of the given head as a reference to the cloned list.
  */
 
+// Time O(N)
+// Space O(N)
 const copyRandomList = function(head) {
   if (head === null) return null;
 
