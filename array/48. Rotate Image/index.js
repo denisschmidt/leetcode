@@ -51,6 +51,7 @@ const rotate = matrix => {
   const n = matrix.length;
 
   // транспонируем матрицу
+  // строки становятся столбцами стоблцы строками
   for (let i = 0; i < n; i++) {
     for (let j = i; j < n; j++) {
       const tmp = matrix[j][i];
@@ -60,15 +61,20 @@ const rotate = matrix => {
   }
 
   for (let i = 0; i < n; i++) {
-    for (let j = 0; j < n / 2; j++) {
-      const tmp = matrix[i][j];
-      matrix[i][j] = matrix[i][n - 1 - j];
-      matrix[i][n - 1 - j] = tmp;
+    let lo = i;
+    let hi = m - 1;
+
+    while (lo < hi) {
+      let t = matrix[i][lo];
+      matrix[i][lo] = matrix[i][hi];
+      matrix[i][hi] = t;
+      lo++;
+      hi--;
     }
   }
-};
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  return matrix;
+};
 
 // Time O(N^2)
 // Space O(1)
