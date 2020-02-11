@@ -1,14 +1,51 @@
 /**
- * @param {number[]} nums
- * @return {string}
+ * @param {number[][]} nums
+ * @return {number[]}
  */
+var smallestRange = function(nums) {
+  let counts = Array(nums.length).fill(0);
+  let isDone = false;
+  let result = [];
+  let minRange = Number.MAX_VALUE;
 
-var largestNumber = function(nums) {
-  nums.sort((a, b) => {
-    let s1 = a.toString();
-    let s2 = b.toString();
-  });
+  while (true) {
+    let min = Number.MAX_VALUE;
+    let max = Number.MIN_VALUE;
+    let minIndex = -1;
+
+    for (let i = 0; i < nums.length; i++) {
+      let cur = nums[i];
+
+      if (pointers[i] === nums.length) {
+        isDone = true;
+        break;
+      }
+
+      let value = nums[i][counts[i]];
+
+      if (min > value) {
+        min = value;
+        minIndex = i;
+      }
+
+      if (max < value) {
+        max = value;
+      }
+    }
+
+    if (minIndex > -1) {
+      counts[minIndex]++;
+    }
+
+    if (isDone) {
+      break;
+    }
+
+    if (max - min < minRange) {
+      minRange = max - min;
+      result = [min, max];
+    }
+  }
+
+  return result;
 };
-
-let a = largestNumber([1, 1]);
-console.log(a);

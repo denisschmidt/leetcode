@@ -15,43 +15,41 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default c
 
  */
 
-// Просто пройдите интервалы, отсортированные по начальной координате,
-// и либо объедините текущий интервал с предыдущим, если они перекрываются,
-// либо добавьте его к выходу самостоятельно, если этого не происходит.
+// Сортируем интервалы по начальной координате
+// Если интервалы пересекаются объединяем их если нет то нет
 
 // Time: O(NlogN)
 // Помимо вызова сортировки, мы выполняем простое линейное сканирование списка,
 // поэтому во время выполнения преобладает сложность сортировки O(NlogN)
 // Space: O(N) можно попробоавть сортировать intervals наместе тогда сложность будет O(1)
-var merge = function(intervals) {
-  const n = intervals.length;
-  if (!n) return [];
+const merge = function(intervals) {
+  if (intervals.length === 0) {
+    return [];
+  }
 
-  let ans = [];
-  intervals.sort((a, b) => {
-    let [x] = a;
-    let [y] = b;
-    return x - y;
-  });
-  ans.push(intervals[0]);
+  let result = [];
 
-  for (let i = 1; i < n; i++) {
-    let a = ans[ans.length - 1];
+  intervals.sort((a, b) => a[0] - b[0]);
+
+  result.push(intervals[0]);
+
+  for (let i = 1; i < intervals.length; i++) {
+    let a = result[result.length - 1];
     let b = intervals[i];
 
     if (overlap(a, b)) {
-      let min = Math.min(a[0], a[1], b[0], b[1]);
-      let max = Math.max(a[0], a[1], b[0], b[1]);
-      ans.pop();
-      ans.push([min, max]);
+      let min = Math.min(a[0], b[0], a[1], b[1]);
+      let max = Math.max(a[0], b[1], a[1], b[1]);
+      result.pop();
+      result.push([min, max]);
     } else {
-      ans.push(b);
+      result.push(b);
     }
   }
 
-  return ans;
-};
+  return result;
 
-function overlap([x, y], [u, z]) {
-  return x <= z && u <= y;
-}
+  function overlap([x, y], [u, z]) {
+    return x <= z && u <= y;
+  }
+};

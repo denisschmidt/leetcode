@@ -31,7 +31,14 @@ const firstMissingPositive = nums => {
 const firstMissingPositive_II = nums => {
   const size = nums.length;
 
+  // [0,1,4,5] ->
+  // 1 свап [ 1, 0, 4, 5 ]
+  // 2 свап [ 1, 0, 5, 4 ]
+
   for (let i = 0; i < size; i++) {
+    // свапаем до тех пор пока в nums[i] не будет верного числа
+    // если текущее число положительное и оно находится в правильной позиции
+    // nums[1, 4, 5] при i = 0. nums[0] !== nums[0] -> следовательно 1 находится в верном положении
     while (nums[i] > 0 && nums[i] <= size && nums[nums[i] - 1] !== nums[i]) {
       // swap
       let temp = nums[nums[i] - 1];
