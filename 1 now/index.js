@@ -1,26 +1,29 @@
 /**
- * @param {number} num
- * @return {number}
+ * @param {number[]} pushed
+ * @param {number[]} popped
+ * @return {boolean}
  */
-var maximumSwap = function(num) {
-  let nums = num.toString().split('');
+var validateStackSequences = function(pushed, popped) {
+  let temp = [];
 
-  for (let i = 0; i < nums.length; i++) {
-    let n1 = num[i];
-    let found = false;
-    for (let j = i + 1; j < array.length; j++) {
-      if (nums[j] > n1) {
-        let t = nums[i];
-        nums[i] = nums[j];
-        nums[j] = t;
-        found = true;
-      }
-    }
+  if (pushed.length !== popped.length) {
+    return false;
+  }
 
-    if (found) {
-      break;
+  let j = 0;
+  for (let i = 0; i < pushed.length; i++) {
+    temp.push(pushed[i]);
+
+    while (temp.length > 0 && temp[temp.length - 1] === popped[j]) {
+      temp.pop();
+      j++;
     }
   }
 
-  return Number(nums.join(''));
+  while (temp.length > 0 && temp[temp.length - 1] === popped[j]) {
+    temp.pop();
+    j++;
+  }
+
+  return temp.length > 0 ? false : true;
 };
