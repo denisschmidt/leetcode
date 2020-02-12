@@ -1,51 +1,26 @@
 /**
- * @param {number[][]} nums
- * @return {number[]}
+ * @param {number} num
+ * @return {number}
  */
-var smallestRange = function(nums) {
-  let counts = Array(nums.length).fill(0);
-  let isDone = false;
-  let result = [];
-  let minRange = Number.MAX_VALUE;
+var maximumSwap = function(num) {
+  let nums = num.toString().split('');
 
-  while (true) {
-    let min = Number.MAX_VALUE;
-    let max = Number.MIN_VALUE;
-    let minIndex = -1;
-
-    for (let i = 0; i < nums.length; i++) {
-      let cur = nums[i];
-
-      if (pointers[i] === nums.length) {
-        isDone = true;
-        break;
-      }
-
-      let value = nums[i][counts[i]];
-
-      if (min > value) {
-        min = value;
-        minIndex = i;
-      }
-
-      if (max < value) {
-        max = value;
+  for (let i = 0; i < nums.length; i++) {
+    let n1 = num[i];
+    let found = false;
+    for (let j = i + 1; j < array.length; j++) {
+      if (nums[j] > n1) {
+        let t = nums[i];
+        nums[i] = nums[j];
+        nums[j] = t;
+        found = true;
       }
     }
 
-    if (minIndex > -1) {
-      counts[minIndex]++;
-    }
-
-    if (isDone) {
+    if (found) {
       break;
-    }
-
-    if (max - min < minRange) {
-      minRange = max - min;
-      result = [min, max];
     }
   }
 
-  return result;
+  return Number(nums.join(''));
 };

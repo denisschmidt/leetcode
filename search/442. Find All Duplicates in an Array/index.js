@@ -14,19 +14,38 @@ Output:
 [2,3]
 
  */
-/**
- * @param {number[]} nums
- * @return {number[]}
- */
-var findDuplicates = function(n) {
-  const a = [];
-  const set = new Set();
-  for (let i = 0; i < n.length; i++) {
-    if (!set.has(n[i])) set.add(n[i]);
-    else a.push(n[i]);
+
+// Time O(N)
+// Space O(1)
+const findDuplicates = function(nums) {
+  let result = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    let index = Math.abs(nums[i]) - 1;
+
+    if (nums[index] < 0) {
+      result.push(Math.abs(index + 1));
+    } else {
+      nums[index] = -nums[index];
+    }
   }
-  return a;
+
+  return result;
 };
 
-const p = [2, 2];
-console.log(findDuplicates(p));
+// Time O(N)
+// Space O(N)
+const findDuplicates_II = function(nums) {
+  let set = new Set();
+  let result = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    if (set.has(nums[i])) {
+      set.add(nums[i]);
+    } else {
+      result.push(nums[i]);
+    }
+  }
+
+  return result;
+};

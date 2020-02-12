@@ -73,3 +73,43 @@ const smallestRange = nums => {
 
   return result;
 };
+
+const { PriorityQueue } = require('../../algorithms/priorityQueue');
+
+// Time O(NLogN)
+// Space O(N)
+const smallestRange_II = nums => {
+  let pq = new PriorityQueue({ comparator: (a, b) => a.val - b.val });
+  let max = -Number.MAX_VALUE;
+  let minRange = Number.MAX_VALUE;
+
+  for (let i = 0; i < nums.length; i++) {
+    pq.offer({ val: nums[i][0], elemIndex: 0, arrayIndex: i });
+    max = Math.max(max, nums[i][0]);
+  }
+
+  let start = -1;
+  let end = -1;
+
+  while (pq.size() === nums.length) {
+    let curr = pq.poll();
+
+    if (max - curr.val < minRange) {
+      minRange = max - curr.val;
+      start = curr.val;
+      end = max;
+    }
+
+    if (curr.elemIndex + 1 < nums[curr.arrayIndex].length) {
+      let val = nums[curr.arrayIndex][curr.elemIndex + 1];
+
+      pq.offer({ val, elemIndex: curr.elemIndex + 1, arrayIndex: curr.arrayIndex });
+
+      if (val > max) {
+        max = val;
+      }
+    }
+  }
+
+  return [start, end];
+};
