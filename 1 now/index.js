@@ -1,29 +1,38 @@
-/**
- * @param {number[]} pushed
- * @param {number[]} popped
- * @return {boolean}
- */
-var validateStackSequences = function(pushed, popped) {
-  let temp = [];
+const countComponents = function(n, edges) {
+  let graph = [];
 
-  if (pushed.length !== popped.length) {
-    return false;
+  for (let i = 0; i < n; i++) {
+    graph[i] = [];
   }
 
-  let j = 0;
-  for (let i = 0; i < pushed.length; i++) {
-    temp.push(pushed[i]);
+  for (let i = 0; i < edges.length; i++) {
+    let [u, v] = edges[i];
 
-    while (temp.length > 0 && temp[temp.length - 1] === popped[j]) {
-      temp.pop();
-      j++;
+    graph[u].push(v);
+    graph[v].push(u);
+  }
+
+  let colors = [];
+  let visited = [];
+  let colorNum = 0;
+
+  for (let i = 0; i < n; i++) {
+    dfs(i, colorNum);
+    colorNum++;
+  }
+
+  return new Set(colors).size;
+
+  function dfs(index, color) {
+    if (visited[index]) {
+      return;
+    }
+
+    visited[index] = true;
+    colors[index] = color;
+
+    for (let i = 0; i < graph[index].length; i++) {
+      dfs(graph[index][i], color);
     }
   }
-
-  while (temp.length > 0 && temp[temp.length - 1] === popped[j]) {
-    temp.pop();
-    j++;
-  }
-
-  return temp.length > 0 ? false : true;
 };

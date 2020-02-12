@@ -44,6 +44,8 @@ function coinNonRepealett(coins, target) {
 
   for (let i = 0; i < coins.length; i++) {
     for (let j = target; i >= coins[i]; i--) {
+      // Если предидущий шаг положителен dp[j - coins[i]]
+      // То и текущий шаг dp[j] будет положителен
       dp[j] = dp[j] + dp[j - coins[i]];
     }
   }
