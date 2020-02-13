@@ -26,6 +26,46 @@ Note:
 
 */
 
+/*
+
+  С каждым добавленным ребром проверьте, к какому подмножеству принадлежит u и v. 
+  Если u и v пренадлежат одному и тому же подмноеству, ничего не делайте. 
+  В противном случае объедините два подмноества и уменьшите количество связанных компонентов.
+  Бонус: сжатие пути(Path compression) может сократить время на 50%.
+
+*/
+
+const countComponents = function(n, edges) {
+  let graph = [];
+
+  for (let i = 0; i < n; i++) {
+    graph[i] = i;
+  }
+
+  for (let i = 0; i < edges.length; i++) {
+    let [u, v] = edges[i];
+
+    let x = find(u);
+    let y = find(v);
+
+    if (x !== y) {
+      graph[y] = x;
+      n--;
+    }
+  }
+
+  return n;
+
+  function find(x) {
+    if (graph[x] !== x) {
+      // Path compression
+      graph[x] = find(graph[x]);
+    }
+
+    return graph[x];
+  }
+};
+
 // Time O(V + E) - V кол-во нод(вершин), E - количество ребер
 // Space O(V + E)
 const countComponents = function(n, edges) {

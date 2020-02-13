@@ -1,38 +1,23 @@
-const countComponents = function(n, edges) {
-  let graph = [];
-
-  for (let i = 0; i < n; i++) {
-    graph[i] = [];
+/**
+ * @param {number[]} nums
+ * @param {number} k
+ * @return {boolean}
+ */
+var checkSubarraySum = function(nums, k) {
+  if (nums.length === 0) {
+    return false;
   }
 
-  for (let i = 0; i < edges.length; i++) {
-    let [u, v] = edges[i];
+  for (let i = 0; i < nums.length; i++) {
+    let sum = nums[i];
+    for (let j = i + 1; j < nums.length; j++) {
+      sum += nums[j];
 
-    graph[u].push(v);
-    graph[v].push(u);
-  }
-
-  let colors = [];
-  let visited = [];
-  let colorNum = 0;
-
-  for (let i = 0; i < n; i++) {
-    dfs(i, colorNum);
-    colorNum++;
-  }
-
-  return new Set(colors).size;
-
-  function dfs(index, color) {
-    if (visited[index]) {
-      return;
-    }
-
-    visited[index] = true;
-    colors[index] = color;
-
-    for (let i = 0; i < graph[index].length; i++) {
-      dfs(graph[index][i], color);
+      if (sum % k === 0) {
+        return true;
+      }
     }
   }
+
+  return false;
 };
