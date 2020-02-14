@@ -1,50 +1,44 @@
 /*
 
-416. Partition Equal Subset Sum
-
-
 Given a non-empty array containing only positive integers,
 find if the array can be partitioned into two subsets such that the sum of elements in both subsets is equal.
 
-Note:
-
-Each of the array element will not exceed 100.
-The array size will not exceed 200.
-
-
 Example 1:
-
-Input: [1, 5, 11, 5]
-
-Output: true
-
-Explanation: The array can be partitioned as [1, 5, 5] and [11].
+  Input: [1, 5, 11, 5]
+  Output: true
+  Explanation: The array can be partitioned as [1, 5, 5] and [11].
 
 
 Example 2:
+  Input: [1, 2, 3, 5]
+  Output: false
+  Explanation: The array cannot be partitioned into equal sum subsets.
 
-Input: [1, 2, 3, 5]
+Note:
+  Each of the array element will not exceed 100.
+  The array size will not exceed 200.
 
-Output: false
-
-Explanation: The array cannot be partitioned into equal sum subsets.
-
-
- */
+*/
 
 // Задача очень похожа на 0/1 Knapsack
 
-// Есть ли в наборе несколько чисел, которые могут суммироваться до определенного значения (в этой задаче это значение sum / 2).
+// Есть ли в наборе несколько чисел
+// Которые могут суммироваться до определенного значения (в этой задаче это значение sum / 2).
 
 // Time O(N^2)
 // Space O(N)
 const canPartition = function(nums) {
   let sum = nums.reduce((acc, v) => acc + v, 0);
 
+  if (sum % 2 !== 0) {
+    return false;
+  }
+
   let target = sum >> 1;
 
   // Позволяет на ответить на вопрос.
   // Есть ли в наборе несколько чисел, которые могут суммироваться до определенного значения
+  // C использованием неповторяющихся значений
   let dp = Array(target + 1).fill(false);
   dp[0] = true;
 
@@ -54,12 +48,7 @@ const canPartition = function(nums) {
     }
   }
 
-  let i = target;
-  while (!dp[i]) {
-    i--;
-  }
-
-  return sum === i * 2;
+  return dp[target];
 };
 
 //
