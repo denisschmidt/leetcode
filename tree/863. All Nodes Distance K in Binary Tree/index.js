@@ -24,6 +24,17 @@ Note:
   0 <= K <= 1000.
 */
 
+/*
+  Алгоритм:
+
+  1) Для каждого узла создаем мапу {node.val, [массив смежных узлов]}
+
+  2) Потом с помощью очереди постепенно посещаем ВСЕ смежные ноды в цикле и уменьшаем счетчик K
+
+  3) В конце в очереди у нас останутся только нам необходимые ноды на расстоянии K
+
+*/
+
 // Time O(N)
 // Space O(N)
 const distanceK = (root, target, k) => {
@@ -77,11 +88,3 @@ const distanceK = (root, target, k) => {
     dfs(node.right, node);
   }
 };
-
-const { makeTreeNodes } = require('../../algorithms/treeNode');
-
-let n = makeTreeNodes([3, 5, 1, 6, 2, 0, 8, null, null, 7, 4]);
-
-let b = distanceK(n, { val: 5 }, 2);
-
-console.log(b);
