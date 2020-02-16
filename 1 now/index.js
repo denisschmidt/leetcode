@@ -1,56 +1,45 @@
-/*
-  PostOrder обход возвращаем баланс монет. 
-  
-  Например, если мы получаем «+3» от левого потомка, это означает, что у левого поддерева есть 3 дополнительные монеты.
-  Если мы получим «-1» от правого ребенка, нам нужно переместить 1 монету. 
-  
-  Таким образом, мы увеличиваем количество ходов на 4 (3 хода влево + 1 ход вправо).
-  
-  Затем мы возвращаем окончательный баланс: left + right + node.val - 1 одну монету для себя
+const { makeTreeNodes } = require('../algorithms/treeNode');
+const { PriorityQueue } = require('../algorithms/priorityQueue');
 
-*/
-
-// Time O(N)
-// Space O(N)
-const distributeCoins = function(root) {
-  let cnt = 0;
-
-  dfs(root);
-
-  return cnt;
-
-  function dfs(node) {
-    if (node === null) {
-      return 0;
-    }
-
-    let left = dfs(node.left);
-    let right = dfs(node.right);
-
-    cnt += Math.abs(left) + Math.abs(right);
-
-    return left + right + node.val - 1;
-  }
+const comparator = (p1, p2) => {
+  if (p1.x < p2.x) return -1;
+  if (p2.x < p1.x) return 1;
+  if (p1.y > p2.y) return -1;
+  if (p1.y < p2.y) return 1;
+  return p1.val - p2.val;
 };
 
-/*
-  Мы можем изменить значения узлов дерева, мы можем сохранить баланс в узлах 
-  И использовать возвращаемое значение для накопления количества ходов. 
-  
-  Таким образом, мы можем избавиться от вспомогательного метода
+var verticalTraversal = function(root) {
+  let pq = new PriorityQueue({ comparator: comparator });
 
-*/
+  helper(root, 0, 0);
 
-// Time O(N)
-// Space O(N)
-const distributeCoins_II = function(root, parent = null) {
-  if (root === null) return 0;
+  let result = [];
+  let prev = null;
+  let nums = [];
 
-  let sum = distributeCoins_II(root.left, root) + distributeCoins_II(root.right, root);
-
-  if (parent) {
-    parent.val += root.val - 1;
+  while (!pq.isEmpty()) {
+    let p = pq.poll();
+    if (prev == null || p.x != prev.x) {
+      if (prev != null) result.push(nums);
+      nums = [];
+    }
+    nums.push(p.val);
+    prev = p;
   }
 
-  return sum + Math.abs(root.val - 1);
+  result.push(nums);
+
+  return result;
+
+  function helper(node, x, y) {
+    if (node === null) {
+      return;
+    }
+
+    pq.offer({ val: node.val, x, y });
+
+    helper(node.left, x - 1, y - 1);
+    helper(node.right, x + 1, y - 1);
+  }
 };
