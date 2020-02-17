@@ -47,3 +47,16 @@ const maxAncestorDiff = function(root) {
     return [min, max];
   }
 };
+
+// Time O(N)
+// Space O(N)
+const maxAncestorDiff_II = function(root, min = Number.MAX_VALUE, max = -Number.MAX_VALUE) {
+  if (root === null) {
+    return max - min;
+  }
+
+  max = Math.max(max, root.val);
+  min = Math.min(min, root.val);
+
+  return Math.max(helper(root.left, min, max), helper(root.right, min, max));
+};
