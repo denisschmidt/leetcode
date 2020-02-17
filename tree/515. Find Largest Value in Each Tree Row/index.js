@@ -13,27 +13,39 @@ Input:
 Output: [1, 3, 9]
 
  */
-const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 // Time O(N)
 // Space O(N)
-const largestValues = root => {
-  const queue = [root];
-  const depthQueue = [0];
-  const arr = [];
+const largestValues = function(root) {
+  if (root === null) return [];
+  let queue = [root];
+  let levels = [0];
+
+  let prevLevel = null;
+  let result = [];
+  let max = -Number.MAX_VALUE;
 
   while (queue.length) {
     let node = queue.shift();
-    let depth = depthQueue.shift();
+    let level = levels.shift();
 
     if (node !== null) {
-      arr[depth] = typeof arr[depth] === 'number' ? Math.max(arr[depth], node.val) : node.val;
+      if (level > prevLevel) {
+        result.push(max);
+        max = -Number.MAX_VALUE;
+      }
+
+      max = Math.max(max, node.val);
+      prevLevel = level;
+
       queue.push(node.left);
       queue.push(node.right);
-      depthQueue.push(depth + 1);
-      depthQueue.push(depth + 1);
+      levels.push(level + 1);
+      levels.push(level + 1);
     }
   }
 
-  return arr;
+  result.push(max);
+
+  return result;
 };
