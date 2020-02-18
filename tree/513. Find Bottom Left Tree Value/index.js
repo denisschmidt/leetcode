@@ -1,4 +1,5 @@
 /*
+
 Given a binary tree, find the leftmost value in the last row of the tree.
 
 Example 1:
@@ -23,68 +24,60 @@ Example 2:
 
 Note: You may assume the tree (i.e., the given root node) is not NULL.
 
- */
-
-const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- *
- * DFS
- *
- * @param {TreeNode} root
- * @return {number}
- */
+*/
 
 const findBottomLeftValue = function(root) {
-  let nodeStack = [],
-    depthStack = [],
-    rightmostValueAtDepth = new Map(),
-    maxDepth = -1;
+  let queue = [root];
+  let levels = [0];
+  let prevLevel = null;
+  let ans = root.val;
+
+  while (queue.length) {
+    let node = queue.shift();
+    let level = levels.shift();
+
+    if (node !== null) {
+      if (level > prevLevel) {
+        ans = node.val;
+      }
+
+      prevLevel = level;
+      queue.push(node.left);
+      queue.push(node.right);
+      levels.push(level + 1);
+      levels.push(level + 1);
+    }
+  }
+
+  return ans;
+};
+
+const findBottomLeftValue_II = function(root) {
+  let nodeStack = [];
+  let depthStack = [];
+  let rightmostValueAtDepth = new Map();
+  let maxDepth = -1;
+
   nodeStack.push(root);
   depthStack.push(0);
+
   while (nodeStack.length) {
     let node = nodeStack.pop();
     let depth = depthStack.pop();
 
     if (node !== null) {
       maxDepth = Math.max(maxDepth, depth);
+
       if (!rightmostValueAtDepth.has(depth)) {
         rightmostValueAtDepth.set(depth, node.val);
       }
+
       nodeStack.push(node.right);
       nodeStack.push(node.left);
       depthStack.push(depth + 1);
       depthStack.push(depth + 1);
     }
   }
+
   return rightmostValueAtDepth.get(maxDepth);
 };
-
-const res = findBottomLeftValue(makeTreeNodes([1, 2, 3, 4, 5, 6, null, null, null, 7, 8])); // 1
-
-console.log('---', res);
-
-const findBottomLeftValue2 = function(root) {
-  let node,
-    queue = [];
-  queue.push(root);
-  while (queue.length) {
-    node = queue.shift();
-    if (node.right !== null) {
-      queue.push(node.right);
-    }
-    if (node.left !== null) {
-      queue.push(node.left);
-    }
-  }
-  return node.val;
-};
-
-const res2 = findBottomLeftValue2(makeTreeNodes([1, 2, 3, 4, 5, 6, null, null, null, 7, 8]));
-console.log('---', res2);

@@ -1,39 +1,22 @@
 /**
- * @param {number} nodes
- * @param {number[]} parent
- * @param {number[]} value
- * @return {number}
+ * Definition for singly-linked list.
+ * function ListNode(val) {
+ *     this.val = val;
+ *     this.next = null;
+ * }
  */
-var deleteTreeNodes = function(nodes, parent, value) {
-  let graph = [];
+/**
+ * @param {ListNode} root
+ * @param {number} k
+ * @return {ListNode[]}
+ */
+var splitListToParts = function(root, k) {
+  let paths = [];
 
-  for (let i = 0; i < nodes; i++) {
-    graph[i] = [];
-  }
+  let size = getLen(root);
 
-  for (let i = 0; i < parent.length; i++) {
-    if (parent[i] === -1) continue;
-    graph[parent[i]].push(i);
-  }
-
-  return dfs(0)[1];
-
-  // Bottom - top рекурсия
-  // доходим до самого нижнего узла потом поднимаемся по стеку и считаем сумму уже с учетом всех дочерних нод
-  function dfs(index) {
-    let sum = value[index];
-    let cnt = 1;
-
-    for (let i = 0; i < graph[index].length; i++) {
-      let temp = dfs(graph[index][i]);
-      sum += temp[0];
-      cnt += temp[1];
-    }
-
-    if (sum == 0) {
-      cnt = 0;
-    }
-
-    return [sum, cnt];
+  function getLen(node, len = 0) {
+    if (node === null) return len;
+    getLen(node.next, len + 1);
   }
 };
