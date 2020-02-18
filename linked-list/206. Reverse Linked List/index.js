@@ -1,5 +1,4 @@
 /*
-206. Reverse Linked List
 
 Reverse a singly linked list.
 
@@ -38,8 +37,8 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 // after operate on 1:
 // null <- 1 <- 2 <- 3 <- 4 <- 5
 const reverseList = function(head) {
-  if (!head) return null;
-  if (head && !head.next) return head;
+  if (head === null) return null;
+  if (head.next === null) return head;
 
   let dummy = reverseList(head.next);
 

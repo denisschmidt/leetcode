@@ -1,22 +1,26 @@
-/**
- * Definition for singly-linked list.
- * function ListNode(val) {
- *     this.val = val;
- *     this.next = null;
- * }
- */
-/**
- * @param {ListNode} root
- * @param {number} k
- * @return {ListNode[]}
- */
-var splitListToParts = function(root, k) {
-  let paths = [];
+var isAdditiveNumber = function(nums) {
+  let ans = false;
+  helper();
 
-  let size = getLen(root);
+  return ans;
 
-  function getLen(node, len = 0) {
-    if (node === null) return len;
-    getLen(node.next, len + 1);
+  function helper(comb = [], index = 0) {
+    if (index === nums.length && comb.length > 2) {
+      ans = true;
+      return;
+    }
+    for (let i = index; i < nums.length; i++) {
+      let cur = nums.substring(index, i + 1);
+
+      if (i > 0 && cur[0] === '0' && cur.length > 1) continue;
+
+      if (comb.length >= 2 && Number(comb[comb.length - 1]) + Number(comb[comb.length - 2]) !== Number(cur)) {
+        continue;
+      }
+
+      comb.push(cur);
+      helper(comb, i + 1);
+      comb.pop();
+    }
   }
 };
