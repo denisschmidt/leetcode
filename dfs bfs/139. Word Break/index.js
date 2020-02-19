@@ -37,35 +37,38 @@ Example 3:
 
 /*
 
-Чтобы избежать вызова рекурсии для определенной строки, мы можем использовать метод мемоизации, который используется для хранения результата подзадач.
-Теперь, когда функция вызывается снова для пройденной подстоки мы сокращаем дерево рекурсии
+
+Рассмотрим наихудший случай, когда s = "aaaaaaa" и каждый префикс s присутствует в словаре слов, 
+тогда дерево рекурсии может вырасти до N ^N  ,
+
  */
+
 // Time O(N^2)
 // Space O(N)
 const wordBreak = function(s, wordDict) {
-  const visited = new Set();
-  return dfs(s);
+  let set = new Set(wordDict);
+  let memo = Array(s.length).fill(null);
 
-  function dfs(s) {
-    if (visited.has(s)) return false;
+  return dfs(0, memo);
 
-    for (let i = 0; i < wordDict.length; i++) {
-      const word = wordDict[i];
-      if (s.startsWith(word)) {
-        if (s.length === word.length) {
-          return true;
-        } else if (dfs(s.substring(word.length))) {
-          return true;
-        }
+  function dfs(start, memo) {
+    if (start === s.length) return true;
+
+    if (memo[start] !== null) {
+      return memo[start];
+    }
+
+    for (let end = start + 1; end <= s.length; end++) {
+      if (set.has(s.substring(start, end)) && dfs(end, memo)) {
+        memo[start] = true;
+        return true;
       }
     }
 
-    visited.add(s);
+    memo[start] = false;
     return false;
   }
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // O(n^2) and space complexity is O(n)
 const wordBreak2 = function(s, wordDict) {

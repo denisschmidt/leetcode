@@ -1,4 +1,5 @@
 /*
+
 Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
 determine if a person could attend all meetings.
 
@@ -14,25 +15,21 @@ Example 2:
 NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
 
  */
+
 // Time O(N)
 // Space O(1)
 const canAttendMeetings = function(intervals) {
-  const n = intervals.length;
+  intervals.sort((a, b) => a[0] - b[0]);
 
-  if (!n) return true;
-
-  intervals.sort((a, b) => {
-    return a[0] - b[0];
-  });
-
-  for (let i = 0; i < n - 1; i++) {
-    if (!overlap(intervals[i], intervals[i + 1])) continue;
-    else return false;
+  for (let i = 1; i < intervals.length; i++) {
+    if (overlaps(intervals[i - 1], intervals[i])) {
+      return false;
+    }
   }
 
   return true;
 };
 
-function overlap([x, y], [u, z]) {
-  return x < z && y > u;
+function overlaps([x, y], [u, z]) {
+  return z > x && y > u;
 }

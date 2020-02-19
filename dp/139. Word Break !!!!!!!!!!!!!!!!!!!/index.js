@@ -25,11 +25,9 @@ Example 3:
 
  */
 
-let s = 'leetcode';
-let wordDict = ['leet', 'code'];
-
 // DP
 // Time O(N^2)
+// Space O(N)
 const wordBreak = function(s, wordDict) {
   if (s === null || s.length === 0) return false;
 
