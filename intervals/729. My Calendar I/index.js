@@ -34,21 +34,28 @@ Note:
 // Space O(N)
 class MyCalendar {
   constructor() {
-    this.calendar = [];
+    this.intervals = [];
   }
 
-  hasOverlap([x, y], [u, z]) {
-    return z > x && y > u;
-  }
-
+  // binary search
+  // Time (LogN)
   book(start, end) {
-    for (let interval of this.calendar) {
-      if (this.hasOverlap(interval, [start, end])) {
+    let lo = 0;
+    let hi = this.intervals.length - 1;
+
+    while (lo <= hi) {
+      let mid = lo + Math.floor((hi - lo) / 2);
+
+      if (end <= this.intervals[mid][0]) {
+        hi = mid - 1;
+      } else if (start >= this.intervals[mid][1]) {
+        lo = mid + 1;
+      } else {
         return false;
       }
     }
 
-    this.calendar.push([start, end]);
+    this.intervals.splice(lo, 0, [start, end]);
     return true;
   }
 }

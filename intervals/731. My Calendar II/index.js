@@ -49,6 +49,8 @@ class MyCalendarTwo {
 
   book(start, end) {
     for (let interval of this.overlaps) {
+      // это условие выполняется т.к если overlaps не пустой то уже два пересечения у нас есть
+      // и это будет третье пересечение
       if (this.hasOverlap(interval, [start, end])) {
         return false;
       }
@@ -56,6 +58,7 @@ class MyCalendarTwo {
 
     for (let interval of this.calendar) {
       if (this.hasOverlap(interval, [start, end])) {
+        // merge intervals от самого большого значения до самого маленького
         this.overlaps.push([Math.max(start, interval[0]), Math.min(end, interval[1])]);
       }
     }
@@ -66,82 +69,48 @@ class MyCalendarTwo {
   }
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-class MyCalendarTwo2 {
-  constructor() {
-    this.nums = [];
-  }
-
-  book(s, e) {
-    this.nums.push([s, e]);
-
-    const starts = [];
-    const ends = [];
-
-    for (let i = 0; i < this.nums.length; i++) {
-      const [start, end] = this.nums[i];
-      starts[i] = start;
-      ends[i] = end;
-    }
-
-    starts.sort((a, b) => a - b);
-    ends.sort((a, b) => a - b);
-
-    let room = 0;
-    let endIndex = 0;
-    for (let start of starts) {
-      if (start < ends[endIndex]) {
-        room++;
-      } else {
-        endIndex++;
-      }
-
-      if (room > 2) {
-        this.nums.pop();
-        return false;
-      }
-    }
-    return true;
-  }
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 /*
+
 Нам нужна структура данных, которая сортирует элементы и поддерживает быструю вставку.
 В Java TreeMap является идеальным кандидатом.
 В JS мы можем построить нашу собственную структуру двоичного дерева.
- */
 
-// Time (Java): O(Nlog N), где N - количество забронированных событий. Вставка в TreeMap O(LogN)
+Time (Java): O(Nlog N), где N - количество забронированных событий. Вставка в TreeMap O(LogN)
 
-// Time (JS): O (N^2) наихудший случай с O (NlogN) на случайных данных.
-// Для каждого нового события мы вставляем событие в наше двоичное дерево.
-// Поскольку это дерево может быть не сбалансировано, для добавления каждого события может потребоваться линейное количество шагов.
+Time (JS): O (N^2) наихудший случай с O (NlogN) на случайных данных.
 
-// Space O(N)
-class MyCalendarTwo3 {
+Для каждого нового события мы вставляем событие в наше двоичное дерево.
+
+Поскольку это дерево может быть не сбалансировано, для добавления каждого события может потребоваться линейное количество шагов.
+
+Space O(N)
+
+*/
+
+class MyCalendarTwo_II {
   constructor() {
-    this.nums = [];
+    this.timeline = {};
+    this.cnt = 0;
   }
 
-  book(s, e) {
-    this.nums.push([s, e]);
-    const map = {};
+  book(start, end) {
+    this.timeline[start] = ~~this.timeline[start] + 1;
+    this.timeline[end] = ~~this.timeline[end] - 1;
+    this.cnt++;
 
-    for (let [start, end] of this.nums) {
-      map[start] = map[start] ? map[start] + 1 : 1;
-      map[end] = map[end] ? map[end] - 1 : -1;
-    }
+    if (this.cnt === 1) return true;
 
-    let room = 0;
-    let ans = 0;
-    for (let value of Object.values(map)) {
-      room = room + value;
-      ans = Math.max(ans, room);
-      if (ans > 2) {
-        this.nums.pop();
+    let cntRooms = 0;
+    let rooms = 0;
+    for (const value of Object.values(this.timeline)) {
+      rooms += value;
+      cntRooms = Math.max(cntRooms, rooms);
+
+      if (cntRooms >= 3) {
+        this.cnt--;
+        this.timeline[start] = ~~this.timeline[start] - 1;
+        this.timeline[end] = ~~this.timeline[end] + 1;
+
         return false;
       }
     }
