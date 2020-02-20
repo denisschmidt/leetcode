@@ -1,11 +1,14 @@
-## Leetcode Problems(JS)
+## Leetcode Problems
 
-## Repeat
+##  Regular Deliberate Strategic Practice. 
+#### Always try to solve questions beyond their comfort zone and do it regularly. 
+#### And that is it really. Always solve questions that you are not comfortable with, push yourself
 
 #### First time after memorization
 #### After the first hour
 #### After the day
 #### After the week
+
 
 Общие задачи 
   1) 386 
@@ -34,6 +37,7 @@
   24) 731 +-
   25) 57 + на лист
 
+
 Задачи на backtrack
   1) 17 +-
   2) 46 - генерация всех только уникальных комбинаций для случая когда у нас нет дубликатов 
@@ -44,6 +48,7 @@
   7) 22 +
   8) 464 сложная
   9) 306 +
+
 
 Задачи на dp
   1) 42 +-
@@ -111,10 +116,15 @@
   18) 515 +
   19) 513 +
 
+
 Задачи на dfs и bfs
   1) 486 +- 
   2) 139 -
   3) 1048 -
+
+
+ Задачи на math
+  1) 1232 + 
 
 
 4) 687
