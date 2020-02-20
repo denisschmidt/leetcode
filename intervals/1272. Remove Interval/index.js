@@ -24,7 +24,7 @@ Constraints:
 
 // Time O(N)
 // Space O(N)
-var removeInterval = function(intervals, toBeRemoved) {
+const removeInterval = function(intervals, toBeRemoved) {
   let result = [];
 
   for (let i = 0; i < intervals.length; i++) {
