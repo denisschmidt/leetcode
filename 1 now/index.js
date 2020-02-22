@@ -1,41 +1,45 @@
 /**
- * @param {number[][]} intervals
- * @param {number[]} toBeRemoved
- * @return {number[][]}
+ * // Definition for an Interval.
+ * function Interval(start, end) {
+ *    this.start = start;
+ *    this.end = end;
+ * };
  */
-function removeInterval(intervals, toBeRemoved) {
+/**
+ * @param {Interval[][]} schedule
+ * @return {Interval[]}
+ */
+
+const { PriorityQueue } = require('../algorithms/priorityQueue');
+
+function employeeFreeTime(schedule) {
+  let pq = new PriorityQueue({ comparator: (a, b) => a.start - b.start });
+
+  schedule.forEach(list => list.forEach(e => pq.offer(e)));
+
   let result = [];
-  for (let i = 0; i < intervals.length; i++) {
-    if (overlap(intervals[i], toBeRemoved)) {
-      let pair1 = [];
-      let pair2 = [];
+  let current = pq.poll();
 
-      if (intervals[i][0] > toBeRemoved[0]) {
-        pair1 = [toBeRemoved[0], intervals[i][0]];
-      } else {
-        pair1 = [intervals[i][0], toBeRemoved[0]];
-      }
-
-      if (intervals[i][1] > toBeRemoved[1]) {
-        pair2 = [toBeRemoved[1], intervals[i][1]];
-      } else {
-        pair2 = [intervals[i][1], toBeRemoved[1]];
-      }
-
-      if (!overlap(pair1, toBeRemoved)) {
-        result.push(pair1);
-      }
-
-      if (!overlap(pair2, toBeRemoved)) {
-        result.push(pair2);
-      }
+  while (!pq.isEmpty()) {
+    if (current.end < pq.peek().start) {
+      result.push(new Interval(current.end, pq.peek().start));
+      current = pq.poll();
     } else {
-      result.push(intervals[i]);
+      // пересекаются или сливаются
+      let min = Math.min(current.start, pq.peek().start);
+      let max = Math.max(current.end, pq.peek().end);
+
+      current.start = min;
+      current.end = max;
+
+      pq.poll();
     }
   }
+
   return result;
 }
 
-function overlap([x, y], [u, z]) {
-  return z > x && y > u;
+function Interval(start, end) {
+  this.start = start;
+  this.end = end;
 }
