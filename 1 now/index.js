@@ -1,45 +1,51 @@
+/*
+
+  [2, 6, 4, 8, 10, 9, 15]
+
+  [6, 4, 8, 10, 9]
+
+
+  [1, 3, 2, 2, 2]
+ [1,3,2,2,2]
+
+*/
+
 /**
- * // Definition for an Interval.
- * function Interval(start, end) {
- *    this.start = start;
- *    this.end = end;
- * };
+ * @param {number[]} nums
+ * @return {number}
  */
-/**
- * @param {Interval[][]} schedule
- * @return {Interval[]}
- */
+var findUnsortedSubarray = function(nums) {
+  let start = Number.MAX_VALUE;
+  let end = -Number.MAX_VALUE;
 
-const { PriorityQueue } = require('../algorithms/priorityQueue');
+  if (isValid(nums)) return 0;
 
-function employeeFreeTime(schedule) {
-  let pq = new PriorityQueue({ comparator: (a, b) => a.start - b.start });
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i - 1] > nums[i]) {
+      start = Math.min(start, i - 1);
+      end = Math.max(end, i);
 
-  schedule.forEach(list => list.forEach(e => pq.offer(e)));
+      swap(nums, i - 1, i);
 
-  let result = [];
-  let current = pq.poll();
-
-  while (!pq.isEmpty()) {
-    if (current.end < pq.peek().start) {
-      result.push(new Interval(current.end, pq.peek().start));
-      current = pq.poll();
-    } else {
-      // пересекаются или сливаются
-      let min = Math.min(current.start, pq.peek().start);
-      let max = Math.max(current.end, pq.peek().end);
-
-      current.start = min;
-      current.end = max;
-
-      pq.poll();
+      if (isValid(nums)) {
+        return end - start + 1;
+      }
     }
   }
 
-  return result;
+  return end - start + 1;
+};
+
+function swap(nums, i, j) {
+  return ([nums[i], nums[j]] = [nums[j], nums[i]]);
 }
 
-function Interval(start, end) {
-  this.start = start;
-  this.end = end;
+function isValid(nums) {
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i - 1] > nums[i]) return false;
+  }
+  return true;
 }
+
+let a = findUnsortedSubarray([1, 2, 3, 3, 3]);
+console.log(a);
