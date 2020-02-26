@@ -1,50 +1,27 @@
-/*
-  [2,-1,2] 3
-
-
-  1, 2, [3,4,5] 10  [3, 4, 5] -> 12  left = 3 
-
-  1, 3 [6,10,15,] 25
-
-*/
-
-// 862. Shortest Subarray with Sum at Least K
-
 /**
- * @param {number[]} A
- * @param {number} K
+ * @param {number[]} nums
+ * @param {number} k
  * @return {number}
  */
-var shortestSubarray = function(A, K) {
-  let prefix = [A[0]];
+//1248. Count Number of Nice Subarrays
 
-  for (let i = 1; i < A.length; i++) {
-    prefix[i] = prefix[i - 1] + A[i];
-  }
+var numberOfSubarrays = function(nums, k) {
+  let ans = 0;
+  for (let i = 0; i < nums.length; i++) {
+    let cnt = nums[i] % 2 !== 0 ? 1 : 0;
 
-  for (let i = 0; i < A.length; i++) {}
-};
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[j] % 2 !== 0) {
+        cnt++;
+      }
 
-/**
- * @param {number[]} A
- * @param {number} K
- * @return {number}
- */
-var shortestSubarray_II = function(A, K) {
-  let len = A[0] >= K ? 1 : Number.MAX_VALUE;
-
-  for (let i = 0; i < A.length; i++) {
-    let sum = A[i];
-    if (sum >= K) {
-      len = Math.min(len, 1);
-    }
-    for (let j = i + 1; j < A.length; j++) {
-      sum += A[j];
-      if (sum >= K) {
-        len = Math.min(len, j - i + 1);
+      if (cnt >= k) {
+        cnt++;
       }
     }
+
+    ans += cnt;
   }
 
-  return len === Number.MAX_VALUE ? -1 : len;
+  return ans;
 };
