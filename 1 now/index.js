@@ -7,20 +7,27 @@
 
 var numberOfSubarrays = function(nums, k) {
   let ans = 0;
-  for (let i = 0; i < nums.length; i++) {
-    let cnt = nums[i] % 2 !== 0 ? 1 : 0;
 
-    for (let j = i + 1; j < nums.length; j++) {
-      if (nums[j] % 2 !== 0) {
-        cnt++;
-      }
+  let start = 0;
+  let end = 0;
+  let cnt = 0;
 
-      if (cnt >= k) {
-        cnt++;
+  while (end < nums.length) {
+    if (nums[end] % 2 === 1) {
+      k--;
+      cnt = 0;
+    }
+
+    while (k == 0) {
+      if (nums[start] % 2 === 1) {
+        k++;
       }
+      start++;
+      cnt++;
     }
 
     ans += cnt;
+    end++;
   }
 
   return ans;
