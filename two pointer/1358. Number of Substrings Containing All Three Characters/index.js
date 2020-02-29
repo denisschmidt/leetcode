@@ -48,6 +48,28 @@ const numberOfSubstrings = s => {
   return ans;
 };
 
+// Time O(N)
+// Space O(1)
 const numberOfSubstrings_II = s => {
-  function atMostK(nums, k) {}
+  // находим кол-во подстрок больше 3 и кол-во подстрок больше 2
+  // разница даст нам точное значение если кол-во равно 3
+  return atMostK(s, 3) - atMostK(s, 2);
+
+  function atMostK(s, k) {
+    let ans = 0;
+    let j = 0;
+    let map = { a: 0, b: 0, c: 0 };
+
+    for (let i = 0; i < s.length; i++) {
+      k -= map[s[i]]++ === 0 ? 1 : 0;
+
+      while (k < 0) {
+        k += map[s[j++]]-- === 1 ? 1 : 0;
+      }
+
+      ans += i - j + 1;
+    }
+
+    return ans;
+  }
 };

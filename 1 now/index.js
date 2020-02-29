@@ -1,28 +1,36 @@
-const balancedString = s => {
-  let map = {};
-  let n = s.length;
-  let res = n;
-  let i = 0;
-  let k = n / 4;
+/**
+ * @param {number[]} nums
+ * @param {number} target
+ * @return {number[]}
+ */
 
-  for (let j = 0; j < n; ++j) {
-    map[s[j]] = ~~map[s[j]] + 1;
+// 34
+var searchRange = function(nums, target) {
+  let index = search(0, nums.length - 1);
+
+  if (index == -1) {
+    return [-1, -1];
   }
 
-  map['Q'] = map['Q'] || k;
-  map['W'] = map['W'] || k;
-  map['E'] = map['E'] || k;
-  map['R'] = map['R'] || k;
+  let lo = search(0, index);
+  let hi = search(index, nums.length - 1);
 
-  for (let j = 0; j < n; ++j) {
-    --map[s[j]];
+  return [lo, hi];
 
-    while (i < n && map['Q'] <= k && map['W'] <= k && map['E'] <= k && map['R'] <= k) {
-      res = Math.min(res, j - i + 1);
-      map[s[i]]++;
-      i++;
+  function search(lo, hi) {
+    while (lo < hi) {
+      let mid = lo + Math.floor((hi - lo) / 2);
+
+      if (nums[mid] === target) {
+        return mid;
+      }
+
+      if (nums[mid] > target) {
+        hi = mid - 1;
+      } else {
+        lo = mid + 1;
+      }
     }
+    return -1;
   }
-
-  return res;
 };

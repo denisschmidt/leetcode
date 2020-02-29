@@ -20,5 +20,6 @@ function binarySearch(nums, target) {
       right = mid - 1;
     }
   }
-  return -1;
+
+  return nums[left] === target ? left : -1;
 }

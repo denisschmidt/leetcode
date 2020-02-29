@@ -17,44 +17,6 @@ Output: [-1,-1]
 
 */
 
-// Time O(LogN)
-// Space O(1)
-const searchRange = function(nums, target) {
-  let left = 0,
-    right = nums.length - 1,
-    indexArr = [];
-
-  while (left < right) {
-    const mid = Math.floor((left + right) / 2);
-    if (nums[mid] >= target) {
-      right = mid;
-    } else {
-      left = mid + 1;
-    }
-  }
-
-  if (nums[right] !== target) {
-    return [-1, -1];
-  }
-
-  if (nums[right + 1] === target) {
-    indexArr.push(right, right + 1);
-    let i = right + 2;
-    while (i < nums.length && nums[i] === target) {
-      indexArr.push(i);
-      i++;
-    }
-  }
-
-  if (indexArr.length > 1) {
-    return [indexArr[0], indexArr[indexArr.length - 1]];
-  }
-
-  return [right, right];
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // Binary Search Recursion
 // Time O(LogN)
 // Space O(1)
