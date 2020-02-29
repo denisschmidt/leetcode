@@ -2,28 +2,58 @@
 
 Что такое монотонное увеличение стека?
 
-Грубо говоря, элементы в монотонном стеке увеличения сохраняют порядок возрастания.
+Грубо говоря, элементы в монотонном стеке (увеличения/убывания) сохраняют порядок (возрастания/уменьшения).
 
-Типичная парадигма монотонного увеличения стека:
+
+ВАЖНО ПОНИМАТЬ!!!
+  Если у нас условие на (увеличение/убыванияе) стека не выполняется.
+  Мы удаляем все элементы из стека, которые нарушают условие монотонности.
+
+Так мы можем получить все индексы или значения, которые нарушают последовательность стека.
+
 
 Что может сделать монотонное увеличение стека?
 
-1) PLE => Previous Less Element.
-   Найти предыдущий элемент меньше текущего элемента в массиве с временем O(n):
+  Пример:
+    [2, 4, 5, 6, 7, 8, 3]     
+    Стек -> [2, 4, 5, 6, 7, 8] мы дошли до 3
+    Удаляем все значения из стека которые нарушают последовательность
+    Стек -> [2, 3] следовательно самое первое нарушение стека находится на i = 1 где nums[i] = 4
 
-  Какой предыдущий элемент меньше текущего?
 
-  Например: [3, 7, 8, 4]
-    Предыдущий элемент меньше 7 равен 3.
-    Предыдущий элемент меньше 8 равен 7.
-    Предыдущий элемент меньше 4 равен 3.
-    Нет предыдущего элемента меньше для 3.
+  Пример: 
+    Получение PLE => Previous Less Element.
+    Найти предыдущий элемент меньше текущего элемента в массиве с временем O(n):
 
- */
+    Какой предыдущий элемент меньше текущего?
+
+    Например: [3, 7, 8, 4]
+      Предыдущий элемент меньше 7 равен 3.
+      Предыдущий элемент меньше 8 равен 7.
+      Предыдущий элемент меньше 4 равен 3.
+      Нет предыдущего элемента меньше для 3.
+
+*/
 
 let nums = [3, 7, 8, 4];
 
 function findPreviousLessElement() {
+  let stack = [];
+  let previousLess = [];
+
+  for (let i = 0; i < nums.length; i++) {
+    while (stack.length && nums[stack[stack.length - 1]] > nums[i]) {
+      stack.pop();
+    }
+
+    previousLess[i] = stack.length ? stack[stack.length - 1] : -1;
+    stack.push(i);
+  }
+
+  return previousLess;
+}
+
+function findPreviousLessElement_II() {
   let stack = [];
   let previousLess = [];
 
@@ -37,22 +67,6 @@ function findPreviousLessElement() {
 
     stack.push([nums[i], cnt]);
     previousLess[i] = i - cnt;
-  }
-
-  return previousLess;
-}
-
-function findPreviousLessElement_II() {
-  let stack = [];
-  let previousLess = [];
-
-  for (let i = 0; i < nums.length; i++) {
-    while (stack.length && nums[stack[stack.length - 1]] > nums[i]) {
-      stack.pop();
-    }
-
-    previousLess[i] = stack.length ? stack[stack.length - 1] : -1;
-    stack.push(i);
   }
 
   return previousLess;
@@ -93,8 +107,6 @@ function findNextLessElement() {
 
   return nextLess;
 }
-
-console.log(findNextLessElement([3, 7, 8, 4]));
 
 function findNextLessElement_II() {
   let stack = [];

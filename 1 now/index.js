@@ -1,36 +1,20 @@
 /**
  * @param {number[]} nums
- * @param {number} target
- * @return {number[]}
+ * @return {number}
  */
+var findUnsortedSubarray = function(nums) {
+  let max = 0;
+  let start = nums.length;
+  let end = -Number.MAX_VALUE;
 
-// 34
-var searchRange = function(nums, target) {
-  let index = search(0, nums.length - 1);
-
-  if (index == -1) {
-    return [-1, -1];
-  }
-
-  let lo = search(0, index);
-  let hi = search(index, nums.length - 1);
-
-  return [lo, hi];
-
-  function search(lo, hi) {
-    while (lo < hi) {
-      let mid = lo + Math.floor((hi - lo) / 2);
-
-      if (nums[mid] === target) {
-        return mid;
-      }
-
-      if (nums[mid] > target) {
-        hi = mid - 1;
-      } else {
-        lo = mid + 1;
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = i + 1; j < array.length; j++) {
+      if (nums[i] > nums[j]) {
+        start = Math.min(start, i);
+        end = Math.max(end, j);
       }
     }
-    return -1;
   }
+
+  return max;
 };

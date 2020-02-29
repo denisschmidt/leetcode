@@ -28,6 +28,12 @@ const largestRectangleArea = heights => {
       let index = stack.pop();
 
       let height = heights[index];
+
+      /* 
+        Важный момент:
+          1) либо width берем как интервал между значениями в стеке
+          2) либо если стек пустой то это и есть самое маленькое значение в стеке
+      */
       let width = stack.length ? i - 1 - stack[stack.length - 1] : i;
 
       result = Math.max(result, height * width);

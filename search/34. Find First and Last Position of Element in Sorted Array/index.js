@@ -17,44 +17,39 @@ Output: [-1,-1]
 
 */
 
-// Binary Search Recursion
 // Time O(LogN)
 // Space O(1)
-// Вся работа выполняется на месте, поэтому общее использование памяти постоянно.
-const searchRange2 = function(nums, target) {
-  let n = nums.length;
-  let left = 0;
-  let right = n - 1;
+const searchRange = (nums, target) => {
+  let first = search(nums, target);
 
-  const first = bs(nums, left, right, false);
-  const second = bs(nums, left, right, true);
-
-  return [first, second];
-
-  function bs(nums, l, r, hasStartIndex) {
-    if (l <= r) {
-      let mid = l + Math.floor((r - l) / 2);
-
-      if (nums[mid] === target) {
-        if (nums[mid - 1] !== target && !hasStartIndex) return mid;
-        else if (nums[mid + 1] !== target && hasStartIndex) return mid;
-        else if (nums[mid - 1] === target && !hasStartIndex) {
-          r = mid - 1;
-          return bs(nums, l, r, hasStartIndex);
-        } else if (nums[mid + 1] === target && hasStartIndex) {
-          l = mid + 1;
-          return bs(nums, l, r, hasStartIndex);
-        }
-      }
-
-      if (nums[mid] >= target) {
-        r = mid - 1;
-        return bs(nums, l, r, hasStartIndex);
-      } else {
-        l = mid + 1;
-        return bs(nums, l, r, hasStartIndex);
-      }
-    }
-    return -1;
+  if (first == -1) {
+    return [-1, -1];
   }
+
+  let last = search(nums, target + 1) - 1;
+
+  if (first <= last) {
+    return [first, last];
+  }
+
+  return [-1, -1];
 };
+
+function search(nums, target) {
+  let lo = 0;
+  let hi = nums.length;
+  let firstPos = nums.length;
+
+  while (lo <= hi) {
+    let mid = lo + Math.floor((hi - lo) / 2);
+
+    if (nums[mid] >= target) {
+      firstPos = mid;
+      hi = mid - 1;
+    } else {
+      lo = mid + 1;
+    }
+  }
+
+  return firstPos;
+}
