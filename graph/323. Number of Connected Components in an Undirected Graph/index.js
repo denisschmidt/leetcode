@@ -68,7 +68,7 @@ const countComponents = function(n, edges) {
 
 // Time O(V + E) - V кол-во нод(вершин), E - количество ребер
 // Space O(V + E)
-const countComponents = function(n, edges) {
+const countComponents_II = function(n, edges) {
   let graph = [];
 
   for (let i = 0; i < n; i++) {

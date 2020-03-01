@@ -1,47 +1,56 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
  */
-/**
- * @param {TreeNode} root
- * @return {boolean}
- */
-var isValidBST = function(root) {
-  if (root === null) return false;
 
-  return helper(root).isBST;
+var findMinHeightTrees = function(n, edges) {
+  if (edges.length === 0) return [0];
 
-  function helper(node) {
-    if (node === null) {
-      return new MinMax();
+  let graph = [];
+  let visited = [];
+  let colors = Array(n).fill(Number.MAX_VALUE);
+
+  for (let i = 0; i < n; i++) {
+    graph[i] = [];
+  }
+
+  edges.forEach(([u, v]) => {
+    graph[u].push(v);
+    graph[v].push(u);
+  });
+
+  let set = new Set();
+
+  for (let i = 0; i < n; i++) {
+    dfs(i, 0);
+  }
+
+  console.log();
+
+  return Array.from(set);
+
+  function dfs(index, color) {
+    if (visited[index]) return;
+
+    visited[index] = true;
+
+    colors[index] = Math.min(colors[index], color);
+
+    for (let i = 0; i < graph[index].length; i++) {
+      dfs(graph[index][i], color + 1);
     }
 
-    let left = helper(node.left);
-    let right = helper(node.right);
-
-    let m = new MinMax();
-
-    if (!left.isBST || !right.isBST || left.max >= node.val || node.val >= right.min) {
-      m.isBST = false;
-      return m;
-    }
-
-    m.isBST = true;
-
-    m.min = node.left !== null ? left.min : node.val;
-    m.max = node.right !== null ? right.max : node.val;
-
-    return m;
+    visited[index] = false;
   }
 };
 
-class MinMax {
-  constructor(min, max, isBST, size) {
-    this.min = min || Number.MAX_VALUE;
-    this.max = max || -Number.MAX_VALUE;
-    this.isBST = isBST || true;
-  }
-}
+let a = findMinHeightTrees(6, [
+  [0, 1],
+  [0, 2],
+  [0, 3],
+  [3, 4],
+  [4, 5],
+]);
+
+console.log(a);
