@@ -1,20 +1,47 @@
 /**
- * @param {number[]} nums
- * @return {number}
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
  */
-var findUnsortedSubarray = function(nums) {
-  let max = 0;
-  let start = nums.length;
-  let end = -Number.MAX_VALUE;
+/**
+ * @param {TreeNode} root
+ * @return {boolean}
+ */
+var isValidBST = function(root) {
+  if (root === null) return false;
 
-  for (let i = 0; i < nums.length; i++) {
-    for (let j = i + 1; j < array.length; j++) {
-      if (nums[i] > nums[j]) {
-        start = Math.min(start, i);
-        end = Math.max(end, j);
-      }
+  return helper(root).isBST;
+
+  function helper(node) {
+    if (node === null) {
+      return new MinMax();
     }
-  }
 
-  return max;
+    let left = helper(node.left);
+    let right = helper(node.right);
+
+    let m = new MinMax();
+
+    if (!left.isBST || !right.isBST || left.max >= node.val || node.val >= right.min) {
+      m.isBST = false;
+      return m;
+    }
+
+    m.isBST = true;
+
+    m.min = node.left !== null ? left.min : node.val;
+    m.max = node.right !== null ? right.max : node.val;
+
+    return m;
+  }
 };
+
+class MinMax {
+  constructor(min, max, isBST, size) {
+    this.min = min || Number.MAX_VALUE;
+    this.max = max || -Number.MAX_VALUE;
+    this.isBST = isBST || true;
+  }
+}
