@@ -1,56 +1,75 @@
 /**
- * @param {number} n
- * @param {number[][]} edges
+ * @param {string[][]} equations
+ * @param {number[]} values
+ * @param {string[][]} queries
  * @return {number[]}
  */
+const calcEquation = function(equations, values, queries) {
+  let graph = buildGraph(equations, values);
+  let ans = [];
 
-var findMinHeightTrees = function(n, edges) {
-  if (edges.length === 0) return [0];
+  for (let i = 0; i < queries.length; i++) {
+    let [from, to] = queries[i];
 
-  let graph = [];
-  let visited = [];
-  let colors = Array(n).fill(Number.MAX_VALUE);
+    let value = dfs(from, to, 1, new Set());
 
-  for (let i = 0; i < n; i++) {
-    graph[i] = [];
-  }
-
-  edges.forEach(([u, v]) => {
-    graph[u].push(v);
-    graph[v].push(u);
-  });
-
-  let set = new Set();
-
-  for (let i = 0; i < n; i++) {
-    dfs(i, 0);
-  }
-
-  console.log();
-
-  return Array.from(set);
-
-  function dfs(index, color) {
-    if (visited[index]) return;
-
-    visited[index] = true;
-
-    colors[index] = Math.min(colors[index], color);
-
-    for (let i = 0; i < graph[index].length; i++) {
-      dfs(graph[index][i], color + 1);
+    if (value !== null) {
+      graph.get(from).set(to, value);
+      graph.get(to).set(from, 1 / value);
     }
 
-    visited[index] = false;
+    ans.push(value === null ? -1 : value);
+  }
+
+  return ans;
+
+  function dfs(from, to, sum, visited) {
+    if (!graph.has(from)) {
+      return null;
+    }
+
+    if (from === to) {
+      return sum;
+    }
+
+    visited.add(from);
+
+    for (let [key, value] of graph.get(from)) {
+      let current = sum * value;
+
+      if (visited.has(key)) continue;
+
+      if (key === to) return current;
+
+      let v = dfs(key, to, current, visited);
+
+      if (v !== null) {
+        return v;
+      }
+    }
+
+    return null;
   }
 };
 
-let a = findMinHeightTrees(6, [
-  [0, 1],
-  [0, 2],
-  [0, 3],
-  [3, 4],
-  [4, 5],
-]);
+function buildGraph(equations, values) {
+  let graph = new Map();
 
-console.log(a);
+  for (let i = 0; i < equations.length; i++) {
+    let [from, to] = equations[i];
+    let value = values[i];
+
+    if (!graph.has(from)) {
+      graph.set(from, new Map());
+    }
+
+    if (!graph.has(to)) {
+      graph.set(to, new Map());
+    }
+
+    graph.get(from).set(to, value);
+    graph.get(to).set(from, 1 / value);
+  }
+
+  return graph;
+}
