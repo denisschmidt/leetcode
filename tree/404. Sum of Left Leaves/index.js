@@ -4,8 +4,8 @@ Find the sum of all left leaves in a given binary tree.
 
   Example:
 
-      3
-    / \
+       3
+     / \
     9  20
       /  \
     15   7

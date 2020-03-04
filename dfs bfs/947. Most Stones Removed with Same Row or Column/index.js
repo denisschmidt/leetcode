@@ -27,6 +27,52 @@ Note:
 
 */
 
+// https://leetcode.com/problems/most-stones-removed-with-same-row-or-column/discuss/197668/Count-the-Number-of-Islands-O(N)
+
+/*
+
+  Я использую union find для решения этой проблемы. 
+  Как я уже говорил, элементы - это не точки, а индексы. 
+  Для каждой точки объедините два индекса. 
+
+*/
+
+// UNION FIND
+// Time O(N)
+// Space O(N)
+const removeStones = stones => {
+  let parent = {};
+  let islands = 0;
+
+  for (let stone of stones) {
+    union(stone[0], ~stone[1]);
+  }
+
+  return stones.length - islands;
+
+  function find(x) {
+    if (!parent[x]) {
+      islands++;
+      parent[x] = x;
+    }
+
+    if (x !== parent[x]) {
+      parent[x] = find(parent[x]);
+    }
+    return parent[x];
+  }
+
+  function union(x, y) {
+    let xr = find(x);
+    let yr = find(y);
+
+    if (xr !== yr) {
+      parent[xr] = yr;
+      islands--;
+    }
+  }
+};
+
 /*
   Мы называем связный граф островом. 
   На одном острове должен быть хотя бы один камень. 
@@ -36,7 +82,7 @@ Note:
 
 // Time (N^2)
 // Space O(N)
-const removeStones = function(stones) {
+const removeStones_II = function(stones) {
   if (stones.length === 0) return 0;
 
   let visited = new Set();
