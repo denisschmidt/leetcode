@@ -37,53 +37,43 @@ Update (2017-09-26):
   We have overhauled the problem description + test cases and specified clearly the graph is an undirected graph.
   For the directed graph follow up please see Redundant Connection II). We apologize for any inconvenience caused.
 
-
-Disjoint set union (DSU) или Union-Find.
 */
 
-const findRedundantConnection = function(edges) {
-  const nums = [];
+// Disjoint set union (DSU) или Union-Find
+// Time O(N)
+// Space O(N)
+const findRedundantConnection = edges => {
+  let parent = {};
+  let ans = [];
 
-  for (let i = 0; i < 2000; i++) {
-    nums[i] = i;
-  }
-
-  for (let edge of edges) {
-    let x = find(edge[0]);
-    let y = find(edge[1]);
-
-    // если x и y относятся к одному подмножеству
-    // то возвращаем это ребро
-    if (x === y) {
-      return edge;
+  edges.forEach(([u, v]) => {
+    if (!union(u, v)) {
+      ans = [];
+      ans.push(u, v);
     }
+  });
 
-    // union
-    nums[y] = x;
-  }
+  return ans;
 
-  return [];
-
-  /**
-   *  Возвращает идентификатор множества, которому принадлежит элемент X
-   *  В качестве идентификатора выбирается один элемент из этого множества — представителя множества.
-   *  Гарантируется, что для одного и того же множества представитель будет возвращаться один и тот же
-   */
   function find(x) {
-    if (nums[x] !== x) {
-      // Path compression
-      nums[x] = find(nums[x]);
+    if (!parent[x]) {
+      parent[x] = x;
     }
+    if (x !== parent[x]) {
+      parent[x] = find(parent[x]);
+    }
+    return parent[x];
+  }
 
-    return nums[x];
+  function union(x, y) {
+    let xr = find(x);
+    let yr = find(y);
+
+    if (xr !== yr) {
+      parent[yr] = xr;
+      return true;
+    } else {
+      return false;
+    }
   }
 };
-
-const res = findRedundantConnection([
-  [1, 2],
-  [2, 3],
-  [1, 5],
-  [3, 4],
-  [1, 4],
-]);
-console.log(res);
