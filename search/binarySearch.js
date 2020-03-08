@@ -1,5 +1,6 @@
 // На каждом шаге мы делим N => N / 2  -> N / 4 -> ... -> 1 -> 0 что дает O(logN)
 
+// A iterative binary search
 // Time O(logN)
 // Space O(1)
 function binarySearch(nums, target) {
@@ -22,4 +23,28 @@ function binarySearch(nums, target) {
   }
 
   return nums[left] === target ? left : -1;
+}
+
+// A recursive binary search function
+function binarySearch_II(nums, target) {
+  let index = find(0, nums.length - 1);
+
+  return index;
+
+  function find(lo, hi) {
+    if (lo <= hi) {
+      let mid = lo + Math.floor((hi - lo) / 2);
+
+      if (nums[mid] === target) {
+        return mid;
+      }
+
+      if (nums[mid] > target) {
+        return find(lo, mid - 1);
+      } else {
+        return find(mid + 1, hi);
+      }
+    }
+    return -1;
+  }
 }

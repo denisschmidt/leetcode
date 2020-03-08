@@ -1,39 +1,31 @@
 /**
- * @param {number[]} pid
- * @param {number[]} ppid
- * @param {number} kill
- * @return {number[]}
+ * @param {number[]} nums
+ * @return {number}
  */
-var killProcess = function(pid, ppid, kill) {
-  // 3 -> [1, 5] 5 -> 10
-
-  let graph = new Map();
-
-  for (let i = 0; i < ppid.length; i++) {
-    if (!graph.has(ppid[i])) {
-      graph.set(ppid[i], []);
-    }
-
-    graph.get(ppid[i]).push(pid[i]);
+var findMin = function(nums) {
+  if (nums[0] < nums[nums.length - 1]) {
+    return nums[0];
   }
 
-  let queue = [kill];
-  let res = [];
+  let INF = Number.MAX_VALUE;
+  let ans = INF;
+  let index = find(0, nums.length - 1);
 
-  while (queue.length) {
-    let u = queue.shift();
-    res.push(u);
+  return index;
 
-    if (graph.has(u)) {
-      let size = graph.get(k).length;
-      for (let i = 0; i < size; i++) {
-        let v = graph.get(k).pop();
-        queue.push(v);
+  function find(lo, hi) {
+    if (lo <= hi) {
+      let mid = lo + Math.floor((hi - lo) / 2);
+
+      if (nums[mid] <= nums[nums.length - 1]) {
+        ans = Math.min(ans, nums[mid]);
+        return find(lo, mid - 1);
+      } else {
+        return find(mid + 1, hi);
       }
     }
+    return -1;
   }
-
-  return res;
 };
 
-killProcess([1, 3, 10, 5], [3, 0, 5, 3], 5);
+findMin([3, 3, 3, 3, 3, 1, 3, 3]);
