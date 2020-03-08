@@ -1,8 +1,12 @@
+class TreeNode(var `val`: Int) {
+  var left: TreeNode? = null
+  var right: TreeNode? = null
+}
+
 class Solution {
   var maxSum = Int.MAX_VALUE;
 
-  func maxPathSum(root: TreeNode):Int
-  {
+  fun maxPathSum(root: TreeNode?): Int {
     if (root == null) {
       return 0;
     }
@@ -12,8 +16,7 @@ class Solution {
     return maxSum;
   }
 
-  func maxPathSumSearch(root: TreeNode): Int
-  {
+  fun maxPathSumSearch(root: TreeNode?): Int {
     if (root == null) {
       return 0;
     }
@@ -34,12 +37,5 @@ class Solution {
     maxSum = Math.max(maxSum, x + y + root.`val`);
 
     return Math.max(x, y) + root.`val`;
-
   }
-
-}
-
-class TreeNode(var `val`: Int) {
-  var left: TreeNode? = null
-  var right: TreeNode? = null
 }
