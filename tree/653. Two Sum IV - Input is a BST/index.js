@@ -49,3 +49,38 @@ function findTarget(root, k) {
     return helper(node.left) || helper(node.right);
   }
 }
+
+// Time O(N)
+// Space O(N)
+function findTarget_II(root, k) {
+  let list = [];
+
+  inOrder(root);
+
+  let lo = 0;
+  let hi = list.length - 1;
+
+  while (lo < hi) {
+    let sum = list[lo] + list[hi];
+
+    if (sum === k) {
+      return true;
+    }
+
+    if (sum < k) {
+      lo++;
+    } else {
+      hi--;
+    }
+  }
+
+  return false;
+
+  function inOrder(root) {
+    if (root === null) return;
+
+    inOrder(root.left);
+    list.push(root.val);
+    inOrder(root.right);
+  }
+}
