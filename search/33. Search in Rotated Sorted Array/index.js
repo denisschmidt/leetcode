@@ -21,6 +21,58 @@ Example 2:
  */
 //
 
+// Time O(LogN)
+// Space O(1)
+const search = (nums, target) => {
+  let lo = 0;
+  let hi = nums.length - 1;
+
+  while (lo <= hi) {
+    let mid = lo + Math.floor((hi - lo) / 2);
+
+    if (nums[mid] === target) return mid;
+
+    if (nums[mid] >= nums[lo]) {
+      if (target >= nums[lo] && target < nums[mid]) {
+        hi = mid - 1;
+      } else {
+        lo = mid + 1;
+      }
+    } else {
+      if (target >= nums[mid] && target <= nums[hi]) {
+        lo = mid + 1;
+      } else {
+        hi = mid - 1;
+      }
+    }
+  }
+
+  return -1;
+};
+
+// Time O(LogN)
+// Space O(1)
+const search_II = function(nums, target) {
+  const n = nums.length;
+
+  if (n === 0) return -1;
+  if (n === 1) return nums[0] === target ? 0 : -1;
+
+  // получаем самый маленький элемент
+  let rotateIndex = findRotateIndex(nums, 0, n - 1);
+
+  if (nums[rotateIndex] === target) return rotateIndex;
+
+  // елси массив не развернут
+  if (rotateIndex === 0) return binarySearch(nums, 0, n - 1, target);
+
+  // если поиск по правой стороне
+  if (target < nums[0]) return binarySearch(nums, rotateIndex, n - 1, target);
+
+  // поиск по левой стороне
+  return binarySearch(nums, 0, rotateIndex, target);
+};
+
 const findRotateIndex = (nums, left, right) => {
   if (nums[left] < nums[right]) return 0;
 
@@ -52,27 +104,3 @@ const binarySearch = (nums, left, right, target) => {
   }
   return nums[right] === target ? right : -1;
 };
-
-const search = function(nums, target) {
-  const n = nums.length;
-
-  if (n === 0) return -1;
-  if (n === 1) return nums[0] === target ? 0 : -1;
-
-  // получаем самый маленький элемент
-  let rotateIndex = findRotateIndex(nums, 0, n - 1);
-
-  if (nums[rotateIndex] === target) return rotateIndex;
-
-  // елси массив не развернут
-  if (rotateIndex === 0) return binarySearch(nums, 0, n - 1, target);
-
-  // если поиск по правой стороне
-  if (target < nums[0]) return binarySearch(nums, rotateIndex, n - 1, target);
-
-  // поиск по левой стороне
-  return binarySearch(nums, 0, rotateIndex, target);
-};
-
-const res = search([4, 5, 6, 7, 0, 1, 2], 1);
-console.log('--', res);

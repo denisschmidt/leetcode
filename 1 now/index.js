@@ -1,31 +1,55 @@
 /**
  * @param {number[]} nums
- * @return {number}
+ * @param {number} k
+ * @param {number} x
+ * @return {number[]}
  */
-var findMin = function(nums) {
-  if (nums[0] < nums[nums.length - 1]) {
-    return nums[0];
+var findClosestElements = function(nums, k, x) {
+  let index = search(nums, x);
+  let res = [nums[index]];
+
+  if (index == -1) return [];
+
+  let left = index - 1;
+  let right = index + 1;
+
+  while (k > 0 && left >= 0 && right < nums.length) {
+    if (nums[index] - nums[left] <= nums[right] - nums[index]) {
+      res.shift(nums[left]);
+      left++;
+    } else {
+      res.push(nums[right]);
+      right++;
+    }
+    k--;
   }
 
-  let INF = Number.MAX_VALUE;
-  let ans = INF;
-  let index = find(0, nums.length - 1);
+  while (k > 0 && left >= 0) {
+    res.shift(nums[left]);
+    left--;
+  }
 
-  return index;
+  while (k > 0 && right < nums.length) {
+    res.push(nums[right]);
+    right++;
+  }
 
-  function find(lo, hi) {
-    if (lo <= hi) {
+  function search(nums, target) {
+    let lo = 0;
+    let hi = nums.length - 1;
+
+    while (lo <= hi) {
       let mid = lo + Math.floor((hi - lo) / 2);
 
-      if (nums[mid] <= nums[nums.length - 1]) {
-        ans = Math.min(ans, nums[mid]);
-        return find(lo, mid - 1);
+      if (nums[mid] == target) return mid;
+
+      if (nums[mid] < target) {
+        lo = mid + 1;
       } else {
-        return find(mid + 1, hi);
+        hi = mid - 1;
       }
     }
+
     return -1;
   }
 };
-
-findMin([3, 3, 3, 3, 3, 1, 3, 3]);

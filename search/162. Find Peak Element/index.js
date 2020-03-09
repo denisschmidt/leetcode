@@ -26,7 +26,7 @@ Your solution should be in logarithmic complexity.
 
 // Time O(LogN)
 // Space O(1)
-var findPeakElement = function(nums) {
+const findPeakElement = nums => {
   let n = nums.length;
   if (n === 1) return 0;
 
@@ -36,7 +36,11 @@ var findPeakElement = function(nums) {
   while (l < r) {
     let mid = l + Math.floor((r - l) / 2);
 
+    // Если находим элемент который nums[mid] > nums[mid + 1]
+    // Частично решение уже найдено
+    // Пытаемся найти более лучший вариант в левой части массива двигаясь к right стороне если новых пиков нету
     if (nums[mid] > nums[mid + 1]) {
+      // Правая сторона стоит на месте, так как нам нужен дотуп к правой части
       r = mid;
     } else {
       l = mid + 1;
@@ -44,4 +48,37 @@ var findPeakElement = function(nums) {
   }
 
   return l;
+};
+
+// Time O(LogN)
+// Space O(1)
+const findPeakElement_II = nums => {
+  let lo = 0;
+  let hi = nums.length - 1;
+
+  while (lo <= hi) {
+    let mid = lo + Math.floor((hi - lo) / 2);
+
+    // Условия на выход из цикла
+    if (nums[mid] > nums[mid + 1] && nums[mid] > nums[mid - 1]) {
+      return mid;
+    }
+
+    if (nums[mid] > nums[mid + 1] && mid === 0) {
+      return mid;
+    }
+
+    if (nums[mid] > nums[mid - 1] && mid === nums.length - 1) {
+      return mid;
+    }
+
+    // Если nums[mid + 1] > nums[mid] - это уже хорошо и нужно идти в правую сторону и искать дальше
+    if (nums[mid] < nums[mid + 1]) {
+      lo = mid + 1;
+    } else {
+      hi = mid - 1;
+    }
+  }
+
+  return nums.length - 1;
 };

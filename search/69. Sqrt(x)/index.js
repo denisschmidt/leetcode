@@ -39,7 +39,7 @@ const mySqrt = function(target) {
   let ans = -1;
 
   while (left <= right) {
-    let mid = left + (right - left) / 2; // left + (right - left) / 2 уходим от целочисленного переполнения
+    let mid = parseInt(left + (right - left) / 2);
 
     // Ключевым моментом этой проблемы является то, что мы хотим найти наибольшее число, которое num * num <= x,
     // поэтому мы должны использовать двоичный поиск, чтобы найти верхнюю границу в пределах диапазона (1, x).
@@ -53,5 +53,3 @@ const mySqrt = function(target) {
 
   return ans;
 };
-
-mySqrt(2);

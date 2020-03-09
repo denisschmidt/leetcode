@@ -22,23 +22,26 @@ Example:
 
  */
 
+// Second type Binary Search
 // Time O(LogN)
 // Space O(1)
 const solution = isBadVersion => {
   return n => {
-    let l = 0;
-    let r = n;
+    let lo = 1;
+    let hi = n;
+    let ans = n;
 
-    while (l <= r) {
-      let mid = l + Math.floor((r - l) / 2);
+    while (lo < hi) {
+      let mid = lo + Math.floor((hi - lo) / 2);
 
       if (!isBadVersion(mid)) {
-        l = mid + 1;
+        lo = mid + 1;
       } else {
-        r = mid - 1;
+        ans = mid;
+        hi = mid;
       }
     }
 
-    return l;
+    return ans;
   };
 };
