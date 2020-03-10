@@ -1,55 +1,48 @@
+const { PriorityQueue } = require('../algorithms/priorityQueue');
+
 /**
- * @param {number[]} nums
- * @param {number} k
- * @param {number} x
- * @return {number[]}
+ * @param {number[][]} grid
+ * @return {number}
  */
-var findClosestElements = function(nums, k, x) {
-  let index = search(nums, x);
-  let res = [nums[index]];
+var swimInWater = function(grid) {
+  let n = grid.length;
+  let m = grid[0].length;
+  let ans = grid[0][0];
 
-  if (index == -1) return [];
+  let dirs = [
+    [0, 1],
+    [0, -1],
+    [1, 0],
+    [-1, 0],
+  ];
+  let visited = Array(n)
+    .fill(null)
+    .map(() => Array(m).fill(false));
 
-  let left = index - 1;
-  let right = index + 1;
+  visited[i][j] = true;
 
-  while (k > 0 && left >= 0 && right < nums.length) {
-    if (nums[index] - nums[left] <= nums[right] - nums[index]) {
-      res.shift(nums[left]);
-      left++;
-    } else {
-      res.push(nums[right]);
-      right++;
-    }
-    k--;
-  }
+  let pq = new PriorityQueue({ comparator: (a, b) => a[0] - b[0] });
 
-  while (k > 0 && left >= 0) {
-    res.shift(nums[left]);
-    left--;
-  }
+  pq.offer([grid[0][0], i, j]);
 
-  while (k > 0 && right < nums.length) {
-    res.push(nums[right]);
-    right++;
-  }
+  while (!pq.isEmpty()) {
+    let [point, i, j] = pq.poll();
 
-  function search(nums, target) {
-    let lo = 0;
-    let hi = nums.length - 1;
+    for (let dir of dirs) {
+      let x = i + dir[0];
+      let y = j + dir[1];
 
-    while (lo <= hi) {
-      let mid = lo + Math.floor((hi - lo) / 2);
+      if (x < 0 || y < 0 || x >= n || y >= m || visited[x][y]) continue;
 
-      if (nums[mid] == target) return mid;
-
-      if (nums[mid] < target) {
-        lo = mid + 1;
-      } else {
-        hi = mid - 1;
+      if (point < grid[x][y]) {
+        ans += grid[x][y] - point;
       }
-    }
 
-    return -1;
+      visited[x][y];
+
+      pq.offer([grid[x][y], x, y]);
+    }
   }
+
+  return ans;
 };
