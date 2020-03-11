@@ -1,48 +1,40 @@
-const { PriorityQueue } = require('../algorithms/priorityQueue');
-
 /**
- * @param {number[][]} grid
+ * @param {number} N
+ * @param {number[][]} trust
  * @return {number}
  */
-var swimInWater = function(grid) {
-  let n = grid.length;
-  let m = grid[0].length;
-  let ans = grid[0][0];
+var findJudge = function(N, trust) {
+  let p1 = [];
+  let p2 = [];
+  for (let i = 0; i < N; i++) {
+    p1[i] = [];
+    p2[i] = [];
+  }
 
-  let dirs = [
-    [0, 1],
-    [0, -1],
-    [1, 0],
-    [-1, 0],
-  ];
-  let visited = Array(n)
-    .fill(null)
-    .map(() => Array(m).fill(false));
+  for (let i = 0; i < trust.length; i++) {
+    let [u, v] = trust[i];
 
-  visited[i][j] = true;
+    p1[u - 1].push(v - 1);
+    p2[v - 1].push(u - 1);
+  }
 
-  let pq = new PriorityQueue({ comparator: (a, b) => a[0] - b[0] });
-
-  pq.offer([grid[0][0], i, j]);
-
-  while (!pq.isEmpty()) {
-    let [point, i, j] = pq.poll();
-
-    for (let dir of dirs) {
-      let x = i + dir[0];
-      let y = j + dir[1];
-
-      if (x < 0 || y < 0 || x >= n || y >= m || visited[x][y]) continue;
-
-      if (point < grid[x][y]) {
-        ans += grid[x][y] - point;
-      }
-
-      visited[x][y];
-
-      pq.offer([grid[x][y], x, y]);
+  console.log(p1, '===', p2);
+  let ans = -1;
+  for (let i = 0; i < N; i++) {
+    if (p1[i].length === 0 && p2[i].length === N - 1) {
+      ans = i + 1;
     }
   }
 
   return ans;
 };
+
+let a = findJudge(4, [
+  [1, 3],
+  [1, 4],
+  [2, 3],
+  [2, 4],
+  [4, 3],
+]);
+
+console.log(a);
