@@ -15,41 +15,26 @@ Note:
  */
 
 // DP Solution
+// Time: O(n^2)
+// Space: O(n)
 
-// **Complexity Analysis**
-// Time complexity : O(n^2) two loops of n are there.
+const lengthOfLIS = nums => {
+  if (nums.length === 0) return 0;
+  if (nums.length == 1) return 1;
+  let dp = Array(nums.length).fill(1);
+  let max = 1;
 
-// Space complexity : O(n). dp array of size nn is used.
-
-/**
- * @param {number[]} nums
- * @return {number}
- */
-const lengthOfLIS = function(nums) {
-  if (!nums.length) {
-    return 0;
-  }
-  let dp = [],
-    maxAns = 1,
-    ans;
-  dp[0] = 1;
   for (let i = 0; i < nums.length; i++) {
-    ans = 0;
-    for (let j = 0; j < i; j++) {
-      if (nums[i] > nums[j]) {
-        ans = Math.max(ans, dp[j]);
+    for (let j = i + 1; j < nums.length; j++) {
+      if (nums[i] < nums[j]) {
+        dp[j] = Math.max(dp[j], dp[i] + 1);
+        max = Math.max(max, dp[j]);
       }
     }
-    dp[i] = ans + 1;
-    maxAns = Math.max(maxAns, dp[i]);
   }
-  return maxAns;
+
+  return max;
 };
-
-const res = lengthOfLIS([1, 3, 6, 7, 9, 4, 10, 5, 6]);
-console.log('---', res);
-
-// =====================================================================================================================
 
 // Input: [10,9,2,5,3,7,101,18]
 //   Output: 4
