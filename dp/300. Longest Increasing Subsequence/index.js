@@ -15,9 +15,8 @@ Note:
  */
 
 // DP Solution
-// Time: O(n^2)
-// Space: O(n)
-
+// Time: O(N^2)
+// Space: O(N)
 const lengthOfLIS = nums => {
   if (nums.length === 0) return 0;
   if (nums.length == 1) return 1;
