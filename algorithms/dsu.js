@@ -42,6 +42,7 @@ class DSU {
     let xr = this.find(x);
     let yr = this.find(y);
 
+    // Если элемент является родителем, он может указывать на себя
     if (xr === yr) {
       return false;
     } else if (this.rank[xr] < this.rank[yr]) {
