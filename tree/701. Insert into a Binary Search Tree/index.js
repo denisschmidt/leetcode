@@ -1,4 +1,5 @@
 /*
+
 Given the root node of a binary search tree (BST) and a value to be inserted into the tree,
 insert the value into the BST.
 Return the root node of the BST after the insertion.
@@ -26,15 +27,23 @@ You can return this binary search tree:
    / \    /
   1   3  5
 
- */
+*/
 
-const { TreeNode } = require('../../algorithms/treeNode');
+/*
 
+  Алгоритм:
+
+  Реализация рекурсии очень проста:     
+    1) Если node равен null - вернуть new TreeNode(val). 
+    2) Если val > root.val - перейти к вставке в нужное поддерево. 
+    3) Если val < root.val - перейти к вставке в левое поддерево. 
+
+*/
+
+// Time O(H) average case Time O(LogN) worst case O(N)
+// Space O(H) average case Time O(LogN) worst case O(N)
 const insertIntoBST = function(root, val) {
-  if (root == null) {
-    let node = new TreeNode(val);
-    return node;
-  }
+  if (root == null) return new TreeNode(val);
 
   if (val > root.val) {
     root.right = insertIntoBST(root.right, val);
