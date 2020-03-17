@@ -38,62 +38,21 @@ In average case, depth will be O(logn).
 
 */
 
-'use strict';
+// Time O(H) H - высота дерева. Среднее время O(LogN). O(N) - в худшем случае.
+// Space O(H) - O(LogN) - O(N)
+const searchBST = (root, val) => {
+  if (root === null || root.val === val) return root;
 
-const { TreeNode } = require('../../algorithms/treeNode');
-
-/**
- * Definition for a binary tree node.
- * function TreeNode(val) {
- *     this.val = val;
- *     this.left = this.right = null;
- * }
- */
-/**
- * @param {TreeNode} root
- * @param {number} val
- * @return {TreeNode}
- */
-const searchBST = function(root, val) {
-  const tree = new TreeNode();
-
-  const search = node => {
-    if (!node) {
-      return null;
-    }
-
-    if (node.val === val) {
-      tree.val = node.val;
-      tree.left = node.left;
-      tree.right = node.right;
-    }
-
-    search(node.left);
-    search(node.right);
-    return tree;
-  };
-
-  const node = search(root);
-
-  if (!node.val) {
-    return [];
+  if (root.val > val) {
+    return searchBST(root.left, val);
+  } else if (root.val < val) {
+    return searchBST(root.right, val);
   }
-
-  return node;
 };
 
-const t1 = {
-  val: 4,
-  right: {
-    val: 7,
-    right: null,
-    left: null,
-  },
-  left: {
-    val: 2,
-    right: { val: 3, right: null, left: null },
-    left: { val: 1, right: null, left: null },
-  },
+const searchBST_II = (root, val) => {
+  while (root !== null || root.val !== val) {
+    root = root.val > val ? root.left : root.right;
+  }
+  return root;
 };
-
-console.log(searchBST(t1, 2));

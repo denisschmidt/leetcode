@@ -14,62 +14,48 @@ Example 2:
  */
 
 /*
- Рассмотрим случай "ababa".
- Если мы уже знали, что «bab» - это палиндром, то очевидно, что «ababa» должна быть палиндромом,
- поскольку две левые и правые буквы одинаковы.
+  
+  Типичная проблема dp, есть описание в файле dpProblems.js
+
+  Подходит под случай когда у нас есть 1 строка
+
+  Идем от длины строки от [len = 1 до len = s.length] начинаем поиск при длине len = 1
+
+
+  Рассмотрим случай "ababa".
+  Если мы уже знали, что «bab» - это палиндром, то очевидно, что «ababa» должна быть палиндромом,
+  Поскольку две левые и правые буквы одинаковы.
+
  */
 
 // Time O(N^2)
 // Space O(N^2)
 const longestPalindrome = s => {
-  let maxLen = 0;
-  let startIndex = 0;
-  let dp = Array(s.length)
-    .fill(null)
-    .map(() => Array(s.length).fill(false));
+  if (s.length == 0) return '';
 
-  for (let i = s.length - 1; i >= 0; i--) {
-    for (let j = i; j < s.length; j++) {
-      if (s[i] === s[j]) {
-        dp[i][j] = j - i < 3 || dp[i + 1][j - 1];
+  let n = s.length;
+  let dp = new Array(n).fill(null).map(() => Array(n).fill(false));
+  let startIndex = 0;
+  let maxLen = 1;
+
+  for (let i = 0; i < n; i++) {
+    dp[i][i] = true;
+  }
+
+  for (let len = 1; len < n; len++) {
+    for (let i = 0; i < n - len; i++) {
+      let j = len + i;
+
+      if (s[i] == s[j]) {
+        dp[i][j] = j - i == 1 ? true : dp[i + 1][j - 1];
       }
 
       if (dp[i][j] && j - i + 1 > maxLen) {
-        maxLen = Math.max(maxLen, j - i + 1);
+        maxLen = j - i + 1;
         startIndex = i;
       }
     }
   }
 
   return s.substring(startIndex, startIndex + maxLen);
-};
-
-// Time O(N^2)
-// Space O(N^2)
-const longestPalindrome_II = s => {
-  let n = s.length;
-  let maxLen = 0;
-  let ans = '';
-  let dp = Array(n)
-    .fill(null)
-    .map(() => Array(n).fill(0));
-
-  for (let i = n - 1; i >= 0; i--) {
-    for (let j = i; j < n; j++) {
-      if (i === j) {
-        dp[i][j] = 1;
-      } else if (s[i] === s[j] && dp[i + 1][j - 1] === j - i - 1) {
-        dp[i][j] = dp[i + 1][j - 1] + 2;
-      } else {
-        dp[i][j] = 0;
-      }
-
-      if (dp[i][j] > maxLen) {
-        maxLen = dp[i][j];
-        ans = s.substring(i, j + 1);
-      }
-    }
-  }
-
-  return ans;
 };

@@ -81,9 +81,7 @@ Example:
 // Time O(LogH)
 // Space O(H) стек рекурсии, где H - высота дерева. H = log N для сбалансированного дерева.
 const deleteNode = (root, key) => {
-  if (root == null) {
-    return null;
-  }
+  if (root == null) return null;
 
   if (key < root.val) {
     root.left = deleteNode(root.left, key);
@@ -95,7 +93,9 @@ const deleteNode = (root, key) => {
     } else if (root.right === null) {
       return root.left;
     } else {
+      // находим successor для текущей ноды и устанавливаем его как root.val
       root.val = getSuccessor(root);
+      // теперь нам нужно удалить этот successor из дерева, делаем рекурсивный вызов с этим root.val
       root.right = deleteNode(root.right, root.val);
     }
   }
