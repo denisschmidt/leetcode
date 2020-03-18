@@ -1,20 +1,19 @@
 /*
+
 Given an array of strings, group anagrams together.
 
 Example:
+  Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
+  Output:
+  [
+    ["ate","eat","tea"],
+    ["nat","tan"],
+    ["bat"]
+  ]
 
-Input: ["eat", "tea", "tan", "ate", "nat", "bat"],
-Output:
-[
-  ["ate","eat","tea"],
-  ["nat","tan"],
-  ["bat"]
-]
 Note:
-
-All inputs will be in lowercase.
-The order of your output does not matter.
-
+  All inputs will be in lowercase.
+  The order of your output does not matter.
 
  */
 
@@ -23,44 +22,61 @@ The order of your output does not matter.
 // Затем мы сортируем каждую строку за  O(KlogK).
 // Space O(NK)
 const groupAnagrams = strs => {
-  if (strs.length === 0) return [];
-  const map = {};
+  let map = new Map();
 
   for (let str of strs) {
-    const key = [...str].sort().join('');
+    let key = [...str].sort().join('');
 
-    if (!map[key]) {
-      map.set(key, []);
-    }
+    if (!map.has(key)) map.set(key, []);
 
-    map[key].push(str);
+    map.get(key).push(str);
   }
 
-  return Object.values(map);
+  return Array.from(map.values());
 };
 
-// Time Limit
-// Time O(N^2)
+// Time O(N^3)
 // Space O(N)
-const groupAnagrams2 = nums => {
-  const n = nums.length;
-  const visited = new Set();
-  const paths = [];
+const groupAnagrams_II = strs => {
+  let visited = Array(strs.length).fill(false);
+  let ans = [];
+  let map = new Map();
 
-  for (let i = 0; i < n; i++) {
-    if (visited.has(i)) continue;
-    let path = [];
-    path.push(nums[i]);
-    visited.add(i);
-    for (let j = i + 1; j < n; j++) {
-      if (visited.has(j)) continue;
-      if (isValid(path[0], nums[j])) {
-        path.push(nums[j]);
-        visited.add(j);
+  for (let i = 0; i < strs.length; i++) buildMap(i);
+
+  for (let i = 0; i < strs.length; i++) {
+    if (visited[i]) continue;
+    let comb = [strs[i]];
+
+    for (let j = 0; j < strs.length; j++) {
+      if (i == j || visited[j] || strs[i].length !== strs[j].length) continue;
+
+      if (isAnnagram(i, j)) {
+        comb.push(strs[j]);
+        visited[j] = true;
       }
     }
-    paths.push([...path]);
+    ans.push(comb);
+  }
+  return ans;
+
+  function isAnnagram(i, j) {
+    let m1 = map.get(i);
+    let m2 = map.get(j);
+    let s = strs[j];
+    for (let i = 0; i < s.length; i++) {
+      if (!(s[i] in m1) || m1[s[i]] !== m2[s[i]]) return false;
+    }
+    return true;
   }
 
-  return paths;
+  function buildMap(index) {
+    let s = strs[index];
+    let o = {};
+    for (let i = 0; i < s.length; i++) {
+      o[s[i]] = ~~o[s[i]] + 1;
+    }
+    map.set(index, o);
+    return map;
+  }
 };

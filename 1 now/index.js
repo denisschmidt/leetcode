@@ -1,34 +1,19 @@
 /**
- * @param {string} s
- * @param {string} p
- * @return {number[]}
+ * @param {number[]} nums
+ * @return {number}
  */
-var findAnagrams = function(s, p) {
-  let map = {};
+const jump = nums => {
+  let max = 0;
+  let cnt = 0;
+  let curentEnd = 0;
+  for (let i = 0; i < nums.length - 1; i++) {
+    max = Math.max(max, i + nums[i]);
 
-  for (let i = 0; i < p.length; i++) {
-    map[p[i]] = ~~map[p[i]] + 1;
-  }
-
-  let start = 0;
-  let end = 0;
-  let cnt = Object.keys(map).length;
-  let ans = [];
-
-  while (end < s.length) {
-    if (map[s[end]] == 0) {
-      cnt--;
-    }
-    map[s[end]]--;
-    end++;
-
-    while (cnt == 0) {
-      if (map[s[start]] == 0 && end - start == p.length) {
-        ans.push(start);
-      }
-      map[s[start]]++;
-      start++;
+    if (i === curentEnd) {
+      curentEnd = max;
+      cnt++;
     }
   }
-  return ans;
+
+  return cnt;
 };
