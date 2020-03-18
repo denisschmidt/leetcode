@@ -1,26 +1,34 @@
 /**
- * @param {number[]} p1
- * @param {number[]} p2
- * @param {number[]} p3
- * @param {number[]} p4
- * @return {boolean}
+ * @param {string} s
+ * @param {string} p
+ * @return {number[]}
  */
-var validSquare = function(p1, p2, p3, p4) {
-  // Если мы вычислим все расстояния между 4 точками, 4 меньших расстояния должны быть равны (стороны),
-  // И 2 больших расстояния тоже должны быть равны (диагональ)
+var findAnagrams = function(s, p) {
+  let map = {};
 
-  let set = new Set([
-    getPointerDistance(p1, p2),
-    getPointerDistance(p1, p3),
-    getPointerDistance(p1, p4),
-    getPointerDistance(p2, p3),
-    getPointerDistance(p2, p4),
-    getPointerDistance(p3, p4),
-  ]);
+  for (let i = 0; i < p.length; i++) {
+    map[p[i]] = ~~map[p[i]] + 1;
+  }
 
-  return !set.has(0) && set.size === 2;
+  let start = 0;
+  let end = 0;
+  let cnt = Object.keys(map).length;
+  let ans = [];
+
+  while (end < s.length) {
+    if (map[s[end]] == 0) {
+      cnt--;
+    }
+    map[s[end]]--;
+    end++;
+
+    while (cnt == 0) {
+      if (map[s[start]] == 0 && end - start == p.length) {
+        ans.push(start);
+      }
+      map[s[start]]++;
+      start++;
+    }
+  }
+  return ans;
 };
-
-function getPointerDistance(p1, p2) {
-  return Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2);
-}

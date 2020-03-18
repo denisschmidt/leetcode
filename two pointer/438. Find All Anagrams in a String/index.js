@@ -24,44 +24,41 @@ Explanation:
 
  */
 
+// Решение через два указателя.
+
 // Time O(N)
 // Space O(N)
-const findAnagrams = function(s, p) {
+const findAnagrams = (s, p) => {
   let map = {};
 
-  for (let i = 0; i < p.length; i++) {
-    map[p[i]] = ~~map[p[i]] + 1;
-  }
+  for (let i = 0; i < p.length; i++) map[p[i]] = ~~map[p[i]] + 1;
 
-  let lo = 0;
-  let hi = 0;
-  let cnt = 0;
-  let result = [];
+  let start = 0;
+  let end = 0;
+  let cnt = Object.keys(map).length;
+  let ans = [];
 
-  while (hi < s.length) {
-    if (map[s[hi]] > 0) {
-      cnt++;
+  while (end < s.length) {
+    if (--map[s[end++]] == 0) {
+      cnt--;
     }
-    map[s[hi]]--;
 
-    hi++;
-
-    while (cnt === p.length) {
-      map[s[lo]]++;
-
-      if (map[s[lo]] > 0) {
-        cnt--;
+    while (cnt == 0) {
+      // Именно это условие дает нам анаграмму, потому что анаграмма должна быть строго равна p.length
+      if (end - start == p.length) {
+        ans.push(start);
       }
 
-      if (hi - lo === p.length) {
-        result.push(lo);
+      map[s[start]]++;
+
+      if (map[s[start]] > 0) {
+        cnt++;
       }
 
-      lo++;
+      start++;
     }
   }
-
-  return result;
+  return ans;
 };
 
 // Time O(N^2)
