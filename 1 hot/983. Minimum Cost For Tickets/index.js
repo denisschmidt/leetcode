@@ -49,22 +49,23 @@ Note:
 const mincostTickets = (days, costs) => {
   let dp = Array(366).fill(0);
   let set = new Set(days);
-  dp[0] = 0;
 
-  for (let i = 1; i < 366; i++) {
+  for (let day = 1; day < 366; day++) {
     // Для дней, не связанных с поездкой, стоимость остается такой же, как и в предыдущий день.
-    if (!set.has(i)) {
-      dp[i] = dp[i - 1];
+    if (!set.has(day)) {
+      dp[day] = dp[day - 1];
     } else {
-      let day = dp[i - 1] + costs[0];
-      let week = dp[Math.max(i - 7, 0)] + costs[1];
-      let month = dp[Math.max(i - 30, 0)] + costs[2];
-      dp[i] = Math.min(day, week, month);
+      let d1 = dp[day - 1] + costs[0];
+      let d7 = day >= 7 ? dp[day - 7] + costs[1] : dp[0] + costs[1];
+      let d30 = day >= 30 ? dp[day - 30] + costs[2] : dp[0] + costs[2];
+
+      dp[day] = Math.min(d1, d7, d30);
+
+      if (day === days[days.length - 1]) {
+        return dp[day];
+      }
     }
   }
 
   return dp[365];
 };
-
-const res = mincostTickets([1, 4, 6, 7, 8, 20], [2, 7, 15]);
-console.log(res);

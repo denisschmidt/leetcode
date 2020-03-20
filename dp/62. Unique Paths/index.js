@@ -13,17 +13,21 @@ How many possible unique paths are there?
 
 // Time O(N^2)
 // Space O(m * n)
-const uniquePaths = (m, n) => {
-  const matrix = Array(n)
-    .fill(null)
-    .map(() => Array(m).fill(0));
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < m; j++) {
-      if (i === 0 || j === 0) matrix[i][j] = 1;
-      else matrix[i][j] = matrix[i][j - 1] + matrix[i - 1][j];
+const uniquePaths = (m, n) => {
+  let dp = Array(m)
+    .fill(null)
+    .map(() => Array(n).fill(0));
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (i == 0 || j == 0) {
+        dp[i][j] = 1;
+      } else {
+        dp[i][j] = dp[i - 1][j] + dp[i][j - 1];
+      }
     }
   }
 
-  return matrix[n - 1][m - 1];
+  return dp[m - 1][n - 1];
 };

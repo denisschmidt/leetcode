@@ -24,12 +24,13 @@
 
 function coinRepeat(coins, target) {
   // содержит количество способов получить сумму из первых чисел i, используя повторяющиеся монеты
-  // Пример задача 377
+  // Пример задача 377 518
   let dp = Array(target + 1).fill(0);
   dp[0] = 1;
 
   for (let i = 0; i < coins.length; i++) {
-    for (let j = coins[i]; j <= target; i++) {
+    for (let j = coins[i]; j <= target; j++) {
+      // считаем кол-во
       dp[j] = dp[j] + dp[j - coins[i]];
     }
   }
@@ -43,7 +44,7 @@ function coinNonRepealett(coins, target) {
   dp[0] = 1;
 
   for (let i = 0; i < coins.length; i++) {
-    for (let j = target; i >= coins[i]; i--) {
+    for (let j = target; i >= coins[i]; j--) {
       // Если предидущий шаг положителен dp[j - coins[i]]
       // То и текущий шаг dp[j] будет положителен
       dp[j] = dp[j] + dp[j - coins[i]];
@@ -51,6 +52,25 @@ function coinNonRepealett(coins, target) {
   }
 
   return dp[target];
+}
+
+// Пример задача 322
+function minCoinRepeat(coins, target) {
+  // содержит минимальное кол-во монет необходимое чтобы получить сумму target
+  let dp = Array(amount + 1).fill(amount + 1);
+  dp[0] = 0;
+
+  for (let i = 1; i <= amount; i++) {
+    for (let j = 0; j < coins.length; j++) {
+      // сумма меньше coins[j] тут никак не получить такую сумму
+      if (i < coins[j]) continue;
+
+      // считаем мин путь до target
+      dp[i] = Math.min(dp[i], dp[i - coins[j]] + 1);
+    }
+  }
+
+  return dp[amount];
 }
 
 /*

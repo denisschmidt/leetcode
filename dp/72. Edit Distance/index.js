@@ -50,69 +50,36 @@ So when word1[i - 1] != word2[j - 1], dp[i][j] will just be the minimum of the a
 
 Dynamic Programming:
   The edit distance algorithm is very popular among the data scientists.
-  It's one of the basic algorithms used for evaluation of machine translation and speech recognition.
-
-Complexity Analysis
-  Time complexity : O(mn) as it follows quite straightforward for the inserted loops.
-  Space complexity : O(mn) since at each step we keep the results of all previous computations.
 
  */
 
-// Time O(n*m)
-// Space O(n*m)
-const minDistance = function(word1, word2) {
-  let n = w1.length;
-  let m = w2.length;
+// Time O(N^2)
+// Space O(N^2)
+const minDistance = (word1, word2) => {
+  let n = word1.length;
+  let m = word2.length;
 
-  if (n === 0 && m === 0) return 0;
   let dp = Array(n + 1)
     .fill(null)
     .map(() => Array(m + 1).fill(0));
 
-  for (let i = 0; i <= n; i++) {
-    for (let j = 0; j <= m; j++) {
-      if (i === 0 && j === 0) {
-        dp[i][j] = 0;
-      } else if (i === 0) {
-        dp[i][j] = dp[i][j - 1] + 1;
-      } else if (j === 0) {
-        dp[i][j] = dp[i - 1][j] + 1;
-      } else if (w1[i - 1] === w2[j - 1]) {
+  for (let i = 1; i <= n; i++) {
+    dp[i][0] = dp[i - 1][0] + 1;
+  }
+
+  for (let j = 1; j <= m; j++) {
+    dp[0][j] = dp[0][j - 1] + 1;
+  }
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= m; j++) {
+      if (word1[i - 1] == word2[j - 1]) {
         dp[i][j] = dp[i - 1][j - 1];
       } else {
         dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
       }
     }
   }
-  return dp[w1.length][w2.length];
-};
 
-// O(n) space
-const minDistance2 = function(word1, word2) {
-  const s1 = word1.length;
-  const s2 = word2.length;
-
-  let cur = [];
-  let pre = '';
-  cur[s2 + 1] = 0;
-
-  for (let i = 0; i <= s2; i++) {
-    cur[i] = i;
-  }
-
-  for (let i = 1; i <= s1; i++) {
-    pre = cur[0];
-    cur[0] = i;
-    for (let j = 1; j <= s2; j++) {
-      let temp = cur[j];
-      if (word1[i - 1] === word2[j - 1]) {
-        cur[j] = pre;
-      } else {
-        cur[j] = Math.min(pre, Math.min(cur[j - 1], cur[j])) + 1;
-      }
-      pre = temp;
-    }
-  }
-
-  return cur[s2];
+  return dp[word1.length][word2.length];
 };
