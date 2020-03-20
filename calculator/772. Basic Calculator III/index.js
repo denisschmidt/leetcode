@@ -55,12 +55,12 @@ const calculate = s => {
       //
       // В цикле до тех пор пока в стеке оператор больше или равен текущему оператору
       // Расчитываем значение для двух значений из стека
-      //
       while (ops.length && hasPrecedence(s[i], ops[ops.length - 1])) {
         nums.push(calcSum(ops.pop(), nums.pop(), nums.pop()));
       }
 
       // отрицательные числа’
+      // кейс -> 1 - (-7)
       if (s[i] === '-') {
         if (nums.length === 0) {
           // если других числе нет только делаем 0 - 7 чтобы получить отрицательное число
@@ -80,7 +80,6 @@ const calculate = s => {
       ops.push(s[i]);
     }
   }
-  console.log(nums, ops);
 
   while (ops.length) {
     nums.push(calcSum(ops.pop(), nums.pop(), nums.pop()));
@@ -114,6 +113,3 @@ const calculate = s => {
     return true;
   }
 };
-
-const res = calculate('1 - (-7)');
-console.log(res);

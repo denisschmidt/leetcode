@@ -22,6 +22,14 @@ Note:
 
  */
 
+/*
+
+  Создаем стек для операции и чисел
+  Итерируемся по массиву и если операцию можно рассчитать, то мы ее расчитываем пока это возможно.
+  Записываем новое значение в стек
+
+*/
+
 // Time O(N)
 // Space O(N)
 const calculate = s => {
@@ -31,9 +39,7 @@ const calculate = s => {
   const ops = [];
 
   for (let i = 0; i < s.length; i++) {
-    if (s[i] === ' ') {
-      continue;
-    }
+    if (s[i] === ' ') continue;
 
     if (s[i] === '(') {
       ops.push(s[i]);
@@ -59,8 +65,7 @@ const calculate = s => {
       //
       // В цикле до тех пор пока в стеке оператор больше или равен текущему оператору
       // Расчитываем значение для двух значений из стека
-      //
-      while (ops.length && hasPrecedence(s[i], ops[ops.length - 1])) {
+      while (ops.length && hasPrecedence(ops[ops.length - 1], s[i])) {
         nums.push(calcSum(ops.pop(), nums.pop(), nums.pop()));
       }
 
@@ -68,6 +73,7 @@ const calculate = s => {
     }
   }
 
+  // выполняем все операции над числами с конца
   while (ops.length) {
     nums.push(calcSum(ops.pop(), nums.pop(), nums.pop()));
   }
@@ -91,10 +97,12 @@ const calculate = s => {
     return 0;
   }
 
+  // Возвращает true, если 'op1' имеет более высокий или тот же приоритет, что и 'op2
+  // otherwise returns false.
   function hasPrecedence(op1, op2) {
-    if (op2 === '(' || op2 === ')') {
+    if (op1 === '(' || op1 === ')') {
       return false;
-    } else if ((op1 === '*' || op1 === '/') && (op2 === '+' || op2 === '-')) {
+    } else if ((op2 === '*' || op2 === '/') && (op1 === '+' || op1 === '-')) {
       return false;
     }
     return true;

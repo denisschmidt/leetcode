@@ -18,12 +18,7 @@ const { PriorityQueue } = require('../algorithms/priorityQueue');
 // Time O(NLogN)
 // Space O(N)
 const minMeetingRooms = function(intervals) {
-  if (!intervals || intervals.length == 0) {
-    return 0;
-  }
-
-  let n = intervals.length;
-  let cnt = n;
+  if (!intervals || intervals.length == 0) return 0;
 
   // Сортировка интервалов по времени начала
   intervals.sort((a, b) => a[0] - b[0]);

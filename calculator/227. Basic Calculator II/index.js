@@ -30,9 +30,7 @@ const calculate = str => {
   const ops = [];
 
   for (let i = 0; i < str.length; i++) {
-    if (str[i] === ' ') {
-      continue;
-    }
+    if (str[i] === ' ') continue;
 
     if (str[i] >= '0' && str[i] <= '9') {
       let buffer = '';
@@ -50,9 +48,7 @@ const calculate = str => {
       //
       // В цикле до тех пор пока в стеке оператор больше или равен текущему оператору
       // Расчитываем значение для двух значений из стека
-      //
-
-      while (ops.length && hasPrecedence(str[i], ops[ops.length - 1])) {
+      while (ops.length && hasPrecedence(ops[ops.length - 1], str[i])) {
         nums.push(applyOp(ops.pop(), nums.pop(), nums.pop()));
       }
 
@@ -84,12 +80,12 @@ const calculate = str => {
     return 0;
   }
 
-  // Returns true if 'op2' has higher or same precedence as 'op1',
+  // Возвращает true, если 'op1' имеет более высокий или тот же приоритет, что и op2
   // otherwise returns false.
   function hasPrecedence(op1, op2) {
-    if (op2 === '(' || op2 === ')') {
+    if (op1 === '(' || op1 === ')') {
       return false;
-    } else if ((op1 === '*' || op1 === '/') && (op2 === '+' || op2 === '-')) {
+    } else if ((op2 === '*' || op2 === '/') && (op1 === '+' || op1 === '-')) {
       return false;
     }
     return true;
