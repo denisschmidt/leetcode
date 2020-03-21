@@ -19,18 +19,18 @@ Output: false
 
 // Time O(N)
 // Space O(1)
-const isStrobogrammatic = function(x) {
-  const map = { 0: 0, 1: 1, 6: 9, 9: 6, 8: 8 };
+const isStrobogrammatic = num => {
+  let map = { 0: 0, 1: 1, 6: 9, 9: 6, 8: 8 };
 
-  let l = 0;
-  let r = x.length - 1;
+  let lo = 0;
+  let hi = num.length - 1;
 
-  while (l <= r) {
-    if (!(x[l] in map)) return false;
-    if (map[x[l]] !== x[r]) return false;
-
-    l++;
-    r--;
+  while (lo <= hi) {
+    if (!(num[lo] in map) || !(num[hi] in map)) return false;
+    if (num[hi] != map[num[lo]]) return false;
+    if (lo == hi) return num[lo] == 0 || num[lo] == 8 || num[lo] == 1;
+    lo++;
+    hi--;
   }
 
   return true;
