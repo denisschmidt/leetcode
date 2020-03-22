@@ -28,26 +28,22 @@ const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
 // Time O(N) - кол-во итераций будет равно time
 // Space O(1) == O(26)
-var leastInterval = function(tasks, n) {
+const leastInterval = (tasks, n) => {
   let map = Array(26).fill(0);
-
-  for (const task of tasks) {
-    let index = task.charCodeAt(0) - 'A'.charCodeAt(0);
-    map[index]++;
-  }
-
   let pq = new PriorityQueue({ comparator: (a, b) => b - a });
+  let ans = 0;
 
-  for (const cnt of map) {
-    if (count > 0) {
-      pq.offer(cnt);
-    }
+  for (let task of tasks) {
+    map[task.charCodeAt(0) - 'A'.charCodeAt(0)]++;
   }
 
-  let time = 0;
-  while (pq.size() > 0) {
-    let i = 0;
+  map.forEach(cnt => {
+    if (cnt > 0) pq.offer(cnt);
+  });
+
+  while (!pq.isEmpty()) {
     let copy = [];
+    let i = 0;
 
     while (i <= n) {
       if (!pq.isEmpty()) {
@@ -58,7 +54,7 @@ var leastInterval = function(tasks, n) {
         }
       }
 
-      time++;
+      ans++;
 
       if (pq.isEmpty() && !copy.length) {
         break;
@@ -67,12 +63,12 @@ var leastInterval = function(tasks, n) {
       i++;
     }
 
-    for (const cnt of copy) {
+    for (let cnt of copy) {
       if (cnt > 0) {
         pq.offer(cnt);
       }
     }
   }
 
-  return time;
+  return ans;
 };

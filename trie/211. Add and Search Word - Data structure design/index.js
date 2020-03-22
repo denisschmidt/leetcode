@@ -15,6 +15,7 @@ Example:
   search("bad") -> true
   search(".ad") -> true
   search("b..") -> true
+
 Note:
   You may assume that all words are consist of lowercase letters a-z.
 
@@ -40,7 +41,48 @@ class WordDictionary {
     cur.isEnd = true;
   }
 
+  // BFS
   search(word) {
+    let queue = [this.root];
+    let i = 0;
+
+    while (queue.length && i < word.length) {
+      if (word[i] == '.') {
+        let size = queue.length;
+        for (let j = 0; j < size; j++) {
+          let node = queue.shift();
+          Object.keys(node.children).forEach(key => {
+            queue.push(node.children[key]);
+          });
+        }
+      } else {
+        let size = queue.length;
+
+        for (let j = 0; j < size; j++) {
+          let node = queue.shift();
+
+          if (word[i] in node.children) {
+            if (i == word.length - 1 && node.children[word[i]].isEnd) {
+              return true;
+            }
+
+            queue.push(node.children[word[i]]);
+          }
+        }
+      }
+      i++;
+    }
+
+    // для кейса когда у нас строка 'abc...'
+    while (queue.length) {
+      let node = queue.shift();
+      if (node.isEnd) return true;
+    }
+
+    return false;
+  }
+
+  search_II(word) {
     const search = (cur, level) => {
       if (!cur || (level === word.length && !cur.isEnd)) return false;
 
@@ -49,6 +91,7 @@ class WordDictionary {
       let char = word[level];
 
       if (char === '.') {
+        // перебираем все символы
         for (let i = 0; i < 26; i++) {
           let ch = String.fromCharCode(97 + i);
 

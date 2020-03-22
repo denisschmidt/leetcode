@@ -23,39 +23,33 @@ Example 2:
 
 // Time: O(M × N), где M - количество строк, а N - количество столбцов.
 // Space: наихудший случай O(M * N) O в случае, когда карта сетки заполнена 1, где DFS проходит M * N в глубину
-const numIslands = function(grid) {
-  if (grid == null || grid.length === 0) {
-    return 0;
-  }
-
-  const n = grid.length;
-  const m = grid[0].length;
-  const dirs = [
+const numIslands = grid => {
+  let dirs = [
     [1, 0],
-    [0, -1],
-    [0, 1],
     [-1, 0],
+    [0, 1],
+    [0, -1],
   ];
-  let count = 0;
+  let ans = 0;
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < m; j++) {
-      if (grid[i][j] === '1') {
-        dfs(i, j);
-        count++;
+  for (let i = 0; i < grid.length; i++) {
+    for (let j = 0; j < grid[0].length; j++) {
+      if (grid[i][j] == 1) {
+        helper(i, j);
+        ans++;
       }
     }
   }
 
-  return count;
+  return ans;
 
-  function dfs(i, j) {
-    if (i < 0 || j < 0 || i >= n || j >= m || grid[i][j] !== '1') return;
+  function helper(i, j) {
+    if (i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] == 0) return;
 
-    grid[i][j] = '0';
+    grid[i][j] = 0;
 
-    for (let [start, end] of dirs) {
-      dfs(i + start, j + end);
+    for (let dir of dirs) {
+      helper(dir[0] + i, dir[1] + j);
     }
   }
 };
