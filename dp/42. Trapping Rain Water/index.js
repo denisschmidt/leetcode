@@ -66,22 +66,23 @@ const trap_II = nums => {
   let stack = [];
   let result = 0;
 
-  for (let i = 0; i < nums.length; i++) {
-    while (stack.length && nums[stack[stack.length - 1]] < nums[i]) {
+  for (let index = 0; index < nums.length; index++) {
+    while (stack.length && nums[stack[stack.length - 1]] < nums[index]) {
       let prevIndex = stack.pop();
 
-      if (!stack.length) {
-        break;
-      }
+      if (!stack.length) break;
 
+      // берем ширину от самой маленькой высоты до i
       let width = i - stack[stack.length - 1] - 1;
 
-      let height = Math.min(nums[i], nums[stack[stack.length - 1]] - nums[prevIndex]);
+      // выбираем минимальную из двух высот [10, 5, 9] min(10, 9)
+      // высотой будет область  min(10, 9)  - nums[]
+      let height = Math.min(nums[index], nums[stack[stack.length - 1]]) - nums[prevIndex];
 
       result += width * height;
     }
 
-    stack.push(i);
+    stack.push(index);
   }
 
   return result;
@@ -93,20 +94,15 @@ const trap_II = nums => {
 const trap_III = nums => {
   let left = 0;
   let right = nums.length - 1;
-  let ans = 0;
-  let leftMax = 0;
-  let rightMax = 0;
+  let water = 0;
+  let level = 0;
 
-  while (left <= right) {
-    if (nums[left] <= nums[right]) {
-      if (nums[left] > leftMax) leftMax = nums[left];
-      else ans += leftMax - nums[left];
-      left++;
-    } else {
-      if (nums[right] >= rightMax) rightMax = nums[right];
-      else ans += rightMax - nums[right];
-      right--;
-    }
+  while (left < right) {
+    let index = nums[left] < nums[right] ? left++ : right--;
+    let lower = nums[index];
+    level = Math.max(level, lower);
+    water += level - lower;
   }
-  return ans;
+
+  return water;
 };
