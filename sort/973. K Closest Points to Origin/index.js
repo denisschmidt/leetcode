@@ -56,11 +56,9 @@ function swap(nums, l, r) {
   return ([nums[l], nums[r]] = [nums[r], nums[l]]);
 }
 
-function compare([x, y], [u, z]) {
-  let sum1 = Math.pow(x, 2) + Math.pow(y, 2);
-  let sum2 = Math.pow(u, 2) + Math.pow(z, 2);
-
-  return sum2 - sum1;
+// Получаем расстояние между двумя точками
+function getPointerDistance(p1, p2) {
+  return Math.pow(p1[0] - p2[0], 2) + Math.pow(p1[1] - p2[1], 2);
 }
 
 function quickSort(nums, l, r) {
@@ -70,9 +68,9 @@ function quickSort(nums, l, r) {
   l++;
 
   while (l <= r) {
-    if (compare(pivotValue, nums[l]) <= 0) {
+    if (getPointerDistance(pivotValue, nums[l]) <= 0) {
       l++;
-    } else if (compare(pivotValue, nums[r]) >= 0) {
+    } else if (getPointerDistance(pivotValue, nums[r]) >= 0) {
       r--;
     } else {
       swap(nums, l, r);
@@ -84,25 +82,16 @@ function quickSort(nums, l, r) {
   return r;
 }
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // Time O(NLogN)
 // Space O(N)
-const kClosest = function(points, k) {
-  const map = new Map();
+const kClosest_II = (points, k) => {
+  if (points.length == 0) return [];
 
-  points.sort(([x, y], [u, z]) => {
-    let sum1 = Math.pow(x, 2) + Math.pow(y, 2);
-    let sum2 = Math.pow(u, 2) + Math.pow(z, 2);
-    return sum2 - sum1;
+  points.sort((a, b) => {
+    let d1 = getPointerDistance([0, 0], a);
+    let d2 = getPointerDistance([0, 0], b);
+    return d1 - d2;
   });
 
-  let ans = [];
-  let index = points.length - 1;
-  while (k > 0 && index >= 0) {
-    ans.push(points[index]);
-    k--;
-    index--;
-  }
-  return ans;
+  return points.slice(0, K);
 };

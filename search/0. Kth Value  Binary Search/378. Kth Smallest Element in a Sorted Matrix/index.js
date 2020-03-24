@@ -63,11 +63,12 @@ const kthSmallest = (matrix, k) => {
     let j = m - 1;
 
     // получаем кол-во значений которые меньше mid
-    for (let i = 0; i < matrix.length; i++) {
+    while (i < n) {
       // указатель j будет двигаться только в одном направлении
       while (j >= 0 && matrix[i][j] > mid) j--;
 
       cnt += j + 1;
+      i++;
     }
 
     // получаем кол-во чисел меньше mid
