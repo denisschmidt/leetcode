@@ -23,12 +23,44 @@ Note:
   Input words contain only lowercase letters.
 
  */
-/**
- * @param {string[]} words
- * @param {number} k
- * @return {string[]}
- */
-const topKFrequent = function(words, k) {
+
+const { PriorityQueue } = require('../../algorithms/priorityQueue');
+
+// Time O(N * LogK)
+// Space O(N)
+const topKFrequent = (words, k) => {
+  let map = {};
+  // Min Heap
+  let pq = new PriorityQueue({
+    comparator: (a, b) => {
+      if (a.cnt == b.cnt) {
+        return b.word.localeCompare(a.word);
+      }
+      return a.cnt - b.cnt;
+    },
+  });
+
+  for (let word of words) {
+    map[word] = ~~map[word] + 1;
+  }
+
+  // Очередь будет содержать только K максимальных элементов
+  Object.keys(map).forEach(word => {
+    pq.offer({ word, cnt: map[word] });
+    if (pq.size() > k) pq.poll();
+  });
+
+  let ans = [];
+  while (!pq.isEmpty() && k > 0) {
+    let { word } = pq.poll();
+    ans.push(word);
+    k--;
+  }
+
+  return ans.reverse();
+};
+
+const topKFrequent_II = (words, k) => {
   const ans = [];
   const size = words.length;
   const map = new Map();
@@ -56,6 +88,3 @@ const topKFrequent = function(words, k) {
   }
   return ans;
 };
-
-const res = topKFrequent(['i', 'love', 'leetcode', 'i', 'love', 'coding'], 3);
-console.log('===', res);

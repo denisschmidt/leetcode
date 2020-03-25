@@ -42,6 +42,7 @@ Follow up:
 // Space O(N)
 class HitCounter {
   constructor() {
+    // создаем два backets для хранения кол-ва запросов и хранения временных меток
     this.hits = [];
     this.times = [];
   }

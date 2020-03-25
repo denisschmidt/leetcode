@@ -1,30 +1,40 @@
-/**
- * @param {number[][]} matrix
- * @param {number} target
- * @return {boolean}
- */
-var searchMatrix = function(matrix, target) {
-  let n = matrix.length;
-  let m = matrix[0].length;
-
-  let lo = [0, 0];
-  let hi = [n - 1, m - 2];
-
-  while (lo[0] <= hi[0]) {
-    let x = (lo[0] + hi[0]) / 2;
-    let y = (lo[1] + hi[1]) / 2;
-    let mid = matrix[x][y];
-
-    if (mid == target) {
-      return true;
-    }
-
-    if (mid > target) {
-      lo[0] = x;
-    } else {
-      hi[1] = y;
-    }
+class Twitter {
+  constructor() {
+    this.users = new Map();
+    this.tweets = new Map();
+    this.time = 0;
   }
 
-  return false;
-};
+  postTweet(userId, tweetId) {
+    if (!this.users.has(followerId)) {
+      this.users.set(followerId, new Set());
+    }
+    this.users.get(userId).push(userId);
+
+    if (!this.tweets.has(userId)) {
+      this.tweets.set(userId, []);
+    }
+
+    this.time = this.time + 1;
+    this.tweets.get(userId).push({ tweetId, time: this.time });
+  }
+
+  getNewsFeed(userId) {
+    if (!this.users.has(userId)) return [];
+
+    let pq = new PriorityQueue({ comparator: (a, b) => b.time - a.time });
+  }
+
+  follow(followerId, followeeId) {
+    if (!this.users.has(followerId)) {
+      this.users.set(followerId, new Set());
+    }
+    this.users.get(followerId).add(followeeId);
+  }
+
+  unfollow(followerId, followeeId) {
+    if (this.users.has(followerId) && followerId !== followeeId) {
+      this.users.get(followerId).delete(followeeId);
+    }
+  }
+}
