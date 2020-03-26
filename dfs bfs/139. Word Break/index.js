@@ -24,28 +24,63 @@ Example 3:
 
  */
 
-// BFS
+/*
+  
+  BFS
 
-// We can use a graph to represent the possible solutions.
-// The vertices of the graph are simply the positions of the first characters of the words and each edge actually represents a word.
-//
-// For example, the input string is "nightmare", there are two ways to break it, "night mare" and "nightmare". The graph would be
+  We can use a graph to represent the possible solutions.
+  The vertices of the graph are simply the positions of the first characters of the words and each edge actually represents a word.
 
-// 0-->5-->9
-//
-// |__ __ _^
+  For example, the input string is "nightmare", there are two ways to break it, "night mare" and "nightmare". The graph would be
+
+  0-->5-->9
+
+  |__ __ _^
 
 /*
 
+Рассмотрим наихудший случай
+S = "aaaaaaa" и каждый префикс S присутствует в словаре слов
+Тогда дерево рекурсии может вырасти до N ^ N 
 
-Рассмотрим наихудший случай, когда s = "aaaaaaa" и каждый префикс s присутствует в словаре слов, 
-тогда дерево рекурсии может вырасти до N ^N  ,
-
- */
+*/
 
 // Time O(N^2)
 // Space O(N)
-const wordBreak = function(s, wordDict) {
+const wordBreak = (str, wordDict) => {
+  let set = new Set(wordDict);
+  let visited = Array(str.length).fill(null);
+  let queue = [0];
+
+  while (queue.length) {
+    let size = queue.length;
+
+    for (let k = 0; k < size; k++) {
+      let start = queue.shift();
+
+      for (let end = start + 1; end <= str.length; end++) {
+        if (visited[end]) continue;
+
+        if (set.has(str.substring(start, end))) {
+          if (end == str.length) {
+            return true;
+          }
+
+          queue.push(end);
+          // слово начинающееся с индекса start можно найти в словаре
+          // это информацию мы запонимаем
+          visited[start] = true;
+        }
+      }
+    }
+  }
+
+  return false;
+};
+
+// Time O(N^2)
+// Space O(N)
+const wordBreak_II = (s, wordDict) => {
   let set = new Set(wordDict);
   let memo = Array(s.length).fill(null);
 
@@ -68,32 +103,4 @@ const wordBreak = function(s, wordDict) {
     memo[start] = false;
     return false;
   }
-};
-
-// O(n^2) and space complexity is O(n)
-const wordBreak2 = function(s, wordDict) {
-  let queue = [];
-  let set = new Set(wordDict);
-  let visited = [];
-
-  visited[0] = true;
-  queue.push(0);
-
-  while (queue.length) {
-    let start = queue.shift();
-
-    for (let end = start + 1; end <= s.length; end++) {
-      if (visited[end]) continue;
-      if (set.has(s.substring(start, end))) {
-        if (end === s.length) {
-          return true;
-        }
-        // next node
-        queue.push(end);
-        // is visit this node
-        visited[end] = true;
-      }
-    }
-  }
-  return false;
 };

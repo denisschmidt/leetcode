@@ -38,6 +38,34 @@ Example 2:
 // Time O(M * N) где M - длина слова, а N - общее количество слов в списке входных слов.
 // Space O(M * N)
 const ladderLength = (beginWord, endWord, wordList) => {
+  let queue = [beginWord];
+  let visited = Array(wordList.length).fill(false);
+  let cnt = 1;
+
+  while (queue.length) {
+    let size = queue.length;
+    for (let i = 0; i < size; i++) {
+      let s1 = queue.shift();
+
+      if (s1 == endWord) {
+        return cnt;
+      }
+
+      for (let i = 0; i < wordList.length; i++) {
+        if (visited[i] || !oneEditReplace(s1, wordList[i])) continue;
+        visited[i] = true;
+        queue.push(wordList[i]);
+      }
+    }
+    cnt++;
+  }
+
+  return 0;
+};
+
+// Time O(M * N) где M - длина слова, а N - общее количество слов в списке входных слов.
+// Space O(M * N)
+const ladderLength_II = (beginWord, endWord, wordList) => {
   let n = wordList.length;
   let minLen = Number.MAX_VALUE;
   let visited = new Set();

@@ -1,75 +1,61 @@
 /**
- * @param {number[][]} matrix
- * @return {number[][]}
+ * @param {string} beginWord
+ * @param {string} endWord
+ * @param {string[]} wordList
+ * @return {number}
  */
-var pacificAtlantic = function(matrix) {
-  if (matrix.length == 0) return [];
-  let n = matrix.length;
-  let m = matrix[0].length;
-  let dirs = [
-    [1, 0],
-    [-1, 0],
-    [0, 1],
-    [0, -1],
-  ];
-  let pQueue = [];
-  let aQueue = [];
-  let pacific = Array(n)
-    .fill(0)
-    .map(() => Array(m).fill(false));
-  let atlantic = Array(n)
-    .fill(0)
-    .map(() => Array(m).fill(false));
 
-  // Вертикальная линия
-  for (let i = 0; i < n; i++) {
-    pQueue.push([i, 0]);
-    aQueue.push([i, m - 1]);
-    pacific[i][0] = true;
-    atlantic[i][m - 1] = true;
-  }
+/*
 
-  // Горизонтальная линия
-  for (let i = 0; i < m; i++) {
-    pQueue.push([0, i]);
-    aQueue.push([n - 1, i]);
-    pacific[0][i] = true;
-    atlantic[n - 1][i] = true;
-  }
+Input:
+beginWord = "hit",
+endWord = "cog",
+wordList = ["hot","dot","dog","lot","log","cog"]
 
-  bfs(pQueue, pacific);
-  bfs(aQueue, atlantic);
+Output: 5
 
-  let ans = [];
+Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
+return its length 5.
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < m; j++) {
-      if (pacific[i][j] && atlantic[i][j]) {
-        ans.push([i, j]);
+*/
+
+var ladderLength = function(beginWord, endWord, wordList) {
+  let queue = [beginWord];
+  let visited = Array(wordList.length).fill(false);
+  let cnt = 0;
+
+  while (queue.length) {
+    let size = queue.length;
+    for (let i = 0; i < size; i++) {
+      let s1 = queue.shift();
+
+      if (s1 == endWord) {
+        return cnt;
       }
+
+      for (let i = 0; i < wordList.length; i++) {
+        if (visited[i] || !oneReplace(s1, wordList[i])) continue;
+        visited[i] = true;
+        queue.push(wordList[i]);
+      }
+
+      cnt++;
     }
   }
 
-  return ans;
+  return 0;
 
-  function bfs(queue, visited) {
-    while (queue.length) {
-      let size = queue.length;
-
-      for (let k = 0; k < size; k++) {
-        let [i, j] = queue.shift();
-
-        for (let dir of dirs) {
-          let x = dir[0] + i;
-          let y = dir[1] + j;
-
-          if (x < 0 || j < 0 || x >= n || y >= m || visited[x][y] || matrix[x][y] < matrix[i][j]) {
-            continue;
-          }
-          visited[x][y] = true;
-          queue.push([x, y]);
+  function oneReplace(s1, s2) {
+    if (s1 == s2) return false;
+    let found = false;
+    for (let i = 0; i < s1.length; i++) {
+      if (s1[i] != s2[i]) {
+        if (found) {
+          return false;
         }
+        found = true;
       }
     }
+    return true;
   }
 };

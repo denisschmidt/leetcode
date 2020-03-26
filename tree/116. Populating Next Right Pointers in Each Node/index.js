@@ -1,4 +1,5 @@
 /*
+
 You are given a perfect binary tree where all leaves are on the same level, and every parent has two children.
 The binary tree has the following definition:
 
@@ -8,69 +9,56 @@ struct Node {
   Node *right;
   Node *next;
 }
-Populate each next pointer to point to its next right node. If there is no next right node, the next pointer should be set to NULL.
+Populate each next pointer to point to its next right node. 
+If there is no next right node, the next pointer should be set to NULL.
 
 Initially, all next pointers are set to NULL.
 
- 
-
 Example:
+  Input: {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":null,"right":null,"val":4},"next":null,"right":{"$id":"4","left":null,"next":null,"right":null,"val":5},"val":2},"next":null,"right":{"$id":"5","left":{"$id":"6","left":null,"next":null,"right":null,"val":6},"next":null,"right":{"$id":"7","left":null,"next":null,"right":null,"val":7},"val":3},"val":1}
+  Output: {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":{"$id":"4","left":null,"next":{"$id":"5","left":null,"next":{"$id":"6","left":null,"next":null,"right":null,"val":7},"right":null,"val":6},"right":null,"val":5},"right":null,"val":4},"next":{"$id":"7","left":{"$ref":"5"},"next":null,"right":{"$ref":"6"},"val":3},"right":{"$ref":"4"},"val":2},"next":null,"right":{"$ref":"7"},"val":1}
 
-
-
-Input: {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":null,"right":null,"val":4},"next":null,"right":{"$id":"4","left":null,"next":null,"right":null,"val":5},"val":2},"next":null,"right":{"$id":"5","left":{"$id":"6","left":null,"next":null,"right":null,"val":6},"next":null,"right":{"$id":"7","left":null,"next":null,"right":null,"val":7},"val":3},"val":1}
-
-Output: {"$id":"1","left":{"$id":"2","left":{"$id":"3","left":null,"next":{"$id":"4","left":null,"next":{"$id":"5","left":null,"next":{"$id":"6","left":null,"next":null,"right":null,"val":7},"right":null,"val":6},"right":null,"val":5},"right":null,"val":4},"next":{"$id":"7","left":{"$ref":"5"},"next":null,"right":{"$ref":"6"},"val":3},"right":{"$ref":"4"},"val":2},"next":null,"right":{"$ref":"7"},"val":1}
-
-Explanation: Given the above perfect binary tree (Figure A),
-your function should populate each next pointer to point to its next right node, just like in Figure B.
+  Explanation: Given the above perfect binary tree (Figure A),
+    your function should populate each next pointer to point to its next right node, just like in Figure B.
  
 
 Note:
-
-You may only use constant extra space.
-Recursive approach is fine, implicit stack space does not count as extra space for this problem.
+  You may only use constant extra space.
+  Recursive approach is fine, implicit stack space does not count as extra space for this problem.
 
  */
 
+// BFS
 // Time O(N)
 // Space O(N)
-const connect = function(root) {
-  if (root === null) return null;
+const connect = root => {
+  if (root == null) return null;
+  let queue = [root];
+  let depth = [0];
   let prevNode = null;
-  let prevDepth = -1;
-  let queue = [];
-  let depthQueue = [];
-
-  queue.push(root);
-  depthQueue.push(0);
+  let prevDepth = null;
 
   while (queue.length) {
     let node = queue.shift();
-    let depth = depthQueue.shift();
+    let d = depth.shift();
 
     if (node) {
-      queue.push(node.right);
-      queue.push(node.left);
-
-      depthQueue.push(depth + 1);
-      depthQueue.push(depth + 1);
-
-      if (prevDepth === depth) {
-        node.next = prevNode;
-      } else {
-        node.next = null;
+      if (prevNode && d == prevDepth) {
+        prevNode.next = node;
       }
 
+      queue.push(node.left);
+      queue.push(node.right);
+      depth.push(d + 1);
+      depth.push(d + 1);
+
       prevNode = node;
-      prevDepth = depth;
+      prevDepth = d;
     }
   }
 
   return root;
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*
        1
