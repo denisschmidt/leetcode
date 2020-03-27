@@ -19,30 +19,27 @@ Example:
 // Монотонное увеличение стека. Каждый индекс push() и pop() один раз и обрабатывается один раз.
 // PLE => Previous Less Element
 const largestRectangleArea = heights => {
-  let size = heights.length;
+  let n = nums.length;
   let stack = [];
-  let result = 0;
+  let max = 0;
 
-  for (let i = 0; i <= size; i++) {
-    while (stack.length && (heights[stack[stack.length - 1]] > heights[i] || i === size)) {
-      let index = stack.pop();
-
-      let height = heights[index];
+  for (let index = 0; index <= n; index++) {
+    while (stack.length && (index == n || nums[stack[stack.length - 1]] > nums[index])) {
+      let prevIndex = stack.pop();
+      let height = nums[prevIndex];
 
       /* 
         Важный момент:
           1) либо width берем как интервал между значениями в стеке
           2) либо если стек пустой то это и есть самое маленькое значение в стеке
       */
-      let width = stack.length ? i - 1 - stack[stack.length - 1] : i;
-
-      result = Math.max(result, height * width);
+      let width = stack.length == 0 ? index : index - 1 - stack[stack.length - 1];
+      max = Math.max(max, height * width);
     }
 
-    stack.push(i);
+    stack.push(index);
   }
-
-  return result;
+  return max;
 };
 
 // Time O(N^2)

@@ -72,11 +72,12 @@ const trap_II = nums => {
 
       if (!stack.length) break;
 
-      // берем ширину от самой маленькой высоты до i
+      // В это кейсе у нас есть 3 высоты  stack[stack.length - 1]  prevIndex  index
+      // И мы пытаемся получить площадь между этими тремя точками
       let width = i - stack[stack.length - 1] - 1;
 
       // выбираем минимальную из двух высот [10, 5, 9] min(10, 9)
-      // высотой будет область  min(10, 9)  - nums[]
+      // высотой будет область  min(10, 9)  - nums[prevIndex]
       let height = Math.min(nums[index], nums[stack[stack.length - 1]]) - nums[prevIndex];
 
       result += width * height;

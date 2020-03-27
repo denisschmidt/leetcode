@@ -1,61 +1,37 @@
 /**
- * @param {string} beginWord
- * @param {string} endWord
- * @param {string[]} wordList
+ * @param {character[][]} matrix
  * @return {number}
  */
+var maximalRectangle = function(matrix) {
+  let n = matrix.length;
+  let m = matrix[0].length;
+  let max = 0;
 
-/*
+  let dp = Array(n)
+    .fill(null)
+    .map(() => Array(m).fill(0));
 
-Input:
-beginWord = "hit",
-endWord = "cog",
-wordList = ["hot","dot","dog","lot","log","cog"]
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+      if (matrix[i][j] == '1') {
+        dp[i][j] = Math.max(1, Number(matrix[i][j]));
 
-Output: 5
+        for (let k = 1; k + j < m && matrix[i][j + k] == '1'; k++) {
+          dp[i][j + k] = dp[i][j + k - 1] + matrix[i][j + k];
 
-Explanation: As one shortest transformation is "hit" -> "hot" -> "dot" -> "dog" -> "cog",
-return its length 5.
-
-*/
-
-var ladderLength = function(beginWord, endWord, wordList) {
-  let queue = [beginWord];
-  let visited = Array(wordList.length).fill(false);
-  let cnt = 0;
-
-  while (queue.length) {
-    let size = queue.length;
-    for (let i = 0; i < size; i++) {
-      let s1 = queue.shift();
-
-      if (s1 == endWord) {
-        return cnt;
-      }
-
-      for (let i = 0; i < wordList.length; i++) {
-        if (visited[i] || !oneReplace(s1, wordList[i])) continue;
-        visited[i] = true;
-        queue.push(wordList[i]);
-      }
-
-      cnt++;
-    }
-  }
-
-  return 0;
-
-  function oneReplace(s1, s2) {
-    if (s1 == s2) return false;
-    let found = false;
-    for (let i = 0; i < s1.length; i++) {
-      if (s1[i] != s2[i]) {
-        if (found) {
-          return false;
+          if (i - 1 >= 0 && matrix[i - 1][j + k] !== '0') {
+            dp[i][j] += matrix[i - 1][j];
+          }
         }
-        found = true;
+
+        let val = dp[i][j];
+
+        if ((val & -val) != val) {
+          max = Math.max(max, val);
+        }
       }
     }
-    return true;
   }
+
+  return max;
 };
