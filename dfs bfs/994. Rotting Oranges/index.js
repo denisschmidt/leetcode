@@ -1,4 +1,5 @@
 /*
+
 In a given grid, each cell can have one of three values:
 
 the value 0 representing an empty cell;
@@ -6,7 +7,8 @@ the value 1 representing a fresh orange;
 the value 2 representing a rotten orange.
 Every minute, any fresh orange that is adjacent (4-directionally) to a rotten orange becomes rotten.
 
-Return the minimum number of minutes that must elapse until no cell has a fresh orange.  If this is impossible, return -1 instead.
+Return the minimum number of minutes that must elapse until no cell has a fresh orange.  
+If this is impossible, return -1 instead.
 
 Example 1:
   Input: [
@@ -36,63 +38,63 @@ Note:
   1 <= grid[0].length <= 10
   grid[i][j] is only 0, 1, or 2.
 
-Используем все гнилые позиции в качестве начальной позиции
-Делаем обход по ним и делаем свежие фрукты гнилыми
+*/
 
- */
+/*
+  Алгоритм:
+    1) Добавляем все гнилые позиции в очередь
+    2) Делаем BFS обход для поиска свежих фруктов
+    3) Если нашли свежий фрукт делаем его гнилым и добавляем в очередь для дальнейшего поиска
+
+*/
 
 // BFS
 // Time O(N)
 // Space O(N)
-const orangesRotting = grid => {
-  if (grid.length === 0) return -1;
-
-  const n = grid.length;
-  const m = grid[0].length;
-  let fresh = 0;
+const orangesRotting = function(grid) {
   let queue = [];
-  let ans = 0;
+  let n = grid.length;
+  let m = grid[0].length;
+  let fresh = 0;
+  let dirs = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ];
 
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < m; j++) {
-      if (grid[i][j] === 2) {
+      if (grid[i][j] == 2) {
         queue.push([i, j]);
-      } else if (grid[i][j] === 1) {
+      } else if (grid[i][j] == 1) {
         fresh++;
       }
     }
   }
 
-  if (fresh === 0) return 0;
+  let time = 0;
 
-  while (queue.length > 0) {
-    const tmp = [];
+  while (queue.length) {
+    let size = queue.length;
+    for (let i = 0; i < size; i++) {
+      let [i, j] = queue.shift();
 
-    for (let [i, j] of queue) {
-      if (i - 1 >= 0 && grid[i - 1][j] === 1) {
-        tmp.push([i - 1, j]);
-        grid[i - 1][j] = 2;
+      for (let dir of dirs) {
+        let x = dir[0] + i;
+        let y = dir[1] + j;
+
+        if (x < 0 || y < 0 || x >= n || y >= m || grid[x][y] != 1) {
+          continue;
+        }
+
         fresh--;
-      }
-      if (i + 1 < grid.length && grid[i + 1][j] === 1) {
-        tmp.push([i + 1, j]);
-        grid[i + 1][j] = 2;
-        fresh--;
-      }
-      if (j - 1 >= 0 && grid[i][j - 1] === 1) {
-        tmp.push([i, j - 1]);
-        grid[i][j - 1] = 2;
-        fresh--;
-      }
-      if (j + 1 < grid[0].length && grid[i][j + 1] === 1) {
-        tmp.push([i, j + 1]);
-        grid[i][j + 1] = 2;
-        fresh--;
+        grid[x][y] = 2;
+        queue.push([x, y]);
       }
     }
-    ans++;
-    queue = tmp;
+    if (queue.length) time++;
   }
 
-  return fresh > 0 ? -1 : --ans;
+  return fresh == 0 ? time : -1;
 };
