@@ -1,66 +1,51 @@
 /**
- * @param {character[][]} grid
- * @param {number[]} click
- * @return {character[][]}
+ * @param {number} m
+ * @param {number} n
+ * @return {number}
  */
-var updateBoard = function(grid, click) {
-  let queue = [click];
-  let n = grid.length;
-  let m = grid[0].length;
-  let visited = Array(n)
+var numberOfPatterns = function(m, n) {
+  let jumps = Array(10)
     .fill(0)
-    .map(() => Array(m).fill(false));
+    .map(() => Array(10).fill(0));
 
-  let dirs = [
-    [1, 0],
-    [-1, 0],
-    [0, 1],
-    [0, -1],
-    [1, 1],
-    [-1, 1],
-    [1, -1],
-    [-1, -1],
-  ];
+  jumps[1][3] = jumps[3][1] = 2;
+  jumps[4][6] = jumps[6][4] = 5;
+  jumps[7][9] = jumps[9][7] = 8;
+  jumps[1][7] = jumps[7][1] = 4;
+  jumps[2][8] = jumps[8][2] = 5;
+  jumps[3][9] = jumps[9][3] = 6;
+  jumps[1][9] = jumps[9][1] = jumps[3][7] = jumps[7][3] = 5;
 
-  visited[click[0]][click[1]] = true;
+  let ans = 0;
+  let visited = Array(10).fill(false);
 
-  while (queue.length) {
-    let size = queue.length;
+  helper();
 
-    for (let k = 0; k < size; k++) {
-      let [i, j] = queue.shift();
+  return ans;
 
-      if (grid[i][j] == 'M') {
-        grid[i][j] = 'X';
+  function helper(path = '') {
+    if (path.length >= m) {
+      ans++;
+    }
+
+    if (path.length >= n) {
+      return;
+    }
+
+    for (let i = 1; i < 10; i++) {
+      if (visited[i]) continue;
+
+      let jumping = jumps[i][path[path.length - 1]];
+
+      if (jumping) {
+        if (!visited[jumping]) continue;
       }
 
-      let mine = 0;
-      let coords = [];
+      visited[i] = true;
 
-      for (let dir of dirs) {
-        let x = i + dir[0];
-        let y = j + dir[1];
+      helper(path + i);
 
-        if (x < 0 || y < 0 || x >= n || y >= m || visited[x][y]) continue;
-
-        if ((grid[x][y] >= 1 && grid[x][y] <= 9) || grid[x][y] == 'M') {
-          mine++;
-        } else if (grid[x][y] == 'E') {
-          coords.push([x, y]);
-        }
-      }
-
-      if (mine == 0) {
-        coords.forEach(coord => {
-          queue.push([coord[0], coord[1]]);
-          visited[coord[0]][coord[1]] = true;
-        });
-        grid[i][j] = 'B';
-      } else {
-        grid[i][j] = `${mine}`;
-      }
+      visited[i] = false;
     }
   }
-
-  return grid;
 };
