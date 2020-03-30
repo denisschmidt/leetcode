@@ -1,51 +1,96 @@
 /**
- * @param {number} m
- * @param {number} n
+ * @param {number[][]} board
  * @return {number}
  */
-var numberOfPatterns = function(m, n) {
-  let jumps = Array(10)
-    .fill(0)
-    .map(() => Array(10).fill(0));
+var slidingPuzzle = function(board) {
+  let dirs = [
+    [1, 3],
+    [0, 2, 4],
+    [1, 5],
+    [0, 4],
+    [3, 1, 5],
+    [4, 2],
+  ];
+  let valid = [1, 2, 3, 4, 5, 0];
 
-  jumps[1][3] = jumps[3][1] = 2;
-  jumps[4][6] = jumps[6][4] = 5;
-  jumps[7][9] = jumps[9][7] = 8;
-  jumps[1][7] = jumps[7][1] = 4;
-  jumps[2][8] = jumps[8][2] = 5;
-  jumps[3][9] = jumps[9][3] = 6;
-  jumps[1][9] = jumps[9][1] = jumps[3][7] = jumps[7][3] = 5;
-
-  let ans = 0;
-  let visited = Array(10).fill(false);
-
-  helper();
-
-  return ans;
-
-  function helper(path = '') {
-    if (path.length >= m) {
-      ans++;
-    }
-
-    if (path.length >= n) {
-      return;
-    }
-
-    for (let i = 1; i < 10; i++) {
-      if (visited[i]) continue;
-
-      let jumping = jumps[i][path[path.length - 1]];
-
-      if (jumping) {
-        if (!visited[jumping]) continue;
+  let nums = [];
+  let start = 0;
+  for (let i = 0; i < 2; i++) {
+    for (let j = 0; j < 3; j++) {
+      nums.push(board[i][j]);
+      if (board[i][j] == 0) {
+        start = nums.length - 1;
       }
-
-      visited[i] = true;
-
-      helper(path + i);
-
-      visited[i] = false;
     }
   }
+
+  let queue = [start];
+  let state = [nums];
+  let visited = [Array(6).fill(false)];
+  let cnt = 0;
+
+  while (queue.length) {
+    let size = queue.length;
+
+    for (let k = 0; k < size; k++) {
+      let i = queue.shift();
+      let s = state.shift();
+      let v = visited.shift();
+
+      if (isValid(s)) return cnt;
+
+      if (isFull(v)) {
+        v = Array(6).fill(false);
+        v[i] = true;
+      }
+
+      console.log(s[i]);
+
+      for (let z = 0; z < dirs[i].length; z++) {
+        let j = dirs[i][z];
+        let copyV = [...v];
+        let copyS = [...s];
+
+        if (copyV[j]) continue;
+
+        copyV[j] = true;
+        swap(copyS, i, j);
+
+        queue.push(j);
+        state.push(copyS);
+        visited.push(copyV);
+      }
+    }
+
+    cnt++;
+  }
+
+  return -1;
+
+  function swap(a, x, y) {
+    return ([a[x], a[y]] = [a[y], a[x]]);
+  }
+
+  function isValid(nums) {
+    for (let i = 0; i < nums.length; i++) {
+      if (nums[i] != valid[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function isFull(nums) {
+    for (let i = 0; i < nums.length; i++) {
+      if (!nums[i]) {
+        return false;
+      }
+    }
+    return true;
+  }
 };
+
+slidingPuzzle([
+  [3, 2, 4],
+  [1, 5, 0],
+]);
