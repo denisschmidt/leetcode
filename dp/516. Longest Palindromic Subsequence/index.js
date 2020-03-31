@@ -18,6 +18,7 @@ One possible longest palindromic subsequence is "bb".
 */
 
 /*
+
   https://www.youtube.com/watch?v=_nCsPn7_OgI&t=57s
 
   https://leetcode.com/problems/longest-palindromic-subsequence/discuss/99101/Straight-forward-Java-DP-solution
@@ -35,7 +36,7 @@ One possible longest palindromic subsequence is "bb".
   
   2) Если у нас s[i] == s[j] допустим i = 2 и j = 4, тогда длина в этой точке будет равна 2 + dp[i + 1][j - 1] = 3
 
-  3) Заполняем так всю таблицу тогда dp[0][s.len - 1] это и будем максимальное значение для строки от 0 до s.len
+  3) Заполняем так всю таблицу тогда dp[0][s.len - 1] это и будем максимальное значение для строки от 0 до s.length
 
 */
 
