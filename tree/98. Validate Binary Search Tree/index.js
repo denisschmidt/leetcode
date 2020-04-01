@@ -88,7 +88,7 @@ const isValidBST_II = root => {
 };
 
 class MinMax {
-  constructor(min, max, isBST, size) {
+  constructor(min, max, isBST) {
     this.min = min || Number.MAX_VALUE;
     this.max = max || -Number.MAX_VALUE;
     this.isBST = isBST || true;
@@ -97,7 +97,7 @@ class MinMax {
 
 // Time O(N)
 // Space O(N)
-const isValidBST_III = function(root) {
+const isValidBST_III = root => {
   return helper(root, null, null);
 
   function helper(node, lower, upper) {

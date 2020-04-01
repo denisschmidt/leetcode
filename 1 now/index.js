@@ -1,41 +1,49 @@
 /**
- * @param {number[][]} grid
+ * Definition for a binary tree node.
+ * function TreeNode(val) {
+ *     this.val = val;
+ *     this.left = this.right = null;
+ * }
+ */
+/**
+ * @param {TreeNode} root
  * @return {number}
  */
-var maxIncreaseKeepingSkyline = function(grid) {
-  let n = grid.length;
-  let m = grid[0].length;
-  let cols = [];
-  let rows = [];
+const maxSumBST = root => {
+  let ans = 0;
 
-  for (let i = 0; i < n; i++) {
-    let max = 0;
-    for (let j = 0; j < m; j++) {
-      max = Math.max(max, grid[i][j]);
+  helper(root);
+
+  function helper(node) {
+    if (node == null) return new MinMax();
+
+    let left = helper(node.left);
+    let right = helper(node.right);
+
+    let m = new MinMax();
+
+    if (!left.isBST || !right.isBST || left.max >= node.val || node.val >= right.min) {
+      m.isBST = false;
+      return m;
     }
-    rows.push(max);
+
+    m.isBST = true;
+    m.sum = m.sum + node.val;
+
+    ans = Math.max(ans, m.sum);
+
+    m.min = node.left != null ? left.min : node.val;
+    m.max = node.right != null ? right.max : node.val;
+
+    return m;
   }
-
-  for (let j = 0; j < m; j++) {
-    let max = 0;
-    for (let i = 0; i < n; i++) {
-      max = Math.max(max, grid[j][i]);
-    }
-    cols.push(max);
-  }
-
-  for (let i = 0; i < n; i++) {
-    let max = 0;
-    let min = Number.MAX_VALUE;
-    for (let j = 0; j < m; j++) {
-      let max = Math.max(max, cols[i], rows[j]);
-      let min = Math.min(min, cols[i], rows[j]);
-
-      if (grid[i][j] != max) {
-        grid[i][j] = min;
-      }
-    }
-  }
-
-  return grid;
 };
+
+class MinMax {
+  constructor(isBST = true, min = Number.MAX_VALUE, max = -Number.MAX_VALUE, sum = 0) {
+    this.min = min;
+    this.max = max;
+    this.isBST = isBST;
+    this.sum = sum;
+  }
+}
