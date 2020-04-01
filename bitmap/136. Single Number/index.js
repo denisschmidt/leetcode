@@ -18,15 +18,29 @@ Example 2:
 
  */
 
-// Битовая манипуляция
-//
-// 1) Если мы возьмем XOR из нуля и некоторого бита, он вернет этот бит
-// X XOR 0 = X
+/*
 
-// 2) Если мы возьмем XOR двух одинаковых битов, он вернет
-// X XOR X = 0
+  Битовая манипуляция используя XOR мы сможем найти уникальный номер
 
-// Делаем XOR все биты вместе, чтобы найти уникальный номер.
+  1) Если мы возьмем XOR из нуля и некоторого бита, он вернет этот бит 12 XOR 0 = 12
+
+  2) Если мы возьмем XOR двух одинаковых битов, он вернет 12 XOR 12 = 0
+
+  [4, 1, 2, 1, 2]
+
+  0 ^ 4 = 4
+  
+  4 ^ 1 = 5
+
+  5 ^ 2 = 7
+  
+  7 ^ 1 = 6
+
+  6 ^ 2 = 4
+ 
+  Ответ: 4
+
+*/
 
 // Time O(N)
 // Space O(1)
@@ -39,25 +53,18 @@ const singleNumber = nums => {
   return ans;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // Time O(N)
 // Space O(N)
-const singleNumber = nums => {
-  const map = new Map();
+const singleNumber_II = nums => {
+  let set = new Set();
 
-  for (let num of nums) {
-    if (!map.has(num)) {
-      map.set(num, 1);
+  for (let i = 0; i < nums.length; i++) {
+    if (!set.has(nums[i])) {
+      set.add(nums[i]);
     } else {
-      map.set(num, map.get(num) + 1);
+      set.delete(nums[i]);
     }
   }
 
-  for (let [key, val] of map) {
-    if (val === 1) {
-      return key;
-    }
-  }
-  return 0;
+  return set.values().next().value;
 };
