@@ -22,11 +22,11 @@ Explanation: The answer is "wke", with the length of 3.
 // Two Pointers
 // Time O(N)
 // Space O(N)
-const lengthOfLongestSubstring = str => {
-  const map = {};
+const lengthOfLongestSubstring = word => {
+  let map = {};
 
-  for (let i = 0; i < 128; i++) {
-    map[String.fromCharCode(i)] = 0;
+  for (let w of word) {
+    map[w] = 0;
   }
 
   let start = 0;
@@ -34,22 +34,25 @@ const lengthOfLongestSubstring = str => {
   let cnt = 0;
   let maxLen = 0;
 
-  while (end < str.length) {
-    if (map[str[end]] > 0) {
+  while (end < word.length) {
+    if (map[word[end]] > 0) {
       cnt++;
     }
-    map[str[end]]++;
-    end++;
+
+    map[word[end++]]++;
 
     while (cnt > 0) {
-      if (map[str[start]] > 1) {
+      if (map[word[start]] == 2) {
         cnt--;
       }
-      map[str[start]]--;
+
+      map[word[start]]--;
       start++;
     }
 
-    maxLen = Math.max(maxLen, end - start);
+    if (maxLen < end - start) {
+      maxLen = end - start;
+    }
   }
 
   return maxLen;
