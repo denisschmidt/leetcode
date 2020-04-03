@@ -62,6 +62,7 @@ http://www.cs.umd.edu/class/fall2017/cmsc451-0101/Lects/lect04-edge-connectivity
 
 */
 
+// Tarjan's Algorithm  https://www.youtube.com/watch?v=2kREIkF9UAs&t=809s
 // E = общее количество ребер
 // V = общее количество вершин
 // Time O(V + E)
@@ -101,13 +102,13 @@ const criticalConnections = (numConnections, connections) => {
   function dfs(u, parent) {
     visited[u] = true;
 
-    // установить время обнаружения и инициировать низкий уровень
+    // установить время обнаружения и инициировать lowTime
     lowTime[u] = visitedTime[u] = ++time;
 
-    const neighbors = adjList[u];
+    let neighbors = adjList[u];
 
     for (let i = 0; i < neighbors.length; i++) {
-      const v = neighbors[i];
+      let v = neighbors[i];
 
       // в неориентированном графе внешний край может вернуться сразу
       if (v === parent) continue;
@@ -115,30 +116,22 @@ const criticalConnections = (numConnections, connections) => {
       if (!visited[v]) {
         dfs(v, u);
 
-        // back edge
-        // во время backtracking прослеживаем минимальное значение
+        // Поднимается по рекурсии Bottom-top
+        // Цикл продолжит итерации с той точки на которой мы находимся и мы перейдем к соседним точкам
+
+        // Во время backtracking прослеживаем минимальное значение
         lowTime[u] = Math.min(lowTime[u], lowTime[v]);
 
-        // если ДОСТИГНУТОЕ значения родителя меньше чем МИНИМАЛЬНОЕ значение ребенка
-        // значит мы нашли мост
+        // По сути это следущее значение так как мы поднимаемся по рекурсии(Bottom-top рекурсия)
+        // если ДОСТИГНУТОЕ время меньше чем время смежных точек значит мы нашли мост
         if (visitedTime[u] < lowTime[v]) {
           ans.push([u, v]);
         }
       } else {
+        // Обновляем минимальное время
+        // Берем минимальное значение из смежных точек
         lowTime[u] = Math.min(lowTime[u], visitedTime[v]);
       }
     }
   }
 };
-
-const res = criticalConnections(5, [
-  [1, 0],
-  [2, 0],
-  [3, 2],
-  [4, 2],
-  [4, 3],
-  [3, 0],
-  [4, 0],
-]);
-
-console.log(res);
