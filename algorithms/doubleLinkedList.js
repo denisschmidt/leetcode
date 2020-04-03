@@ -24,11 +24,16 @@ class DoubleLinkedList {
   }
 
   inset(node) {
-    node.next = this.head.next;
     node.prev = this.head;
+    node.next = this.head.next;
 
     this.head.next.prev = node;
     this.head.next = node;
+  }
+
+  moveToHead(node) {
+    this.remove(node);
+    this.inset(node);
   }
 
   getLast() {
