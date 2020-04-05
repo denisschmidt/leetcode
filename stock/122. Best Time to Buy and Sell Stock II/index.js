@@ -1,4 +1,5 @@
 /*
+
 Say you have an array for which the ith element is the price of a given stock on day i.
 
 Design an algorithm to find the maximum profit. 
@@ -23,46 +24,35 @@ Example 3:
   Output: 0
   Explanation: In this case, no transaction is done, i.e. max profit = 0.
 
-
- */
-
-// Time O(N)
-const maxProfit = function(prices) {
-  let ans = 0;
-
-  for (let start = 0; start < prices.length; start++) {
-    if (prices[start + 1] > prices[start]) ans += prices[start + 1] - prices[start];
-  }
-  return ans;
-};
-
-const res = maxProfit([7, 1, 5, 3, 6, 4]);
-console.log('---', res);
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+*/
 
 // Time O(N)
-const maxProfit2 = function(prices) {
-  if (prices == null || prices.length <= 1) return 0;
-  let min = prices[0];
-  let max = prices[0];
-  let ans = 0;
+// Space O(1)
+const maxProfit = prices => {
+  let max = 0;
+  let cur = prices[0];
 
   for (let i = 1; i < prices.length; i++) {
-    if (prices[i] <= max) {
-      ans += max - min;
-      min = max = prices[i];
-    } else if (prices[i] > max) {
-      max = prices[i];
+    if (cur > prices[i]) {
+      cur = prices[i];
+    } else {
+      max += prices[i] - cur;
+      cur = prices[i];
     }
   }
 
-  if (min !== max) {
-    ans += max - min;
-  }
-
-  return ans;
+  return max;
 };
 
-const res2 = maxProfit2([1, 2, 3, 4, 5]);
-console.log('---', res2);
+// Time O(N)
+// Space O(1)
+const maxProfit_II = prices => {
+  let ans = 0;
+
+  for (let start = 0; start < prices.length; start++) {
+    if (prices[start + 1] > prices[start]) {
+      ans += prices[start + 1] - prices[start];
+    }
+  }
+  return ans;
+};
