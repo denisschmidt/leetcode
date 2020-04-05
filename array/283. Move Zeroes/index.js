@@ -35,10 +35,26 @@ const moveZeroes = nums => {
       break;
     }
   }
-
-  return nums;
 };
 
 function swap(nums, i, j) {
   return ([nums[i], nums[j]] = [nums[j], nums[i]]);
 }
+
+// Time O(N)
+// Space O(1)
+const moveZeroes_II = nums => {
+  let n = nums.length;
+  let nxt = 0;
+
+  for (let num of nums) {
+    if (num != 0) {
+      nums[nxt] = num;
+      nxt++;
+    }
+  }
+
+  for (let i = nxt; i < n; i++) {
+    nums[i] = 0;
+  }
+};

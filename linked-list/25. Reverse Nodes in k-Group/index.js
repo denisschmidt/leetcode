@@ -64,3 +64,39 @@ const reverseKGroup = (head, k) => {
     return dummy;
   }
 };
+
+// Time O(N)
+// Space O(1)
+const reverseKGroup_II = function(head, k) {
+  if (head == null) return null;
+  if (k == 1) return head;
+  if (getLen(head) < k) return head;
+
+  // prev будет содержать head reverse node размером K
+  let prev = null;
+  let cur = head;
+  let cnt = k;
+
+  while (cur != null && cnt > 0) {
+    let next = cur.next;
+    cur.next = prev;
+
+    prev = cur;
+    cur = next;
+
+    cnt--;
+  }
+
+  head.next = reverseKGroup_II(cur, k);
+
+  return prev;
+};
+
+function getLen(node) {
+  let cnt = 0;
+  while (node != null) {
+    node = node.next;
+    cnt++;
+  }
+  return cnt;
+}
