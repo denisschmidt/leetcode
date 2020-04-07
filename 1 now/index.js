@@ -1,29 +1,42 @@
-const minSwaps = nums => {
-  let range = 0;
+/**
+ * @param {string} S
+ * @param {number} K
+ * @return {number}
+ */
+var numKLenSubstrNoRepeats = function(S, K) {
+  let map = {};
 
-  for (let n of nums) {
-    if (n == 1) range++;
+  for (let s of S) {
+    map[s] = 0;
   }
 
-  let n = nums.length;
-  let lo = 0;
-  let hi = 0;
+  let start = 0;
+  let end = 0;
   let cnt = 0;
-  let max = 0;
+  let ans = 0;
+  let key;
 
-  while (hi < nums.length) {
-    while (hi < n && hi - lo < range) {
-      if (nums[hi++] == 1) {
-        cnt++;
-      }
+  while (end < n) {
+    if (map[S[end]] > 0) {
+      cnt++;
     }
 
-    max = Math.max(max, hi - cnt);
+    map[S[end++]]++;
 
-    if (nums[lo++] == 1) {
-      cnt--;
+    while (cnt > 0) {
+      if (map[S[start]] == 2) {
+        cnt--;
+      }
+
+      map[S[start]]--;
+
+      start++;
+    }
+
+    if (end - start == K) {
+      ans++;
     }
   }
 
-  return max;
+  return ans;
 };

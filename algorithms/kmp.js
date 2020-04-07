@@ -3,9 +3,6 @@
 
   Time O(N + M)
 
-*/
-
-/*
   Prefix array building. 
   
   The pattern equal ['a c a c a b a c a c a b a c a c a c']
