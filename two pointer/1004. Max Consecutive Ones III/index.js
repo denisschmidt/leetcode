@@ -52,21 +52,23 @@ Note:
 const longestOnes = (nums, k) => {
   let start = 0;
   let end = 0;
+  let cnt = 0;
   let maxLen = 0;
 
   while (end < nums.length) {
-    if (nums[end] === 0) {
-      k--;
+    if (nums[end] == 0) {
+      cnt++;
     }
 
     end++;
 
-    while (k < 0) {
-      if (nums[start] === 0) {
-        k++;
+    while (cnt > k) {
+      if (nums[start] == 0) {
+        cnt--;
       }
       start++;
     }
+
     if (maxLen < end - start) {
       maxLen = end - start;
     }
