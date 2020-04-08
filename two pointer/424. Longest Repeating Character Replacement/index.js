@@ -25,40 +25,42 @@ Example 2:
  
  */
 
-const characterReplacement = (str, k) => {
-  if (str.length === 0) return 0;
-
+// Time O(N)
+// Space O(N)
+const characterReplacement = (s, k) => {
+  let map = {};
   let start = 0;
-  let ans = 0;
-  let maxCount = 0;
   let end = 0;
+  let maxCnt = 0;
+  let maxLen = 0;
 
-  const chars = Array(26).fill(0);
+  for (let t of s) map[t] = 0;
 
-  while (end < str.length) {
-    const index = str.charCodeAt(end) - 'A'.charCodeAt(0);
+  while (end < s.length) {
+    map[s[end]]++;
+    maxCnt = Math.max(maxCnt, map[s[end]]);
 
-    chars[index]++;
-    maxCount = Math.max(maxCount, chars[index]);
+    /* 
 
-    // end - start + 1 размер текущего окна
-    // maxCount наибольшее количество одного уникального символа в текущем окне
+      end - start + 1 размер текущего окна
+      maxCount максимальное вхождение в окне
 
-    // end - start + 1 - maxCount равен количеству символов, которые НЕ являются символом, который встречается чаще всего в этом окне.
+      end - start + 1 - maxCount - количество символов, которые НЕ являются символом, который встречается чаще всего в этом окне.
 
-    // Для окна "xxxyz" end-start+1-maxCount будет равно 2
+      Для окна "xxxyz" end-start+1-maxCount = 2
 
-    while (end - start + 1 - maxCount > k) {
-      maxCount = Math.max(maxCount, --chars[str.charCodeAt(start) - 'A'.charCodeAt(0)]);
-      start++;
+    */
+
+    if (end - start + 1 - maxCnt > k) {
+      map[s[start++]]--;
     }
 
-    ans = Math.max(ans, end - start + 1);
+    if (maxLen < end - start + 1) {
+      maxLen = end - start + 1;
+    }
 
     end++;
   }
 
-  return ans;
+  return maxLen;
 };
-
-characterReplacement('ABAB', 2);
