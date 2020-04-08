@@ -34,6 +34,22 @@ const checkPossibility = nums => {
   return index === -1 || index === 1 || index === nums.length - 1 || nums[index - 2] <= nums[index] || nums[index - 1] <= nums[index + 1];
 };
 
-const input = [-1, 4, 2, 3];
-const res = checkPossibility(input);
-console.log(res);
+// Time O(N)
+// Space O(1)
+const checkPossibility_II = nums => {
+  let n = nums.length;
+  let cnt = 0;
+
+  for (let i = 1; i < n; i++) {
+    if (nums[i - 1] > nums[i]) {
+      if (i - 2 < 0 || nums[i] >= nums[i - 2]) {
+        nums[i - 1] = nums[i];
+      } else {
+        nums[i] = nums[i - 1];
+      }
+      cnt++;
+    }
+  }
+
+  return cnt <= 1;
+};
