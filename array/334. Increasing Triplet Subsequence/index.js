@@ -22,17 +22,21 @@ Example 2:
 // Time O(N)
 // Space O(1)
 const increasingTriplet = function(nums) {
-  let a = Number.MAX_VALUE;
-  let b = Number.MAX_VALUE;
+  let n = nums.length;
+  let INF = Number.MAX_VALUE;
+  let first = INF;
+  let second = INF;
 
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] > b) return true;
-
-    // обновляем нажние границы
-    if (nums[i] < a) {
-      a = nums[i];
-    } else if (nums[i] !== a && nums[i] < b) {
-      b = nums[i];
+  for (let i = 0; i < n; i++) {
+    // обновляем границы
+    if (first >= nums[i]) {
+      first = nums[i];
+    } else if (second >= nums[i]) {
+      second = nums[i];
+    } else {
+      if (first != second) {
+        return true;
+      }
     }
   }
 
