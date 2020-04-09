@@ -14,18 +14,17 @@ Note:
 // Hashmap solution
 // Time O(N)
 // Space O(N)
-const subarraySum = function(nums, k) {
-  let sum = 0;
+const subarraySum = (nums, k) => {
   let map = { 0: 1 };
+  let n = nums.length;
+  let sum = 0;
   let cnt = 0;
 
-  for (let i = 0; i < nums.length; i++) {
+  for (let i = 0; i < n; i++) {
     sum += nums[i];
 
-    let diff = sum - k;
-
-    if (map[diff]) {
-      cnt += map[diff];
+    if (map[sum - k] > 0) {
+      cnt += map[sum - k];
     }
 
     map[sum] = ~~map[sum] + 1;

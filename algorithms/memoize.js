@@ -1,20 +1,33 @@
 const memoize = fn => {
-  let cache = {};
+  let cache = new Map();
+
   return (...args) => {
     let stringifiedArgs = JSON.stringify(args);
-    let result = (cache[stringifiedArgs] = cache[stringifiedArgs] || fn(...args));
-    return result;
+
+    if (cache.has(stringifiedArgs)) {
+      return cache.get(stringifiedArgs);
+    }
+
+    cache.set(stringifiedArgs, fn(...args));
+
+    return cache.get(stringifiedArgs);
   };
 };
 
-const memoizee = fn => {
-  let cache = {};
-  return function() {
-    // Создать строковую версию массива arguments для использования
-    // в качестве ключа кэша.
-    let key = arguments.length + Array.prototype.join.call(arguments, ',');
-    if (key in cache) return cache[key];
-    else return (cache[key] = fn.apply(this, arguments));
+const memoizeByResult = (fn, resolver = defaultResolver) => {
+  const cache = new Map();
+
+  return (...args) => {
+    const newResult = fn(...args);
+    const key = resolver(...args);
+    const result = cache.get(key);
+
+    if (newResult !== result && !R.equals(newResult, result)) {
+      cache.set(key, newResult);
+      return newResult;
+    }
+
+    return result;
   };
 };
 

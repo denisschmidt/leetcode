@@ -22,16 +22,36 @@ Kadane’s Algo with O(n) linear complexity
 
  */
 
-// Kadane's algorithm - Dynamic Programming
+// Greedy
+
+// Обновляем локальную максимальную сумму на каждом шаге, это приведет к глобальной максимальной сумме
+
 // Time O(n)
 // Space O(1)
 const maxSubArray = nums => {
+  let currSum = nums[0];
   let max = nums[0];
 
   for (let i = 1; i < nums.length; i++) {
-    nums[i] = Math.max(nums[i] + nums[i - 1], nums[i]);
-    max = Math.max(max, nums[i]);
+    currSum = Math.max(nums[i] + currSum, nums[i]);
+
+    if (currSum > max) {
+      max = currSum;
+    }
   }
 
+  return max;
+};
+
+// Dynamic Programming (Kadane's algorithm)
+const maxSubArray_II = nums => {
+  let max = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i - 1] > 0) {
+      nums[i] += nums[i - 1];
+    }
+    max = Math.max(max, nums[i]);
+  }
   return max;
 };
