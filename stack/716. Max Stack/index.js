@@ -27,30 +27,51 @@ Note:
 
  */
 
+// Time O(N) - popMax, other - O(1)
+// Space O(N)
 class MaxStack {
   constructor() {
-    this.nums = [];
+    this.stack = [];
+    this.maxStack = [];
   }
 
   push(x) {
-    this.nums.push(x);
+    let max = this.maxStack.length ? Math.max(x, getLast(this.maxStack)) : x;
+    this.stack.push(x);
+    this.maxStack.push(max);
   }
 
   pop() {
-    return this.nums.pop();
+    this.maxStack.pop();
+    return this.stack.pop();
   }
 
   top() {
-    return this.nums[this.nums.length - 1];
+    return getLast(this.stack);
   }
 
   peekMax() {
-    return Math.max(...this.nums);
+    return getLast(this.maxStack);
   }
 
   popMax() {
-    const max = this.peekMax();
-    const index = this.nums.lastIndexOf(max);
-    return this.nums.splice(index, 1);
+    let max = getLast(this.maxStack);
+    let buffer = [];
+
+    while (this.top() != max) {
+      buffer.push(this.pop());
+    }
+
+    this.pop();
+
+    while (buffer.length > 0) {
+      this.push(buffer.pop());
+    }
+
+    return max;
   }
+}
+
+function getLast(x) {
+  return x[x.length - 1];
 }

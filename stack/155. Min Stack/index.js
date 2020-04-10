@@ -19,77 +19,57 @@ minStack.top();      --> Returns 0.
 minStack.getMin();   --> Returns -2.
  */
 
-/**
- * initialize your data structure here.
- */
-const MinStack = function() {
-  this.q1 = [];
-  this.q2 = [];
-  this.min = Number.MAX_VALUE;
-};
+/*
+  Создаем два стека:
+    1) Первый стек будет содержать все значения
+    2) Второй стек только минимальные значения
 
-/**
- * @param {number} x
- * @return {void}
- */
-MinStack.prototype.push = function(x) {
-  this.min = Math.min(this.min, x);
-  this.q1.push(x);
-};
+  Оптимизация:
+    Если минимальное значение повторяется постоянно в minStack будет много ненужных значений. 
+    Чтобы этого избежать используем след. структуру для minStack = [значение, кол-во повторений] 
+  
+*/
 
-/**
- * @return {void}
- */
-MinStack.prototype.pop = function() {
-  this.min = Number.MAX_VALUE;
-  while (this.q1.length > 1) {
-    let top = this.q1.shift();
-    this.q2.push(top);
-    this.min = Math.min(this.min, top);
+// Time All operations O(1)
+// Space O(N)
+class MinStack {
+  constructor() {
+    this.stack = [];
+    this.minStack = [];
   }
-  let pop = this.q1.shift();
 
-  this.swap();
-  return pop;
-};
+  push(x) {
+    this.stack.push(x);
 
-MinStack.prototype.swap = function() {
-  let tmp = this.q1;
-  this.q1 = this.q2;
-  this.q2 = tmp;
-};
+    if (!this.minStack.length || getLast(this.minStack)[0] > x) {
+      this.minStack.push([x, 1]);
+    } else if (getLast(this.minStack)[0] == x) {
+      this.minStack[this.minStack.length - 1] = [x, getLast(this.minStack)[1] + 1];
+    }
+  }
 
-/**
- * @return {number}
- */
-MinStack.prototype.top = function() {
-  console.log('---', this.q1);
-  return this.q1[this.q1.length - 1];
-};
+  pop() {
+    if (getLast(this.stack) == getLast(this.minStack)[0]) {
+      let [value, cnt] = getLast(this.minStack);
+      if (cnt > 1) {
+        this.minStack[this.minStack.length - 1] = [value, cnt - 1];
+      } else {
+        this.minStack.pop();
+      }
+    }
 
-/**
- * @return {number}
- */
-MinStack.prototype.getMin = function() {
-  return this.min;
-};
+    this.stack.pop();
+  }
 
-/**
- * Your MinStack object will be instantiated and called as such:
- * var obj = new MinStack()
- * obj.push(x)
- * obj.pop()
- * var param_3 = obj.top()
- * var param_4 = obj.getMin()
- */
+  top() {
+    return getLast(this.stack);
+  }
 
-const minStack = new MinStack();
-minStack.push(-2);
-minStack.push(0);
-minStack.push(-3);
-const a = minStack.getMin();
-minStack.pop();
-const b = minStack.top();
-const c = minStack.getMin();
+  getMin() {
+    return getLast(this.minStack)[0];
+  }
+}
 
-console.log('----', a, b, c);
+function getLast(arr) {
+  return arr[arr.length - 1];
+}
