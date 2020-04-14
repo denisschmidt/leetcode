@@ -41,6 +41,7 @@ Note:
 */
 
 /*
+
   Bipartite  граф - это граф, вершины которого можно разделить на два независимых множества, U и V, 
   так что каждое ребро (u, v) либо соединяет вершину из U в V, либо вершину из V в U. 
   
@@ -63,42 +64,41 @@ Note:
   Для каждого неокрашенного соседа в graph[node] мы раскрасим одним из возможных цветов.
 
   
-https://www.geeksforgeeks.org/bipartite-graph/
+  https://www.geeksforgeeks.org/bipartite-graph/
 
 */
 
 // Time O(N + E) N - кол-во нод, E - кол-во ребер
 // Space O(N)
-const isBipartite = function(graph) {
-  let colors = Array(graph.length).fill(0);
+const isBipartite = graph => {
+  let n = graph.length;
+  let colors = Array(n).fill(0);
   let queue = [];
 
-  // Вышеприведенный алгоритм без цикла от 0 до graph.length работает, только если граф connected.
-  // В приведенном выше коде мы всегда начинаем с источника 0 и предполагаем, что вершины посещаются из него.
-  // Одним из важных наблюдений является график без ребер он также является двудольным.
-  // Обратите внимание, что условие Bipartite говорит, что все ребра должны быть из одного набора в другой.
+  for (let k = 0; k < n; k++) {
+    if (colors[k] != 0) continue;
 
-  // Поэтому для обработки подобных кейсов нужен этот цикл
-  // Этот цикл нужен для обработки disconnected graph
-  for (let i = 0; i < graph.length; i++) {
-    if (colors[i] !== 0) continue;
-
-    queue.push(i);
-    colors[i] = 1; // Blue: 1; Red: -1.
+    queue.push(k);
+    colors[k] = 1; // Blue: 1; Red: -1.
 
     while (queue.length) {
-      let u = queue.shift();
+      let size = queue.length;
 
-      for (let i = 0; i < graph[u].length; i++) {
-        let v = graph[u][i];
+      for (let i = 0; i < size; i++) {
+        let u = queue.shift();
+        let neighbors = graph[u];
 
-        // если нода не раскрашена раскрасим ее в противоположный цвет
-        if (colors[v] === 0) {
-          colors[v] = -colors[u];
-          queue.push(v);
-        } else if (colors[v] !== -colors[u]) {
-          // Если вершина уже раскрашена и ее цвет не отличается от цвета родителя
-          return false;
+        for (let j = 0; j < neighbors.length; j++) {
+          let v = neighbors[j];
+
+          // если нода не раскрашена раскрасим ее в противоположный цвет
+          if (colors[v] == 0) {
+            colors[v] = -colors[u];
+            queue.push(v);
+          } else if (colors[v] == colors[u]) {
+            // Если мы найдем соседа, окрашенного в тот же цвет, что и текущий узел, то наша раскраска будет невозможна.
+            return false;
+          }
         }
       }
     }
