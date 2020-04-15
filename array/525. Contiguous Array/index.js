@@ -16,6 +16,13 @@ Note: The length of the given binary array will not exceed 50,000.
 
 */
 
+/*
+
+  Идея состоит в том, чтобы изменить 0 в исходном массиве на -1. 
+  Если мы находим SUM[i, j] == 0, то мы знаем, что между индексами i и j есть четное число -1 и 1. 
+
+*/
+
 // Time O(N)
 // Space O(N)
 const findMaxLength = nums => {
@@ -23,7 +30,7 @@ const findMaxLength = nums => {
   let ans = 0;
   let sum = 0;
 
-  map.set(0, -1);
+  map.set(0, -1); // для тестового случая когда весь массив уже содержит одинаковое значение 0 и 1
 
   for (let i = 0; i < nums.length; i++) {
     if (nums[i] == 0) {
