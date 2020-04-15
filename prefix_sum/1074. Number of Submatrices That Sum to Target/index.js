@@ -63,7 +63,7 @@ const numSubmatrixSumTarget = function(matrix, target) {
     let nums = Array(m).fill(0);
 
     for (let j = i; j < n; j++) {
-      // считаем сумму в
+      // считаем сумму во всей строке
       for (let k = 0; k < m; k++) {
         nums[k] += matrix[j][k];
       }

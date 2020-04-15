@@ -71,7 +71,7 @@ class PriorityQueue {
       return null;
     }
 
-    const first = this.data[0];
+    const first = this.peek();
     const last = this.data.pop();
 
     if (this.data.length > 0) {
