@@ -26,6 +26,14 @@ const wiggleSort = nums => {
   }
 };
 
+const wiggleSort_II = nums => {
+  nums.sort((a, b) => a - b);
+
+  for (let i = 1; i < nums.length - 1; i = i + 2) {
+    swap(nums, i, i + 1);
+  }
+};
+
 function swap(nums, i, j) {
   return ([nums[i], nums[j]] = [nums[j], nums[i]]);
 }
