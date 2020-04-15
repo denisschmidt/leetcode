@@ -35,18 +35,18 @@ Follow up:
 
 // Time O(N)
 // Space O(1) - Выходной массив не считается дополнительным пространством для целей анализа сложности пространства
-const productExceptSelf = nums => {
-  let dp = Array(nums.length).fill(1);
+var productExceptSelf = function(nums) {
+  let n = nums.length;
+  let dp = Array(n).fill(1);
 
-  dp[0] = 1;
-  for (let i = 1; i < nums.length; i++) {
+  for (let i = 1; i < n; i++) {
     dp[i] = dp[i - 1] * nums[i - 1];
   }
 
   let right = 1;
-  for (let i = nums.length - 1; i >= 0; i--) {
-    dp[i] = dp[i] * right;
 
+  for (let i = n - 1; i >= 0; i--) {
+    dp[i] = dp[i] * right;
     right = nums[i] * right;
   }
 
@@ -57,26 +57,26 @@ const productExceptSelf = nums => {
 // Space O(1)
 const productExceptSelf_II = nums => {
   let n = nums.length;
-  let left = [nums[0]];
-  let right = [];
-  right[n - 1] = nums[n - 1];
+  let left = [];
+
+  left[0] = nums[0];
 
   for (let i = 1; i < n; i++) {
     left[i] = left[i - 1] * nums[i];
   }
 
+  let right = [];
+  right[n - 1] = nums[n - 1];
+
   for (let i = n - 2; i >= 0; i--) {
     right[i] = right[i + 1] * nums[i];
   }
 
+  nums[0] = right[1];
+  nums[n - 1] = left[n - 2];
+
   for (let i = 0; i < n; i++) {
-    if (i == 0) {
-      nums[i] = right[i + 1];
-    } else if (i == n - 1) {
-      nums[i] = left[i - 1];
-    } else {
-      nums[i] = right[i + 1] * left[i - 1];
-    }
+    nums[i] = left[i - 1] * right[i + 1];
   }
 
   return nums;
