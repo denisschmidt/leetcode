@@ -26,9 +26,27 @@ Example 3:
 
 */
 
-// Time O(2N)
+// Time O(N)
 // Space O(N)
 const maxProfit = prices => {
+  let k = 2;
+  let price_0 = Array(k + 1).fill(0);
+  let price_1 = Array(k + 1).fill(-Number.MAX_VALUE);
+
+  for (let price of prices) {
+    price_0[2] = Math.max(price_0[2], price_1[2] + price);
+    price_1[2] = Math.max(price_1[2], price_0[1] - price);
+
+    price_0[1] = Math.max(price_0[1], price_1[1] + price);
+    price_1[1] = Math.max(price_1[1], price_0[0] - price);
+  }
+
+  return price_0[2];
+};
+
+// Time O(2N)
+// Space O(N)
+const maxProfit_II = prices => {
   let k = 2;
   let dp_0 = Array(k + 1).fill(0);
   let dp_1 = Array(k + 1).fill(-Number.MAX_VALUE);

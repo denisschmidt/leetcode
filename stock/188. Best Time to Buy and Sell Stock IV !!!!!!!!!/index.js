@@ -51,8 +51,8 @@ const maxProfit = (k, prices) => {
 
   for (const price of prices) {
     for (let i = k; i > 0; i--) {
-      dp_0[i] = Math.max(dp_0[i], dp_1[i] + price); // холд или покупка
-      dp_1[i] = Math.max(dp_1[i], dp_0[i - 1] - price); // холд или продажа
+      dp_0[i] = Math.max(dp_0[i], dp_1[i] + price); // холд или продажа
+      dp_1[i] = Math.max(dp_1[i], dp_0[i - 1] - price); // холд или покупка
     }
   }
 
@@ -125,6 +125,3 @@ const maxProfit_II = function(k, prices) {
 
   return ans;
 };
-
-const res2 = maxProfit_II(5, [1, 4, 7, 5, 6, 2, 5, 1, 9, 7, 9, 7, 0, 6, 8]);
-console.log('---', res2);
