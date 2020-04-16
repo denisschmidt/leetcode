@@ -14,16 +14,9 @@ nums2 = [2,5,6],       n = 3
 Output: [1,2,2,3,5,6]
  */
 
-/**
- * @param {number[]} nums1
- * @param {number} m
- * @param {number[]} nums2
- * @param {number} n
- * @return {void} Do not return anything, modify nums1 in-place instead.
- */
-// Time O(NlogN)
+// Time O(M + N)
 // Space O(1)
-var merge = function(nums1, m, nums2, n) {
+const merge = function(nums1, m, nums2, n) {
   let i = m - 1;
   let j = n - 1;
   let k = m + n - 1;
@@ -39,13 +32,3 @@ var merge = function(nums1, m, nums2, n) {
     k--;
   }
 };
-
-let nums1 = [1, 2, 3, 0, 0, 0],
-  m = 3;
-
-let nums2 = [2, 5, 6],
-  n = 3;
-
-// 1 2 2 3 5 6
-const res = merge(nums1, m, nums2, n);
-console.log('---', res);

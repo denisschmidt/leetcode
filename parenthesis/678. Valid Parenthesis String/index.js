@@ -29,31 +29,31 @@ Note:
 
  */
 
-const checkValidString = function(chars) {
-  const leftIds = [];
-  const starIds = [];
+// Time O(N)
+// Space O(N)
+const checkValidString = str => {
+  let open = [];
+  let star = [];
 
-  for (let i = 0; i < chars.length; i++) {
-    let char = chars[i];
-
-    if (char === '(') {
-      leftIds.push(i);
-    } else if (char === '*') {
-      starIds.push(i);
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] == '(') {
+      open.push(i);
+    } else if (str[i] == '*') {
+      star.push(i);
     } else {
-      if (!leftIds.length && !starIds.length) return false;
+      if (!open.length && !star.length) return false;
 
-      if (leftIds.length) {
-        leftIds.pop();
-      } else {
-        starIds.pop();
+      if (open.length) {
+        open.pop();
+      } else if (star.length) {
+        star.pop();
       }
     }
   }
 
-  while (leftIds.length && starIds.length) {
-    if (leftIds.pop() > starIds.pop()) return false;
+  while (open.length && star.length) {
+    if (open.pop() > star.pop()) return false;
   }
 
-  return !leftIds.length;
+  return !open.length;
 };

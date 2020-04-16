@@ -64,3 +64,31 @@ function removeIds(nums, ...args) {
   let set = new Set(args);
   return nums.filter((_, index) => !set.has(index));
 }
+
+// функция каррирования
+function curry(fn) {
+  if (fn.length === 0) {
+    return fn;
+  }
+
+  function _curried(depth, args) {
+    return newArgument => {
+      if (depth - 1 === 0) {
+        return fn(...args, newArgument);
+      }
+
+      return _curried(depth - 1, [...args, newArgument]);
+    };
+  }
+
+  return _curried(fn.length, []);
+}
+
+function add(a, b) {
+  return a + b;
+}
+
+const curriedAdd = curry(add);
+const addFive = curriedAdd(5);
+
+const result = [0, 1, 2, 3, 4, 5].map(addFive); // [5, 6, 7, 8, 9, 10]
