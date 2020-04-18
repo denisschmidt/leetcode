@@ -1,63 +1,53 @@
 /*
 
-//There are a row of n houses, each house can be painted with one of the three colors: red, blue or green. 
-//The cost of painting each house with a certain color is different. You have to paint all the houses such 
-//that no two adjacent houses have the same color.
+There are a row of n houses, each house can be painted with one of the three colors: red, blue or green. 
+The cost of painting each house with a certain color is different. 
+You have to paint all the houses such that no two adjacent houses have the same color.
 
-//The cost of painting each house with a certain color is represented by a n x 3 cost matrix. For example, 
-//costs[0][0] is the cost of painting house 0 with color red; costs[1][2] is the cost of painting house 1 
-//with color green, and so on... Find the minimum cost to paint all houses.
+The cost of painting each house with a certain color is represented by a n x 3 cost matrix. 
 
-//Note:
-//All costs are positive integers.
+For example, costs[0][0] is the cost of painting house 0 with color red; costs[1][2] is the cost of painting house 1 with color green, and so on... 
 
-// [17, 2, 17], [16, 16, 5], [13, 3, 19] => 2 + 3 + 5
+Find the minimum cost to paint all houses.
 
+Note: All costs are positive integers.
 
-Time O(N * K)
+Example:
+  Input: [[17,2,17],[16,16,5],[14,3,19]]
+  Output: 10
+  Explanation: Paint house 0 into blue, paint house 1 into green, paint house 2 into blue. 
+             Minimum cost: 2 + 5 + 3 = 10.
 
  */
 
-const buildHouses = costs => {
-  if (costs == null || costs.length == 0) {
-    return 0;
+// Time O(N * M)
+// Space O(1)
+const minCost = dp => {
+  if (dp.length == 0) return 0;
+
+  if (dp.length == 1) {
+    return Math.min(...dp[0]);
   }
 
-  let m = costs.length;
-  let n = costs[0].length;
+  let n = dp.length;
+  let m = dp[0].length;
+  let ans = Number.MAX_VALUE;
 
-  let min1 = -1;
-  let min2 = -1;
-
-  for (let i = 0; i < m; i++) {
-    let last1 = min1;
-    let last2 = min2;
-
-    min1 = -1;
-    min2 = -1;
-
-    for (let j = 0; j < n; j++) {
-      if (j != last1) {
-        costs[i][j] += last1 < 0 ? 0 : costs[i - 1][last1];
-      } else {
-        costs[i][j] += last2 < 0 ? 0 : costs[i - 1][last2];
+  for (let i = 1; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      let min = Number.MAX_VALUE;
+      for (let k = 0; k < m; k++) {
+        if (k == j) continue;
+        min = Math.min(min, dp[i - 1][k]);
       }
 
-      if (min1 < 0 || costs[i][j] < costs[i][min1]) {
-        min2 = min1;
-        min1 = j;
-      } else if (min2 < 0 || costs[i][j] < costs[i][min2]) {
-        min2 = j;
+      dp[i][j] += min;
+
+      if (i == n - 1) {
+        ans = Math.min(ans, dp[n - 1][j]);
       }
     }
   }
 
-  return costs[m - 1][min1];
+  return ans;
 };
-
-const res = buildHouses([
-  [17, 2, 17],
-  [16, 16, 5],
-  [13, 3, 19],
-]);
-console.log('---', res);

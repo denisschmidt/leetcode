@@ -22,17 +22,18 @@ Example 2:
 // Если есть минимум еще меньше то берем его и повторяет условие 1
 
 // Time O(N)
+// Space O(1)
 const maxProfit = function(prices) {
-  let min = Number.MAX_VALUE;
-  let ans = 0;
+  let cur = prices[0];
+  let ans = -Number.MAX_VALUE;
 
-  for (let i = 0; i < prices.length; i++) {
-    if (prices[i] < min) {
-      min = prices[i];
+  for (let i = 1; i < prices.length; i++) {
+    if (cur > prices[i]) {
+      cur = prices[i];
     } else {
-      ans = Math.max(ans, prices[i] - min);
+      ans = Math.max(ans, prices[i] - cur);
     }
   }
 
-  return ans;
+  return ans == -Number.MAX_VALUE ? 0 : ans;
 };
