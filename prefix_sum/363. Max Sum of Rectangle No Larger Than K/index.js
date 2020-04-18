@@ -32,6 +32,7 @@ const maxSumSubmatrix = (matrix, target) => {
 
   for (let i = 0; i < n; i++) {
     let nums = Array(m).fill(0);
+
     for (let j = i; j < n; j++) {
       let sum = 0;
 

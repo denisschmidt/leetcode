@@ -22,16 +22,16 @@
 // Time O(row*col*col)
 // Space O(row)
 function findMaxSum(matrix) {
-  let rows = matrix.length;
-  let cols = matrix[0].length;
+  let n = matrix.length;
+  let m = matrix[0].length;
   let maxSum = 0;
 
-  for (let left = 0; left < cols; left++) {
-    let nums = Array(rows).fill(0);
+  for (let i = 0; i < m; i++) {
+    let nums = Array(n).fill(0);
 
-    for (let right = left; right < cols; right++) {
-      for (let k = 0; k < rows; k++) {
-        nums[k] += matrix[k][right];
+    for (let j = i; j < m; j++) {
+      for (let k = 0; k < n; k++) {
+        nums[k] += matrix[k][j];
       }
 
       let kadaneResult = kadane(nums);
