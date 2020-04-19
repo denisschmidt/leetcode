@@ -17,12 +17,37 @@ Output: 99
 
  */
 
-// Решение через битовые маски
+/*
+  Алгоритм:
 
-// Time O(N)
-// Space O(1)
+  1) Используем 32 битное представление каждого числа и ​​просто посчитаем сколько 1 есть в каждом бите
+  2) Для каждого числа получаем его i бит и считаем общее кол-во 1 в этом бите 
+  3) Если cntOnes не делиться нв 3 тогда пытаемся востановить исходное число операцией (или |, <<) 
+
+*/
 
 const singleNumber = nums => {
+  let ans = 0;
+
+  for (let i = 0; i < 32; i++) {
+    let cntOnes = 0;
+
+    for (let num of nums) {
+      cntOnes += (num >> i) & 1;
+    }
+
+    if (cntOnes % 3 != 0) {
+      ans |= 1 << i;
+    }
+  }
+
+  return ans;
+};
+
+// Решение через битовые маски
+// Time O(N)
+// Space O(1)
+const singleNumber_II = nums => {
   let seenOnce = 0;
   let seenTwice = 0;
 
@@ -32,21 +57,4 @@ const singleNumber = nums => {
   }
 
   return seenOnce;
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// Time O(N) + O(NlogN)
-// Space O(1)
-const singleNumber2 = nums => {
-  let ans = 0;
-
-  nums.sort((a, b) => a - b);
-
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] === nums[i + 1]) i++;
-    ans = ans ^ nums[i];
-  }
-
-  return ans;
 };

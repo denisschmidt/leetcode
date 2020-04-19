@@ -16,42 +16,41 @@ Example 3:
  */
 
 // Time O(N)
-// Space O(N)
+// Space O(1)
 const firstMissingPositive = nums => {
+  let n = nums.length;
+  // [0,1,4,5] ->
+  // 1 свап [ 1, 0, 4, 5 ]
+  // 2 свап [ 1, 0, 5, 4 ]
+
+  for (let i = 0; i < n; i++) {
+    // свапаем до тех пор пока в nums[i] не будет верного числа
+    // если текущее число положительное и оно находится в правильной позиции
+    // nums[1, 4, 5] при i = 0. nums[0] !== nums[0] -> следовательно 1 находится в верном положении
+
+    while (nums[i] > 0 && nums[i] <= n && nums[i] != nums[nums[i] - 1]) {
+      swap(i, nums[i] - 1);
+    }
+  }
+
+  for (let i = 1; i <= n; i++) {
+    if (i != nums[i - 1]) return i;
+  }
+
+  return n + 1;
+
+  function swap(index1, index2) {
+    return ([nums[index1], nums[index2]] = [nums[index2], nums[index1]]);
+  }
+};
+
+// Time O(N)
+// Space O(N)
+const firstMissingPositive_II = nums => {
   const set = new Set(nums);
   let i = 1;
   while (set.has(i)) {
     i++;
   }
   return i;
-};
-
-// Time O(N)
-// Space O(1)
-const firstMissingPositive_II = nums => {
-  const size = nums.length;
-
-  // [0,1,4,5] ->
-  // 1 свап [ 1, 0, 4, 5 ]
-  // 2 свап [ 1, 0, 5, 4 ]
-
-  for (let i = 0; i < size; i++) {
-    // свапаем до тех пор пока в nums[i] не будет верного числа
-    // если текущее число положительное и оно находится в правильной позиции
-    // nums[1, 4, 5] при i = 0. nums[0] !== nums[0] -> следовательно 1 находится в верном положении
-    while (nums[i] > 0 && nums[i] <= size && nums[nums[i] - 1] !== nums[i]) {
-      // swap
-      let temp = nums[nums[i] - 1];
-      nums[nums[i] - 1] = nums[i];
-      nums[i] = temp;
-    }
-  }
-
-  for (let i = 0; i < nums.length; i++) {
-    if (i + 1 !== nums[i]) {
-      return i + 1;
-    }
-  }
-
-  return size + 1;
 };
