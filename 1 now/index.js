@@ -1,25 +1,27 @@
-// Time O(Nlog(N))
-// Space O(N)
-const countPrimes = n => {
-  let cnt = 0;
-  let notPrime = Array(n).fill(false);
+const { PriorityQueue } = require('../algorithms/priorityQueue');
 
-  notPrime[0] = true;
-  notPrime[1] = true;
+var nthSuperUglyNumber = function(n, primes) {
+  let pq = new PriorityQueue({ comparator: (a, b) => a - b });
+  let nums = [];
+  let i = 0;
 
-  for (let i = 2; i < Math.sqrt(n); i++) {
-    if (notPrime[i] == false) {
-      for (let j = 2; j * i < n; j++) {
-        notPrime[i * j] = true;
-      }
+  pq.offer(1);
+
+  while (i < n) {
+    let val = pq.poll();
+
+    for (let x of primes) {
+      pq.offer(x * val);
+    }
+
+    if (nums[nums.length - 1] != val) {
+      nums.push(val);
+      i++;
     }
   }
 
-  for (let i = 0; i < notPrime.length; i++) {
-    if (notPrime[i] == false) {
-      cnt++;
-    }
-  }
-
-  return cnt;
+  return nums[n - 1];
 };
+
+let ans = nthSuperUglyNumber(12, [2, 7, 13, 19]);
+console.log(ans);
