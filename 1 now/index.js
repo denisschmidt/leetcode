@@ -1,65 +1,57 @@
-/**
- * // This is the BinaryMatrix's API interface.
- * // You should not implement it, or speculate about its implementation
- * function BinaryMatrix() {
- *     @param {integer} x, y
- *     @return {integer}
- *     this.get = function(x, y) {
- *         ...
- *     };
- *
- *     @return {[integer, integer]}
- *     this.dimensions = function() {
- *         ...
- *     };
- * };
- */
+class CBTInserter {
+  constructor(root) {
+    this.root = root;
+    this.depth = this.computeDepth(root);
+  }
 
-/**
- * @param {BinaryMatrix} binaryMatrix
- * @return {number}
- */
-var leftMostColumnWithOne = function(binaryMatrix) {
-  let [n, m] = binaryMatrix.dimensions();
-  let min = Number.MAX_VALUE;
-  let minIndex = -1;
-  let nums = Array(m).fill(0);
+  insert(v) {
+    let t = this.root;
+    let queue = [t];
+    let depth = [0];
 
-  for (let i = 0; i < n; i++) {
-    let index = search(i);
+    while (queue.length) {
+      let node = queue.shift();
+      let d = depth.shift();
 
-    if (index != null) {
-      for (let k = index; k < m; k++) {
-        nums[k] += 1;
+      if (node != null) {
+        if (d >= this.depth - 1) {
+          let insert = false;
+
+          if (node.left == null) {
+            node.left = new TreeNode(v);
+            insert = true;
+          } else if (node.right == null) {
+            node.right = new TreeNode(v);
+            insert = true;
+          }
+
+          if (insert && d == this.depth) {
+            this.depth++;
+          }
+        }
+
+        queue.push(node.left);
+        queue.push(node.right);
+
+        depth.push(d + 1);
+        depth.push(d + 1);
       }
     }
   }
 
-  for (let i = 0; i < m; i++) {
-    if (min > nums[i]) {
-      min = nums[i];
-      minIndex = i;
-    }
-  }
+  computeDepth() {
+    let node = this.root;
+    let cnt = 0;
 
-  return minIndex;
-
-  function search(row) {
-    let lo = 0;
-    let hi = m - 1;
-
-    while (lo < hi) {
-      let mid = lo + Math.floor((hi - lo) / 2);
-
-      if (binaryMatrix.get(row, mid) == 0) {
-        lo = mid + 1;
-      } else {
-        hi = mid;
-      }
+    while (node.left != null) {
+      node = node.left;
+      cnt++;
     }
 
-    let num = binaryMatrix.get(row, lo);
-
-    return num == 1 ? lo : null;
+    return cnt;
   }
-};
+
+  get_root() {
+    return this.root;
+  }
+}
