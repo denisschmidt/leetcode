@@ -94,28 +94,27 @@ const buildTree = (preorder, inorder) => {
       return null;
     }
 
-    let val = preorder[preIndex];
-    let root = new TreeNode(val);
+    let val = preorder[preIndex++];
+
+    let node = new TreeNode(val);
+
     let rootIndex = map.get(val);
 
-    preIndex++;
+    node.left = helper(left, rootIndex);
+    node.right = helper(rootIndex + 1, right);
 
-    root.left = helper(left, rootIndex);
-    root.right = helper(rootIndex + 1, right);
-
-    return root;
+    return node;
   }
 };
 
-buildTree([3, 9, 20, 15, 7], [9, 3, 15, 20, 7]);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const buildTree2 = function(preorder, inorder) {
+const buildTree_II = function(preorder, inorder) {
   // preorder root-left-right
   // inorder left-root-right
 
-  if (!preorder.length && !inorder.length) return null;
+  if (!preorder.length && !inorder.length) {
+    return null;
+  }
+
   let map = new Map();
   let root = new TreeNode(preorder[0]);
 

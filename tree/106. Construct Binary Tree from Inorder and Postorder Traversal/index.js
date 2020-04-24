@@ -51,6 +51,7 @@ const buildTree = (inorder, postorder) => {
     }
 
     let val = postorder[index--];
+
     let rootIndex = map.get(val);
 
     let node = new TreeNode(val);
