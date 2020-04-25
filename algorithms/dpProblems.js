@@ -57,10 +57,10 @@ function coinNonRepealett(coins, target) {
 // Пример задача 322
 function minCoinRepeat(coins, target) {
   // содержит минимальное кол-во монет необходимое чтобы получить сумму target
-  let dp = Array(amount + 1).fill(amount + 1);
+  let dp = Array(target + 1).fill(target + 1);
   dp[0] = 0;
 
-  for (let i = 1; i <= amount; i++) {
+  for (let i = 1; i <= target; i++) {
     for (let j = 0; j < coins.length; j++) {
       // сумма меньше coins[j] тут никак не получить такую сумму
       if (i < coins[j]) continue;
@@ -70,7 +70,7 @@ function minCoinRepeat(coins, target) {
     }
   }
 
-  return dp[amount];
+  return dp[target];
 }
 
 /*
@@ -119,12 +119,10 @@ function getBestFromLeftAndRight(nums) {
   Общая формулировка проблемы для этого шаблона может варьироваться, но большую часть времени вам дают две строки, где длина этих строк невелика
 
   
-  Задание:
-    Если даны две строки s1 и s2, вернуть некоторый результат.
+  Задание: Если даны две строки s1 и s2, вернуть некоторый результат.
 
   Большинство проблем в этом шаблоне требует решения, которое может быть принято в сложности O(n^2).
   
-
  */
 
 function getDpTwoString(s1, s2) {
@@ -174,6 +172,51 @@ function getDpOneString(s) {
   Если вы решили выбрать текущее значение, используйте предыдущий результат, в котором значение было проигнорировано; 
   и наоборот, если вы решили игнорировать текущее значение, используйте предыдущий результат, в котором использовалось значение.
 
-
-
 */
+
+// Задачи на поиск общих подстрок/подпоследовательностей
+
+// Даны две строки text1 и text2, вернуть длину их самой длинной общей подпоследовательности.
+function longestCommonSubsequence(text1, text2) {
+  let n = text1.length;
+  let m = text2.length;
+  let dp = Array(n + 1)
+    .fill(0)
+    .map(() => Array(m + 1).fill(0));
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= m; j++) {
+      if (text1[i - 1] == text2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1] + 1;
+      } else {
+        dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+
+  return dp[n][m];
+}
+
+// Даны две строки "X" и "Y", найдите длину самой длинной общей подстроки.
+const LCSubStr = (str1, str2) => {
+  let n = str1.length;
+  let m = str2.length;
+  let max = 0;
+  let dp = Array(n + 1)
+    .fill(0)
+    .map(() => Array(m).fill(0));
+
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= m; j++) {
+      if (str1[i - 1] == str2[j - 1]) {
+        dp[i][j] = dp[i - 1][j - 1] + 1;
+
+        if (dp[i][j] > max) {
+          max = dp[i][j];
+        }
+      }
+    }
+  }
+
+  return max;
+};

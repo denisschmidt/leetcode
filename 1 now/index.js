@@ -1,57 +1,98 @@
-class CBTInserter {
-  constructor(root) {
-    this.root = root;
-    this.depth = this.computeDepth(root);
+/*
+
+Given a string S, find out the length of the longest repeating substring(s). 
+Return 0 if no repeating substring exists.
+
+Example 1:
+  Input: "abcd"
+  Output: 0
+  Explanation: There is no repeating substring.
+
+Example 2:
+  Input: "abbaba"
+  Output: 2
+  Explanation: The longest repeating substrings are "ab" and "ba", each of which occurs twice.
+
+Example 3:
+  Input: "aabcaabdaab"
+  Output: 3
+  Explanation: The longest repeating substring is "aab", which occurs 3 times.
+
+Example 4:
+  Input: "aaaaa"
+  Output: 4
+  Explanation: The longest repeating substring is "aaaa", which occurs twice.
+  
+
+Note:
+  The string S consists of only lowercase English letters from 'a' - 'z'.
+  1 <= S.length <= 1500
+
+*/
+
+// Binary Search
+// Time O(NLogN)
+// Space O(N^2)
+const longestRepeatingSubstring = function(S) {
+  let n = S.length;
+  let lo = 1;
+  let hi = n;
+
+  while (lo <= hi) {
+    let subLen = lo + Math.floor((hi - lo) / 2);
+
+    if (search(subLen) != -1) {
+      // если существует repeating substring длины subLen увеличиваем длину подстроки
+      lo = subLen + 1;
+    } else {
+      // если не нашли, то уменьшаем длину подстроки
+      hi = subLen - 1;
+    }
   }
 
-  insert(v) {
-    let t = this.root;
-    let queue = [t];
-    let depth = [0];
+  return lo - 1;
 
-    while (queue.length) {
-      let node = queue.shift();
-      let d = depth.shift();
+  function search(len) {
+    let set = new Set();
 
-      if (node != null) {
-        if (d >= this.depth - 1) {
-          let insert = false;
+    for (let i = 0; i < n - len + 1; i++) {
+      let cur = S.substring(i, i + len);
 
-          if (node.left == null) {
-            node.left = new TreeNode(v);
-            insert = true;
-          } else if (node.right == null) {
-            node.right = new TreeNode(v);
-            insert = true;
-          }
+      if (set.has(cur)) {
+        return i;
+      }
 
-          if (insert && d == this.depth) {
-            this.depth++;
-          }
-        }
+      set.add(cur);
+    }
 
-        queue.push(node.left);
-        queue.push(node.right);
+    return -1;
+  }
+};
 
-        depth.push(d + 1);
-        depth.push(d + 1);
+// Time O(N^3)
+// Space O(N^2)
+const longestRepeatingSubstring_II = S => {
+  let size = S.length;
+  let map = new Map();
+  let maxLen = 0;
+
+  for (let i = size; i >= 0; i--) {
+    for (let j = i; j < size; j++) {
+      let current = S.substring(i, j + 1);
+
+      if (!map.has(current)) {
+        map.set(current, 1);
+      } else {
+        map.set(current, map.get(current) + 1);
+      }
+
+      let cnt = map.get(current);
+
+      if (cnt > 1 && current.length > maxLen) {
+        maxLen = current.length;
       }
     }
   }
 
-  computeDepth() {
-    let node = this.root;
-    let cnt = 0;
-
-    while (node.left != null) {
-      node = node.left;
-      cnt++;
-    }
-
-    return cnt;
-  }
-
-  get_root() {
-    return this.root;
-  }
-}
+  return maxLen;
+};

@@ -27,6 +27,7 @@ class DoubleLinkedList {
     node.prev = this.head;
     node.next = this.head.next;
 
+    // именно в таком порядке должна быть вставка на список
     this.head.next.prev = node;
     this.head.next = node;
   }

@@ -1,5 +1,3 @@
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 // Write a function checking that the given string is valid. We consider a string
 // to be valid if all the characters of the string have exactly the same frequency.
 
@@ -12,7 +10,7 @@
 // Time complexity : O(n) two loops of n are there.
 // Space complexity : O(n). dp array of size nn is used.
 
-function isValidString3(str) {
+function isValidString(str) {
   const size = str.length;
   const map = new Map();
 
@@ -34,9 +32,3 @@ function isValidString3(str) {
 
   return max === min;
 }
-
-isValidString3('aabbaacc');
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-isValidString2('aabbaacc');
