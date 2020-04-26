@@ -30,6 +30,25 @@ Note:
 
 */
 
+/*
+  Алгоритм:
+
+  Алгоритм можно разделить на две задачи:
+    1) Выполнить поиск по длине подстроки в интервале от 1 до N.
+    2) Проверить, есть ли дублирующаяся подстрока заданной длины L.
+
+  Задача 1: 
+    Если есть дублирующаяся подстрока длины k, это означает, что также есть дублирующаяся подстрока длины k - 1.
+    Следовательно, здесь можно использовать бинарный поиск по длине строки.
+
+  Задача 2:
+    Чтобы проверить, есть ли дублирующаяся подстрока заданной длины
+      1) Запишем все существующие подстроки данной длины L в Set
+      2) Перемещаем скользящее окно длины L
+      2) Если в сете уже существую подстрока заданной длины L значит такая подстрока уже существует
+  
+*/
+
 // Binary Search
 // Time O(NLogN)
 // Space O(N^2)
@@ -38,6 +57,7 @@ const longestRepeatingSubstring = function(S) {
   let lo = 1;
   let hi = n;
 
+  // выполяняем бинарный поиск по длине строки от 1 до N
   while (lo <= hi) {
     let subLen = lo + Math.floor((hi - lo) / 2);
 
@@ -69,9 +89,49 @@ const longestRepeatingSubstring = function(S) {
   }
 };
 
+/*
+  Алгоритм:
+
+  1) Получить N суффиксов строки.  "abc" -> "abc", "bc", "c" 
+  2) Отсортировать их
+  3) Если существует два общих префикса, они должны быть соседями. Через цикл находим самыый длинный общий префикс.
+
+*/
+
+// Time O(N^2 * LogN)
+// Space O(N)
+const longestRepeatingSubstring_II = S => {
+  let size = S.length;
+  let suffix = Array(size);
+
+  for (let i = 0; i < size; i++) {
+    suffix[i] = S.substring(i);
+  }
+
+  suffix.sort();
+
+  let max = 0;
+  for (let i = 1; i < size; i++) {
+    let j = 0;
+    while (j < Math.min(suffix[i].length, suffix[i - 1].length)) {
+      if (suffix[i][j] != suffix[i - 1][j]) {
+        break;
+      }
+      j++;
+    }
+
+    if (max < j) {
+      max = j;
+    }
+  }
+  return max;
+};
+
+longestRepeatingSubstring_II('aabcaabdaab');
+
 // Time O(N^2)
 // Space O(N^2)
-const longestRepeatingSubstring_II = S => {
+const longestRepeatingSubstring_III = S => {
   let n = S.length;
   let dp = Array(n + 1)
     .fill(0)
@@ -95,7 +155,7 @@ const longestRepeatingSubstring_II = S => {
 
 // Time O(N^3)
 // Space O(N^2)
-const longestRepeatingSubstring_III = S => {
+const longestRepeatingSubstring_IIII = S => {
   let size = S.length;
   let map = new Map();
   let maxLen = 0;

@@ -1,5 +1,29 @@
 /*
-  Алгоритм:
+
+Given a string S, consider all duplicated substrings: (contiguous) substrings of S that occur 2 or more times.  
+(The occurrences may overlap.)
+
+Return any duplicated substring that has the longest possible length.  
+(If S does not have a duplicated substring, the answer is "".)
+
+Example 1:
+  Input: "banana"
+  Output: "ana"
+
+Example 2:
+  Input: "abcd"
+  Output: ""
+ 
+
+Note:
+  2 <= S.length <= 10^5
+  S consists of lowercase English letters.
+
+*/
+
+/*
+
+  Алгоритм Rabin-Karp + Binary Search by string length:
 
   Алгоритм можно разделить на две задачи:
     1) Выполнить поиск по длине подстроки в интервале от 1 до N.
@@ -26,7 +50,6 @@
 
 // Time O(NLogN) O(LogN) - binary search algorithm. O(N) - Rabin-Karp algorithm.
 // Space O(N)
-
 const longestDupSubstring = str => {
   let n = str.length;
 
@@ -50,9 +73,12 @@ const longestDupSubstring = str => {
   while (lo <= hi) {
     let len = lo + Math.floor((hi - lo) / 2);
 
+    // Если мы уже нашли подстроку длины len допустим 3, тогда мы увеличиваем длину подстроки до 4
+    // Чтобы проверить дублирование более длинной подстроки
     if (RabinKarpSearch(len, nums, base, modules) != -1) {
       lo = len + 1;
     } else {
+      // Если не нашли, то уменьшаем длину подстроки
       hi = len - 1;
     }
   }
