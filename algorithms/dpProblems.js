@@ -91,15 +91,17 @@ function minCoinRepeat(coins, target) {
   */
 
 /* 
+
   Получите лучшее с левой и правой сторон и добавьте решение для текущей позиции.
   
-  Примеры задач: 1039, 312, 1000
+  Примеры задач: 1039, 312, 1000 877
 
 */
 function getBestFromLeftAndRight(nums) {
   let dp = Array(nums.length)
     .fill(null)
     .map(() => Array(nums.length).fill(null));
+
   let n = nums.length;
 
   for (let l = 1; l < n; l++) {

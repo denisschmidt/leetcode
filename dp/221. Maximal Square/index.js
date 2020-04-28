@@ -16,39 +16,31 @@ Output: 4
 // Time O(N * M)
 // Space O(N * M)
 const maximalSquare = function(matrix) {
-  const n = matrix.length;
-  const m = matrix[0].length;
-  let ans = -Number.MAX_VALUE;
+  if (matrix.length == 0) return 0;
 
-  const dp = Array(n)
+  let n = matrix.length;
+  let m = matrix[0].length;
+
+  let dp = Array(n + 1)
     .fill(null)
-    .map(() => Array(m).fill(0));
+    .map(() => Array(m + 1).fill(0));
 
-  for (let i = 0; i < n; i++) dp[i][0] = matrix[i][0];
-
-  for (let j = 0; j < m; j++) dp[0][j] = matrix[0][j];
-
-  for (let i = 1; i < n; i++) {
-    for (let j = 1; j < m; j++) {
-      dp[i][j] = Math.min(dp[i - 1][j], dp[i - 1][j - 1], dp[i][j - 1]) + 1;
-      ans = Math.max(ans, dp[i][j]);
+  let max = 0;
+  for (let i = 1; i <= n; i++) {
+    for (let j = 1; j <= m; j++) {
+      if (matrix[i - 1][j - 1] == '1') {
+        dp[i][j] = Math.min(Math.min(dp[i - 1][j], dp[i][j - 1]), dp[i - 1][j - 1]) + 1;
+        max = Math.max(max, dp[i][j] * dp[i][j]);
+      }
     }
   }
 
-  return ans;
+  return max;
 };
 
-maximalSquare([
-  ['1', '0', '1', '0', '0'],
-  ['1', '0', '1', '1', '1'],
-  ['1', '1', '1', '1', '1'],
-  ['1', '0', '0', '1', '0'],
-]);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time O(n*m^2)
 // Space O(1)
-var maximalSquare2 = function(matrix) {
+const maximalSquare2 = function(matrix) {
   const n = matrix.length;
   const m = n > 0 ? matrix[0].length : 0;
   let ans = 0;
