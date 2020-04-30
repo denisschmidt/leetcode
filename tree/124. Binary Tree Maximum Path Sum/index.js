@@ -65,6 +65,7 @@ const maxPathSum = root => {
 };
 
 /*
+
    -10
    / \
   9  20
@@ -78,4 +79,28 @@ const maxPathSum = root => {
 4)     20     15     7
 5)    -10     9      35
 ans = 42
+
  */
+
+// Time: O(N)
+// Space: Мы должны сохранить рекурсивный стек размером с высоту дерева, который равен O (log N) для двоичного дерева.
+const maxPathSum_II = root => {
+  if (root == null) return 0;
+
+  let max = -Number.MAX_VALUE;
+
+  helper(root);
+
+  return max;
+
+  function helper(node) {
+    if (node == null) return 0;
+
+    let left = Math.max(helper(node.left), 0);
+    let right = Math.max(helper(node.right), 0);
+
+    max = Math.max(max, left + right + node.val);
+
+    return Math.max(left, right) + node.val;
+  }
+};
