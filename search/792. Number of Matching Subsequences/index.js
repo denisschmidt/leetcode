@@ -15,6 +15,7 @@ Note:
 
 */
 
+// Binary Search
 // Time O(M + N * K * LogN)
 // Space O(M)
 const numMatchingSubseq = function(S, words) {
