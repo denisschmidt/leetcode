@@ -15,7 +15,68 @@ Note:
 
 */
 
+// Time O(M + N * K * LogN)
+// Space O(M)
 const numMatchingSubseq = function(S, words) {
+  let map = new Map();
+
+  for (let i = 0; i < S.length; i++) {
+    if (!map.has(S[i])) {
+      map.set(S[i], []);
+    }
+    map.get(S[i]).push(i);
+  }
+
+  let cnt = 0;
+  for (let word of words) {
+    let nextIdx = -1;
+    let i = 0;
+
+    for (; i < word.length; i++) {
+      if (!map.has(word[i])) break;
+
+      let nums = map.get(word[i]);
+      let idx = search(nums, nextIdx);
+
+      if (idx == nums.length) {
+        break;
+      } else {
+        nextIdx = nums[idx] + 1;
+      }
+    }
+
+    if (i == word.length) {
+      cnt++;
+    }
+  }
+
+  return cnt;
+
+  function search(nums, target) {
+    let lo = 0;
+    let hi = nums.length;
+
+    while (lo < hi) {
+      let mid = lo + Math.floor((hi - lo) / 2);
+
+      if (nums[mid] == target) {
+        return mid;
+      }
+
+      if (nums[mid] < target) {
+        lo = mid + 1;
+      } else {
+        hi = mid;
+      }
+    }
+
+    return lo;
+  }
+};
+
+// Time O(N * K * M)
+// Space O(N)
+const numMatchingSubseq_II = function(S, words) {
   let cnt = 0;
   let memo = new Map();
 
