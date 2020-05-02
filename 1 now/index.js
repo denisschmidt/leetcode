@@ -1,39 +1,45 @@
 /**
- * Definition for a binary tree node.
- * function TreeNode(val, left, right) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.left = (left===undefined ? null : left)
- *     this.right = (right===undefined ? null : right)
- * }
+ * @param {number[][]} slots1
+ * @param {number[][]} slots2
+ * @param {number} duration
+ * @return {number[]}
  */
-/**
- * @param {TreeNode} root
- * @param {number[]} arr
- * @return {boolean}
- */
-var isValidSequence = function(root, arr) {
-  let idx = arr.length - 1;
+var minAvailableDuration = function(slots1, slots2, duration) {
+  let start = new Set();
+  let end = new Set();
 
-  return helper(root);
+  for (let i = 0; i < slots1.length; i++) {
+    start.add(slots1[i][0]);
+    end.add(slots1[i][1]);
+  }
 
-  function helper(node) {
-    if (node == null) return false;
+  for (let i = 0; i < slots2.length; i++) {
+    start.add(slots2[i][0]);
+    end.add(slots2[i][1]);
+  }
 
-    let left = helper(node.left);
-    let right = helper(node.right);
+  start = Array.from(start);
+  end = Array.from(end);
 
-    let isValid = false;
+  start.sort((a, b) => a - b);
+  end.sort((a, b) => a - b);
 
-    if (idx == arr.length - 1) {
-      if (node.val == arr[idx]) {
-        isValid = true;
-      }
+  let i = 0;
+  let j = 0;
+
+  while (i < start.length && j < end.length) {
+    if (start[i] < end[j]) {
+      i++;
     } else {
-      if ((left == true || right == true) && node.val == arr[idx]) {
-        isValid = true;
+      if (end[j] - start[i - 1] >= duration) {
+        return [start[i - 1], start[i - 1] + duration];
+      }
+
+      while (start[i] > end[j] && j < end.length) {
+        j++;
       }
     }
-
-    return isValid;
   }
+
+  return [];
 };
