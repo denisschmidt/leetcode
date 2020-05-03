@@ -31,12 +31,14 @@ Example 2:
 // Time O(N^2)
 // Space O(N^2)
 const longestPalindrome = s => {
-  if (s.length == 0) return '';
-
   let n = s.length;
-  let dp = new Array(n).fill(null).map(() => Array(n).fill(false));
-  let startIndex = 0;
-  let maxLen = 1;
+
+  let dp = Array(n)
+    .fill(null)
+    .map(() => Array(n).fill(false));
+
+  let start = 0;
+  let maxLen = 1; // длина равна 1 обязательна для кейсов когда s = 'a'
 
   for (let i = 0; i < n; i++) {
     dp[i][i] = true;
@@ -44,18 +46,18 @@ const longestPalindrome = s => {
 
   for (let len = 1; len < n; len++) {
     for (let i = 0; i < n - len; i++) {
-      let j = len + i;
+      let j = i + len;
 
       if (s[i] == s[j]) {
         dp[i][j] = j - i == 1 ? true : dp[i + 1][j - 1];
       }
 
-      if (dp[i][j] && j - i + 1 > maxLen) {
+      if (dp[i][j] == true && maxLen < j - i + 1) {
+        start = i;
         maxLen = j - i + 1;
-        startIndex = i;
       }
     }
   }
 
-  return s.substring(startIndex, startIndex + maxLen);
+  return s.substring(start, start + maxLen);
 };

@@ -17,6 +17,30 @@ One possible longest palindromic subsequence is "bb".
 
 */
 
+// Time O(N^2)
+// Space O(N^2)
+const longestPalindromeSubseq = s => {
+  let n = s.length;
+
+  let dp = Array(n)
+    .fill(null)
+    .map(() => Array(n).fill(0));
+
+  for (let i = n - 1; i >= 0; i--) {
+    for (let j = i; j < n; j++) {
+      if (i == j) {
+        dp[i][j] = 1;
+      } else if (s[i] == s[j]) {
+        dp[i][j] = dp[i + 1][j - 1] + 2;
+      } else {
+        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+
+  return dp[0][n - 1];
+};
+
 /*
 
   https://www.youtube.com/watch?v=_nCsPn7_OgI&t=57s
@@ -42,7 +66,7 @@ One possible longest palindromic subsequence is "bb".
 
 // Time O(N^2)
 // Space O(N^2)
-const longestPalindromeSubseq = s => {
+const longestPalindromeSubseq_II = s => {
   let n = s.length;
   let dp = Array(n)
     .fill(null)
@@ -55,10 +79,10 @@ const longestPalindromeSubseq = s => {
 
   for (let len = 1; len < n; len++) {
     for (let i = 0; i < n - len; i++) {
-      let j = len + i;
+      let j = i + len;
 
       if (s[i] === s[j]) {
-        dp[i][j] = 2 + dp[i + 1][j - 1];
+        dp[i][j] = dp[i + 1][j - 1] + 2;
       } else {
         dp[i][j] = Math.max(dp[i][j - 1], dp[i + 1][j]);
       }
@@ -66,27 +90,4 @@ const longestPalindromeSubseq = s => {
   }
 
   return dp[0][n - 1];
-};
-
-// Time O(N^2)
-// Space O(N^2)
-const longestPalindromeSubseq_II = s => {
-  const size = s.length;
-  const dp = Array(size)
-    .fill(null)
-    .map(() => Array(size).fill(0));
-
-  for (let i = size - 1; i >= 0; i--) {
-    for (let j = i; j < size; j++) {
-      if (i === j) {
-        dp[i][j] = 1;
-      } else if (s[i] === s[j]) {
-        dp[i][j] = dp[i + 1][j - 1] + 2;
-      } else {
-        dp[i][j] = Math.max(dp[i + 1][j], dp[i][j - 1]);
-      }
-    }
-  }
-
-  return dp[0][size - 1];
 };
