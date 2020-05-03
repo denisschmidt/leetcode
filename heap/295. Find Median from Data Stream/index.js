@@ -33,26 +33,33 @@ const { PriorityQueue } = require('../../algorithms/priorityQueue');
 // Time O(LogN) + O(1)
 
 /*
+
   Алгоритм:
 
   1) Обе кучи сбалансированы (или почти сбалансированы)
+
   2) Максимальная куча содержит все меньшие числа, в то время как минимальная куча содержит все большие числа
 
-  maxHeap, хранит меньшую половину чисел 
-  minHeap хранит большую половину чисел 
+  maxHeap - хранит меньшую половину чисел  [7, 6, 5, 4]
+  minHeap - хранит большую половину чисел  [8, 9, 11, 12]
   
   В maxHeap в худшем случае можно хранить на один элемент больше, чем miHneap. 
   
-  Если k = 2 * n + 1 то maxHeap может содержать n + 1 элементов  
-  В то время как miHneap может содержать n элементов. 
-  
+  Если k = (2 * n + 1) то maxHeap может содержать (n + 1) элементов.
+
+  В то время как miHneap может содержать n элементов.
+
   Если k = 2 * n то обе кучи сбалансированы и содержат по n элементов каждый. 
-  Это дает нам замечательное свойство: когда кучи идеально сбалансированы, медиана может быть получена из вершин обеих куч. 
   
-  В противном случае вершина maxHeap содержит законную медиану.
+  Это дает нам замечательные свойства !!!! 
+    1) Когда кучи идеально сбалансированы, медиана может быть получена из вершин обеих куч. 
+    
+    2) В противном случае вершина maxHeap содержит законную медиану.
 
   https://www.programcreek.com/2015/01/leetcode-find-median-from-data-stream-java/
 
+
+  Краткий алгоритм:
 
   1) Каждый элемент добавляется в minHeap 
   
@@ -60,17 +67,53 @@ const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
   3) Из этого мы получается что все элементы в minHeap больше чем элементы в maxHeap
 
-  4) В итоге две кучи необходимо сбалансировать
+  4) По итогу две кучи необходимо сбалансировать:
 
-  */
+    Следовательно если maxHeap.size > minHeap.size из maxHeap мы выталкиваем 1 элемент и добавляем в minHeap
+
+  Пример:  
+
+  Число -> 41
+  MaxHeap: []           
+  MinHeap: [41]         
+  Median is 41
+  =======================
+  Число -> 35
+  MaxHeap: [35]
+  MinHeap: [41]
+  Median is 38
+  =======================
+  Число -> 62
+  MaxHeap: [35]
+  MinHeap: [41, 62]
+  Median is 41
+  =======================
+  Число -> 4
+  MaxHeap: [35, 4]
+  MinHeap: [41, 62]
+  Median is 38
+  =======================
+  Число -> 97
+  MaxHeap: [35, 4]
+  MinHeap: [41, 62, 97]
+  Median is 41
+  =======================
+  Число -> 108
+  MaxHeap: [41, 35, 4]
+  MinHeap: [62, 97, 108]
+  Median is 51.5
+
+*/
 
 class MedianFinder {
+  // Space O(N)
   constructor() {
-    this.minHeap = new PriorityQueue({ comparator: (a, b) => a - b }); // 1, 2, 3, 4, 5
+    this.maxHeap = new PriorityQueue({ comparator: (a, b) => b - a }); // [7, 6, 5, 4]
 
-    this.maxHeap = new PriorityQueue({ comparator: (a, b) => b - a }); // 7, 6, 5, 4
+    this.minHeap = new PriorityQueue({ comparator: (a, b) => a - b }); // [8, 9, 11, 12]
   }
 
+  // O(LogN)
   addNum(num) {
     this.minHeap.offer(num);
     this.maxHeap.offer(this.minHeap.poll());
@@ -80,6 +123,7 @@ class MedianFinder {
     }
   }
 
+  // Time O(1)
   findMedian() {
     if (this.minHeap.size() > this.maxHeap.size()) {
       return this.minHeap.peek();
@@ -136,15 +180,3 @@ class MedianFinder_II {
     return l;
   }
 }
-
-const mid = new MedianFinder();
-mid.addNum(41);
-mid.addNum(35);
-mid.addNum(62);
-mid.addNum(5);
-mid.addNum(97);
-mid.addNum(108);
-
-let b = mid.findMedian(); //-> 2
-
-console.log(b);
