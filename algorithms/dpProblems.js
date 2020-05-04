@@ -85,7 +85,7 @@ function minCoinRepeat(coins, target) {
   Решение:
     Найди все оптимальные решения для каждого интервала и получить наилучший ответ.
   
-  // from i to j
+  from i to j
   dp[i][j] = dp[i][k] + result[k] + dp[k+1][j]  
 
   */
