@@ -59,14 +59,14 @@ const longestRepeatingSubstring = function(S) {
 
   // выполяняем бинарный поиск по длине строки от 1 до N
   while (lo <= hi) {
-    let subLen = lo + Math.floor((hi - lo) / 2);
+    let subStrLen = lo + Math.floor((hi - lo) / 2);
 
-    if (search(subLen) != -1) {
-      // если существует repeating substring длины subLen увеличиваем длину подстроки
-      lo = subLen + 1;
+    if (search(subStrLen) != -1) {
+      // если существует repeating substring длины subStrLen увеличиваем длину подстроки
+      lo = subStrLen + 1;
     } else {
       // если не нашли, то уменьшаем длину подстроки
-      hi = subLen - 1;
+      hi = subStrLen - 1;
     }
   }
 

@@ -60,11 +60,11 @@ const letterCombinations = digits => {
     '9': ['w', 'x', 'y', 'z'],
   };
 
-  helper();
+  helper(0, []);
 
   return ans;
 
-  function helper(comb = [], start = 0) {
+  function helper(start, comb) {
     if (comb.length === digits.length) {
       ans.push(comb.join(''));
       return;
@@ -76,7 +76,7 @@ const letterCombinations = digits => {
       for (let word of words) {
         comb.push(word);
 
-        helper(comb, i + 1);
+        helper(i + 1, comb);
 
         comb.pop();
       }
