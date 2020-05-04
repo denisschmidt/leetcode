@@ -15,34 +15,28 @@ Example:
  -10  5
  */
 
-function TreeNode(val) {
-  this.val = val;
-  this.left = this.right = null;
-}
-
 // Time O(N)
 // Space O(N)
-const sortedArrayToBST = function(nums) {
-  // left - root - right
-  if (!nums.length) return null;
+const sortedArrayToBST = nums => {
+  if (nums.length == 0) return null;
 
-  return dfs(0, nums.length - 1);
+  return helper(0, nums.length - 1);
 
-  function dfs(l, r) {
-    if (l > r) return null;
-    let mid = l + Math.floor((r - l) / 2);
+  function helper(start, end) {
+    if (start > end) return null;
+
+    let mid = start + Math.floor((end - start) / 2);
 
     let root = new TreeNode(nums[mid]);
 
-    root.left = dfs(l, mid - 1);
-    root.right = dfs(mid + 1, r);
+    root.left = helper(start, mid - 1);
+    root.right = helper(mid + 1, end);
+
     return root;
   }
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-const sortedArrayToBST = function(nums) {
+const sortedArrayToBST_II = nums => {
   const n = nums.length;
 
   if (n === 0) return null;
