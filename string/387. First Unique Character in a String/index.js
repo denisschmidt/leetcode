@@ -12,28 +12,25 @@ Examples:
 Note: You may assume the string contain only lowercase letters.
  */
 
-/**
- * @param {string} s
- * @return {number}
- */
-const firstUniqChar = function(s) {
-  const map = new Map();
+// Time O(N)
+// Space O(N)
+const firstUniqChar = s => {
+  let map = new Map();
 
   for (let i = 0; i < s.length; i++) {
-    if (!map.has(s[i])) {
-      map.set(s[i], 1);
+    let x = s[i];
+    if (!map.has(x)) {
+      map.set(x, i);
     } else {
-      map.set(s[i], map.get(s[i]) + 1);
+      map.set(x, -1);
     }
   }
 
-  for (let i = 0; i < s.length; i++) {
-    if (map.get(s[i]) === 1) {
-      return i;
+  for (let val of map.values()) {
+    if (val != -1) {
+      return val;
     }
   }
+
   return -1;
 };
-
-const res = firstUniqChar('loveleetcode');
-console.log('----', res);
