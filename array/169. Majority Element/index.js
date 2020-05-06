@@ -13,29 +13,17 @@
     Output: 2
  */
 
-/**
- * @param {number[]} nums
- * @return {number}
- */
-const majorityElement = function(nums) {
-  const size = nums.length;
-  const majority = size / 2;
-  const map = new Map();
+const majorityElement = nums => {
+  let n = nums.length;
+  let limit = n / 2;
+  let map = {};
 
-  for (let i = 0; i < size; i++) {
-    if (!map.has(nums[i])) {
-      map.set(nums[i], 1);
-    } else {
-      map.set(nums[i], map.get(nums[i]) + 1);
+  for (let x of nums) {
+    map[x] = ~~map[x] + 1;
+    if (map[x] >= limit) {
+      return x;
     }
   }
 
-  for (let [key, value] of map) {
-    if (value > majority) {
-      return key;
-    }
-  }
+  return -1;
 };
-
-const res = majorityElement([2, 2, 1, 1, 1, 2, 2]);
-console.log('---', res);
