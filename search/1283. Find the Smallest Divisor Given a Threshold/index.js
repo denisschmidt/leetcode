@@ -41,8 +41,11 @@ const smallestDivisor = (nums, threshold) => {
   while (left < right) {
     let m = Math.floor((left + right) / 2);
 
-    if (calc(m) > threshold) left = m + 1;
-    else right = m;
+    if (calc(m) > threshold) {
+      left = m + 1;
+    } else {
+      right = m;
+    }
   }
 
   return left;
