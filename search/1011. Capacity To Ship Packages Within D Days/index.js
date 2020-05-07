@@ -54,11 +54,12 @@ Note:
 // Space O(1)
 const shipWithinDays = (weights, D) => {
   let left = 0;
-  let right = 25000000;
+  let right = 0;
   let n = weights.length;
 
   for (let w of weights) {
     left = Math.max(left, w);
+    right += w;
   }
 
   while (left < right) {
