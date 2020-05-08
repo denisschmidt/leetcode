@@ -21,6 +21,8 @@ Note:
 */
 
 // BFS
+// Time O(N * N * 2^N) - где N - длина S
+// Space O(2^N)
 const letterCasePermutation = S => {
   let ans = [];
 
