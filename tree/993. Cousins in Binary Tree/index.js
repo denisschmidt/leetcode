@@ -74,23 +74,22 @@ const isCousins = (root, x, y) => {
 
 // Time O(N)
 // Space O(N)
-const isCousins_II = (root, x, y) => {
-  let depth = new Map();
+const isCousins_II = function(root, x, y) {
   let map = new Map();
 
-  helper(root, null);
+  helper(root, null, 0);
 
-  return depth.get(x) === depth.get(y) && map.get(x) !== map.get(y);
+  let [n1, d1] = map.get(x);
+  let [n2, d2] = map.get(y);
 
-  function helper(node, parent) {
-    if (!node) {
-      return;
-    }
+  return d1 == d2 && n1 != n2;
 
-    depth.set(node.val, parent !== null ? depth.get(parent.val) + 1 : 0);
-    map.set(node.val, parent);
+  function helper(node, parent, depth) {
+    if (node == null) return null;
 
-    helper(node.left, node);
-    helper(node.right, node);
+    map.set(node.val, [parent, depth]);
+
+    helper(node.left, node, depth + 1);
+    helper(node.right, node, depth + 1);
   }
 };
