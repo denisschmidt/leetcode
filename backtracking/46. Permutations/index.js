@@ -19,22 +19,28 @@ Example:
 // Time O(N!) N факториал
 // Space O(N!)
 const permute = function(nums) {
-  const ans = [];
+  let ans = [];
+  let n = nums.length;
 
-  backtrack([]);
+  helper([]);
+
   return ans;
 
-  function backtrack(comb) {
-    if (comb.length === nums.length) {
+  function helper(comb) {
+    if (comb.length == n) {
       ans.push([...comb]);
-    } else {
-      for (let i = 0; i < nums.length; i++) {
-        // этой проверки достаточно так как у нас все элементы уникальные
-        if (comb.includes(nums[i])) continue;
-        comb.push(nums[i]);
-        backtrack(comb);
-        comb.pop();
-      }
+      return;
+    }
+
+    for (let i = 0; i < n; i++) {
+      // этой проверки достаточно так как у нас все элементы уникальные
+      if (comb.includes(nums[i])) continue;
+
+      comb.push(nums[i]);
+
+      helper(comb);
+
+      comb.pop();
     }
   }
 };
