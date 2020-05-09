@@ -311,6 +311,7 @@ Try later
 
 Задачи на sort
   1) 973 +  
+  2) 406 -
 
 
 Задачи на prefixSum 

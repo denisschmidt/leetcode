@@ -26,7 +26,7 @@ Note:
 const letterCasePermutation = S => {
   let ans = [];
 
-  let queue = [S.split('')];
+  let queue = [S];
   let visited = new Set();
 
   visited.add(S);
@@ -35,26 +35,27 @@ const letterCasePermutation = S => {
     let size = queue.length;
 
     for (let i = 0; i < size; i++) {
-      let chars = queue.shift();
+      let s = queue.shift();
 
-      ans.push(chars.join(''));
+      ans.push(s);
 
-      for (let k = 0; k < chars.length; k++) {
-        for (let z = 0; z < 2; z++) {
-          let copy = [...chars];
+      for (let k = 0; k < s.length; k++) {
+        if (Number.isFinite(Number(s[k]))) continue;
 
-          if (z == 0) {
-            copy[k] = copy[k].toUpperCase();
-          } else {
-            copy[k] = copy[k].toLowerCase();
-          }
+        let left = s.substring(0, k);
+        let right = s.substring(k + 1);
 
-          let c = copy.join('');
+        let s1 = left + s[k].toUpperCase() + right;
+        let s2 = left + s[k].toLowerCase() + right;
 
-          if (visited.has(c)) continue;
+        if (!visited.has(s1)) {
+          visited.add(s1);
+          queue.push(s1);
+        }
 
-          visited.add(c);
-          queue.push(copy);
+        if (!visited.has(s2)) {
+          visited.add(s2);
+          queue.push(s2);
         }
       }
     }
