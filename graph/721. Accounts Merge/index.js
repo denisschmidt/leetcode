@@ -102,55 +102,50 @@ const accountsMerge = accounts => {
 };
 
 const accountsMerge_II = function(accounts) {
-  let nameMap = new Map();
-  let graph = new Map();
+  let names = new Map();
+  let adjList = new Map();
 
-  for (let i = 0; i < accounts.length; i++) {
-    let [name, ...emails] = accounts[i];
-
+  for (let [name, ...emails] of accounts) {
     for (let i = 0; i < emails.length; i++) {
-      let email = emails[i];
-
-      if (!graph.has(email)) {
-        graph.set(email, new Set());
+      if (!adjList.has(emails[i])) {
+        adjList.set(emails[i], new Set());
       }
 
-      nameMap.set(email, name);
+      names.set(emails[i], name);
 
-      if (i === 0) continue;
+      if (i == 0) continue;
 
-      graph.get(emails[i]).add(emails[i - 1]);
-      graph.get(emails[i - 1]).add(emails[i]);
+      adjList.get(emails[i]).add(emails[i - 1]);
+      adjList.get(emails[i - 1]).add(emails[i]);
     }
   }
 
+  let ans = [];
   let visited = new Set();
-  let result = [];
 
-  for (let [email] of nameMap.entries()) {
-    let queue = [email];
+  for (let x of adjList.keys()) {
     let list = [];
+    let queue = [x];
 
     while (queue.length) {
-      let current = queue.shift();
+      let parentEmail = queue.shift();
 
-      if (visited.has(current)) {
-        continue;
-      }
+      if (visited.has(parentEmail)) continue;
 
-      visited.add(current);
-      list.push(current);
+      list.push(parentEmail);
+      visited.add(parentEmail);
 
-      for (let [value] of graph.get(current).entries()) {
-        queue.push(value);
+      for (let email of adjList.get(parentEmail).values()) {
+        queue.push(email);
       }
     }
 
     if (list.length) {
       list.sort();
-      list.unshift(nameMap.get(email));
-      result.push(list);
+      list.unshift(names.get(x));
+      ans.push(list);
     }
   }
-  return result;
+
+  return ans;
 };

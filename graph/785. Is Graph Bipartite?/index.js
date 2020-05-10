@@ -68,6 +68,7 @@ Note:
 
 */
 
+// BFS
 // Time O(N + E) N - кол-во нод, E - кол-во ребер
 // Space O(N)
 const isBipartite = graph => {
@@ -107,6 +108,7 @@ const isBipartite = graph => {
   return true;
 };
 
+// DFS
 // Time O(N + E) N - кол-во нод, E - кол-во ребер
 // Space O(N)
 const isBipartite_II = function(graph) {
@@ -127,12 +129,50 @@ const isBipartite_II = function(graph) {
 
     color[node] = color;
 
-    for (let i = 0; i < graph[node].length; i++) {
-      if (!isValidColor(-color, graph[node][i])) {
+    for (let v of graph[u]) {
+      if (isValidColor(v, -color) == false) {
         return false;
       }
     }
 
     return true;
   }
+};
+
+const isBipartite_III = graph => {
+  let n = graph.length;
+  let queue = [];
+  let visited = new Set();
+  let colors = Array(n).fill(0);
+
+  for (let i = 0; i < n; i++) {
+    queue.push(i);
+    colors[i] = 1;
+    visited.add(i);
+
+    while (queue.length > 0) {
+      let size = queue.length;
+
+      for (let k = 0; k < size; k++) {
+        let u = queue.shift();
+
+        for (let v of graph[u]) {
+          if (!visited.has(v)) {
+            colors[v] = -colors[u];
+
+            queue.push(v);
+            visited.add(v);
+          } else {
+            if (colors[v] == colors[u]) {
+              return false;
+            }
+          }
+        }
+      }
+    }
+
+    visited.clear();
+  }
+
+  return true;
 };
