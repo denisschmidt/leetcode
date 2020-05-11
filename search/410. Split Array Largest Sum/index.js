@@ -62,3 +62,46 @@ const splitArray = (nums, m) => {
     return cnt;
   }
 };
+
+const splitArray_II = (nums, m) => {
+  let n = nums.length;
+  let ans = Number.MAX_VALUE;
+
+  dfs(0, 0, 0, 0);
+
+  return ans;
+
+  /*
+
+    Получения всех вариантов разбиения массива на M подмассивов 
+
+    Алгоритм:
+
+    Для каждого элемента в массиве мы можем 
+    
+    1) Добавить его к предыдущему подмассиву 
+    2) Запустить новый подмассив, начинающийся с этого элемента (если число подмассивов не превышает m). 
+    
+    Сумма текущего подмассива может быть обновлена ​​одновременно.
+
+  */
+
+  function dfs(i, cntSubarrays, curSum, curMax) {
+    if (i == n && cntSubarrays == m) {
+      ans = Math.min(ans, curMax);
+      return;
+    }
+
+    if (i == n) {
+      return;
+    }
+
+    if (i > 0) {
+      dfs(i + 1, cntSubarrays, curSum + nums[i], Math.max(curMax, curSum + nums[i]));
+    }
+
+    if (cntSubarrays < m) {
+      dfs(i + 1, cntSubarrays + 1, nums[i], Math.max(curSum, nums[i]));
+    }
+  }
+};

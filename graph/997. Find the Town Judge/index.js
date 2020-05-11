@@ -55,16 +55,18 @@ const findJudge = (N, trust) => {
   for (let i = 0; i < trust.length; i++) {
     let [u, v] = trust[i];
 
+    // кому доверяет житель
     p1[u - 1].push(v - 1);
+
+    // кто доверяет жителю
     p2[v - 1].push(u - 1);
   }
 
-  let ans = -1;
   for (let i = 0; i < N; i++) {
     if (p1[i].length === 0 && p2[i].length === N - 1) {
-      ans = i + 1;
+      return i + 1;
     }
   }
 
-  return ans;
+  return -1;
 };
