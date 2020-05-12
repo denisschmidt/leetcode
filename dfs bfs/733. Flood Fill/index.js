@@ -34,30 +34,33 @@ Note:
 // Time O(N)
 // Space O(N)
 const floodFill = (image, sr, sc, newColor) => {
-  const n = image.length;
-  const m = image[0].length;
-  const target = image[sr][sc];
-  const dirs = [
+  let n = image.length;
+  let m = image[0].length;
+  let dirs = [
     [0, 1],
     [0, -1],
     [-1, 0],
     [1, 0],
   ];
-  const visited = Array(n)
+  let visited = Array(n)
     .fill(null)
     .map(() => Array(m).fill(false));
-  helper(sr, sc);
+  let start = image[sr][sc];
+
+  dfs(sr, sc);
 
   return image;
 
-  function helper(i, j) {
-    if (i < 0 || i >= n || j < 0 || j >= m || image[i][j] !== target || visited[i][j]) return;
+  function dfs(i, j) {
+    if (i < 0 || j < 0 || i >= n || j >= m || image[i][j] != start || visited[i][j]) {
+      return;
+    }
 
     image[i][j] = newColor;
     visited[i][j] = true;
 
     for (let dir of dirs) {
-      helper(i + dir[0], j + dir[1]);
+      dfs(dir[0] + i, dir[1] + j);
     }
   }
 };

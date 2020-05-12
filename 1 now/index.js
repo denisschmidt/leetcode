@@ -1,34 +1,53 @@
 /**
- * @param {number[]} A
- * @param {number} K
+ * @param {number[]} piles
  * @return {number}
  */
-var largestSumOfAverages = function(nums, K) {
-  let n = nums.length;
-  let dp = Array(101)
+var stoneGameII = function(piles) {
+  let n = piles.length;
+
+  let INF = Number.MAX_VALUE;
+
+  let dp = Array(n + 1)
     .fill(0)
-    .map(() => Array(101).fill(0));
+    .map(() =>
+      Array(n + 1)
+        .fill(0)
+        .map(() => [-INF, INF]),
+    );
 
-  return helper(0, K);
+  return helper(0, 1, true);
 
-  function helper(start, cntSubarrays) {
-    if (start >= n || dp[cntSubarrays][start] > 0) {
-      return dp[cntSubarrays][start];
+  function helper(start, m, isFirst) {
+    if (start >= n) return 0;
+
+    let id = isFirst ? 0 : 1;
+
+    if (id == 0 && dp[start][m][id] != -INF) {
+      return dp[start][m][id];
     }
 
-    let sum = 0;
-
-    for (let i = start; i <= n - cntSubarrays; i++) {
-      sum += nums[i];
-
-      // когда cntSubarrays == 1, мы просто накапливаем сумму, пока не достигнем конца вектора (i == nums.length - 1)
-      if (i < n - 1 && cntSubarrays == 1) continue;
-
-      dp[cntSubarrays][start] = Math.max(dp[cntSubarrays][start], sum / (i - start + 1) + helper(i + 1, cntSubarrays - 1));
+    if (id == 1 && dp[start][m][id] != INF) {
+      return dp[start][m][id];
     }
 
-    return dp[cntSubarrays][start];
+    if (isFirst) {
+      let x = -INF;
+      for (let i = 1; i <= 2 * m; i++) {
+        let sum = piles.slice(start, start + i).reduce((acc, v) => acc + v, 0);
+        x = Math.max(x, sum + helper(start + i, Math.max(m, i), !isFirst));
+      }
+      dp[start][m][id] = x;
+    } else {
+      let x = INF;
+      for (let i = 1; i <= 2 * m; i++) {
+        x = Math.min(x, helper(start + i, Math.max(m, i), !isFirst));
+      }
+      dp[start][m][id] = Math.min(dp[start][m][id], x);
+    }
+
+    return dp[start][m][id];
   }
 };
 
-console.log(largestSumOfAverages([9, 1, 2, 3, 9], 3));
+let a = stoneGameII([2, 7, 9, 4, 4]);
+console.log(a);
