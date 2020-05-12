@@ -29,6 +29,8 @@ Constraints:
 */
 
 // MINMAX
+// Time O(N^2)
+// Space O(N^2)
 const stoneGameII = piles => {
   let n = piles.length;
 

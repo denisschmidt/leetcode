@@ -1,53 +1,30 @@
 /**
- * @param {number[]} piles
+ * @param {number[][]} books
+ * @param {number} shelf_width
  * @return {number}
  */
-var stoneGameII = function(piles) {
-  let n = piles.length;
-
+var minHeightShelves = function(books, shelf_width) {
+  let n = books.length;
   let INF = Number.MAX_VALUE;
-
-  let dp = Array(n + 1)
+  let dp = Array(1001)
     .fill(0)
-    .map(() =>
-      Array(n + 1)
-        .fill(0)
-        .map(() => [-INF, INF]),
+    .map(() => Array(1001).fill(0));
+
+  return helper(0, 0, 0);
+
+  function helper(i, w, h) {
+    if (start >= n) return h;
+
+    if (dp[i][w] != 0) {
+      return dp[i][w];
+    }
+
+    dp[i][w] = Math.min(
+      h + helper(i + 1, books[i][0], books[i][1]),
+
+      w + books[i][0] > shelf_width ? INF : helper(i + 1, w + books[i][0], Math.max(h, books[i][1])),
     );
 
-  return helper(0, 1, true);
-
-  function helper(start, m, isFirst) {
-    if (start >= n) return 0;
-
-    let id = isFirst ? 0 : 1;
-
-    if (id == 0 && dp[start][m][id] != -INF) {
-      return dp[start][m][id];
-    }
-
-    if (id == 1 && dp[start][m][id] != INF) {
-      return dp[start][m][id];
-    }
-
-    if (isFirst) {
-      let x = -INF;
-      for (let i = 1; i <= 2 * m; i++) {
-        let sum = piles.slice(start, start + i).reduce((acc, v) => acc + v, 0);
-        x = Math.max(x, sum + helper(start + i, Math.max(m, i), !isFirst));
-      }
-      dp[start][m][id] = x;
-    } else {
-      let x = INF;
-      for (let i = 1; i <= 2 * m; i++) {
-        x = Math.min(x, helper(start + i, Math.max(m, i), !isFirst));
-      }
-      dp[start][m][id] = Math.min(dp[start][m][id], x);
-    }
-
-    return dp[start][m][id];
+    return dp[i][w];
   }
 };
-
-let a = stoneGameII([2, 7, 9, 4, 4]);
-console.log(a);
