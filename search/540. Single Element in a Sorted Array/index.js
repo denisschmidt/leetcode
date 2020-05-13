@@ -18,27 +18,40 @@ Note: Your solution should run in O(log n) time and O(1) space.
 
  */
 
+/*
+
+  Один элемент может находиться только на четном индексе 
+  
+
+
+*/
+
 // Time O(logN)
 // Space O(1)
 const singleNonDuplicate = function(nums) {
-  let low = 0;
-  let high = nums.length - 1;
+  let left = 0;
+  let right = nums.length - 1;
 
-  while (low < high) {
-    let mid = Math.floor((low + high) / 2);
-    let delta = mid % 2 ? -1 : 1;
+  while (left < right) {
+    let mid = left + Math.floor((right - left) / 2);
 
-    if (nums[mid] === nums[mid + delta]) {
-      low = mid + 1;
+    if (mid % 2 == 0) {
+      if (nums[mid] == nums[mid + 1]) {
+        left = mid + 2;
+      } else {
+        right = mid;
+      }
     } else {
-      high = mid - 1;
+      if (nums[mid - 1] == nums[mid]) {
+        left = mid + 1;
+      } else {
+        right = mid;
+      }
     }
   }
 
-  return nums[low] === nums[low - 1] ? nums[low + 1] : nums[low];
+  return nums[lo];
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // XOR
 // Time O(N)
