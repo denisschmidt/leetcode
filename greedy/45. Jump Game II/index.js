@@ -20,17 +20,21 @@ Note:
 // Time O(N)
 // Space O(1)
 const jump = nums => {
-  let max = 0;
+  let i = 0;
+  let maxReach = 0;
+  let localMaxReach = 0;
   let cnt = 0;
-  let curentEnd = 0;
 
-  for (let i = 0; i < nums.length; i++) {
-    max = Math.max(max, i + nums[i]);
-
-    if (i === curentEnd) {
-      curentEnd = max;
-      cnt++;
+  while (i < nums.length && localMaxReach < nums.length - 1) {
+    // ищем новый максимум в пределах до текущего максимума
+    while (i < nums.length && i <= maxReach) {
+      localMaxReach = Math.max(localMaxReach, i + nums[i++]);
     }
+
+    if (localMaxReach <= maxReach) return -1;
+
+    cnt++;
+    maxReach = localMaxReach;
   }
 
   return cnt;

@@ -20,26 +20,24 @@ Follow up:
 // Time complexity: O(N). Single iteration of O(N).
 // Each element can be visited atmost twice, once by the right pointer(i) and (atmost)once by the left pointer.
 // Space complexity: O(1) extra space. Only constant space required for left, sum, ans and i.
-const minSubArrayLen = (target, nums) => {
+const minSubArrayLen = (s, nums) => {
   let start = 0;
   let end = 0;
-  let len = Number.MAX_VALUE;
   let sum = 0;
+  let min = Number.MAX_VALUE;
 
   while (end < nums.length) {
     sum += nums[end++];
 
-    while (sum >= target) {
-      if (end - start < len) {
-        len = end - start;
+    while (sum >= s) {
+      if (end - start < min) {
+        min = end - start;
       }
-
-      sum -= nums[start];
-      start++;
+      sum -= nums[start++];
     }
   }
 
-  return len === Number.MAX_VALUE ? 0 : len;
+  return min == Number.MAX_VALUE ? 0 : min;
 };
 
 // Complexity analysis

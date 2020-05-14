@@ -22,22 +22,21 @@ Example 3:
 
  */
 
+// Mono Stack
+
 // Time O(N)
 // Space O(N)
-const removeKdigits = (input, k) => {
-  if (input.length === 0 || k === 0) return input;
-  if (input.length === k) return '0';
+const removeKdigits = (num, k) => {
+  let stack = [];
+  let n = num.length;
 
-  const stack = [];
-
-  let i = 0;
-  while (i < input.length) {
-    while (k > 0 && stack.length && stack[stack.length - 1] > input[i]) {
+  for (let i = 0; i < n; i++) {
+    while (k > 0 && stack.length && last(stack) > num[i]) {
       stack.pop();
       k--;
     }
-    stack.push(input[i]);
-    i++;
+
+    stack.push(num[i]);
   }
 
   while (k > 0) {
@@ -45,11 +44,43 @@ const removeKdigits = (input, k) => {
     k--;
   }
 
-  while (stack[0] === '0' && stack.length > 1) {
-    stack.splice(0, 1);
+  while (stack[0] == '0' && stack.length > 0) {
+    stack.shift();
   }
 
-  return stack.join('');
+  return stack.length == 0 ? '0' : stack.join('');
+
+  function last(x) {
+    return x[x.length - 1];
+  }
+};
+
+// TLE
+// DFS
+const removeKdigits_II = function(num, k) {
+  let min = Number.MAX_VALUE;
+  let n = num.length;
+
+  helper(num);
+
+  return min == Number.MAX_VALUE ? '0' : min.toString();
+
+  function helper(s) {
+    if (s.length < n - k) {
+      return;
+    }
+
+    if (s.length == n - k && min > parseInt(s)) {
+      min = parseInt(s);
+      return;
+    }
+
+    for (let i = 0; i < s.length; i++) {
+      let newStr = s.substring(0, i) + s.substring(i + 1);
+
+      helper(newStr);
+    }
+  }
 };
 
 const res = removeKdigits(

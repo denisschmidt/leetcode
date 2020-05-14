@@ -1,56 +1,38 @@
-/* 
+/**
+ * @param {number} n
+ * @param {number[]} ranges
+ * @return {number}
+ */
 
-Необходимо сгенерировать массив из 100 элементов из чисел от 0 до 200.
-
-И найти пары чисел, которые дают в сумме 200. https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random 
-
-
-*/
-
-function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
-
-let nums = [];
-for (let i = 0; i < 100; i++) {
-  nums.push(getRandomInt(200));
-}
-
-let map = {};
-let ans = [];
-
-for (let i = 0; i < nums.length; i++) {
-  let x = nums[i];
-  let diff = 200 - x;
-
-  if (map[diff] > 0) {
-    ans.push([diff, nums[i]]);
+// Time O(NLogN)
+// Space O(N)
+var minTaps = function(n, ranges) {
+  let nums = [];
+  for (let i = 0; i < ranges.length; i++) {
+    nums.push([i - ranges[i], i + ranges[i]]);
   }
 
-  map[x] = ~~map[x] + 1;
-}
+  nums.sort((a, b) => a[0] - b[0]);
 
-let ans2 = [];
-for (let i = 0; i < nums.length; i++) {
-  for (let j = i + 1; j < nums.length; j++) {
-    if (nums[i] + nums[j] == 200) {
-      ans2.push([nums[i], nums[j]]);
+  let i = 0;
+  let start = 0;
+  let end = 0;
+  let cnt = 0;
+
+  while (i < ranges.length && start < n) {
+    while (i < nums.length && start >= nums[i][0]) {
+      end = Math.max(end, nums[i++][1]);
     }
-  }
-}
 
-for (let i = 0; i < nums.length; i++) {
-  for (let j = i + 1; j < nums.length; j++) {
-    if (nums[i] + nums[j] == 200) {
-      ans2.push([nums[i], nums[j]]);
+    if (start == end) {
+      return -1;
     }
+
+    cnt++;
+    start = end;
   }
-}
 
-// Time O(2(N^2))
+  return cnt;
+};
 
-console.log(nums);
-
-console.log('====');
-
-console.log(ans, ans2, ans.length, ans2.length);
+minTaps(7, [1, 2, 1, 0, 2, 1, 0, 1]);
