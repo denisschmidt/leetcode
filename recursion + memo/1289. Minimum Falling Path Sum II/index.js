@@ -20,6 +20,10 @@ Constraints:
 
 */
 
+// Time O(N^3)
+// Space O(N^2)
+
+// Bottom-Up Recursion
 const minFallingPathSum_II = grid => {
   let n = grid.length;
   let m = grid[0].length;

@@ -1,32 +1,26 @@
-const { PriorityQueue } = require('../algorithms/priorityQueue');
-
 /**
- * @param {number[][]} arr
- * @return {number}
+ * @param {number} length
+ * @param {number[][]} updates
+ * @return {number[]}
  */
-const minFallingPathSum = grid => {
-  let n = grid.length;
-  let m = grid[0].length;
+var getModifiedArray = function(length, updates) {
+  let state = Array(length).fill(false);
 
-  let pq = new PriorityQueue({ comparator: (a, b) => a[2] - b[2] });
+  let i = 0;
 
-  for (let j = 0; j < m; j++) {
-    pq.offer([1, j, grid[0][j]]);
-  }
+  while (i < updates.length) {
+    let [start, end, inc] = updates[i++];
 
-  while (!pq.isEmpty()) {
-    let [row, col, sum] = pq.poll();
-
-    if (i == n - 1) {
-      return sum;
-    }
-
-    for (let j = 0; j < m; j++) {
-      if (j == col) continue;
-
-      pq.offer([row + 1, j, sum + grid[row][j]]);
+    for (let k = start; k <= end; k++) {
+      state[k] += inc;
     }
   }
 
-  return -1;
+  return state;
 };
+
+getModifiedArray(5, [
+  [1, 3, 2],
+  [2, 4, 3],
+  [0, 2, -2],
+]);
