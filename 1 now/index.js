@@ -1,33 +1,32 @@
-var reverseParentheses = function(s) {
-  let stack = [];
-  let chars = s.split('');
+const { PriorityQueue } = require('../algorithms/priorityQueue');
 
-  for (let i = 0; i < chars.length; i++) {
-    if (chars[i] == '(') {
-      stack.push(i);
-    } else if (chars[i] == ')') {
-      let start = stack.pop() + 1;
-      let end = i;
+/**
+ * @param {number[][]} arr
+ * @return {number}
+ */
+const minFallingPathSum = grid => {
+  let n = grid.length;
+  let m = grid[0].length;
 
-      while (start < end) {
-        swap(chars, start, end);
-        start++;
-        end--;
-      }
+  let pq = new PriorityQueue({ comparator: (a, b) => a[2] - b[2] });
+
+  for (let j = 0; j < m; j++) {
+    pq.offer([1, j, grid[0][j]]);
+  }
+
+  while (!pq.isEmpty()) {
+    let [row, col, sum] = pq.poll();
+
+    if (i == n - 1) {
+      return sum;
+    }
+
+    for (let j = 0; j < m; j++) {
+      if (j == col) continue;
+
+      pq.offer([row + 1, j, sum + grid[row][j]]);
     }
   }
 
-  let ans = '';
-
-  for (let i = 0; i < chars.length; i++) {
-    if (chars[i] != '(' && chars[i] != ')') {
-      ans += chars[i];
-    }
-  }
-
-  return ans;
-
-  function swap(nums, i, j) {
-    return ([nums[i], nums[j]] = [nums[j], nums[i]]);
-  }
+  return -1;
 };
