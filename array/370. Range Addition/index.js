@@ -53,7 +53,7 @@ const getModifiedArray = function(length, updates) {
 
 // Time O(N * K)
 // Space O(N)
-const getModifiedArray = function(length, updates) {
+const getModifiedArray_II = function(length, updates) {
   let state = Array(length).fill(false);
 
   let i = 0;
