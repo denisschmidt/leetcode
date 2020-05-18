@@ -47,10 +47,32 @@ Follow up: Could you solve it in linear time?
 
  */
 
+// Time (NLogK)
+// Space O(N)
+const maxSlidingWindow = function(nums, k) {
+  let result = [];
+
+  let pq = new PriorityQueue({ comparator: (a, b) => b.val - a.val });
+
+  for (let i = 0; i < nums.length; i++) {
+    pq.offer({ val: nums[i], index: i });
+
+    while (!pq.isEmpty() && i - pq.peek().index >= k) {
+      pq.poll();
+    }
+
+    if (pq.size() >= k) {
+      result.push(pq.peek().val);
+    }
+  }
+
+  return result;
+};
+
 // Монотонная очередь
 // Time O(N)
 // Space O(N)
-const maxSlidingWindow = function(nums, k) {
+const maxSlidingWindow_II = function(nums, k) {
   const queue = [];
   const ans = [];
 
@@ -80,28 +102,6 @@ const maxSlidingWindow = function(nums, k) {
   }
   ans.push(nums[queue[0]]);
   return ans;
-};
-
-// Time (NLogK)
-// Space O(N)
-const maxSlidingWindow = function(nums, k) {
-  let result = [];
-
-  let pq = new PriorityQueue({ comparator: (a, b) => b.val - a.val });
-
-  for (let i = 0; i < nums.length; i++) {
-    pq.offer({ val: nums[i], index: i });
-
-    while (!pq.isEmpty() && i - pq.peek().index >= k) {
-      pq.poll();
-    }
-
-    if (pq.size() >= k) {
-      result.push(pq.peek().val);
-    }
-  }
-
-  return result;
 };
 
 // Time O(N) * log K
