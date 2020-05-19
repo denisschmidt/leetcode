@@ -19,39 +19,30 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const checkInclusion = function(s1, s2) {
+const checkInclusion = (s1, s2) => {
   let map = {};
+
+  for (let x of s1) map[x] = ~~map[x] + 1;
+
   let start = 0;
   let end = 0;
-  let cnt = s1.length;
-  let minLen = Number.MAX_VALUE;
-
-  for (let s of s1) {
-    map[s] = ~~map[s] + 1;
-  }
+  let cnt = Object.keys(map).length;
 
   while (end < s2.length) {
-    if (map[s2[end]] > 0) {
+    if (--map[s2[end++]] == 0) {
       cnt--;
     }
 
-    map[s2[end]]--;
-    end++;
-
-    while (cnt === 0) {
-      if (minLen > end - start) {
-        minLen = end - start;
+    while (cnt == 0) {
+      if (end - start == s1.length) {
+        return true;
       }
 
-      map[s2[start]]++;
-
-      if (map[s2[start]] > 0) {
+      if (++map[s2[start++]] > 0) {
         cnt++;
       }
-
-      start++;
     }
   }
 
-  return minLen === s1.length;
+  return false;
 };
