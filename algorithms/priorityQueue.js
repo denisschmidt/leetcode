@@ -10,11 +10,12 @@
     toArray: Returns an array containing all of the elements in this queue.
  
   Бывают кучи двух типов minHeap maxHeap:
-
-  1) minHeap - первый элемент кучи будет меньше всех остальных элементов  // 1, 2, 3, 4, 5
-  2) maxHeap - первый элемент кучи будет больше всех остальных элементов  // 7, 6, 5, 4
-
-  Добавление элемента занимает O(LogN) по времени
+    1) minHeap - первый элемент кучи будет меньше всех остальных элементов  // 1, 2, 3, 4, 5
+    2) maxHeap - первый элемент кучи будет больше всех остальных элементов  // 7, 6, 5, 4
+ 
+  Поиск левого потомка: left = (2 * curIndex + 1)
+  Поиск правого потомка: right = (2 * curIndex + 2)
+  Поиск родителя: parent = (curIndex - 1) / 2
 
   */
 
@@ -57,6 +58,7 @@ class PriorityQueue {
     return this.data[0];
   }
 
+  // Time O(LogN)
   offer(value) {
     this.data.push(value);
     // поднимаемся вверх
@@ -64,8 +66,7 @@ class PriorityQueue {
     this.bubbleUp(this.data.length - 1);
   }
 
-  // извлекаем первый элемент из очереди
-  // Time O(Log*N)
+  // Time O(LogN)
   poll() {
     if (this.size() === 0) {
       return null;

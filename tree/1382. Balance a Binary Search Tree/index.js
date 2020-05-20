@@ -22,9 +22,8 @@ Constraints:
 
 // Time O(N)
 // Space O(N)
-var balanceBST = function(root) {
+const balanceBST = root => {
   let nums = [];
-  let i = 0;
 
   dfs(root);
 
@@ -45,6 +44,7 @@ var balanceBST = function(root) {
 
   function dfs(node) {
     if (node == null) return;
+
     dfs(node.left);
     nums.push(node.val);
     dfs(node.right);

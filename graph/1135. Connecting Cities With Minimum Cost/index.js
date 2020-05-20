@@ -29,13 +29,9 @@ Note:
 
 */
 
-/*
+// Решение через Kruskal's algorithm Minimum Spanning Tree Graph Algorithm
 
-  Решение через Kruskal's algorithm Minimum Spanning Tree Graph Algorithm
-
-  Реализация и обьяснение https://www.youtube.com/watch?v=fAuF0EuZVCk
-
-*/
+// Реализация и обьяснение https://www.youtube.com/watch?v=fAuF0EuZVCk
 
 // UNION FIND
 // Time O(ELogE + E)
