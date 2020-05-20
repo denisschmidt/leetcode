@@ -35,72 +35,26 @@ Follow up:
 
  */
 
-const { makeTreeNodes } = require('../../algorithms/treeNode');
-
-// DFS :
-// time complexity: O(N * M)
-
+// DFS
+// Time O(N)
+// Space O(N)
 const kthSmallest = function(root, k) {
-  let nodeStack = [];
-  let ans = [];
+  let stack = [];
 
-  nodeStack.push(root);
-
-  while (nodeStack.length) {
-    let node = nodeStack.pop();
-
-    if (node !== null) {
-      ans.push(node.val);
-      if (node.right) {
-        nodeStack.push(node.right);
-      }
-
-      if (node.left) {
-        nodeStack.push(node.left);
-      }
-    }
-  }
-  ans.sort((a, b) => a - b);
-
-  return ans[k - 1];
-};
-
-kthSmallest(makeTreeNodes([3, 1, 4, null, 2]), 1);
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-// DFS in-order iterative:
-//time complexity: O(N) best
-
-//      3
-//     / \
-//    1   4
-//     \
-//      2
-
-const kthSmallest2 = (root, k) => {
-  const nodeStack = [];
-  let node = root;
-  let count = 0;
-
-  while (nodeStack.length || node !== null) {
-    while (node !== null) {
-      nodeStack.push(node);
-      node = node.left;
+  while (stack.length || root != null) {
+    while (root != null) {
+      stack.push(root);
+      root = root.left;
     }
 
-    console.log('---', nodeStack);
+    root = stack.pop();
+    k--;
 
-    node = nodeStack.pop();
-    if (++count === k) {
-      return node.val;
+    if (k == 0) {
+      return root.val;
     }
-
-    node = node.right;
+    root = root.right;
   }
 
-  return Number.MIN_VALUE;
+  return null;
 };
-
-const res = kthSmallest2(makeTreeNodes([3, 1, 4, null, 2]), 1);
-console.log('---', res);
