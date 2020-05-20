@@ -40,11 +40,10 @@ Note:
   There will be at most 150000 calls to StockSpanner.next across all test cases.
   The total time limit for this problem has been reduced by 75% for C++, and 50% for all other languages.
 
-
  */
 
-// Time O(N)
-// Space O(N)
+// Time O(Q) где Q - количество вызовов StockSpanner.next. В целом есть Q push() и не более Q pop()
+// Space O(Q)
 class StockSpanner {
   constructor() {
     this.stack = [];
@@ -73,21 +72,13 @@ class StockSpanner_II {
   }
 
   next(price) {
+    let i = this.stack.length - 1;
     let cnt = 1;
-
-    if (price > this.max) {
-      this.max = price;
-      this.nums.push(price);
-      return this.nums.length;
-    }
-
-    for (let i = this.nums.length - 1; i >= 0; i--) {
-      if (this.nums[i] > price) break;
+    while (i >= 0 && this.stack[i] <= price) {
       cnt++;
+      i--;
     }
-
-    this.nums.push(price);
-
+    this.stack.push(price);
     return cnt;
   }
 }

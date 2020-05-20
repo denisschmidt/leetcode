@@ -30,6 +30,7 @@ Note:
 */
 
 /*
+
   Решение через Kruskal's algorithm Minimum Spanning Tree Graph Algorithm
 
   Реализация и обьяснение https://www.youtube.com/watch?v=fAuF0EuZVCk
@@ -39,7 +40,7 @@ Note:
 // UNION FIND
 // Time O(ELogE + E)
 // Space O(N)
-const minimumCost = function(N, connections) {
+const minimumCost = (N, connections) => {
   let parent = [];
 
   for (let i = 0; i < N; i++) {
@@ -82,10 +83,12 @@ const minimumCost = function(N, connections) {
 
      Что значит xr === yr ?
      
-     Означает, что имеется пренадлежность к одному и тому же подмножеству. Тоесть компоненты уже является связанным.
-     И так как мы отсортировали графы по стоимости, то если связи нету мы считаем сумму их связи.
+     Означает, что имеется пренадлежность к одному и тому же подмножеству. Тоесть компоненты уже являются связанным.
+     
      Если связь уже есть, то считать сумму уже не нужно, так как меньшу сумму связи мы уже нашли.
-    
+
+     И так как мы отсортировали графы по стоимости, то если связи нету мы считаем сумму их связи.
+     
      */
     if (xr === yr) {
       return false;
