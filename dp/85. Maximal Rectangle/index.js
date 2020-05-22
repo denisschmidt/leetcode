@@ -35,13 +35,15 @@ const maximalRectangle_II = function(matrix) {
         // вычисляем максимальную ширину и обновляем состояние dp
         dp[i][j] = j === 0 ? 1 : dp[i][j - 1] + 1;
 
-        let currentWidth = dp[i][j];
-
+        let width = dp[i][j];
+        let height = 1;
         // вычисляем прямоугольник максимальной площади с правым нижним углом в [i, j]
         for (let k = i; k >= 0; k--) {
           // т.к площадь определяется мин шириной
-          currentWidth = Math.min(currentWidth, dp[k][j]);
-          ans = Math.max(ans, currentWidth * (i - k + 1));
+          width = Math.min(width, dp[k][j]);
+          height = i - k + 1;
+
+          ans = Math.max(ans, width * height);
         }
       }
     }
