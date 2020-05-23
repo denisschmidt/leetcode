@@ -35,37 +35,28 @@ Explanation:
   Note that 'A' and 'a' are treated as two different characters.
  */
 
-// Time complexity : O(n)
-// Space complexity : O(n)
-
 // Time O(N + NLogN)
 // Space O(N)
 const frequencySort = s => {
-  const arr = s.split('');
-  const size = arr.length;
-  const map = new Map();
+  let map = {};
 
-  for (let i = 0; i < size; i++) {
-    let char = arr[i];
-    if (!map.has(char)) {
-      map.set(char, 1);
-    } else {
-      map.set(char, map.get(char) + 1);
-    }
+  for (let x of s) {
+    map[x] = ~~map[x] + 1;
   }
 
-  let A = [];
-  for (let [key, value] of map) {
-    let str = '';
-    for (let i = 0; i < value; i++) {
-      str = str + key;
+  let bucket = [];
+  for (let ch of Object.keys(map)) {
+    let cnt = map[ch];
+    let x = '';
+
+    while (cnt-- > 0) {
+      x += ch;
     }
-    A.push(str);
+
+    bucket.push(x);
   }
 
-  A.sort((a, b) => b.length - a.length);
-  return A.join('');
+  bucket.sort((a, b) => b.length - a.length);
+
+  return bucket.join('');
 };
-
-const res = frequencySort('tree');
-console.log('====', res);
