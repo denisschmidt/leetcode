@@ -13,6 +13,7 @@ function isEmpty(obj) {
   return JSON.stringify(obj) === JSON.stringify({});
 }
 
+// 589 - задача
 function flatDeep(arr) {
   return arr.reduce((acc, item) => {
     if (Array.isArray(item)) {
