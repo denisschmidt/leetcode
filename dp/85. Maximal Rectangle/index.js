@@ -25,6 +25,7 @@ const maximalRectangle_II = function(matrix) {
   let m = matrix[0].length;
   let ans = 0;
 
+  // содержит минимальную ширину сетки из 1
   let dp = Array(n)
     .fill(null)
     .map(() => Array(m).fill(0));
