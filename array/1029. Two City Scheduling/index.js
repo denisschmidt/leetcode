@@ -30,54 +30,26 @@ It is guaranteed that costs.length is even.
 
 // Time O(NlogN)
 // Space O(N)
-var twoCitySchedCost = function(costs) {
-  let ans = 0;
-  let maxCount = Math.floor(costs.length / 2);
-  let ACount = 0;
-  let BCount = 0;
+const twoCitySchedCost = function(costs) {
+  let cntPeople = Math.floor(costs.length / 2);
+  let pq = new PriorityQueue({ comparator: (a, b) => a[0] - b[0] });
 
-  if (costs.length === 1) {
-    return costs[0][0] + costs[0][1];
-  }
-  let obj = [];
-
-  for (let i = 0; i < costs.length; i++) {
-    let [a, b] = costs[i];
-    obj.push({
-      index: i,
-      diff: Math.abs(a - b),
-    });
+  for (let [a, b] of costs) {
+    pq.offer([a - b, a]);
   }
 
-  obj.sort((a, b) => b.diff - a.diff);
+  let sum = 0;
 
-  obj.forEach(item => {
-    const { index } = item;
-    const [A, B] = costs[index];
-    if (A > B) {
-      if (BCount !== maxCount) {
-        ans += B;
-        BCount++;
-      } else {
-        ans += A;
-      }
-    } else {
-      if (ACount !== maxCount) {
-        ans += A;
-        ACount++;
-      } else {
-        ans += B;
-      }
-    }
-  });
+  while (cntPeople > 0) {
+    let [diff, firstVal] = pq.poll();
+    sum += firstVal;
+    cntPeople--;
+  }
 
-  return ans;
+  while (!pq.isEmpty()) {
+    let [diff, firstVal] = pq.poll();
+    sum += firstVal - diff;
+  }
+
+  return sum;
 };
-
-const res = twoCitySchedCost([
-  [1, 2],
-  [3, 4],
-  [5, 6],
-  [7, 8],
-]);
-console.log('---', res);
