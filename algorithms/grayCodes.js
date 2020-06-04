@@ -1,4 +1,24 @@
 /*
+
+Сгенерировать все двумерные коды Грея длиной n.
+
+*/
+
+// Time O(N)
+// Space O(N)
+function generateGray_I(n) {
+  let grayCodes = [];
+  let total = 1 << n;
+
+  for (let i = 0; i < total; i++) {
+    grayCodes.push(i ^ (i >> 1));
+  }
+
+  return grayCodes;
+}
+
+/*
+
 Сгенерировать все k-мерные коды Грея длиной n.
 
 Код Грея - двоичный код, в котором две «соседние» (в упорядоченном, то есть лексикографическом, наборе)
@@ -27,29 +47,22 @@
  */
 
 /*
-  n - число последовательностей
- */
-const generateSequence = (num, n) => {
-  let arr = [];
-  for (let i = 0; i < n; i++) {
-    arr.push(num);
-  }
-  return arr;
-};
-
-/*
+  
   Сгенерировать все k-мерные коды Грея длиной n.
 
   n - длинна кода для 4 = [0, 0, 0, 1]
   k - мерные коды для 2 коды могут содержать только 1 и 0
+
  */
 const generateCodes = (n = 3, k = 3) => {
   let index;
   let arr = generateSequence(0, n);
   let direction = generateSequence(1, n);
   let res = [];
+
   while (true) {
     index = n - 1;
+
     while (index >= 0) {
       // условие на нахождение столбца, который можно двигать
       if ((arr[index] === 0 && direction[index] === 0) || (arr[index] === k - 1 && direction[index] === 1)) {
@@ -57,18 +70,38 @@ const generateCodes = (n = 3, k = 3) => {
       } else {
         break;
       }
-      index -= 1;
+      index--;
     }
+
     // если не нашли такого столбца, то алгоритм закончил работу
     if (index < 0) {
       break;
     }
+
     // либо двигаем на 1 вперед, либо на 1 назад
     arr[index] += direction[index] * 2 - 1;
     res.push(arr);
-    console.log('----', arr);
   }
+
   return res;
+
+  function generateSequence(num, n) {
+    let arr = [];
+    for (let i = 0; i < n; i++) arr.push(num);
+    return arr;
+  }
 };
 
-const res = generateCodes(2, 2);
+const encode = number => {
+  return number ^ (number >> 1);
+};
+
+const decode = encodedNumber => {
+  let number = encodedNumber;
+
+  while ((encodedNumber >>= 1)) {
+    number ^= encodedNumber;
+  }
+
+  return number;
+};
