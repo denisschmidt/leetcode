@@ -17,7 +17,21 @@ Example 2:
 
 // Time O(N)
 // Space O(1)
-const reverseString = function(arr) {
+const reverseString = s => {
+  let n = s.length - 1;
+
+  for (let i = 0; i <= Math.floor(n / 2); i++) {
+    swap(s, i, n - i);
+  }
+
+  function swap(arr, x, y) {
+    return ([arr[x], arr[y]] = [arr[y], arr[x]]);
+  }
+};
+
+// Time O(N)
+// Space O(1)
+const reverseString_II = function(arr) {
   return helper(arr, 0, arr.length - 1);
 
   function helper(arr, l, r) {
