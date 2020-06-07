@@ -5,17 +5,6 @@
 Вам разрешено использовать только O(1) space, и ввод в виде потока, поэтому не может сохранить ранее просмотренные номера.
  */
 
-/**
- * Your Solution will be called like this:
- * var sol = new Solution();
- * var stream = [1, 2, 3, 4];
- *
- * for (let i = 0; i < stream.length; i++) {
- *   console.log("Random number from first " + (i+1) +
- *     " numbers is " + sol.selectRandom(stream[i]));
- * }
- */
-
 const randomValue = (min, max) => min + Math.floor(Math.random() * (max - min));
 
 class Random {

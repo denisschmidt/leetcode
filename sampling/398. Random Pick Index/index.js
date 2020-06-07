@@ -1,4 +1,5 @@
 /*
+
 Given an array of integers with possible duplicates, randomly output the index of a given target number. 
 You can assume that the given target number must exist in the array.
 
@@ -17,8 +18,6 @@ Example:
 
  */
 
-const randomInt = (min, max) => min + Math.floor(Math.random() * max - min);
-
 class Solution {
   constructor(nums) {
     this.nums = nums;
@@ -31,7 +30,7 @@ class Solution {
     for (let i = 0; i < this.nums.length; i++) {
       if (this.nums[i] === target) {
         count++;
-        let rand = randomInt(0, count);
+        let rand = this.randomInt(0, count);
 
         if (rand === count - 1) {
           res = i;
@@ -41,8 +40,12 @@ class Solution {
 
     return res;
   }
+
+  randomInt(min, max) {
+    let rand = min + Math.random() * (max - min);
+    return Math.floor(rand);
+  }
 }
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Наивное решение в котором в память записывается очень большой массив
 // Time O(K) где K кол-вл встречающихся элементов
