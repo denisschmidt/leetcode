@@ -37,10 +37,10 @@ const kruskalMST = (n, prims) => {
     parent[i] = i;
   }
 
-  pipes.sort((a, b) => a[2] - b[2]);
+  prims.sort((a, b) => a[2] - b[2]);
 
   let ans = 0;
-  for (let [u, v, cnt] of pipes) {
+  for (let [u, v, cnt] of prims) {
     if (union(u, v)) {
       ans += cnt;
     }
