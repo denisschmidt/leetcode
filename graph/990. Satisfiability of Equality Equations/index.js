@@ -69,6 +69,7 @@ const equationsPossible = function(equations) {
     let u = equations[i][0].charCodeAt(0) - 97;
     let v = equations[i][3].charCodeAt(0) - 97;
 
+    // Если знак равенства обьединяем буквы в одно подмножество
     if (equations[i][1] === '=') {
       let x = find(u);
       let y = find(v);
@@ -80,6 +81,7 @@ const equationsPossible = function(equations) {
     let u = equations[i][0].charCodeAt(0) - 97;
     let v = equations[i][3].charCodeAt(0) - 97;
 
+    //  Если у нас знак неравенства, но при этом подмножества равны, то соотношения нарушены
     if (equations[i][1] === '!') {
       let x = find(u);
       let y = find(v);
