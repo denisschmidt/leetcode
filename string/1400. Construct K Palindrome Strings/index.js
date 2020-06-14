@@ -60,16 +60,13 @@ Constraints:
 // Time O(N)
 // Space O(N)
 const canConstruct = (s, k) => {
-  let str = s.split('').sort((a, b) => a.localeCompare(b));
-  let n = str.length;
-
   // Если у нас есть один символ в каждом палиндроме у нас будет максимум s.length палиндромов
   // Поэтому нам нужно чтобы k <= s.length
-  if (n < k) return false;
+  if (s.length < k) return false;
 
   let map = {};
 
-  for (let x of str) map[x] = ~~map[x] + 1;
+  for (let x of s) map[x] = ~~map[x] + 1;
 
   let oddCnt = 0;
   for (let k of Object.keys(map)) {
