@@ -1,4 +1,5 @@
 /*
+
 Given a string s, return all the palindromic permutations (without duplicates) of it. 
 Return an empty list if no palindromic permutation could be form.
 
@@ -17,74 +18,59 @@ Example 2:
 const generatePalindromes = s => {
   let str = s.split('').sort((a, b) => a.localeCompare(b));
   let n = str.length;
-  let used = Array(n + 1).fill(false);
   let ans = [];
+  let used = Array(n).fill(false);
 
   // проверка того можно ли вообще из стороки сделать палидром
-  if (!possibleCreatePalidrome(s)) {
-    return [];
-  }
+  if (!possibleCreatePalidrome(s)) return [];
 
   // генерация всех последовательностей
-  helper();
+  helper([]);
 
-  return ans.map(item => item.join(''));
+  return ans;
 
   function helper(comb = []) {
-    if (n === comb.length) {
-      if (isPalidrome(comb)) {
-        ans.push([...comb]);
-      }
+    if (comb.length == n && isPalidrome(comb)) {
+      ans.push(comb.join(''));
       return;
     }
 
-    for (let i = 0; i < n; i++) {
+    for (let i = 0; i < str.length; i++) {
       if (used[i]) continue;
 
       // только уникальные комбинации
-      if (i > 0 && str[i - 1] === str[i] && !used[i - 1]) continue;
+      if (i > 0 && str[i - 1] == str[i] && !used[i - 1]) continue;
 
-      comb.push(str[i]);
       used[i] = true;
+      comb.push(str[i]);
 
+      // recursion
       helper(comb);
 
+      // backtracking
       comb.pop();
       used[i] = false;
     }
   }
 
-  // Time O(N)
-  function possibleCreatePalidrome(str) {
-    let map = {};
-
-    for (let i = 0; i < str.length; i++) {
-      map[str[i]] = ~~map[str[i]] + 1;
+  function isPalidrome(str) {
+    for (let i = 0, j = str.length - 1; i < j; i++, j--) {
+      if (str[i] != str[j]) return false;
     }
-
-    let cnt = 0;
-    for (let key of Object.keys(map)) {
-      if (map[key] % 2 !== 0) {
-        cnt++;
-      }
-      if (cnt > 1) {
-        return false;
-      }
-    }
-
     return true;
   }
 
-  // Time O(N)
-  function isPalidrome(str) {
-    let i = 0;
-    let j = str.length - 1;
-    while (i < j) {
-      if (str[i] !== str[j]) {
-        return false;
+  function possibleCreatePalidrome(str) {
+    let map = {};
+
+    for (let x of str) map[x] = ~~map[x] + 1;
+
+    let found = false;
+    for (let k of Object.keys(map)) {
+      if (map[k] % 2 != 0) {
+        if (found) return false;
+        found = true;
       }
-      i++;
-      j--;
     }
     return true;
   }
