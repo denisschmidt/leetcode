@@ -180,3 +180,73 @@ function invertByOneBits(num) {
     console.log(x);
   }
 }
+
+/*
+
+  Конвертировать значение из любой базы в число и наоборот ??? 
+
+
+  Input number is given as string and output is an integer.
+
+  Input: str = "1100", base = 2 
+  Output: 12
+
+  Input: str = "11A", base = 16
+  Output: 282
+
+  Input: str = "123",  base = 8
+  Output: 83 
+
+*/
+
+const toDeci = (str, base) => {
+  let len = str.length;
+  let power = 1;
+
+  let num = 0;
+  let i;
+
+  for (let i = len - 1; i >= 0; i--) {
+    if (getVal(str[i]) >= base) {
+      return -1;
+    }
+
+    num += getVal(str[i]) * power;
+    power = power * base;
+  }
+
+  return num;
+
+  function getVal(ch) {
+    if (ch >= 0 && ch <= 9) return parseInt(ch);
+    return ch - 'A'.charCodeAt(0) + 10;
+  }
+};
+
+/*
+
+  Функция для преобразования заданного десятичного числа к базе
+
+*/
+
+const fromDeci = (num, base) => {
+  let res = '';
+
+  while (num > 0) {
+    res += getVal(num % base);
+
+    num = num / base;
+  }
+
+  return res
+    .split('')
+    .reverse()
+    .join('');
+
+  function getVal(num) {
+    if (num >= 0 && num <= 9) {
+      return (num + 48).toString();
+    }
+    return (num - 10 + 65).toString();
+  }
+};
