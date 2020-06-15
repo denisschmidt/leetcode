@@ -191,6 +191,7 @@ Common problems
   18) 1231 +- Top
   19) 410 +- Top
   20) 540 - 
+  21) 1482 + Top
 
 
 Задачи на pq
