@@ -24,45 +24,51 @@ You may assume k is always valid, 1 ≤ k ≤ array's length.
 // Binary Search + Quick Select
 // Time O(N)
 // Worth case O(N^2)
+// Space O(1)
 const findKthLargest = (nums, k) => {
-  let loIndex = 0;
-  let hiIndex = nums.length - 1;
-  let targetIndex = nums.length - k;
+  let n = nums.length;
+  let left = 0;
+  let right = n - 1;
+  let targetIndex = n - k;
 
-  while (true) {
+  while (left <= right) {
     // получаем index отсортированного значения
-    const partitionIndex = quickSelect(nums, loIndex, hiIndex);
+    let pivotIndex = quickSelect(left, right);
 
-    if (partitionIndex > targetIndex) {
-      hiIndex = partitionIndex - 1;
-    } else if (partitionIndex < targetIndex) {
-      loIndex = partitionIndex + 1;
-    } else {
+    if (pivotIndex == targetIndex) {
       return nums[targetIndex];
     }
-  }
-};
 
-function quickSelect(nums, loIndex, hiIndex) {
-  let pivotValue = nums[loIndex];
-  let pivotIndex = loIndex;
-  loIndex++;
-
-  while (loIndex <= hiIndex) {
-    if (nums[loIndex] < pivotValue) {
-      loIndex++;
-    } else if (nums[hiIndex] >= pivotValue) {
-      hiIndex--;
+    if (pivotIndex < targetIndex) {
+      left = pivotIndex + 1;
     } else {
-      swap(nums, loIndex, hiIndex);
+      right = pivotIndex - 1;
     }
   }
 
-  swap(nums, pivotIndex, hiIndex);
+  return nums[left];
 
-  return hiIndex;
-}
+  function quickSelect(left, right) {
+    let pivotValue = nums[left];
+    let pivotIndex = left;
+    left++;
 
-function swap(nums, i, j) {
-  return ([nums[i], nums[j]] = [nums[j], nums[i]]);
-}
+    while (left <= right) {
+      if (nums[left] < pivotValue) {
+        left++;
+      } else if (nums[right] >= pivotValue) {
+        right--;
+      } else {
+        swap(left, right);
+      }
+    }
+
+    swap(pivotIndex, right);
+
+    return right;
+  }
+
+  function swap(i, j) {
+    return ([nums[i], nums[j]] = [nums[j], nums[i]]);
+  }
+};

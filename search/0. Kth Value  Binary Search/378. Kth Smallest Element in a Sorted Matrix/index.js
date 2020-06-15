@@ -51,36 +51,42 @@ const kthSmallest = (matrix, k) => {
   let n = matrix.length;
   let m = matrix[0].length;
 
-  // берем самое маленькое и максимально возможное число
-  // затем мы уменьшаем пространство поиска в соответствии с двумя числами
-  let lo = matrix[0][0];
-  let hi = matrix[n - 1][m - 1];
+  // Берем самое маленькое и максимально возможное число
+  // Затем мы уменьшаем пространство поиска в соответствии с двумя числами
+  let left = matrix[0][0];
+  let right = matrix[n - 1][m - 1];
 
-  while (lo < hi) {
-    let mid = lo + Math.floor((hi - lo) / 2);
+  while (left < right) {
+    let mid = left + Math.floor((right - left) / 2);
 
-    let cnt = 0;
-    let j = m - 1;
+    let cnt = calc(mid);
 
-    // получаем кол-во значений которые меньше mid
-    while (i < n) {
-      // указатель j будет двигаться только в одном направлении
-      while (j >= 0 && matrix[i][j] > mid) j--;
-
-      cnt += j + 1;
-      i++;
-    }
-
-    // получаем кол-во чисел меньше mid
-    // если k > cnt соответственно нам нужно чтобы больше чисел было меньше mid
-    // значит нужно увеличивать левую сторону поэтому мы отбрасываем левую половину
+    // Получаем кол-во чисел меньше mid
+    // Если cnt < k необходимо чтобы большее кол-во чисел было меньше mid
+    // Чтобы получить больше чисел которые меньше mid нужно увеличивать левую сторону
     if (cnt < k) {
-      lo = mid + 1;
+      left = mid + 1;
     } else {
-      hi = mid;
+      right = mid;
     }
   }
-  return lo;
+
+  return left;
+
+  // получаем кол-во значений которые меньше mid
+  function calc(num) {
+    let res = 0;
+    for (let i = n - 1; i >= 0; i--) {
+      let j = m - 1;
+
+      // указатель j будет двигаться только в одном направлении
+      while (j >= 0 && matrix[i][j] > num) {
+        j--;
+      }
+      res += j + 1;
+    }
+    return res;
+  }
 };
 
 const { PriorityQueue } = require('../../../algorithms/priorityQueue');
