@@ -123,7 +123,8 @@ Common problems
   19) 1286 + Top
   20) 1087 +
   21) 267 +
-
+  22) 526 +
+  
 
 Задачи recursion + memo
   1) 1449 - Top
