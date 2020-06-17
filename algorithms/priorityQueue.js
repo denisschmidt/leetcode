@@ -88,7 +88,7 @@ class PriorityQueue {
   }
 
   // всплываем вверх по дереву
-  // Time O(Log*N)
+  // Time O(LogN)
   bubbleUp(pos) {
     while (pos > 0) {
       let parent = (pos - 1) >>> 1; // целочисленное деление на 2
