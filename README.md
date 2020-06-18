@@ -262,6 +262,7 @@ Common problems
   18) 743 + Top
   19) 1466 +
   20) 1257 - Top
+  21) 1376 + Top
 
 
 Задачи на DSU (UNION FIND)
