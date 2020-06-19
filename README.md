@@ -139,6 +139,7 @@ Common problems
   4) 1463 - Top
   5) 1411 +- Top
   6) 413 + Substring Counting
+  7) 241 - Top
 
 
 Задачи на dp

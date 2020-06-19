@@ -36,6 +36,8 @@ const mergeSort = nums => {
   const leftList = mergeSort(nums.slice(0, pivot));
   const rightList = mergeSort(nums.slice(pivot));
 
+  console.log(leftList, rightList);
+
   return merge(leftList, rightList);
 };
 
