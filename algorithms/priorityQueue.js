@@ -1,4 +1,5 @@
-/**
+/*
+
   Priority Queue
  
   Binary Heap implementation
@@ -17,7 +18,9 @@
   Поиск правого потомка: right = (2 * curIndex + 2)
   Поиск родителя: parent = (curIndex - 1) / 2
 
-  */
+  Вставка n элементов в кучу O(N * log(N))
+
+*/
 
 class PriorityQueue {
   constructor({ comparator = (a, b) => a - b, initialValues = [] } = {}) {

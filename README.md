@@ -184,7 +184,7 @@ Common problems
   4) 714 +-
 
 
-Задачи на binary search
+Задачи на search
   1) 215 +
   2) 378 +
   3) 719 +-
@@ -208,6 +208,7 @@ Common problems
   21) 1482 + Top
   22) 1300 + Top
   23) 1237 -
+  24) 462 +
 
 
 Задачи на pq
