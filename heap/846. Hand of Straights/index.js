@@ -49,10 +49,9 @@ const isNStraightHand = (hand, w) => {
 
     if (comb.length == w) {
       cnt++;
-      comb = [];
-
       tmp.forEach(c => pq.offer(c));
       tmp = [];
+      comb = [];
     }
   }
 
