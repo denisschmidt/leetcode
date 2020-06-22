@@ -140,6 +140,7 @@ Common problems
   20) 1087 +
   21) 267 +
   22) 526 +
+  23) 869 +
   
 
 Задачи recursion + memo
