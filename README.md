@@ -141,7 +141,7 @@ Common problems
   21) 267 +
   22) 526 +
   23) 869 +
-  
+
 
 Задачи recursion + memo
   1) 1449 - Top
@@ -175,7 +175,8 @@ Common problems
   19) 1035 +-
   20) 1218 - Top
   21) 392 +
-
+  22) 651 -
+  
 
 Задачи minmax
   1) 877 -
