@@ -288,6 +288,7 @@ Common problems
   4) 684 +- 
   5) 1101 +
   6) 547 + Top
+  7) 1319 + Top
 
 
 Задачи на tree 

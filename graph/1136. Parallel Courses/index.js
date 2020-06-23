@@ -50,7 +50,7 @@ const minimumSemesters = function(N, relations) {
   let count = Array(N + 1).fill(1);
 
   for (let index = 0; index < N; index++) {
-    // потологическая сортировка
+    // топологическая сортировка
     if (hasCycle(index)) {
       return -1;
     }
