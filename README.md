@@ -452,6 +452,7 @@ Common problems
   9) 676 +
   10) 900 +
   11) 641 +- Top
+  12) 622 + Top
 
 
 Задачи на sort
