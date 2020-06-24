@@ -154,6 +154,7 @@ Common problems
   6) 413 + Substring Counting
   7) 241 - Top
   8) 646 +
+  9) 851 +
   
 
 Задачи на dp
