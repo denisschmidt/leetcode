@@ -203,9 +203,7 @@ function invertByOneBits(num) {
 const toDeci = (str, base) => {
   let len = str.length;
   let power = 1;
-
   let num = 0;
-  let i;
 
   for (let i = len - 1; i >= 0; i--) {
     if (getVal(str[i]) >= base) {
