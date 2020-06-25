@@ -492,6 +492,8 @@ Common problems
   6) 1442 +-
   7) 1318 +
   8) 1017 -
+  9) 477 - Top
+  
 
 Задачи на Divide and Conquer
   1) 932 - Top  

@@ -128,6 +128,7 @@ function modifyBit(num, index, bit) {
       After reversing the bits we get:
       (0101)2 = (101)2 = (5)10.
 */
+
 // Time O(log n)
 // Space O(1)
 function invertBits(num) {
