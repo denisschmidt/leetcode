@@ -250,6 +250,7 @@ Common problems
   18) 1029 +- Top
   19) 789 +
   20) 846 +
+  21) 1138 +
 
 
 Задачи на Linked List
