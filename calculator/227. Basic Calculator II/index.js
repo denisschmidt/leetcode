@@ -83,6 +83,7 @@ const calculate = str => {
   // Возвращает true, если 'op1' имеет более высокий или тот же приоритет, что и op2
   // otherwise returns false.
   function hasPrecedence(op1, op2) {
+    // если первый оператор имеет меньший преоритет
     if (op1 === '(' || op1 === ')') {
       return false;
     } else if ((op2 === '*' || op2 === '/') && (op1 === '+' || op1 === '-')) {
