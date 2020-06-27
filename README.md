@@ -430,7 +430,7 @@ Common problems
   7) 1081 - Top
 
 
-Задачи на Sliding Window
+Задачи на two pointer
   1) 209 +
   2) 1248 +-
   3) 1234 - Top
@@ -446,6 +446,7 @@ Common problems
   13) 1156 -
   14) 567 + Top
   15) 1456 +
+  16) 524 +
 
 
 Задачи на greedy
