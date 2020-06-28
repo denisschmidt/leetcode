@@ -420,6 +420,7 @@ Common problems
   9) 573 - 
   10) 1131 +-
   11) 1276 +
+  12) 1230 -
   
 
 Задачи на monotonic stack and queue
