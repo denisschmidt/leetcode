@@ -20,4 +20,5 @@ yarn-error.log*
 # Dapp
 .dappfile.render.yaml
 
-README.md
+README.MD
+./README.MD
