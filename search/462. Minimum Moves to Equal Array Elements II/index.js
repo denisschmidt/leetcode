@@ -39,10 +39,10 @@ Example:
 const minMoves2 = nums => {
   nums.sort((a, b) => a - b);
 
+  let mid = Math.floor(nums.length / 2);
   let res = 0;
 
   for (let num of nums) {
-    let mid = Math.floor(nums.length / 2);
     res += Math.abs(nums[mid] - num);
   }
 
