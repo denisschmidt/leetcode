@@ -67,26 +67,3 @@ const distributeCoins = function(root) {
     return left + right + node.val - 1;
   }
 };
-
-/*
-
-  Мы можем изменить значения узлов дерева, мы можем сохранить баланс в узлах 
-  И использовать возвращаемое значение для накопления количества ходов. 
-  
-  Таким образом, мы можем избавиться от вспомогательного метода
-
-*/
-
-// Time O(N)
-// Space O(N)
-const distributeCoins_II = function(root, parent = null) {
-  if (root === null) return 0;
-
-  let sum = distributeCoins_II(root.left, root) + distributeCoins_II(root.right, root);
-
-  if (parent) {
-    parent.val += root.val - 1;
-  }
-
-  return sum + Math.abs(root.val - 1);
-};
