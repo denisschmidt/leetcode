@@ -27,54 +27,49 @@ Note: 1 <= N <= 10000
 // Time O(N)
 // Space O(N)
 const sumOfDistancesInTree = (N, edges) => {
-  let adjList = [];
+  let map = new Map();
 
   for (let i = 0; i < N; i++) {
-    adjList[i] = [];
+    map.set(i, []);
   }
 
-  edges.forEach(([u, v]) => {
-    adjList[u].push(v);
-    adjList[v].push(u);
-  });
+  for (let [u, v] of edges) {
+    map.get(u).push(v);
+    map.get(v).push(u);
+  }
 
-  let count = Array(N).fill(0);
-  let ans = Array(N).fill(0);
+  let res = 0;
+  let ans = [];
+
+  let cntNodes = Array(N).fill(1);
+  let subTreeSum = Array(N).fill(0);
 
   dfs(0, -1);
 
   dfs2(0, -1);
 
-  return ans;
+  return subTreeSum;
 
-  function dfs(u, parent) {
-    let neighbors = adjList[u];
+  // получаем кол-во узлов для каждой ноды и сумму рутового поддерева
+  function dfs(node, parent) {
+    for (let child of map.get(node)) {
+      if (child == parent) continue;
 
-    for (let i = 0; i < neighbors.length; i++) {
-      let v = neighbors[i];
+      dfs(child, node);
 
-      if (v == parent) continue;
-
-      dfs(v, u);
-
-      count[u] += count[v];
-      ans[u] += ans[v] + count[v];
+      cntNodes[node] += cntNodes[child];
+      subTreeSum[node] += cntNodes[child] + subTreeSum[child];
     }
-
-    count[u]++;
   }
 
-  function dfs2(u, parent) {
-    let neighbors = adjList[u];
+  // sumDist(k) = sumDist(parent) - (number of nodes in subtree k) + (number of nodes outside subtree k)
+  function dfs2(node, parent) {
+    for (let child of map.get(node)) {
+      if (child == parent) continue;
 
-    for (let i = 0; i < neighbors.length; i++) {
-      let v = neighbors[i];
+      subTreeSum[child] = subTreeSum[node] - cntNodes[child] + (N - cntNodes[child]);
 
-      if (v == parent) continue;
-
-      ans[v] = ans[u] - count[v] + (N - count[v]);
-
-      dfs2(v, u);
+      dfs2(child, node);
     }
   }
 };
