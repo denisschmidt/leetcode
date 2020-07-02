@@ -1,6 +1,6 @@
 /*
 
-  Given tree find depth sum all subtrees
+  Given binary tree find depth sum all subtrees
 
     Input:
 
@@ -39,34 +39,33 @@ let tree = makeTreeNodes(nums);
 const getSumDepth = node => {
   let ans = 0;
 
-  dfs(node);
+  dfs(root);
 
   return ans;
 
   function dfs(node) {
-    // 1 - number of nodes in subtree
-    // 0 - sum of depth in subtree
-    let p = [1, 0];
+    if (node == null) return new Node(0, 0);
 
-    if (node.left) {
-      let pChild = dfs(node.left);
+    let left = dfs(node.left);
+    let right = dfs(node.right);
 
-      p[1] += pChild[0] + pChild[1];
-      p[0] += pChild[0];
-    }
+    let cntNodes = left.cntNodes + right.cntNodes + 1;
+    let subTreeSum = left.cntNodes + right.cntNodes + left.subTreeSum + right.subTreeSum;
 
-    if (node.right) {
-      let pChild = dfs(node.right);
+    ans += subTreeSum;
 
-      p[1] += pChild[0] + pChild[1];
-      p[0] += pChild[0];
-    }
-
-    ans += p[1];
-
-    return p;
+    return new Node(cntNodes, subTreeSumu);
   }
 };
+
+class Node {
+  constructor(cntNodes, subTreeSum) {
+    // cntNodes - number of nodes in subtree
+    // subTreeSum - subtree sum
+    this.cntNodes = cntNodes;
+    this.subTreeSum = subTreeSum;
+  }
+}
 
 // Time O(N^2)
 // Space O(N^2)
