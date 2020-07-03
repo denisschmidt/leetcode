@@ -25,18 +25,25 @@ Note:
 // Time O(N)
 // Space O(1)
 const bstToGst = root => {
-  let pre = 0;
-  return helper(root);
+  let sum = 0;
+
+  dfs(root);
+
+  return root;
 
   // left-root-right обход
   // Нам нужно сделать обход от самого большого значения до самого маленького, справа налево.
   // pre запишет предыдущее значение, которое мы получим - это общая сумма больших значений.
-  function helper(node) {
-    if (!node) return;
-    helper(node.right);
-    pre = node.val = pre + node.val;
-    helper(node.left);
-    return node;
+  function dfs(node) {
+    if (node == null) return;
+
+    dfs(node.right);
+
+    sum += node.val;
+
+    node.val = sum;
+
+    dfs(node.left);
   }
 };
 
