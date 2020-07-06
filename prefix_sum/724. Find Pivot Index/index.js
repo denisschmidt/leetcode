@@ -1,4 +1,5 @@
 /*
+
 Given an array of integers nums, write a method that returns the "pivot" index of this array.
 
 We define the pivot index as the index where the sum of the numbers to the left of the index is equal to the sum of the numbers to the right of the index.
@@ -23,7 +24,8 @@ Note:
   Each element nums[i] will be an integer in the range [-1000, 1000].
  
  
- */
+*/
+
 // Time O(N)
 // Space O(1)
 const pivotIndex = function(nums) {
@@ -39,6 +41,27 @@ const pivotIndex = function(nums) {
     rightSum -= nums[i];
     if (leftSum === rightSum) return i;
     leftSum += nums[i];
+  }
+  return -1;
+};
+
+// Time O(N)
+// Space O(N)
+const pivotIndex_II = nums => {
+  let prefix = [];
+  let n = nums.length;
+
+  prefix[0] = nums[0];
+
+  for (let i = 1; i < n; i++) {
+    prefix[i] = prefix[i - 1] + nums[i];
+  }
+
+  for (let i = 0; i < n; i++) {
+    let left = i == 0 ? 0 : prefix[i - 1];
+    let right = i == n - 1 ? 0 : prefix[n - 1] - prefix[i];
+
+    if (left == right) return i;
   }
   return -1;
 };
