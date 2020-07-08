@@ -47,21 +47,21 @@ const primMST = (N, prims) => {
   }
 
   for (let i = 0; i < prims.length; i++) {
-    let [u, v, cnt] = prims[i];
+    let [u, v, weight] = prims[i];
 
-    map.get(u).add([v, cnt]);
-    map.get(v).add([u, cnt]);
+    map.get(u).add([v, weight]);
+    map.get(v).add([u, weight]);
   }
 
   pq.offer([1, 0]);
 
   while (!pq.isEmpty()) {
-    let [u, cnt] = pq.poll();
+    let [u, weight] = pq.poll();
 
     if (visited.has(u)) continue;
 
     visited.add(u);
-    ans += cnt;
+    ans += weight;
 
     for (let [v, c] of map.get(u).values()) {
       pq.offer([v, c]);

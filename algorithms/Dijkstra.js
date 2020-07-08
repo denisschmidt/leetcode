@@ -12,8 +12,8 @@
 
   Работа алгоритма завершается, когда все вершины посещены.
 
-  1) Инициализация. Метка самой вершины a полагается равной 0, метки остальных вершин — бесконечности.
-    Это отражает то, что расстояния от a до других вершин пока неизвестны.
+  1) Инициализация. Метка target вершины равна 0, метки остальных вершин — бесконечности.
+    Это отражает то, что расстояния от target вершины до других вершин пока неизвестны.
 
   2) Все вершины графа помечаются как непосещённые.
 
@@ -35,7 +35,7 @@
 
 // Time O(ElogE)
 // Space O(N + E)
-const findMaxPath = (prims, N, K) => {
+const findMaxPath = (prims, N) => {
   let pq = new PriorityQueue({ comparator: (a, b) => a[1] - b[1] });
   let distance = new Map();
   let map = new Map();
@@ -47,7 +47,7 @@ const findMaxPath = (prims, N, K) => {
     map.get(u).push([v, weight]);
   }
 
-  pq.offer([K, 0]);
+  pq.offer([1, 0]);
 
   while (!pq.isEmpty()) {
     let [u, weight] = pq.poll();
@@ -59,6 +59,7 @@ const findMaxPath = (prims, N, K) => {
     if (map.has(u)) {
       for (let [v, w] of map.get(u)) {
         if (distance.has(v)) continue;
+
         pq.offer([v, w + weight]);
       }
     }

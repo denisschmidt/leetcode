@@ -72,34 +72,32 @@ Constraints:
 // Time O(N^2)
 // Space O(N^2)
 const construct = grid => {
-  return dfs(0, grid.length - 1, 0, grid[0].length - 1);
+  let n = grid.length;
+  let m = grid[0].length;
 
-  function dfs(x1, x2, y1, y2) {
-    if (x1 == x2) {
-      let val = grid[x1][y1] == 1 ? true : false;
-      return new Node(val, true, null, null, null, null);
+  return dfs(0, 0, n);
+
+  function dfs(x, y, len) {
+    if (len == 1) {
+      return new Node(grid[x][y] == 1, true, null, null, null, null);
     }
 
-    let rowMid = Math.floor((x1 + x2) / 2);
-    let colMid = Math.floor((y1 + y2) / 2);
+    let newLen = Math.floor(len / 2);
 
-    let topleft = dfs(x1, rowMid, y1, colMid);
-    let topright = dfs(x1, rowMid, colMid + 1, y2);
-    let bottomleft = dfs(rowMid + 1, x2, y1, colMid);
-    let bottomright = dfs(rowMid + 1, x2, colMid + 1, y2);
+    let topLeft = dfs(x, y, newLen);
+    let topRight = dfs(x, y + newLen, newLen);
+    let botLeft = dfs(x + newLen, y, newLen);
+    let botRight = dfs(x + newLen, y + newLen, newLen);
 
-    if (
-      topleft.isLeaf &&
-      topright.isLeaf &&
-      bottomleft.isLeaf &&
-      bottomright.isLeaf &&
-      topright.val == topleft.val &&
-      topright.val == bottomleft.val &&
-      topright.val == bottomright.val
-    ) {
-      return new Node(topleft.val, true, null, null, null, null);
-    } else {
-      return new Node(false, false, topleft, topright, bottomleft, bottomright);
+    if (topLeft.isLeaf && topRight.isLeaf && botLeft.isLeaf && botRight.isLeaf) {
+      if (topLeft.val && topRight.val && botLeft.val && botRight.val) {
+        return new Node(true, true, null, null, null, null);
+      }
+      if (!topLeft.val && !topRight.val && !botLeft.val && !botRight.val) {
+        return new Node(false, true, null, null, null, null);
+      }
     }
+
+    return new Node(true, false, topLeft, topRight, botLeft, botRight);
   }
 };
