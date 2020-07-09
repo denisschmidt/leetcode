@@ -72,48 +72,51 @@ const spiralOrder = function(matrix) {
   return ans;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/**
+ * @param {number[][]} matrix
+ * @return {number[]}
+ */
+var spiralOrder = function(matrix) {
+  if (matrix.length == 0) return [];
+  let n = matrix.length;
+  let m = matrix[0].length;
 
-const spiralOrder2 = function(matrix) {
-  if (matrix.length === 0) return [];
+  let startRow = 0;
+  let endRow = n - 1;
 
-  const n = matrix.length;
-  const m = matrix[0].length;
-  const ans = [];
+  let startCol = 0;
+  let endCol = m - 1;
 
-  let rowBegin = 0;
-  let rowEnd = n - 1;
-  let colBegin = 0;
-  let colEnd = m - 1;
+  let ans = [];
 
-  while (rowBegin <= rowEnd && colBegin <= colEnd) {
+  while (startRow <= endRow && startCol <= endCol) {
     // right
-    for (let i = colBegin; i <= colEnd; i++) {
-      ans.push(matrix[rowBegin][i]);
+    for (let i = startCol; i <= endCol; i++) {
+      ans.push(matrix[startRow][i]);
     }
-    rowBegin++;
+    startRow++;
 
     // down
-    for (let i = rowBegin; i <= rowEnd; i++) {
-      ans.push(matrix[i][colEnd]);
+    for (let i = startRow; i <= endRow; i++) {
+      ans.push(matrix[i][endCol]);
     }
-    colEnd--;
+    endCol--;
 
     // left
-    if (rowBegin <= rowEnd) {
-      for (let i = colEnd; i >= colBegin; i--) {
-        ans.push(matrix[rowEnd][i]);
+    if (startRow <= endRow) {
+      for (let i = endCol; i >= startCol; i--) {
+        ans.push(matrix[endRow][i]);
       }
     }
-    rowEnd--;
+    endRow--;
 
     // up
-    if (colBegin <= colEnd) {
-      for (let i = rowEnd; i >= rowBegin; i--) {
-        ans.push(matrix[i][colBegin]);
+    if (startCol <= endCol) {
+      for (let i = endRow; i >= startRow; i--) {
+        ans.push(matrix[i][startCol]);
       }
     }
-    colBegin++;
+    startCol++;
   }
 
   return ans;
