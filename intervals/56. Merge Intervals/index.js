@@ -38,8 +38,9 @@ const merge = function(intervals) {
     let b = intervals[i];
 
     if (overlap(a, b)) {
-      let min = Math.min(x[0], y[0]);
-      let max = Math.max(x[1], y[1]);
+      let min = Math.min(a[0], b[0]);
+      let max = Math.max(a[1], b[1]);
+
       result.pop();
       result.push([min, max]);
     } else {
