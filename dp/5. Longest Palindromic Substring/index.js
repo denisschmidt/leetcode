@@ -26,7 +26,7 @@ Example 2:
   Если мы уже знали, что «bab» - это палиндром, то очевидно, что «ababa» должна быть палиндромом,
   Поскольку две левые и правые буквы одинаковы.
 
- */
+*/
 
 // Time O(N^2)
 // Space O(N^2)
@@ -60,4 +60,35 @@ const longestPalindrome = s => {
   }
 
   return s.substring(start, start + maxLen);
+};
+
+// Time O(N^2)
+// Space O(N^2)
+const longestPalindrome_II = s => {
+  let n = s.length;
+  let dp = Array(n)
+    .fill(false)
+    .map(() => Array(n).fill(false));
+
+  for (let i = 0; i < n; i++) {
+    dp[i][i] = true;
+  }
+
+  let max = 0;
+  let startIndex = 0;
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j <= i; j++) {
+      if (s[i] == s[j]) {
+        dp[i][j] = i - j > 1 ? dp[i - 1][j + 1] : true;
+      }
+
+      if (dp[i][j] && max < i - j + 1) {
+        max = i - j + 1;
+        startIndex = j;
+      }
+    }
+  }
+
+  return s.substring(startIndex, startIndex + max);
 };
