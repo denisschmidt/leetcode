@@ -50,4 +50,16 @@ function helloWorld(name) {
 
 */
 
-function maxArithmeticLength(a, b) {}
+// function maxArithmeticLength(a, b) {}
+
+const reverseString_III = (s: string[]): string[] => {
+  const l = s.length;
+  for (let i = 0; i < l / 2; i++) {
+    const j = l - i - 1;
+    [s[i], s[j]] = [s[j], s[i]];
+  }
+  return s;
+};
+
+let x = reverseString_III(['a', 'b', 'c']);
+console.log(x);
