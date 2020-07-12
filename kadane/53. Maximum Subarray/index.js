@@ -18,36 +18,35 @@ Kadane’s Algo with O(n) linear complexity
 
 И отслеживать максимальную сумму непрерывного сегмента среди всех положительных сегментов
 
-Каждый раз, когда мы получаем положительную сумму, сравниваем ее с max_so_far и обновляем max_so_far, если она больше, чем max_so_far
-
- */
+*/
 
 // Greedy
-
 // Обновляем локальную максимальную сумму на каждом шаге, это приведет к глобальной максимальной сумме
-
 // Time O(n)
 // Space O(1)
 const maxSubArray = nums => {
-  let currSum = nums[0];
+  let sum = nums[0];
   let max = nums[0];
 
   for (let i = 1; i < nums.length; i++) {
-    currSum = Math.max(nums[i] + currSum, nums[i]);
+    // local max
+    sum = Math.max(nums[i], sum + nums[i]);
 
-    if (currSum > max) {
-      max = currSum;
-    }
+    // global max
+    max = Math.max(max, sum);
   }
 
   return max;
 };
 
-// Dynamic Programming (Kadane's algorithm)
+// DP
+// Time O(N)
+// Space O(1)
 const maxSubArray_II = nums => {
-  let max = 0;
+  let max = nums[0];
+  let n = nums.length;
 
-  for (let i = 0; i < nums.length; i++) {
+  for (let i = 1; i < n; i++) {
     if (nums[i - 1] > 0) {
       nums[i] += nums[i - 1];
     }
