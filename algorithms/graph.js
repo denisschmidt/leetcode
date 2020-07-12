@@ -4,7 +4,7 @@
 
   https://www.geeksforgeeks.org/detect-cycle-in-a-graph/#:~:text=There%20is%20a%20cycle%20in,edge%20present%20in%20the%20graph.&text=To%20detect%20a%20back%20edge,a%20cycle%20in%20the%20tree.
   
-  Depth First Traversal can be used to detect a cycle in a Graph. 
+  DFS can be used to detect a cycle in a Graph. 
   
   DFS for a connected graph produces a tree. 
   
