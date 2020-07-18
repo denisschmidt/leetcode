@@ -38,33 +38,28 @@ Constraints:
 // Space O(N)
 const minRemoveToMakeValid = s => {
   let stack = [];
-  let set = new Set();
+  let res = [];
 
   for (let i = 0; i < s.length; i++) {
-    if (s[i] !== '(' && s[i] !== ')') continue;
-
-    if (s[i] === '(') {
+    if (s[i] == '(') {
+      res.push(s[i]);
       stack.push(i);
-    } else if (s[i] === ')') {
-      if (stack.length) {
-        stack.pop();
+    } else if (s[i] == ')') {
+      if (stack.length == 0) {
+        res.push('@');
       } else {
-        set.add(i);
+        stack.pop();
+        res.push(s[i]);
       }
+    } else {
+      res.push(s[i]);
     }
   }
-
-  let result = [];
 
   while (stack.length) {
-    set.add(stack.pop());
+    let index = stack.pop();
+    res[index] = '@';
   }
 
-  for (let i = 0; i < s.length; i++) {
-    if (!set.has(i)) {
-      result.push(s[i]);
-    }
-  }
-
-  return result.join('');
+  return res.filter(x => x != '@').join('');
 };
