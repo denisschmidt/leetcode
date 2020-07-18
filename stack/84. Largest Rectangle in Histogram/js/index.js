@@ -16,29 +16,32 @@ Example:
 
 // Time O(N)
 // Space O(N)
-// Монотонное увеличение стека. Каждый индекс push() и pop() один раз и обрабатывается один раз.
-// PLE => Previous Less Element
 const largestRectangleArea = heights => {
-  let n = nums.length;
   let stack = [];
+  let n = heights.length;
   let max = 0;
 
-  for (let index = 0; index <= n; index++) {
-    while (stack.length && (index == n || nums[stack[stack.length - 1]] > nums[index])) {
-      let prevIndex = stack.pop();
-      let height = nums[prevIndex];
+  for (let i = 0; i <= n; i++) {
+    while (stack.length && (i == n || heights[stack[stack.length - 1]] > heights[i])) {
+      let j = stack.pop();
 
-      /* 
-        Важный момент:
-          1) либо width берем как интервал между значениями в стеке
-          2) либо если стек пустой то это и есть самое маленькое значение в стеке
-      */
-      let width = stack.length == 0 ? index : index - 1 - stack[stack.length - 1];
-      max = Math.max(max, height * width);
+      let heigth = heights[j];
+      let width;
+
+      if (stack.length == 0) {
+        // если стек пуст то текущий height является самым минимальным значением на интервале до i
+        // и следовательно его ширина равна i
+        width = i;
+      } else {
+        width = i - stack[stack.length - 1] - 1;
+      }
+
+      max = Math.max(max, heigth * width);
     }
 
-    stack.push(index);
+    stack.push(i);
   }
+
   return max;
 };
 
