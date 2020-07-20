@@ -27,49 +27,45 @@ Note: 1 <= N <= 10000
 // Time O(N)
 // Space O(N)
 const sumOfDistancesInTree = (N, edges) => {
-  let map = new Map();
+  let adjList = [];
+  let cntNodes = Array(N).fill(1);
+  let sumNodes = Array(N).fill(0);
 
   for (let i = 0; i < N; i++) {
-    map.set(i, []);
+    adjList[i] = [];
   }
 
   for (let [u, v] of edges) {
-    map.get(u).push(v);
-    map.get(v).push(u);
+    adjList[u].push(v);
+    adjList[v].push(u);
   }
 
-  let res = 0;
-  let ans = [];
+  dfs(0, null);
 
-  let cntNodes = Array(N).fill(1);
-  let subTreeSum = Array(N).fill(0);
+  dfs2(0, null);
 
-  dfs(0, -1);
-
-  dfs2(0, -1);
-
-  return subTreeSum;
+  return sumNodes;
 
   // получаем кол-во узлов для каждой ноды и сумму рутового поддерева
-  function dfs(node, parent) {
-    for (let child of map.get(node)) {
-      if (child == parent) continue;
+  function dfs(u, parent) {
+    for (let v of adjList[u]) {
+      if (v == parent) continue;
 
-      dfs(child, node);
+      dfs(v, u);
 
-      cntNodes[node] += cntNodes[child];
-      subTreeSum[node] += cntNodes[child] + subTreeSum[child];
+      cntNodes[u] += cntNodes[v];
+      sumNodes[u] += cntNodes[v] + sumNodes[v];
     }
   }
 
   // sumDist(k) = sumDist(parent) - (number of nodes in subtree k) + (number of nodes outside subtree k)
-  function dfs2(node, parent) {
-    for (let child of map.get(node)) {
-      if (child == parent) continue;
+  function dfs2(u, parent) {
+    for (let v of adjList[u]) {
+      if (v == parent) continue;
 
-      subTreeSum[child] = subTreeSum[node] - cntNodes[child] + (N - cntNodes[child]);
+      sumNodes[v] = sumNodes[u] - cntNodes[v] + N - cntNodes[v];
 
-      dfs2(child, node);
+      dfs2(v, u);
     }
   }
 };

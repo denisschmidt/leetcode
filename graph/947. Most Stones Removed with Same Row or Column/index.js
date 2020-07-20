@@ -77,12 +77,11 @@ const removeStones = stones => {
   Мы называем связный граф островом. 
   На одном острове должен быть хотя бы один камень. 
   Максимальное количество камней которое может быть удалено = общее количество камней - количество островов
-
 */
 
 // Time (N^2)
 // Space O(N)
-const removeStones_II = function(stones) {
+const removeStones_II = function (stones) {
   if (stones.length === 0) return 0;
 
   let visited = new Set();
