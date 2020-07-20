@@ -27,25 +27,36 @@ Constraints:
 
 // Time O(N)
 // Space O(1)
+
 const numberOfSubstrings = s => {
-  let start = 0;
   let map = { a: 0, b: 0, c: 0 };
-  let cnt = 0;
+  let start = 0;
   let end = 0;
-  let ans = 0;
+  let n = s.length;
+  let cnt = 0;
+  let res = 0;
+  let freq = 0;
 
-  while (end < s.length) {
-    map[s[end++]]++;
-
-    while (start < s.length && map['a'] >= 1 && map['b'] >= 1 && map['c'] >= 1) {
-      map[s[start++]]--;
-      cnt++;
+  while (end < n) {
+    if (map[s[end]] == 0) {
+      freq++;
     }
 
-    ans += cnt;
+    map[s[end++]]++;
+
+    while (freq == 3) {
+      cnt++;
+      if (map[s[start]] == 1) {
+        freq--;
+      }
+      map[s[start++]]--;
+    }
+
+    // as a new count can contains prev counts
+    res += cnt;
   }
 
-  return ans;
+  return res;
 };
 
 // Time O(N)
