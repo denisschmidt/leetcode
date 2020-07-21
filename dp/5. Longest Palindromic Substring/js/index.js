@@ -38,7 +38,7 @@ const longestPalindrome = s => {
     .map(() => Array(n).fill(false));
 
   let start = 0;
-  let maxLen = 1; // длина равна 1 обязательна для кейсов когда s = 'a'
+  let maxLen = 1; // min palindrome equeal 1 char
 
   for (let i = 0; i < n; i++) {
     dp[i][i] = true;
