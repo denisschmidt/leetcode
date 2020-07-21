@@ -7,13 +7,7 @@
 const isPalindrome = s => {
   // In this solution we shared space for 2 additional array and 1 space for additional string
   const str = s.replace(/[^A-Za-z0-9]+/g, '');
-  return (
-    str
-      .split('')
-      .reverse()
-      .join('')
-      .toLowerCase() === str.toLowerCase()
-  );
+  return str.split('').reverse().join('').toLowerCase() === str.toLowerCase();
 };
 
 /**
@@ -22,7 +16,7 @@ const isPalindrome = s => {
  */
 // Time O(N)
 // Space O(1)
-const isPalindrome_II = function(s) {
+const isPalindrome_II = function (s) {
   let left = 0;
   let right = s.length - 1;
 
