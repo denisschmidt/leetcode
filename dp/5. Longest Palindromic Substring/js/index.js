@@ -13,6 +13,8 @@ Example 2:
   Output: "bb"
  */
 
+const { start } = require('repl');
+
 /*
   
   Типичная проблема dp, есть описание в файле dpProblems.js
@@ -28,9 +30,46 @@ Example 2:
 
 */
 
+// Time O(N)
+// Space O(1)
+const longestPalindrome = s => {
+  let n = s.length;
+  let maxLen = 1;
+  let startIndex = 0;
+
+  for (let i = 0; i < n; i++) {
+    let [left1, len1] = expandAroundCenter(i, i);
+    let [left2, len2] = expandAroundCenter(i, i + 1);
+
+    if (len1 > len2) {
+      if (maxLen < len1) {
+        maxLen = len1;
+        startIndex = left1;
+      }
+    } else {
+      if (maxLen < len2) {
+        maxLen = len2;
+        startIndex = left2;
+      }
+    }
+  }
+
+  return s.substring(startIndex, startIndex + maxLen);
+
+  function expandAroundCenter(l, r) {
+    while (l >= 0 && r < n && s[l] == s[r]) {
+      l--;
+      r++;
+    }
+    l++;
+    r--;
+    return [l, r - l + 1];
+  }
+};
+
 // Time O(N^2)
 // Space O(N^2)
-const longestPalindrome = s => {
+const longestPalindrome_II = s => {
   let n = s.length;
 
   let dp = Array(n)
@@ -60,35 +99,4 @@ const longestPalindrome = s => {
   }
 
   return s.substring(start, start + maxLen);
-};
-
-// Time O(N^2)
-// Space O(N^2)
-const longestPalindrome_II = s => {
-  let n = s.length;
-  let dp = Array(n)
-    .fill(false)
-    .map(() => Array(n).fill(false));
-
-  for (let i = 0; i < n; i++) {
-    dp[i][i] = true;
-  }
-
-  let max = 0;
-  let startIndex = 0;
-
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j <= i; j++) {
-      if (s[i] == s[j]) {
-        dp[i][j] = i - j > 1 ? dp[i - 1][j + 1] : true;
-      }
-
-      if (dp[i][j] && max < i - j + 1) {
-        max = i - j + 1;
-        startIndex = j;
-      }
-    }
-  }
-
-  return s.substring(startIndex, startIndex + max);
 };
