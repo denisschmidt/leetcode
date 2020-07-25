@@ -28,27 +28,23 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const validateStackSequences = function(pushed, popped) {
-  let temp = [];
+const validateStackSequences = (pushed, popped) => {
+  let stack = [];
+  let index = 0;
 
-  if (pushed.length !== popped.length) {
-    return false;
-  }
-
-  let j = 0;
   for (let i = 0; i < pushed.length; i++) {
-    temp.push(pushed[i]);
+    stack.push(pushed[i]);
 
-    while (temp.length > 0 && temp[temp.length - 1] === popped[j]) {
-      temp.pop();
-      j++;
+    while (stack.length && stack[stack.length - 1] == popped[index]) {
+      stack.pop();
+      index++;
     }
   }
 
-  while (temp.length > 0 && temp[temp.length - 1] === popped[j]) {
-    temp.pop();
-    j++;
+  while (stack.length && stack[stack.length - 1] == popped[index]) {
+    stack.pop();
+    index++;
   }
 
-  return temp.length > 0 ? false : true;
+  return stack.length == 0;
 };

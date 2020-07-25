@@ -23,46 +23,42 @@ The flattened tree should look like:
           6
  */
 
-// DFS
 // Time O(N)
 // Space O(1)
-const flatten = function(root) {
-  if (!root) return null;
+const flatten = root => {
+  helper(root);
 
-  const stack = [];
-  stack.push(root);
+  function helper(node) {
+    if (node == null) return null;
 
-  while (stack.length) {
-    let node = stack.pop();
+    let left = helper(node.left);
+    let right = helper(node.right);
 
-    let a = node.right;
-    let b = node.left;
+    if (right && left) {
+      let lastLeft = left;
 
-    if (b) {
-      node.right = b;
+      while (lastLeft.right != null) {
+        lastLeft = lastLeft.right;
+      }
+
+      lastLeft.right = right;
+      node.right = left;
+      node.left = null;
+    } else if (node.left && !node.right) {
+      node.right = left;
       node.left = null;
     }
 
-    while (b && b.right) {
-      b = b.right;
-    }
-
-    if (b) {
-      b.right = a;
-    }
-
-    if (node.left !== null) stack.push(node.left);
-    if (node.right !== null) stack.push(node.right);
+    return node;
   }
 };
-
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // Time O(N)
 // Space O(1)
 // right-left-root
-const flatten2 = function(root) {
+const flatten_II = root => {
   let prev = null;
+
   postOrderer(root);
 
   function postOrderer(root) {
@@ -94,8 +90,8 @@ const flatten2 = function(root) {
  / \   \
 3   4   6
 -----------        
-pre = 5
 cur = 4
+pre = 5
 
 ///////////
 
@@ -109,8 +105,8 @@ cur = 4
        \
         6
 -----------
-pre = 4
 cur = 3
+pre = 4
 
 ///////////
 
