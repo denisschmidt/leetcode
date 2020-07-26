@@ -32,78 +32,41 @@ Constraints:
 
 */
 
-// Time O(N^2)
-// Space O(N^2)
+// Time O(N)
+// Space O(N)
 const btreeGameWinningMove = (root, n, x) => {
-  let parentMap = new Map();
+  let cntNodes = new Map();
+  let l = null;
+  let r = null;
 
-  buildMap(root, null);
+  dfs(root, null);
 
-  for (let i = 1; i <= n; i++) {
-    if (i == x) continue;
+  // select paretn node as y
+  if (n - cntNodes.get(x) > cntNodes.get(x)) return true;
 
-    let nodes = findNodes(root, i, x);
+  // select left node as y
+  if (l && n - cntNodes.get(l) < cntNodes.get(l)) return true;
 
-    if (isValid(nodes)) {
-      return true;
-    }
-  }
+  // select right node as y
+  if (r && n - cntNodes.get(r) < cntNodes.get(r)) return true;
 
   return false;
 
-  function findNodes(root, x, y) {
-    let queue = [root];
-    let nodes = [];
+  function dfs(node, parent) {
+    if (node == null) return 0;
 
-    while (queue.length && nodes.length < 2) {
-      let node = queue.shift();
-      if (node) {
-        if (node.val == x) nodes.push({ node, player: 0 });
-        else if (node.val == y) nodes.push({ node, player: 1 });
-        queue.push(node.left);
-        queue.push(node.right);
-      }
+    if (node.val == x) {
+      // find left and right nodes
+      if (node.left) l = node.left.val;
+      if (node.right) r = node.right.val;
     }
 
-    return nodes;
-  }
+    let left = dfs(node.left, node);
+    let right = dfs(node.right, node);
 
-  function buildMap(node, parent) {
-    if (node == null) return;
-    if (!parentMap.has(node.val)) parentMap.set(node.val, []);
-    if (node.left !== null) parentMap.get(node.val).push(node.left);
-    if (node.right !== null) parentMap.get(node.val).push(node.right);
-    if (parent !== null) parentMap.get(node.val).push(parent);
+    let cnt = left + right + 1;
+    cntNodes.set(node.val, cnt);
 
-    buildMap(node.left, node);
-    buildMap(node.right, node);
-  }
-
-  function isValid(nodes) {
-    let visited = new Set();
-    let cnt = Array(2).fill(0);
-
-    for (let i = 0; i < 2; i++) {
-      let node = nodes[i].node;
-      visited.add(node.val);
-    }
-
-    while (nodes.length > 0) {
-      let size = nodes.length;
-
-      for (let i = 0; i < size; i++) {
-        let { node, player } = nodes.shift();
-
-        parentMap.get(node.val).forEach(neighbor => {
-          if (!visited.has(neighbor.val)) {
-            nodes.push({ node: neighbor, player });
-            visited.add(neighbor.val);
-            cnt[player]++;
-          }
-        });
-      }
-    }
-
-    return cnt[0] >= cnt[1];
+    return cnt;
   }
 };
