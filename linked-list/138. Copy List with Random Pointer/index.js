@@ -16,39 +16,70 @@ Note: You must return the copy of the given head as a reference to the cloned li
  */
 
 // Time O(N)
-// Space O(N)
+// Space O(1)
 const copyRandomList = head => {
-  if (head === null) return null;
+  let p = head;
 
-  let map = new Map();
-  let dummy = new Node();
+  while (p != null) {
+    let copy = new Node(p.val, p.next, p.random);
+    copy.isNew = true;
+    let next = p.next;
 
-  let node = head;
-  let cur = dummy;
-
-  map.set(null, null);
-
-  while (node != null) {
-    // Создаем новую ноду и записываем ее в мапу
-    let newNode = new Node(node.val, node.next, node.random);
-    cur.next = newNode;
-
-    if (!map.has(node)) {
-      map.set(node, newNode);
-    }
-
-    cur = cur.next;
-    node = node.next;
+    p.next = copy;
+    copy.next = next;
+    p = next;
   }
 
-  node = head;
+  p = head;
+
+  while (p != null) {
+    p.next.random = p.random != null ? p.random.next : null;
+    p = p.next.next;
+  }
+
+  p = head;
+  let headCopy = p != null ? p.next : null;
+
+  while (p != null) {
+    let copy = p.next;
+    p.next = copy.next;
+    p = p.next;
+    copy.next = p != null ? p.next : null;
+  }
+
+  p = head;
+
+  while (p) {
+    p = p.next;
+  }
+
+  return headCopy;
+};
+
+// Time O(N)
+// Space O(N)
+const copyRandomList_II = head => {
+  let dummy = new Node();
+  let cur = dummy;
+  let p = head;
+  let map = new Map();
+
+  while (p != null) {
+    let newNode = new Node(p.val, p.next, p.random);
+    cur.next = newNode;
+
+    if (!map.has(p)) map.set(p, newNode);
+
+    p = p.next;
+    cur = cur.next;
+  }
+
   cur = dummy.next;
 
-  while (node != null) {
-    if (node.random) {
-      cur.random = map.get(node.random);
+  while (cur != null) {
+    if (cur.random && map.has(cur.random)) {
+      cur.random = map.get(cur.random);
     }
-    node = node.next;
     cur = cur.next;
   }
 
