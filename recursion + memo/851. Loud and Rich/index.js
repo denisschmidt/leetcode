@@ -42,15 +42,13 @@ Note:
 // Time O(N*K)
 // Space O(N)
 const loudAndRich = (richer, quiet) => {
-  let ans = [];
   let INF = Number.MAX_VALUE;
-  let n = quiet.length;
-  let dp = Array(n).fill(new Node(INF, INF));
+  let dp = Array(quiet.length).fill(new Node(INF, INF));
+  let ans = Array(quiet.length);
 
   for (let i = 0; i < quiet.length; i++) {
-    let x = dfs(i, quiet[i]);
-
-    ans.push(x.personId);
+    let node = dfs(i, quiet[i]);
+    ans[i] = node.personId;
   }
 
   return ans;
@@ -60,29 +58,28 @@ const loudAndRich = (richer, quiet) => {
       return dp[personId];
     }
 
-    let min = new Node(INF, INF);
+    let min = new Node(personId, q);
 
     for (let i = 0; i < richer.length; i++) {
       if (richer[i][1] == personId) {
-        let node = dfs(richer[i][0], quiet[richer[i][0]]);
+        let newPersonId = richer[i][0];
+        let newQ = quiet[newPersonId];
 
-        if (node.quiet < min.quiet) {
+        let node = dfs(newPersonId, newQ);
+
+        if (min.quiet > node.quiet) {
           min.quiet = node.quiet;
           min.personId = node.personId;
         }
       }
     }
 
-    if (min.quiet > q) {
-      min.quiet = q;
-      min.personId = personId;
-    }
-
+    // update dp
     if (dp[personId].quiet > min.quiet) {
       dp[personId] = min;
     }
 
-    return dp[personId];
+    return min;
   }
 };
 

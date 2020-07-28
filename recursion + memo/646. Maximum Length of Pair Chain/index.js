@@ -26,18 +26,15 @@ Note: The number of given pairs will be in the range [1, 1000].
 const findLongestChain = pairs => {
   pairs.sort((a, b) => a[0] - b[0]);
 
-  let max = 0;
   let n = pairs.length;
   let dp = Array(n).fill(-1);
 
-  for (let i = 0; i < n; i++) {
-    max = Math.max(max, dfs(pairs[i], i + 1) + 1);
-  }
+  return dfs(0) + 1;
 
-  return max;
-
-  function dfs(pair, index) {
-    if (index >= n) return 0;
+  function dfs(index) {
+    if (index >= n - 1) {
+      return 0;
+    }
 
     if (dp[index] != -1) {
       return dp[index];
@@ -45,14 +42,17 @@ const findLongestChain = pairs => {
 
     let res = 0;
     for (let i = index; i < n; i++) {
-      if (pair[1] < pairs[i][0]) {
-        res = Math.max(res, 1 + dfs(pairs[i], i));
+      // continue our search or start new search
+      if (pairs[index][1] < pairs[i][0]) {
+        res = Math.max(res, 1 + dfs(i));
+      } else {
+        res = Math.max(res, dfs(i + 1));
       }
     }
 
     dp[index] = res;
 
-    return dp[index];
+    return res;
   }
 };
 
