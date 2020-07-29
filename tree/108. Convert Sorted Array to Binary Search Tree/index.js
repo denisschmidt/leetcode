@@ -18,28 +18,24 @@ Example:
 // Time O(N)
 // Space O(N)
 const sortedArrayToBST = nums => {
-  if (nums.length == 0) return null;
+  return dfs(0, nums.length - 1);
 
-  return helper(0, nums.length - 1);
+  function dfs(left, right) {
+    if (left > right) return null;
+    let mid = left + Math.floor((right - left) / 2);
 
-  function helper(start, end) {
-    if (start > end) return null;
+    let node = new TreeNode(nums[mid]);
 
-    let mid = start + Math.floor((end - start) / 2);
-
-    let root = new TreeNode(nums[mid]);
-
-    root.left = helper(start, mid - 1);
-    root.right = helper(mid + 1, end);
-
-    return root;
+    node.left = dfs(left, mid - 1);
+    node.right = dfs(mid + 1, right);
+    return node;
   }
 };
 
+// Time O(N)
+// Space O(N)
 const sortedArrayToBST_II = nums => {
-  const n = nums.length;
-
-  if (n === 0) return null;
+  if (nums.left == 0) return null;
 
   const head = new TreeNode(0);
 

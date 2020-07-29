@@ -16,10 +16,50 @@ Example:
  
  */
 
+// Time O(N) - так как нам все еще нужно обработать каждый из узлов в связанном списке один раз и сформировать соответствующие узлы BST.
+
+// Space O(LogN) - поскольку теперь рекурсивным стеком используется только дополнительное пространство,
+// а поскольку мы создаем BST с балансировкой по высоте, высота ограничена logN
+const sortedListToBST = head => {
+  let d = get_depth(head);
+
+  return dfs(0, d - 1);
+
+  function get_depth(node) {
+    if (node == null) return 0;
+    return 1 + get_depth(node.next);
+  }
+
+  function dfs(l, r) {
+    if (l > r) return null;
+
+    let mid = l + Math.floor((r - l) / 2);
+
+    let leftNode = dfs(l, mid - 1);
+
+    // Инвариантность, которую мы поддерживаем в этом алгоритме, заключается в том, что всякий раз,
+    // когда мы завершаем построение левой половины BST,
+    // указатель заголовка в связанном списке будет указывать на корневой узел или средний узел (который становится корневым).
+
+    // Таким образом, мы просто используем текущее значение, на которое указывает head, в качестве корневого узла
+    // и идем дальше то есть head = head.next.
+
+    let node = new TreeNode(head.val);
+
+    node.left = leftNode;
+
+    head = head.next;
+
+    node.right = dfs(mid + 1, r);
+
+    return node;
+  }
+};
+
 // Time O(N)
 // Space O(N)
-const sortedListToBST = function(head) {
-  const nums = [];
+const sortedListToBST_II = head => {
+  let nums = [];
 
   while (head) {
     nums.push(head.val);
@@ -37,49 +77,5 @@ const sortedListToBST = function(head) {
     root.left = dfs(l, mid - 1);
     root.right = dfs(mid + 1, r);
     return root;
-  }
-};
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-// Time O(N) - так как нам все еще нужно обработать каждый из узлов в связанном списке один раз и сформировать соответствующие узлы BST.
-
-// Space O(LogN) - поскольку теперь рекурсивным стеком используется только дополнительное пространство,
-// а поскольку мы создаем BST с балансировкой по высоте, высота ограничена logN
-const sortedListToBST2 = function(head) {
-  const size = findSize(head);
-
-  return convertListToBST(0, size - 1);
-
-  function convertListToBST(l, r) {
-    if (l > r) return null;
-
-    let mid = l + Math.floor((r - l) / 2);
-
-    let left = convertListToBST(l, mid - 1);
-
-    // Инвариантность, которую мы поддерживаем в этом алгоритме, заключается в том, что всякий раз,
-    // когда мы завершаем построение левой половины BST,
-    // указатель заголовка в связанном списке будет указывать на корневой узел или средний узел (который становится корневым).
-
-    // Таким образом, мы просто используем текущее значение, на которое указывает head, в качестве корневого узла
-    // и идем дальше то есть head = head.next.
-
-    let node = new TreeNode(head.val);
-    node.left = left;
-
-    head = head.next;
-
-    node.right = convertListToBST(mid + 1, r);
-
-    return node;
-  }
-
-  function findSize(head) {
-    let c = 0;
-    while (head) {
-      head = head.next;
-      c++;
-    }
-    return c;
   }
 };

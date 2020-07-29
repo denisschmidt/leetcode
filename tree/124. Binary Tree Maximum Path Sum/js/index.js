@@ -30,9 +30,7 @@ Example 2:
 // Space: Мы должны сохранить рекурсивный стек размером с высоту дерева, который равен O (log N) для двоичного дерева.
 const maxPathSum = root => {
   let ans = -Number.MAX_VALUE;
-
   helper(root);
-
   return ans;
 
   // left-right-root обход postorderer
@@ -40,27 +38,18 @@ const maxPathSum = root => {
 
   // На каждом узле нам необходимо принять решение: если сумма левого пути, большего, правого пути
   // Мы выбираем левый путь и добавляем значение текущего узла, эта рекурсия проходит вплоть до корневого узла.
-  function helper(node) {
-    if (node === null) {
-      return 0;
-    }
+  function dfs(node) {
+    if (node == null) return 0;
 
-    let l = helper(node.left);
-    let r = helper(node.right);
+    let left = dfs(node.left);
+    let right = dfs(node.right);
 
-    let x = 0;
-    if (l > 0) {
-      x += l;
-    }
+    let sumL = left > 0 ? left : 0;
+    let sumR = right > 0 ? right : 0;
 
-    let y = 0;
-    if (r > 0) {
-      y += r;
-    }
+    ans = Math.max(ans, node.val + sumL + sumR);
 
-    ans = Math.max(ans, x + y + node.val);
-
-    return Math.max(x, y) + node.val;
+    return Math.max(node.val + sumL, node.val + sumR);
   }
 };
 
@@ -88,9 +77,7 @@ const maxPathSum_II = root => {
   if (root == null) return 0;
 
   let max = -Number.MAX_VALUE;
-
   helper(root);
-
   return max;
 
   function helper(node) {

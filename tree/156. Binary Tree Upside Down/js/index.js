@@ -42,10 +42,12 @@ The above binary tree is serialized as [1,2,3,#,#,4,#,#,5].
 // Time O(LogN)
 // Space O(LogN)
 const upsideDownBinaryTree = root => {
+  if (root == null) return null;
+
   return helper(root);
 
   function helper(node) {
-    if (node == null || (node.left == null && node.right == null)) return node;
+    if (isLeaf(node)) return node;
 
     let res = helper(node.left);
 
@@ -56,5 +58,9 @@ const upsideDownBinaryTree = root => {
     node.right = null;
 
     return res;
+  }
+
+  function isLeaf(p) {
+    return p.left == null && p.right == null;
   }
 };
