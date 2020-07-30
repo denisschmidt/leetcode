@@ -39,37 +39,34 @@ class MinStack {
   }
 
   push(x) {
-    this.stack.push(x);
-
-    if (!this.minStack.length || getLast(this.minStack)[0] > x) {
+    if (this.minStack.length == 0 || this.last(this.minStack)[0] > x) {
       this.minStack.push([x, 1]);
-    } else if (getLast(this.minStack)[0] == x) {
-      this.minStack[this.minStack.length - 1] = [x, getLast(this.minStack)[1] + 1];
+    } else if (this.last(this.minStack)[0] == x) {
+      this.last(this.minStack)[1]++;
     }
+    this.stack.push(x);
   }
 
   pop() {
-    if (getLast(this.stack) == getLast(this.minStack)[0]) {
-      let [value, cnt] = getLast(this.minStack);
-      if (cnt > 1) {
-        this.minStack[this.minStack.length - 1] = [value, cnt - 1];
-      } else {
+    let x = this.stack.pop();
+
+    if (this.last(this.minStack)[0] == x) {
+      this.last(this.minStack)[1]--;
+      if (this.last(this.minStack)[1] <= 0) {
         this.minStack.pop();
       }
     }
-
-    this.stack.pop();
   }
 
   top() {
-    return getLast(this.stack);
+    return this.stack[this.stack.length - 1];
   }
 
   getMin() {
-    return getLast(this.minStack)[0];
+    return this.last(this.minStack)[0];
   }
-}
 
-function getLast(arr) {
-  return arr[arr.length - 1];
+  last(x) {
+    return x[x.length - 1];
+  }
 }
