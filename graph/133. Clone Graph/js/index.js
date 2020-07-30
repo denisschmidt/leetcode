@@ -20,36 +20,35 @@ Note:
   You must return the copy of the given node as a reference to the cloned graph.
 
  */
+
 // DFS
 // Time O(N)
 // Space O(N)
-const cloneGraph = function(head) {
-  const map = new Map();
+const cloneGraph = node => {
+  let map = new Map();
 
-  const clone = node => {
-    if (!node) return null;
+  return dfs(node);
 
-    if (map.has(node)) return map.get(node);
+  function dfs(u) {
+    if (u == null) return null;
 
-    let p = new Node(node.val, []);
-    map.set(node, p);
+    if (map.has(u)) return map.get(u);
 
-    node.neighbors.forEach(neighbor => {
-      p.neighbors.push(clone(neighbor));
-    });
+    let p = new Node(u.val, []);
+    map.set(u, p);
+
+    for (let v of u.neighbors) {
+      p.neighbors.push(dfs(v));
+    }
 
     return p;
-  };
-
-  return clone(head);
+  }
 };
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // BFS
 // Time O(N)
 // Space O(N)
-const cloneGraph = function(head) {
+const cloneGraph_II = head => {
   let queue = [];
   let map = new Map();
 
