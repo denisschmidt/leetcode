@@ -49,14 +49,18 @@ A[N] = A[N-1] * 2 + A[N-3]
 // Time O(N)
 // Space O(N)
 const numTilings = N => {
-  let mod = 1e9 + 7;
   let dp = Array(N + 1).fill(0);
+  let mod = 1e9 + 7;
+
   dp[0] = 1;
   dp[1] = 1;
 
   for (let i = 2; i <= N; i++) {
-    dp[i] = dp[i - 1] * 2 + (dp[i - 3] || 0);
-    dp[i] %= mod;
+    if (i >= 3) {
+      dp[i] = (dp[i - 1] * 2 + dp[i - 3]) % mod;
+    } else {
+      dp[i] = dp[i - 1] + 1;
+    }
   }
 
   return dp[N];
