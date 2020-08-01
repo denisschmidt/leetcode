@@ -18,13 +18,10 @@ Example 2:
 
  */
 
-/**
- * @param {string} word
- * @return {boolean}
- */
-const detectCapitalUse = function(word) {
-  return word.toLowerCase() === word || word.toUpperCase() === word || word.charAt(0).toUpperCase() + word.slice(1).toLowerCase() === word;
+// Time O(N)
+// Space O(1)
+const detectCapitalUse = word => {
+  return (
+    word.toUpperCase() == word || word.toLowerCase() == word || word.substring(0, 1).toUpperCase() + word.substring(1).toLowerCase() == word
+  );
 };
-
-const res = detectCapitalUse('USD');
-console.log('---', res);
