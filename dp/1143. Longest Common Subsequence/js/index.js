@@ -55,3 +55,25 @@ const longestCommonSubsequence = (text1, text2) => {
 
   return dp[n][m];
 };
+
+// Time O(N^2)
+// Space O(N^2)
+const longestCommonSubsequence_II = (text1, text2) => {
+  let dp = Array(text1.length)
+    .fill(0)
+    .map(() => Array(text2.length).fill(null));
+
+  return dfs(0, 0);
+
+  function dfs(i, j) {
+    if (i >= text1.length || j >= text2.length) return 0;
+
+    if (dp[i][j] != null) return dp[i][j];
+
+    // if text1[i] == text2[j] increase i and j indexes
+    // or start two search increase i index or j index
+    dp[i][j] = text1[i] == text2[j] ? 1 + dfs(i + 1, j + 1) : Math.max(dfs(i, j + 1), dfs(i + 1, j));
+
+    return dp[i][j];
+  }
+};
