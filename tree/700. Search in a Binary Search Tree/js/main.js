@@ -38,21 +38,26 @@ In average case, depth will be O(logn).
 
 */
 
-// Time O(H) H - высота дерева. Среднее время O(LogN). O(N) - в худшем случае.
-// Space O(H) - O(LogN) - O(N)
-const searchBST = (root, val) => {
-  if (root === null || root.val === val) return root;
+// Time O(H) where H is a tree height. Average Time O(LogN). O(N) - worst case
+// Space O(H) - average O(LogN) - worst case O(N)
+const searchBST = (root, target) => {
+  if (root === null || root.val === target) return root;
 
-  if (root.val > val) {
-    return searchBST(root.left, val);
-  } else if (root.val < val) {
-    return searchBST(root.right, val);
-  }
-};
+  let ans = null;
 
-const searchBST_II = (root, val) => {
-  while (root !== null || root.val !== val) {
-    root = root.val > val ? root.left : root.right;
+  dfs();
+
+  return ans;
+
+  function dfs(node) {
+    if (node == null) return;
+
+    if (node.val == target) {
+      ans = node;
+      return;
+    }
+
+    if (val > node.val) dfs(node.right);
+    if (val < node.val) dfs(node.left);
   }
-  return root;
 };

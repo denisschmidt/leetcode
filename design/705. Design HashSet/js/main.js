@@ -28,45 +28,40 @@ Note:
 class MyHashSet {
   constructor() {
     this.map = [];
-    this.numBuckets = 10000;
+    this.size = 10000;
   }
 
   hash(val) {
-    return val % this.numBuckets;
-  }
-
-  pos(key) {
-    return key / this.numBuckets;
+    return val % this.size;
   }
 
   add(key) {
-    const hashKey = this.hash(key);
+    let h = this.hash(key);
 
-    if (!this.map[hashKey]) {
-      this.map[hashKey] = [];
+    if (!this.map[h]) {
+      this.map[h] = [];
     }
 
-    if (this.map[hashKey].indexOf(key) === -1) {
-      this.map[hashKey].push(key);
+    if (this.map[h].indexOf(key) == -1) {
+      this.map[h].push(key);
     }
   }
 
   remove(key) {
-    const hashKey = this.hash(key);
+    let h = this.hash(key);
 
-    if (!this.map[hashKey]) return;
+    if (this.map[h]) {
+      let index = this.map[h].indexOf(key);
 
-    const index = this.map[hashKey].indexOf(key);
-
-    if (index !== -1) {
-      this.map[hashKey].splice(index, 1);
+      if (index != -1) {
+        this.map[h].splice(index, 1);
+      }
     }
   }
 
   contains(key) {
-    const hashKey = this.hash(key);
+    let h = this.hash(key);
 
-    if (!this.map[hashKey] || this.map[hashKey].indexOf(key) === -1) return false;
-    return true;
+    return Boolean(this.map[h] && this.map[h].indexOf(key) != -1);
   }
 }
