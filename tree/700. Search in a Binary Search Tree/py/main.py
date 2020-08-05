@@ -18,11 +18,9 @@ class Solution:
     def dfs(self, node, target):
       if node == None:
         return
-
       if node.val == target:
         self.ans = node
         return 
-
       if target > node.val:
         self.dfs(node.right, target)
       if target < node.val:

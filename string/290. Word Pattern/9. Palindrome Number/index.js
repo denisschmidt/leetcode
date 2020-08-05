@@ -24,7 +24,7 @@ Follow up:
  * @param {number} x
  * @return {boolean}
  */
-var isPalindrome = function(x) {
+var isPalindrome = function (x) {
   let str = x.toString();
   let left = 0,
     right = str.length - 1;
@@ -40,7 +40,7 @@ var isPalindrome = function(x) {
   return isTrue;
 };
 
-const isPalindrome2 = function(x) {
+const isPalindrome2 = function (x) {
   if (x === 0) return true;
   if (x < 0 || x % 10 === 0) return false;
   let r = 0;

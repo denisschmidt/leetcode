@@ -80,7 +80,61 @@ Example:
 
 // Time O(LogH)
 // Space O(H) стек рекурсии, где H - высота дерева. H = log N для сбалансированного дерева.
+
+// Time O(LogH)
+// Space O(H) стек рекурсии, где H - высота дерева. H = log N для сбалансированного дерева.
 const deleteNode = (root, key) => {
+  if (root == null) return null;
+
+  return dfs(root, key);
+
+  function dfs(node, target) {
+    if (node == null) return null;
+
+    if (target > node.val) {
+      // удалить из правого поддерева
+      node.right = dfs(node.right, target);
+    } else if (target < node.val) {
+      // удалить из левого поддерева
+      node.left = dfs(node.left, target);
+    } else {
+      //  удалить текущий узел
+
+      // если это лист для удаления достаточно вернуть null
+      if (isLeaf(node)) {
+        return null;
+      }
+
+      if (node.right != null) {
+        // Узел не лист и имеет right child.
+        // Тогда узел может быть заменен его преемником, который находится где-то ниже в правом поддереве.
+        // Затем можно рекурсивно перейти к удалению преемника.
+        let suc = getSuccessor(node);
+        node.val = suc.val;
+        node.right = dfs(node.right, suc.val);
+        return node;
+      }
+
+      if (node.left != null) {
+        // Узел не лист, у него нет right child и есть left child.
+        // Давайте используем здесь предшественника, который находится где-то ниже в левом поддереве.
+        // Узел может быть заменен его предшественником, а затем можно рекурсивно перейти вниз, чтобы удалить предшественника.
+        let pre = getPredecessor(node);
+        node.val = pre.val;
+        node.left = dfs(node.left, pre.val);
+        return node;
+      }
+    }
+
+    return node;
+  }
+
+  function isLeaf(node) {
+    return node.left == null && node.right == null;
+  }
+};
+
+const deleteNode_II = (root, key) => {
   if (root == null) return null;
 
   if (key < root.val) {
@@ -100,42 +154,6 @@ const deleteNode = (root, key) => {
     }
   }
 
-  return root;
-};
-
-// Time O(LogH)
-// Space O(H) стек рекурсии, где H - высота дерева. H = log N для сбалансированного дерева.
-const deleteNode_II = (root, key) => {
-  if (root === null) {
-    return null;
-  }
-
-  // удалить из правого поддерева
-  if (key > root.val) {
-    root.right = deleteNode(root.right, key);
-  }
-  // удалить из левого поддерева
-  else if (key < root.val) {
-    root.left = deleteNode(root.left, key);
-  }
-  //  удалить текущий узел
-  else {
-    if (root.left === null && root.right === null) {
-      root = null;
-    } else if (root.right) {
-      // Узел не лист и имеет right child.
-      // Тогда узел может быть заменен его преемником, который находится где-то ниже в правом поддереве.
-      // Затем можно рекурсивно перейти к удалению преемника.
-      root.val = getSuccessor(root).val;
-      root.right = deleteNode(root.right, root.val);
-    } else {
-      // Узел не лист, у него нет right child и есть left child.
-      // Давайте используем здесь предшественника, который находится где-то ниже в левом поддереве.
-      // Узел может быть заменен его предшественником, а затем можно рекурсивно перейти вниз, чтобы удалить предшественника.
-      root.val = getPredecessor(root).val;
-      root.left = deleteNode(root.left, root.val);
-    }
-  }
   return root;
 };
 

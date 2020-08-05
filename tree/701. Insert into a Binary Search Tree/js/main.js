@@ -40,15 +40,14 @@ You can return this binary search tree:
 
 */
 
-// Time O(H) average case Time O(LogN) worst case O(N)
-// Space O(H) average case Time O(LogN) worst case O(N)
-const insertIntoBST = function(root, val) {
-  if (root == null) return new TreeNode(val);
+// Time O(H) - Average case Time O(LogN) - Worst case O(N)
+// Space O(H) - Average case Time O(LogN) - Worst case O(N)
+const insertIntoBST = (node, target) => {
+  if (node == null) return new TreeNode(target);
 
-  if (val > root.val) {
-    root.right = insertIntoBST(root.right, val);
-  } else if (val < root.val) {
-    root.left = insertIntoBST(root.left, val);
-  }
-  return root;
+  if (target > node.val) node.right = insertIntoBST(node.right);
+
+  if (target < node.val) node.left = insertIntoBST(node.left);
+
+  return node;
 };
