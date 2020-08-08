@@ -20,50 +20,47 @@ Constraints:
 
 */
 
-// Time O(N^3)
+// Time O(N^2)
 // Space O(N^2)
-
 // Bottom-Up Recursion
-const minFallingPathSum_II = grid => {
-  let n = grid.length;
-  let m = grid[0].length;
-  let ans = Number.MAX_VALUE;
+const minFallingPathSum = arr => {
+  let n = arr.length;
+  let m = arr[0].length;
+  let res = Number.MAX_VALUE;
   let dp = Array(n)
     .fill(0)
     .map(() => Array(m).fill(Number.MAX_VALUE));
 
   for (let j = 0; j < m; j++) {
-    ans = Math.min(ans, helper(0, j));
+    res = Math.min(res, dfs(1, j) + arr[0][j]);
   }
+  return res;
 
-  return ans;
-
-  function helper(col, row) {
-    if (col == n) {
+  function dfs(i, j) {
+    if (i >= n) {
       return 0;
     }
 
-    if (dp[col][row] != Number.MAX_VALUE) {
-      return dp[col][row];
+    if (dp[i][j] != Number.MAX_VALUE) {
+      return dp[i][j];
     }
 
     let min = Number.MAX_VALUE;
-    for (let j = 0; j < m; j++) {
-      if (j == row) continue;
-      min = Math.min(min, helper(col + 1, j));
+
+    for (let k = 0; k < arr.length; k++) {
+      if (k == j) continue;
+      min = Math.min(min, dfs(i + 1, k) + arr[i][k]);
     }
 
-    if (min != Number.MAX_VALUE) {
-      min += grid[col][row];
+    if (dp[i][j] > min) {
+      dp[i][j] = min;
     }
 
-    dp[col][row] = min;
-
-    return dp[col][row];
+    return dp[i][j];
   }
 };
 
-const minFallingPathSum = grid => {
+const minFallingPathSum_II = grid => {
   let n = grid.length;
   let m = grid[0].length;
   let min = Number.MAX_VALUE;
