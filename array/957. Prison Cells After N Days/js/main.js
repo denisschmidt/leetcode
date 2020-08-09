@@ -71,32 +71,44 @@ Note:
   Скажем, N = 1000, мы знаем, что через каждые 14 дней состояние повторится поэтому, 
   N % 14 = 6 (что означает, что до последнего 6-го дня состояния будут повторяться) 
   Так что нет смысла делать повторяющиеся изменения состояний, просто переходите к последнему 6-му. 
-  6 % 14 или 5 % 15 или 4 % 14 .... это всего лишь 6, 5, 4 .... что означает, 
-  что нужно беспокоиться только о последних нескольких днях.
+  6 % 14 или 5 % 15 или 4 % 14 .... это всего лишь 6, 5, 4 .... что означает, что нужно беспокоиться только о последних нескольких днях.
    
 */
 
 // Time O(N)
 // Space O(1)
-const prisonAfterNDays_II = (cells, N) => {
-  let map = new Map();
+const prisonAfterNDays = (cells, N) => {
+  let seen = new Set();
+  let cycle = false;
+  let step = 0;
 
-  while (N > 0) {
-    let copy = Array(8).fill(0);
+  for (let i = 0; i < N; i++) {
+    let next = getNextState(cells);
+    let key = next.toString();
 
-    map.set(cells.toString(), N--);
-
-    for (let i = 0; i < 7; i++) {
-      copy[i] = cells[i - 1] == cells[i + 1] ? 1 : 0;
+    if (seen.has(key)) {
+      cycle = true;
+      break;
     }
-    cells = copy;
 
-    if (map.has(cells.toString())) {
-      N %= map.get(cells.toString()) - N;
-    }
+    seen.add(key);
+    step++;
+    cells = next;
+  }
+
+  if (cycle) {
+    return prisonAfterNDays(cells, N % step);
   }
 
   return cells;
+
+  function getNextState(state) {
+    let new_state = Array(state.length).fill(0);
+    for (let i = 1; i < 7; i++) {
+      new_state[i] = cells[i - 1] == cells[i + 1] ? 1 : 0;
+    }
+    return new_state;
+  }
 };
 
 /*
@@ -111,7 +123,7 @@ const prisonAfterNDays_II = (cells, N) => {
 
 // Time O(N)
 // Space O(1)
-const prisonAfterNDays = (cells, N) => {
+const prisonAfterNDays_II = (cells, N) => {
   for (let k = ((N - 1) % 14) + 1; k > 0; k--) {
     let cells2 = Array(8).fill(0);
     for (let i = 1; i < 7; ++i) {

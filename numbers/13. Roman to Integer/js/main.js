@@ -1,4 +1,5 @@
 /*
+
 Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
 
 Symbol       Value
@@ -69,9 +70,10 @@ const romanToInt = str => {
     CM: 900,
   };
 
+  let n = str.length;
   let ans = 0;
 
-  for (let i = 0; i < str.length; i++) {
+  for (let i = 0; i < n; i++) {
     if (str[i] + str[i + 1] in map) {
       ans += map[str[i] + str[i + 1]];
       i++;
