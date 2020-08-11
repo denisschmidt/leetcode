@@ -98,11 +98,11 @@ function minCoinRepeat(coins, target) {
 
 */
 function getBestFromLeftAndRight(nums) {
-  let dp = Array(nums.length)
-    .fill(null)
-    .map(() => Array(nums.length).fill(null));
-
   let n = nums.length;
+
+  let dp = Array(n)
+    .fill(null)
+    .map(() => Array(n).fill(null));
 
   for (let l = 1; l < n; l++) {
     for (let i = 0; i < n - l; i++) {
