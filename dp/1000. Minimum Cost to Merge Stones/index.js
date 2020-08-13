@@ -40,7 +40,7 @@ Note:
 
 */
 
-var mergeStones = function(stones, K) {
+var mergeStones = function (stones, K) {
   let n = stones.length;
 
   if ((n - 1) % (K - 1) !== 0) {
@@ -64,8 +64,8 @@ var mergeStones = function(stones, K) {
 
       dp[i][j] = Number.MAX_VALUE;
 
-      for (let mid = i; mid < j; mid = mid + K - 1) {
-        dp[i][j] = Math.min(dp[i][j], dp[i][mid] + dp[mid + 1][j]);
+      for (let k = i; k < j; k = k + K - 1) {
+        dp[i][j] = Math.min(dp[i][j], dp[i][k] + dp[k + 1][j]);
       }
 
       // Каждый раз мы должны исключить K - 1 чисел
