@@ -14,6 +14,7 @@ Example:
   ]
   Output: 7
   Explanation: Because the path 1→3→1→1→1 minimizes the sum.
+  
 */
 
 /*
@@ -38,17 +39,18 @@ const minPathSum = grid => {
   let n = grid.length;
   let m = grid[0].length;
 
-  for (let i = 0; i < n; i++) {
-    for (let j = 0; j < m; j++) {
-      if (i == 0) {
-        grid[i][j] += j > 0 ? grid[i][j - 1] : 0;
-      } else if (j == 0) {
-        grid[i][j] += i > 0 ? grid[i - 1][j] : 0;
-      } else {
-        grid[i][j] += Math.min(grid[i - 1][j], grid[i][j - 1]);
-      }
-    }
+  for (let i = 1; i < n; i++) {
+    grid[i][0] += grid[i - 1][0];
   }
 
+  for (let i = 1; i < m; i++) {
+    grid[0][i] += grid[0][i - 1];
+  }
+
+  for (let i = 1; i < n; i++) {
+    for (let j = 1; j < m; j++) {
+      grid[i][j] = Math.min(grid[i][j] + grid[i - 1][j], grid[i][j] + grid[i][j - 1]);
+    }
+  }
   return grid[n - 1][m - 1];
 };
