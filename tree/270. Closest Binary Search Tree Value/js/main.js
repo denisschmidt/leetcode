@@ -19,27 +19,28 @@ Output: 4
 
  */
 
-// Time O(N)
-// Space O(N)
+// Time O(H) since here one goes from root down to a leaf.
+// Space O(H)
 const closestValue = (root, target) => {
-  let ans = -1;
-  let minDiff = Number.MAX_VALUE;
+  let diff = Number.MAX_VALUE;
+  let res = null;
 
-  helper(root);
+  dfs(root);
 
-  return ans;
+  return res;
 
-  function helper(node) {
-    if (node === null) return;
+  function dfs(node) {
+    if (node == null) return null;
 
-    let diff = Math.abs(target - node.val);
-
-    if (diff < minDiff) {
-      minDiff = diff;
-      ans = node.val;
+    if (diff > Math.abs(node.val - target)) {
+      res = node.val;
+      diff = Math.abs(node.val - target);
     }
 
-    helper(node.left);
-    helper(node.right);
+    if (node.val > target) {
+      dfs(node.left);
+    } else {
+      dfs(node.right);
+    }
   }
 };
