@@ -29,25 +29,30 @@ Note:
 // Time O(N)
 // Space O(N)
 const nextGreaterElement = (nums1, nums2) => {
-  let map = {};
-  let stack = [];
+  let map = new Map();
+  let st = [];
 
   for (let i = 0; i < nums2.length; i++) {
-    while (stack.length && stack[stack.length - 1] < nums2[i]) {
-      let num = stack.pop();
-      map[num] = nums2[i];
+    while (st.length && last(st) < nums2[i]) {
+      let next = st.pop();
+      map.set(next, nums2[i]);
     }
-    stack.push(nums2[i]);
+
+    st.push(nums2[i]);
   }
 
-  let result = [];
+  let res = [];
   for (let i = 0; i < nums1.length; i++) {
-    if (nums1[i] in map) {
-      result.push(map[nums1[i]]);
-    } else {
-      result.push(-1);
+    let next = -1;
+    if (map.has(nums1[i])) {
+      next = map.get(nums1[i]);
     }
+    res.push(next);
   }
 
-  return result;
+  return res;
+
+  function last(x) {
+    return x[x.length - 1];
+  }
 };
