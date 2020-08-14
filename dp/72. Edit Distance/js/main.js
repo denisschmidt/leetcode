@@ -58,17 +58,16 @@ Dynamic Programming:
 const minDistance = (word1, word2) => {
   let n = word1.length;
   let m = word2.length;
-
   let dp = Array(n + 1)
-    .fill(null)
+    .fill(0)
     .map(() => Array(m + 1).fill(0));
 
   for (let i = 1; i <= n; i++) {
     dp[i][0] = dp[i - 1][0] + 1;
   }
 
-  for (let j = 1; j <= m; j++) {
-    dp[0][j] = dp[0][j - 1] + 1;
+  for (let i = 1; i <= m; i++) {
+    dp[0][i] = dp[0][i - 1] + 1;
   }
 
   for (let i = 1; i <= n; i++) {
@@ -81,5 +80,5 @@ const minDistance = (word1, word2) => {
     }
   }
 
-  return dp[word1.length][word2.length];
+  return dp[n][m];
 };
