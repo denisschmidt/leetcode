@@ -93,8 +93,6 @@ const repeatedSubstringPattern_II = str => {
 
     let substr = '';
 
-    let k = n / len;
-
     for (let k = 0; k < n / len; k++) {
       substr += pattern;
     }
