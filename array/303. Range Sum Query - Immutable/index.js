@@ -13,32 +13,16 @@ Note:
   There are many calls to sumRange function.
  */
 
-/**
- * @param {number[]} nums
- */
-const NumArray = function(nums) {
-  this.nums = nums;
-};
-
-/**
- * @param {number} i
- * @param {number} j
- * @return {number}
- */
-NumArray.prototype.sumRange = function(i, j) {
-  let sum = this.nums[i];
-  for (let k = i + 1; k <= j; k++) {
-    sum += this.nums[k];
+class NumArray {
+  constructor(nums) {
+    this.nums = nums;
   }
-  return sum;
-};
 
-/**
- * Your NumArray object will be instantiated and called as such:
- * var obj = new NumArray(nums)
- * var param_1 = obj.sumRange(i,j)
- */
-
-const obj = new NumArray([-2, 0, 3, -5, 2, -1]);
-const param_1 = obj.sumRange(0, 2);
-console.log('---', param_1);
+  sumRange(i, j) {
+    let sum = this.nums[i];
+    for (let k = i + 1; k <= j; k++) {
+      sum += this.nums[k];
+    }
+    return sum;
+  }
+}

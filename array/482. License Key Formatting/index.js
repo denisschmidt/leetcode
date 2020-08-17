@@ -29,26 +29,25 @@ Note:
 
 // Time O(N)
 // Space O(K)
-const licenseKeyFormatting = (str, k) => {
-  let parseStr = '';
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === '-') continue;
-    parseStr += str[i];
-  }
+const licenseKeyFormatting = (S, K) => {
+  let groups = S.split('-')
+    .map(v => v.toUpperCase())
+    .join('');
+  let res = [];
+  let cur = '';
 
-  let ans = '';
-  for (let i = parseStr.length - 1; i >= 0; i--) {
-    let s = 0;
-    while (s < k && i >= 0) {
-      ans = parseStr[i].toUpperCase() + ans;
-      i--;
-      s++;
-      if (s === k) {
-        ans = '-' + ans;
-        i++;
-      }
+  for (let i = groups.length - 1; i >= 0; i--) {
+    if (cur.length + 1 <= K) {
+      cur = groups[i] + cur;
+    } else {
+      res.push(cur);
+      cur = groups[i];
     }
   }
 
-  return ans[0] === '-' ? ans.substring(1) : ans;
+  if (cur) {
+    res.push(cur);
+  }
+
+  return res.reverse().join('-');
 };
