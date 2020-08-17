@@ -37,7 +37,7 @@ const { PriorityQueue } = require('../../../algorithms/priorityQueue');
 // Time O(K*Log*K) поскольку pq.size <= k, и мы делаем не более k цикла.
 // Space O(N)
 
-const kSmallestPairs = function(nums1, nums2, k) {
+const kSmallestPairs = function (nums1, nums2, k) {
   if (nums1.length === 0 || nums2.length === 0 || k === 0) {
     return [];
   }

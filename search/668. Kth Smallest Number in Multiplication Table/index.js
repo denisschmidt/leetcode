@@ -36,7 +36,7 @@ Note:
 // Так же на каждом шаге мы вызываем helper, что требует O(M) времени
 // Space O(1)
 
-var findKthNumber = function(m, n, k) {
+var findKthNumber = function (m, n, k) {
   let lo = 1;
   let hi = m * n;
 

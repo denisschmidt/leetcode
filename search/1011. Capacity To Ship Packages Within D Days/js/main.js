@@ -50,46 +50,45 @@ Note:
 
 */
 
-// Time O(LogN * N)
+// Time O(N + LogN)
 // Space O(1)
 const shipWithinDays = (weights, D) => {
-  let left = 0;
-  let right = 0;
+  let l = 0;
+  let r = 0;
   let n = weights.length;
 
   for (let w of weights) {
-    left = Math.max(left, w);
-    right += w;
+    l = Math.max(l, w);
+    r += w;
   }
 
-  while (left < right) {
-    let w = left + Math.floor((right - left) / 2);
+  while (l < r) {
+    let mid = l + Math.floor((r - l) / 2);
 
-    if (calc(w) > D) {
-      left = w + 1;
+    if (count(mid) > D) {
+      l = mid + 1;
     } else {
-      right = w;
+      r = mid;
     }
   }
 
-  return left;
+  return l;
 
-  function calc(maxW) {
-    let d = 0;
+  function count(maxWeight) {
     let sum = 0;
+    let days = 0;
 
     for (let i = 0; i < n; i++) {
-      if (sum + weights[i] <= maxW) {
-        sum += weights[i];
-      } else {
-        d++;
-        i--;
+      if (sum + weights[i] > maxWeight) {
+        if (sum == 0) break;
+        days++;
         sum = 0;
+        i--;
+      } else {
+        sum += weights[i];
       }
     }
 
-    if (sum <= maxW) d++;
-
-    return d;
+    return sum <= maxWeight ? days + 1 : days;
   }
 };
