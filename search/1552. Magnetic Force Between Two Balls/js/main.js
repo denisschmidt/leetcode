@@ -28,6 +28,32 @@ Constraints:
 
 */
 
+/*
+  
+  Initially:
+  L                                         R
+  v                                         v
+  [      valid      ] [       invalid       ]
+
+  Step 1:
+                    L                       R
+                    v                       v
+  [      valid      ] [       invalid       ]
+
+  Step 2:
+                    R
+                    L                    
+                    v                    
+  [      valid      ] [       invalid       ]
+  
+
+  Finally:
+                  R L
+                  v v
+  [      valid      ] [       invalid       ]
+
+*/
+
 // Time O(NLogN)
 // Space O(N)
 const maxDistance = (position, m) => {
