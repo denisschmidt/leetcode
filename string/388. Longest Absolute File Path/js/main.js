@@ -1,4 +1,5 @@
 /*
+
 Suppose we abstract our file system by a string in the following manner:
 
 The string "dir\n\tsubdir1\n\tsubdir2\n\t\tfile.ext" represents:
@@ -37,65 +38,24 @@ Note:
 
 Notice that a/aa/aaa/file1.txt is not the longest file path, if there is another path aaaaaaaaaaaaaaaaaaaaa/sth.png.
 
- */
+*/
 
 // Time O(N)
-const lengthLongestPath2 = input => {
-  const stack = [];
-  return input.split('\n').reduce((max, p) => {
-    let level = p.lastIndexOf('\t') + 1;
-    stack[level] = p.length - level + (level ? stack[level - 1] : 0);
-    return p.indexOf('.') === -1 ? max : Math.max(max, stack[level] + level);
-  }, 0);
-};
+// Space O(N)
+const lengthLongestPath = input => {
+  let paths = input.split('\n');
+  let stack = { '-1': 0 };
+  let max = 0;
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  for (let path of paths) {
+    let lvl = path.lastIndexOf('\t') + 1;
 
-// This runs in O(n), since we iterate over the input string twice to build the file system,
-// and then in the worst case we go through the string again to compute the longest path.
+    stack[lvl] = stack[lvl - 1] + path.length - lvl;
 
-const buildFs = input => {
-  const files = input.split('\n');
-  const fs = {};
-  let currentPath = [];
-
-  for (let file of files) {
-    let level = file.lastIndexOf('\t') + 1;
-    let node = fs;
-
-    for (let i = 0; i < level; i++) {
-      let path = currentPath[i];
-      node = node[path] || {};
-    }
-
-    let newFile = file.slice(level);
-
-    if (newFile.indexOf('.') > -1) {
-      node[newFile] = true;
-    } else {
-      node[newFile] = {};
-    }
-
-    currentPath[level] = newFile;
-  }
-
-  return fs;
-};
-
-const longestPath = (root, path = '', ans = []) => {
-  for (let [key, node] of Object.entries(root)) {
-    let str = !path.length ? key : path + '/' + key;
-
-    if (typeof node === 'boolean') {
-      ans.push(str);
-    } else {
-      longestPath(node, str, ans);
+    if (path.indexOf('.') > -1) {
+      max = Math.max(max, stack[lvl] + lvl);
     }
   }
-  return ans;
-};
 
-const lengthLongestPath3 = input => {
-  const ans = longestPath(buildFs(input)).map(i => i.length);
-  return ans.length ? Math.max(...ans) : '';
+  return max;
 };
