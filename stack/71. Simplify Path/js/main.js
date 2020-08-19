@@ -1,4 +1,5 @@
 /*
+
 Given an absolute path for a file (Unix-style), simplify it. Or in other words, convert it to the canonical path.
 
 In a UNIX-style file system, a period . refers to the current directory. Furthermore, a double period .. moves the directory up a level.
@@ -34,22 +35,31 @@ Example 5:
 Example 6:
   Input: "/a//b////c/d//././/.."
   Output: "/a/b/c"
+
 */
 
 // Time O(N)
 // Space O(N)
-const simplifyPath = function(path) {
+const simplifyPath = path => {
   let stack = [];
+  let paths = path.split('/');
 
-  let newPath = path.split('/').filter(f => !['.', ''].includes(f));
-
-  for (let i = 0; i < newPath.length; i++) {
-    if (newPath[i] === '..') {
-      stack.pop();
+  for (let p of paths) {
+    if (p == '.' || p == '') continue;
+    if (p == '..') {
+      if (stack.length) {
+        stack.pop();
+      }
     } else {
-      stack.push(newPath[i]);
+      stack.push(p);
     }
   }
 
-  return '/' + stack.join('/');
+  let res = '';
+
+  while (stack.length) {
+    res = '/' + stack.pop() + res;
+  }
+
+  return res.length == 0 ? '/' : res;
 };
