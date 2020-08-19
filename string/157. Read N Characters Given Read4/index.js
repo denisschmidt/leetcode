@@ -69,46 +69,34 @@ The read function will only be called once for each test case.
 You may assume the destination buffer array, buf, is guaranteed to have enough space for storing n characters.
 
  */
-/**
- * Definition for read4()
- *
- * @param {character[]} buf Destination buffer
- * @return {number} The number of actual characters read
- * read4 = function(buf) {
- *     ...
- * };
- */
 
-/**
- * @param {function} read4()
- * @return {function}
- */
-var solution = function(read4) {
+const solution = read4 => {
   /**
-   * @param {character[]} buf Destination buffer
-   * @param {number} n Number of characters to read
+   * Definition for read4()
+   *
+   * @param {character[]} buf4 Destination buffer
    * @return {number} The number of actual characters read
+   * read4 = function(buf4) {
+   *     ...
+   * };
    */
-  return function(buf, n) {
-    let eof = false; // end of file flag
-    let total = 0; // total bytes have read
-    const buffer = Array(4); // temp buffer
 
-    while (!eof && total < n) {
-      const size = read4(buffer);
+  const solution = read4 => {
+    /**
+     * @param {character[]} buf Destination buffer
+     * @param {number} n Number of characters to read
+     * @return {number} The number of actual characters read
+     */
+    return function (buf, n) {
+      let copiedChars = 0;
+      let readChars = 4;
 
-      // Check if it's the end of the file
-      eof = size < 4;
-
-      // Get the actual count
-      const count = Math.min(size, n - total);
-
-      // Copy from temp buffer to buf
-      for (let i = 0; i < count; i++) {
-        buf[total++] = buffer[i];
+      while (readChars == 4 && copiedChars < n) {
+        readChars = read4(buf + copiedChars);
+        copiedChars += readChars;
       }
-    }
 
-    return total;
+      return Math.min(n, copiedChars);
+    };
   };
 };

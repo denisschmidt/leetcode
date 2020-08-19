@@ -14,15 +14,21 @@ Note:
  */
 
 class NumArray {
+  // Time O(N)
   constructor(nums) {
-    this.nums = nums;
+    let prefix = [];
+    prefix[0] = nums[0];
+
+    for (let i = 1; i < nums.length; i++) {
+      prefix[i] = prefix[i - 1] + nums[i];
+    }
+
+    this.prefix = prefix;
   }
 
+  // Time O(1)
   sumRange(i, j) {
-    let sum = this.nums[i];
-    for (let k = i + 1; k <= j; k++) {
-      sum += this.nums[k];
-    }
-    return sum;
+    if (i == 0) return this.prefix[j];
+    return this.prefix[j] - this.prefix[i - 1];
   }
 }
