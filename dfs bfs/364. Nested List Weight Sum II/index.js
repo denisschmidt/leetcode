@@ -19,27 +19,33 @@ Example 2:
  */
 
 // Time O(N)
-// Space O(N + D) - где D максимальная глубина вложенности
-
+// Space O(N+D) D - max depth
 const depthSumInverse = nestedList => {
   let sum = 0;
-  let comb = helper(nestedList, 0, []);
+  let comb = [];
+
+  dfs(nestedList, 0, []);
+
   comb.reverse();
 
-  for (let i = 0; i < comb.length; i++) {
-    sum += comb[i] ? comb[i].reduce((acc, v) => acc + v * (i + 1), 0) : 0;
-  }
-  return sum;
-
-  function helper(nestedList, depth, comb) {
-    for (let item of nestedList) {
-      if (!item.isInteger()) {
-        helper(item.getList(), depth + 1, comb);
-      } else {
-        comb[depth] = comb[depth] && comb[depth].length > 0 ? [...comb[depth], item.getInteger()] : [item.getInteger()];
+  for (let depth = 0; depth < comb.length; depth++) {
+    let list = comb[depth];
+    if (list && list.length) {
+      for (let val of list) {
+        sum += val * (depth + 1);
       }
     }
+  }
 
-    return comb;
+  return sum;
+
+  function dfs(list, depth) {
+    for (let item of list) {
+      if (!item.isInteger()) {
+        dfs(item.getList(), depth + 1);
+      } else {
+        comb[depth] = comb[depth] && comb[depth].length ? [...comb[depth], item.getInteger()] : [item.getInteger()];
+      }
+    }
   }
 };
