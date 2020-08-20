@@ -25,18 +25,50 @@ Note:
 // Time O(N)
 // Space O(N)
 const arrayNesting = nums => {
-  let maxLen = -Number.MAX_VALUE;
-  let set = new Set();
+  let res = 0;
+  let n = nums.length;
+  let visited = Array(n).fill(false);
+
+  for (let i = 0; i < n; i++) {
+    let j = i;
+    let cnt = 0;
+
+    while (!visited[j]) {
+      visited[j] = true;
+      cnt++;
+      j = nums[j];
+    }
+    res = Math.max(res, cnt);
+  }
+  return res;
+};
+
+// Time O(N)
+// Space O(N)
+const arrayNesting_II = nums => {
+  let n = nums.length;
+  let max = 0;
+  let dp = Array(n).fill(null);
+  let visited = Array(n).fill(false);
 
   for (let i = 0; i < nums.length; i++) {
-    maxLen = Math.max(maxLen, helper(i, set, 0));
+    max = Math.max(max, dfs(i));
   }
 
-  return maxLen;
+  return max;
 
-  function helper(index, set, len) {
-    if (set.has(index) || nums[index] > nums.length) return len;
-    set.add(index);
-    return helper(nums[index], set, len + 1);
+  function dfs(i) {
+    if (i >= n || nums[i] >= n) return 0;
+    if (visited[i]) return 0;
+
+    if (dp[i] != null) return dp[i];
+
+    visited[i] = true;
+
+    dp[i] = 1 + dfs(nums[i]);
+
+    visited[i] = false;
+
+    return dp[i];
   }
 };
