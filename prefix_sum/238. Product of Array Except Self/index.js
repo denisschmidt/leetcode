@@ -34,8 +34,8 @@ Follow up:
 */
 
 // Time O(N)
-// Space O(1) - Выходной массив не считается дополнительным пространством для целей анализа сложности пространства
-var productExceptSelf = function(nums) {
+// Space O(N)
+const productExceptSelf = nums => {
   let n = nums.length;
   let dp = Array(n).fill(1);
 
@@ -66,16 +66,17 @@ const productExceptSelf_II = nums => {
   }
 
   let right = [];
-  right[n - 1] = nums[n - 1];
+
+  right[nums.length - 1] = nums[nums.length - 1];
 
   for (let i = n - 2; i >= 0; i--) {
     right[i] = right[i + 1] * nums[i];
   }
 
   nums[0] = right[1];
-  nums[n - 1] = left[n - 2];
+  nums[n - 1] = left[[n - 2]];
 
-  for (let i = 0; i < n; i++) {
+  for (let i = 1; i < n - 1; i++) {
     nums[i] = left[i - 1] * right[i + 1];
   }
 

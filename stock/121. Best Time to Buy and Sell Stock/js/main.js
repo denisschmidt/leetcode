@@ -23,17 +23,17 @@ Example 2:
 
 // Time O(N)
 // Space O(1)
-const maxProfit = function(prices) {
-  let cur = prices[0];
-  let ans = -Number.MAX_VALUE;
+const maxProfit = prices => {
+  let take = prices[0];
+  let max = 0;
 
   for (let i = 1; i < prices.length; i++) {
-    if (cur > prices[i]) {
-      cur = prices[i];
+    if (prices[i] - take > 0) {
+      max = Math.max(max, prices[i] - take);
     } else {
-      ans = Math.max(ans, prices[i] - cur);
+      take = prices[i];
     }
   }
 
-  return ans == -Number.MAX_VALUE ? 0 : ans;
+  return max;
 };
