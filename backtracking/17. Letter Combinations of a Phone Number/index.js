@@ -83,3 +83,46 @@ const letterCombinations = digits => {
     }
   }
 };
+
+// Time O(N!)
+// Space O(N)
+const letterCombinations_II = digits => {
+  if (digits.length === 0) return [];
+
+  let ans = [];
+  let n = digits.length;
+  let map = {
+    '1': '',
+    '2': ['a', 'b', 'c'],
+    '3': ['d', 'e', 'f'],
+    '4': ['g', 'h', 'i'],
+    '5': ['j', 'k', 'l'],
+    '6': ['m', 'n', 'o'],
+    '7': ['p', 'q', 'r', 's'],
+    '8': ['t', 'u', 'v'],
+    '9': ['w', 'x', 'y', 'z'],
+  };
+  let visited = Array(n).fill(false);
+
+  dfs(0, []);
+
+  return ans;
+
+  function dfs(index, comb) {
+    if (index == n) {
+      ans.push(comb.join(''));
+      return;
+    }
+
+    for (let i = index; i < n; i++) {
+      visited[i] = true;
+      for (let ch of map[digits[i]]) {
+        if (i > 0 && !visited[i - 1]) continue;
+        comb.push(ch);
+        dfs(index + 1, comb);
+        comb.pop();
+      }
+      visited[i] = false;
+    }
+  }
+};

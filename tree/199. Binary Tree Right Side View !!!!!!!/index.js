@@ -19,7 +19,7 @@ Explanation:
 // DFS
 // Time O(N)
 // Space O(N)
-const rightSideView = function(root) {
+const rightSideView = function (root) {
   let nodeStack = [];
   let depthStack = [];
   let maxDepth = -1;
@@ -52,7 +52,7 @@ const rightSideView = function(root) {
 // BFS
 // Time O(N)
 // Space O(N)
-const rightSideView2 = function(root) {
+const rightSideView2 = function (root) {
   let nodeQueue = [];
   let depthQueue = [];
   let maxDepth = -1;
@@ -82,3 +82,50 @@ const rightSideView2 = function(root) {
   }
   return res;
 };
+
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+
+/**
+ * @param {TreeNode} root
+ * @return {number[]}
+ */
+var rightSideView = function (root) {
+  if (root == null) return [];
+  let map = new Map();
+  let max = 0;
+
+  dfs(root, 0);
+
+  let res = [];
+  for (let i = 0; i <= max; i++) {
+    res.push(map.get(i));
+  }
+  return res;
+
+  function dfs(node, lvl) {
+    if (node == null) return;
+
+    if (!map.has(lvl)) {
+      map.set(lvl, node.val);
+    }
+
+    max = Math.max(max, lvl);
+
+    dfs(node.right, lvl + 1);
+    dfs(node.left, lvl + 1);
+  }
+};
+
+const { makeTreeNodes } = require('../utils/treeNode');
+
+let tree = makeTreeNodes([1, 2, 3, null, 5, null, 4]);
+
+let x = rightSideView(tree);
+console.log(x);

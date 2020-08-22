@@ -1,4 +1,5 @@
 /*
+
 Given an array nums of n integers, are there elements a, b, c in nums such that a + b + c = 0?
 Find all unique triplets in the array which gives the sum of zero.
 
@@ -11,21 +12,25 @@ Example:
     [-1, 0, 1],
     [-1, -1, 2]
   ]
+
 */
 
 // Time O(N^2)
 // Space O(N)
 const threeSum = nums => {
+  let n = nums.length;
   nums.sort((a, b) => a - b);
-  const n = nums.length;
-  const sum = 0;
-  const ans = [];
+  let res = [];
 
-  for (let i = 0; i < n; i++) {
-    if (nums[i] + nums[i + 1] + nums[i + 2] > sum) break;
-    if (nums[i] + nums[n - 1] + nums[n - 2] < sum) continue;
-    if (i > 0 && nums[i] === nums[i - 1]) continue;
+  for (let i = 0; i < n - 2; i++) {
+    if (nums[i] > 0) break;
+    if (i > 0 && nums[i - 1] == nums[i]) continue;
+    sumTwo(i);
+  }
 
+  return res;
+
+  function sumTwo(i) {
     let lo = i + 1;
     let hi = n - 1;
 
@@ -37,18 +42,14 @@ const threeSum = nums => {
       } else if (sum < 0) {
         lo++;
       } else {
-        ans.push([nums[i], nums[lo], nums[hi]]);
+        res.push([nums[i], nums[lo], nums[hi]]);
+        lo++;
+        hi--;
 
-        do {
+        while (lo < hi && nums[lo] == nums[lo - 1]) {
           lo++;
-        } while (nums[lo] === nums[lo - 1] && lo < hi);
-
-        do {
-          hi--;
-        } while (nums[hi] === nums[hi + 1] && lo < hi);
+        }
       }
     }
   }
-
-  return ans;
 };

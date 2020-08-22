@@ -46,3 +46,30 @@ const checkInclusion = (s1, s2) => {
 
   return false;
 };
+
+// Time O(N!)
+// Space O(N)
+const checkInclusion_II = (s1, s2) => {
+  // Generate all possible substrings
+  return dfs(s1, '');
+
+  function dfs(str, comb) {
+    if (str.length == 0) {
+      if (s2.indexOf(comb) > -1) {
+        return true;
+      }
+      return false;
+    }
+
+    for (let i = 0; i < str.length; i++) {
+      let rest = str.substring(0, i) + str.substring(i + 1);
+
+      let isValid = dfs(rest, comb + str[i]);
+
+      if (isValid) {
+        return true;
+      }
+    }
+    return false;
+  }
+};

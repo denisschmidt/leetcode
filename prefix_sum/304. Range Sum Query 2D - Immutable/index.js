@@ -27,14 +27,16 @@ class NumMatrix {
 
     let n = matrix.length;
     let m = matrix[0].length;
-    let prefix = Array(n)
-      .fill(0)
-      .map(() => Array(m + 1).fill(0));
+
+    let prefix = [];
 
     for (let i = 0; i < n; i++) {
-      for (let j = 0; j < m; j++) {
-        prefix[i][j + 1] = prefix[i][j] + matrix[i][j];
+      let tmp = Array(m);
+      tmp[0] = matrix[i][0];
+      for (let j = 1; j < m; j++) {
+        tmp[j] = tmp[j - 1] + matrix[i][j];
       }
+      prefix.push(tmp);
     }
 
     this.prefix = prefix;
@@ -42,8 +44,13 @@ class NumMatrix {
 
   sumRegion(row1, col1, row2, col2) {
     let sum = 0;
-    for (let r = row1; r <= row2; r++) {
-      sum += this.prefix[r][col2 + 1] - this.prefix[r][col1];
+
+    for (let i = row1; i <= row2; i++) {
+      if (col1 == 0) {
+        sum += this.prefix[i][col2];
+      } else {
+        sum += this.prefix[i][col2] - this.prefix[i][col1 - 1];
+      }
     }
     return sum;
   }
