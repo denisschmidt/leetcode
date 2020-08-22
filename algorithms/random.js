@@ -9,11 +9,9 @@ function randomInteger(min, max) {
   return Math.round(rand);
 }
 
-// Другое правильное решение – это использовать Math.floor для получения случайного числа от min до max+1:
-function getRandomNumber(min, max) {
+// Получение случайного числа в интервале от [min, max]
+function randomInteger_II(min, max) {
   // случайное число от min до (max+1)
   let rand = min + Math.random() * (max + 1 - min);
   return Math.floor(rand);
 }
-
-// Все интервалы имеют одинаковую длину, что выравнивает вероятность получения случайных чисел.

@@ -52,7 +52,7 @@ class Solution {
 
   pickIndex() {
     // Генерация значения от 0 до максимальной префикс суммы
-    // Math.random() double число от 0 до 1 и затем увеличиваем его до totalSum
+    // Math.random() - это double число от (0 до 1) и затем увеличиваем его до totalSum
     let random = this.totalSum * Math.random();
 
     let i = 0;

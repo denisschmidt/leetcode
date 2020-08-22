@@ -10,29 +10,34 @@ Example:
   int[] nums = new int[] {1,2,3,3,3};
   Solution solution = new Solution(nums);
 
-  // pick(3) should return either index 2, 3, or 4 randomly. Each index should have equal probability of returning.
+  pick(3) should return either index 2, 3, or 4 randomly. Each index should have equal probability of returning.
   solution.pick(3);
 
-  // pick(1) should return 0. Since in the array only nums[0] is equal to 1.
+  pick(1) should return 0. Since in the array only nums[0] is equal to 1.
   solution.pick(1);
 
- */
+*/
 
+// Time O(N)
+// Space O(N)
 class Solution {
   constructor(nums) {
     this.nums = nums;
   }
 
   pick(target) {
-    let count = 0;
+    let visitedIndexes = 0;
     let res = null;
 
     for (let i = 0; i < this.nums.length; i++) {
       if (this.nums[i] === target) {
-        count++;
-        let rand = this.randomInt(0, count);
+        visitedIndexes++;
 
-        if (rand === count - 1) {
+        // Generate random index in interval [0, visitedIndexes)
+        // It gives confidence that we get currect answer (res != null)
+        let rand = this.randomInt(0, visitedIndexes);
+
+        if (rand == visitedIndexes - 1) {
           res = i;
         }
       }
@@ -50,33 +55,42 @@ class Solution {
 // Наивное решение в котором в память записывается очень большой массив
 // Time O(K) где K кол-вл встречающихся элементов
 // Space O(N)
-class Solution2 {
+class Solution_II {
   constructor(nums) {
-    this.map = new Map();
+    let map = new Map();
 
     for (let i = 0; i < nums.length; i++) {
-      let num = nums[i];
-      if (!this.map.has(num)) {
-        this.map.set(num, [i]);
-      } else {
-        this.map.set(num, [...this.map.get(num), i]);
+      if (!map.has(nums[i])) {
+        map.set(nums[i], []);
       }
+      map.get(nums[i]).push(i);
     }
+
+    this.map = map;
   }
 
   pick(target) {
-    const arr = this.map.get(target);
+    let nums = this.map.get(target);
+    let n = nums.length;
 
-    if (arr.length === 1) {
-      return arr[0];
-    }
+    if (n == 1) return nums[0];
 
     // shuffle
-    for (let i = arr.length - 1; i >= 0; i--) {
-      const index = Math.floor(Math.random() * (i + 1));
-      [arr[i], arr[index]] = [arr[index], arr[i]];
+    for (let max = n - 1; max >= 0; max--) {
+      const randIndex = this.randomInt(0, max);
+
+      this.swap(nums, i, randIndex);
     }
 
-    return arr[0];
+    return nums[0];
+  }
+
+  randomInt(min, max) {
+    let rand = min + Math.random() * (max - min);
+    return Math.floor(rand);
+  }
+
+  swap(nums, i, j) {
+    return ([nums[i], nums[j]] = [nums[j], nums[i]]);
   }
 }

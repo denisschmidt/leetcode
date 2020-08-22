@@ -1,4 +1,5 @@
 /*
+
 In an alien language, surprisingly they also use english lowercase letters, but possibly in a different order.
 The order of the alphabet is some permutation of lowercase letters.
 
@@ -24,36 +25,40 @@ Example 3:
  
 
 Note:
-
   1 <= words.length <= 100
   1 <= words[i].length <= 20
   order.length == 26
   All characters in words[i] and order are english lowercase letters.
 
+*/
 
- */
 // Time O(N^2)
 // Space O(N)
-const isAlienSorted = function(words, order) {
-  const map = new Map();
+const isAlienSorted = (words, order) => {
+  let map = new Map();
+  let i = 0;
 
-  order.split('').forEach((char, val) => map.set(char, val));
+  for (let ch of order) {
+    map.set(ch, i++);
+  }
 
-  const oldWords = [...words];
+  let nonSortedWords = [...words];
+  words.sort(compare);
 
-  words.sort((a, b) => {
-    const max = Math.max(a.length, b.length);
-    for (let i = 0; i < max; i++) {
-      if (a[i] === b[i]) continue;
-      if (map.get(a[i]) < map.get(b[i])) return -1;
-      if (map.get(a[i]) > map.get(b[i])) return 1;
+  for (let i = 0; i < nonSortedWords.length; i++) {
+    if (nonSortedWords[i] != words[i]) {
+      return false;
     }
-    return -1;
-  });
-
-  for (let i = 0; i < words.length; i++) {
-    if (words[i] !== oldWords[i]) return false;
   }
 
   return true;
+
+  function compare(a, b) {
+    for (let i = 0; i < Math.min(a.length, b.length); i++) {
+      if (a[i] == b[i]) continue;
+      console.log(a[i], b[i], map.get(a[i]) - map.get(b[i]));
+      return map.get(a[i]) - map.get(b[i]);
+    }
+    return a.length - b.length;
+  }
 };
