@@ -17,35 +17,27 @@ Each of two checks of whether some substring is a palindrome is
 
  */
 
-/**
- * @param {string} s
- * @return {boolean}
- */
+// Time O(N)
+// Space O(N)
+const validPalindrome = str => {
+  let n = str.length;
 
-var validPalindrome = function(s) {
-  let left = 0,
-    rigth = s.length - 1;
+  let lo = 0;
+  let hi = n - 1;
 
-  while (left <= rigth) {
-    if (s[left] === s[rigth]) {
-      left++;
-      rigth--;
-    } else {
-      return isPalindromic(s, left, rigth - 1) || isPalindromic(s, left + 1, rigth);
+  function dfs(l, r, error) {
+    if (l >= r) {
+      return true;
     }
+
+    if (error > 1) {
+      return false;
+    }
+
+    if (str[l] == str[r]) {
+      return dfs(l + 1, r - 1, error);
+    }
+
+    return dfs(l + 1, r, error + 1) || dfs(l, r - 1, error + 1);
   }
-  return true;
 };
-
-var isPalindromic = function(s, left, right) {
-  while (left <= right) {
-    if (s[left] !== s[right]) return false;
-    left++;
-    right--;
-  }
-  return true;
-};
-
-const res = validPalindrome('cbbcc');
-
-console.log('---', res);
