@@ -25,36 +25,32 @@ Note:
 
 class BSTIterator {
   constructor(root) {
-    this.comb = this.dfs(root);
-  }
-
-  // Time O(N)
-  // Space O(N)
-  dfs(root) {
-    const stack = [];
+    let stack = [];
     let node = root;
-    let comb = [];
 
-    while (stack.length || node !== null) {
-      while (node !== null) {
-        stack.push(node);
-        node = node.left;
-      }
-      node = node.pop();
-      comb.push(node.val);
-      node = node.right;
+    while (node != null) {
+      stack.push(node);
+      node = node.left;
     }
 
-    return comb.reverse();
+    this.stack = stack;
   }
 
-  // Time O(1)
   next() {
-    return this.comb.pop();
+    let node = this.stack.pop();
+    let res = node.val;
+
+    if (node.right != null) {
+      node = node.right;
+      while (node != null) {
+        this.stack.push(node);
+        node = node.left;
+      }
+    }
+    return res;
   }
 
-  // Time O(1)
   hasNext() {
-    return this.comb.length;
+    return this.stack.length;
   }
 }
