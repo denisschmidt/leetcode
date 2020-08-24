@@ -26,29 +26,26 @@ Note:
 
 */
 
-// Time O(N^3)
+// Time O(N^2)
 // Space O(N)
-var longestArithSeqLength = function(A) {
-  let maxLen = 1;
+const longestArithSeqLength = A => {
+  let n = A.length;
+  let dp = Array(n).fill({});
+  let max = 0;
 
-  for (let i = 0; i < A.length; i++) {
-    for (let j = i + 1; j < A.length; j++) {
-      let diff = A[i] - A[j];
-      cnt = 1;
+  for (let i = 0; i < n; i++) {
+    dp[i] = {};
+    for (let j = 0; j < i; j++) {
+      let d = A[i] - A[j];
 
-      let pre = i;
-      let k = j;
-
-      while (k < A.length) {
-        if (A[pre] - A[k] === diff) {
-          pre = k;
-          cnt++;
-        }
-        k++;
+      if (!(d in dp[j])) {
+        dp[j][d] = 1;
       }
 
-      maxLen = Math.max(maxLen, cnt);
+      dp[i][d] = dp[j][d] + 1;
+
+      max = Math.max(max, dp[i][d]);
     }
   }
-  return maxLen;
+  return max;
 };

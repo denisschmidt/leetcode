@@ -24,12 +24,13 @@ const depthSumInverse = nestedList => {
   let sum = 0;
   let comb = [];
 
-  dfs(nestedList, 0, []);
+  dfs(nestedList, 0);
 
   comb.reverse();
 
   for (let depth = 0; depth < comb.length; depth++) {
     let list = comb[depth];
+
     if (list && list.length) {
       for (let val of list) {
         sum += val * (depth + 1);

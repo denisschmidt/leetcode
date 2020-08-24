@@ -40,46 +40,33 @@ The above output corresponds to the 5 unique BST's shown below:
  */
 
 // Time O(N * Gn) основные вычисления состоят в том, чтобы построить все возможные деревья с заданным корнем,
-// который на самом деле является каталонским числом Gn * N   как обсуждалось выше. И это делается n раз,
-
+// который на самом деле является каталонским числом Gn * N   как обсуждалось выше. И это делается n раз
 // Space O(N * Gn)
 const generateTrees = n => {
-  if (n <= 0) return [];
+  if (n == 0) return [];
 
-  return helper(1, n);
+  return dfs(1, n);
 
-  function helper(lo, hi) {
-    if (lo > hi) {
+  function dfs(start, end) {
+    if (start > end) {
       return [null];
     }
 
-    if (lo === hi) {
-      return [new TreeNode(lo)];
-    }
+    let res = [];
 
-    const res = [];
+    for (let num = start; num <= end; num++) {
+      let left = dfs(start, num - 1);
+      let right = dfs(num + 1, end);
 
-    for (let k = lo; k <= hi; k++) {
-      const leftBSTs = helper(lo, k - 1);
-      const rightBSTs = helper(k + 1, hi);
-
-      for (let i = 0; i < leftBSTs.length; i++) {
-        for (let j = 0; j < rightBSTs.length; j++) {
-          const treeNode = new TreeNode(k);
-          treeNode.left = leftBSTs[i];
-          treeNode.right = rightBSTs[j];
-          res.push(treeNode);
+      for (l of left) {
+        for (r of right) {
+          let node = new TreeNode(num);
+          node.left = l;
+          node.right = r;
+          res.push(node);
         }
       }
     }
-
     return res;
   }
 };
-
-class TreeNode {
-  constructor(val) {
-    this.val = val;
-    this.left = this.right = null;
-  }
-}
