@@ -29,18 +29,26 @@ const checkInclusion = (s1, s2) => {
   let cnt = Object.keys(map).length;
 
   while (end < s2.length) {
-    if (--map[s2[end++]] == 0) {
+    map[s2[end]]--;
+
+    if (map[s2[end]] == 0) {
       cnt--;
     }
+
+    end++;
 
     while (cnt == 0) {
       if (end - start == s1.length) {
         return true;
       }
 
-      if (++map[s2[start++]] > 0) {
+      map[s2[start]]++;
+
+      if (map[s2[start]] > 0) {
         cnt++;
       }
+
+      start++;
     }
   }
 
