@@ -1,4 +1,5 @@
 /*
+
 Given two integers representing the numerator and denominator of a fraction, return the fraction in string format.
 
 If the fractional part is repeating, enclose the repeating part in parentheses.
@@ -14,7 +15,8 @@ Example 2:
 Example 3:
   Input: numerator = 2, denominator = 3
   Output: "0.(6)"
- */
+
+*/
 
 // Time O(N)
 // Space O(N)
@@ -28,8 +30,8 @@ const fractionToDecimal = (numerator, denominator) => {
   }
 
   // убираем знак операндов
-  const n = Math.abs(numerator);
-  const d = Math.abs(denominator);
+  let n = Math.abs(numerator);
+  let d = Math.abs(denominator);
 
   let result = [];
 

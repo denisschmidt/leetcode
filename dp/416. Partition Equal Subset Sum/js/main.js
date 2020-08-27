@@ -27,7 +27,7 @@ Note:
 
 // Time O(N^2)
 // Space O(N)
-const canPartition = function(nums) {
+const canPartition = nums => {
   let sum = nums.reduce((acc, v) => acc + v, 0);
 
   if (sum % 2 !== 0) {
@@ -51,25 +51,22 @@ const canPartition = function(nums) {
   return dp[target];
 };
 
-//
-// Предположим, что dp[i][j] означает, что конкретная сумма j может быть получена из первых чисел i.
-// Если мы можем выбрать такую ​​серию чисел из 0-i, чья сумма равна j, dp[i][j] будет истинным, в противном случае - ложным.
 // Time O(N^2)
 // Space O(N^2)
 const canPartition_II = nums => {
-  let sum = nums.reduce((acc, val) => acc + val, 0);
+  let totalSum = nums.reduce((acc, val) => acc + val, 0);
 
-  if (sum % 2 !== 0) return false;
+  if (totalSum % 2 != 0) return false;
 
-  // Наша цель найти сумму / 2
-  sum = sum / 2;
+  // Наша цель найти (сумму / 2)
+  let n = nums.length;
+  let target = totalSum / 2;
 
-  const n = nums.length;
-  const m = sum + 1;
-
+  // dp[i][j] означает, что конкретная сумма j может быть получена из первых i чисел
+  // Если мы можем выбрать такую ​​серию чисел из 0-i, чья сумма равна j, dp[i][j] будет истинным, в противном случае - ложным.
   const dp = Array(n + 1)
-    .fill(null)
-    .map(() => Array(m).fill(false));
+    .fill(0)
+    .map(() => Array(target + 1).fill(false));
 
   dp[0][0] = true;
 
@@ -79,24 +76,37 @@ const canPartition_II = nums => {
     dp[i][0] = true;
   }
 
-  // Заполнение первого ряда
-  // Если нет доступных значений, я не могу получить сумму j
-  for (let i = 0; i < m; i++) {
-    dp[0][i] = false;
-  }
-
-  for (let i = 1; i < n + 1; i++) {
-    for (let j = 1; j < m; j++) {
-      // если сумма которая у нас j, больше или равна i - 1 числу из nums
-      if (j >= nums[i - 1]) {
-        // Представляем, что j состоит из текущего значения nums[i], а остальные - из других предыдущих чисел.
-        dp[i][j] = dp[i - 1][j] || dp[i - 1][j - nums[i - 1]];
+  for (let i = 1; i <= n; i++) {
+    for (let sum = 1; sum <= target; sum++) {
+      // если сумма больше или равна i - 1 числу из nums
+      if (sum >= nums[i - 1]) {
+        // Представляем, что sum состоит из текущего значения nums[i], а остальные - из других предыдущих чисел.
+        dp[i][sum] = dp[i - 1][sum] || dp[i - 1][sum - nums[i - 1]];
       } else {
         // смотрим на предыдущее значение
-        dp[i][j] = dp[i - 1][j];
+        dp[i][sum] = dp[i - 1][sum];
       }
     }
   }
 
   return dp[n][sum];
+};
+
+// TLE
+// Backtracking
+const canPartition_III = nums => {
+  let target = nums.reduce((acc, v) => acc + v, 0);
+
+  if (target % 2 != 0) return false;
+
+  nums.sort((a, b) => a - b);
+
+  return dfs(target / 2, 0);
+
+  function dfs(target, index) {
+    if (index >= nums.length || target < nums[index]) return false;
+    if (target == nums[index]) return true;
+
+    return dfs(target - nums[index], index + 1) || dfs(target, index + 1);
+  }
 };
