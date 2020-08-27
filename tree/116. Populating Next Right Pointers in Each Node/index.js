@@ -32,18 +32,20 @@ Note:
 // Time O(N)
 // Space O(N)
 const connect = root => {
-  if (root == null) return null;
-  let queue = [root];
-  let depth = [0];
+  let queue = [];
+  let depth = [];
   let prevNode = null;
   let prevDepth = null;
+
+  queue.push(root);
+  depth.push(0);
 
   while (queue.length) {
     let node = queue.shift();
     let d = depth.shift();
 
-    if (node) {
-      if (prevNode && d == prevDepth) {
+    if (node != null) {
+      if (prevNode != null && prevDepth == d) {
         prevNode.next = node;
       }
 
@@ -52,8 +54,8 @@ const connect = root => {
       depth.push(d + 1);
       depth.push(d + 1);
 
-      prevNode = node;
       prevDepth = d;
+      prevNode = node;
     }
   }
 
@@ -82,7 +84,7 @@ cur = cur.next;
 
 // Time O(N)
 // Space O(1)
-const connect2 = function(root) {
+const connect2 = function (root) {
   if (root == null) return null;
 
   const ans = root;
