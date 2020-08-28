@@ -26,7 +26,6 @@ Note:
 */
 
 /*
-
   Алгоритм:
   Если сведем 2Д массив к 1Д массиву тогда наша задача становится задачей - "560. Subarray Sum Equals K"
   
@@ -56,7 +55,7 @@ Note:
 
 // Time O(N * M * (M + M))
 // Space O(N * M)
-const numSubmatrixSumTarget = function(matrix, target) {
+const numSubmatrixSumTarget = function (matrix, target) {
   let n = matrix.length;
   let m = matrix[0].length;
 
