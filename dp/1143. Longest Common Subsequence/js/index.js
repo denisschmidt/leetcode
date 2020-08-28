@@ -30,9 +30,11 @@ Constraints:
   1 <= text2.length <= 1000
   The input strings consist of lowercase English characters only.
   
-*/
+Important !!!
 
-// Найти наибольший общий subsequence строки
+Observe that if lines cross over each other, then they do not represent a common subsequence.
+
+*/
 
 // Time O(N^2)
 // Space O(N)
@@ -65,15 +67,26 @@ const longestCommonSubsequence_II = (text1, text2) => {
 
   return dfs(0, 0);
 
-  function dfs(i, j) {
-    if (i >= text1.length || j >= text2.length) return 0;
+  function dfs(index1, index2) {
+    if (index1 >= text1.length || index2 >= text2.length) {
+      return 0;
+    }
 
-    if (dp[i][j] != null) return dp[i][j];
+    if (dp[index1][index2] != null) {
+      return dp[index1][index2];
+    }
 
-    // if text1[i] == text2[j] increase i and j indexes
-    // or start two search increase i index or j index
-    dp[i][j] = text1[i] == text2[j] ? 1 + dfs(i + 1, j + 1) : Math.max(dfs(i, j + 1), dfs(i + 1, j));
+    let l = 0;
+    let r = 0;
+    
+    if (text1[index1] == text2[index2]) {
+      l = 1 + dfs(index1 + 1, index2 + 1);
+    } else {
+      r = Math.max(dfs(index1 + 1, index2), dfs(index1, index2 + 1));
+    }
 
-    return dp[i][j];
+    dp[index1][index2] = Math.max(l, r);
+
+    return dp[index1][index2];
   }
 };
