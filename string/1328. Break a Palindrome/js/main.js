@@ -24,30 +24,18 @@ Constraints:
 // Time O(N)
 // Space O(1)
 const breakPalindrome = palindrome => {
+  if (palindrome.length == 1) return '';
+
+  let chars = palindrome.split('');
+  let ch = 'a';
   let n = palindrome.length;
-  let lo = 0;
-  let hi = n - 1;
-  let cnt = 0;
-  palindrome = palindrome.split('');
 
-  while (lo < hi) {
-    let code = palindrome[lo].charCodeAt(0) - 97;
-
-    if (code > 0) {
-      palindrome[lo] = 'a';
-      return palindrome.join('');
-    } else {
-      cnt++;
+  for (let i = 0; i < n; i++) {
+    if (chars[i] != ch && !(n % 2 != 0 && i == Math.floor(n / 2))) {
+      chars[i] = 'a';
+      return chars.join('');
     }
-
-    lo++;
-    hi--;
   }
-
-  if ((cnt == Math.floor(n / 2) || cnt * 2 == n) && cnt != 0) {
-    palindrome[n - 1] = 'b';
-    return palindrome.join('');
-  }
-
-  return '';
+  chars[chars.length - 1] = 'b';
+  return chars.join('');
 };
