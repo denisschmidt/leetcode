@@ -15,60 +15,54 @@ Example:
   Output: 8
   Explanation: A -> B -> idle -> A -> B -> idle -> A -> B.
  
-
 Note:
   The number of tasks is in the range [1, 10000].
   The integer n is in the range [0, 100].
 
-  AB#A
-
 */
-
-const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
 // Time O(N) - кол-во итераций будет равно time
 // Space O(1) == O(26)
 const leastInterval = (tasks, n) => {
-  let map = Array(26).fill(0);
   let pq = new PriorityQueue({ comparator: (a, b) => b - a });
-  let ans = 0;
+  let bucket = Array(26).fill(false);
 
   for (let task of tasks) {
-    map[task.charCodeAt(0) - 'A'.charCodeAt(0)]++;
+    bucket[task.charCodeAt(0) - 'A'.charCodeAt(0)]++;
   }
 
-  map.forEach(cnt => {
-    if (cnt > 0) pq.offer(cnt);
-  });
+  for (let cnt of bucket) {
+    if (cnt > 0) {
+      pq.offer(cnt);
+    }
+  }
+
+  let res = 0;
+  let path = [];
 
   while (!pq.isEmpty()) {
-    let copy = [];
-    let i = 0;
-
-    while (i <= n) {
+    for (let i = 0; i <= n; i++) {
       if (!pq.isEmpty()) {
-        if (pq.peek() > 1) {
-          copy.push(pq.poll() - 1);
-        } else {
-          pq.poll();
+        let c = pq.poll() - 1;
+        if (c > 0) {
+          path.push(c);
         }
       }
 
-      ans++;
+      res++;
 
-      if (pq.isEmpty() && !copy.length) {
-        break;
+      if (!path.length && pq.isEmpty()) {
+        return res;
       }
-
-      i++;
     }
 
-    for (let cnt of copy) {
-      if (cnt > 0) {
-        pq.offer(cnt);
+    while (path.length) {
+      let c = path.pop();
+      if (c > 0) {
+        pq.offer(c);
       }
     }
   }
 
-  return ans;
+  return res;
 };
