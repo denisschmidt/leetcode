@@ -35,12 +35,29 @@ Example 5:
   Input: s = "mississippi" p = "mis*is*p*."
   Output: false
 
+*/
 
- */
+const isMatch = (s, p) => {
+  if (p.length == 0) {
+    return s.length == 0;
+  }
+
+  let isValid = s.length && (s[0] == p[0] || p[0] == '.');
+
+  if (p.length >= 2 && p[1] == '*') {
+    // divide by two
+    return isMatch(s, p.substring(2)) || (isValid && isMatch(s.substring(1), p));
+  } else {
+    if (isValid) {
+      return isMatch(s.substring(1), p.substring(1));
+    }
+    return false;
+  }
+};
 
 // Time O(m * n)
 // Space O(m * n)
-const isMatch = function(s, p) {
+const isMatch_II = (s, p) => {
   if (s === null || p === null) {
     return false;
   }
@@ -76,6 +93,3 @@ const isMatch = function(s, p) {
 
   return dp[s.length][p.length];
 };
-
-const res = isMatch('aab', 'c*a*b');
-console.log('---', res);

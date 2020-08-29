@@ -32,7 +32,7 @@ abcdaf => acbcf
 result => abcf
 
  */
-const longestCommonSupersequence = function(str1, str2) {
+const longestCommonSupersequence = function (str1, str2) {
   const s1 = str1.length;
   const s2 = str2.length;
   const dp = [[]];
