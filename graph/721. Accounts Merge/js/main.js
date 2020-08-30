@@ -1,4 +1,5 @@
 /*
+
 Given a list accounts, each element accounts[i] is a list of strings, where the first element accounts[i][0] is a name,
 and the rest of the elements arre emails representing emails of the account.
 
@@ -40,20 +41,17 @@ Note:
 Проверим связь между двумя электронными письмами, если они происходят в одной учетной записи.
 Проблема сводится к поиску связанных компонентов этого графа.
 
- */
+*/
 
 // Time: O(∑a[i] * Log * a[i]) где a[i] длина accounts[i].
 // Без учета логарифма это сложность построения графика и поиска для каждого компонента.
-//
 // Логарифмический фактор предназначен для сортировки каждого компонента в конце.
-//
 // Space: O(∑a[i]), пространство, используемое нашим графом и нашим поиском.
-
 const accountsMerge = accounts => {
-  const nameMap = new Map(); // <узел электронной почты, соседние узлы>
-  const graph = new Map(); //  <email, username>
+  let graph = new Map(); //  <email, username>
+  let emailsToName = new Map();
 
-  // строим граф
+  // build emails graph
   for (let account of accounts) {
     const [useName] = account;
 
@@ -62,7 +60,7 @@ const accountsMerge = accounts => {
         graph.set(account[i], new Set());
       }
 
-      nameMap.set(account[i], useName);
+      emailsToName.set(account[i], useName);
 
       if (i === 1) continue;
 
@@ -71,37 +69,40 @@ const accountsMerge = accounts => {
     }
   }
 
-  const ans = [];
-  const visited = new Set();
-  for (let [email] of nameMap.entries()) {
-    const list = [];
+  let res = [];
+  let visited = new Set();
 
-    if (!visited.has(email)) {
-      visited.add(email);
+  for (let [email, name] of emailsToName) {
+    let list = dfs(email, name, []);
 
-      dfs(email, list);
-
+    if (list.length) {
       list.sort();
-      list.unshift(nameMap.get(email));
-      ans.push(list);
+      res.push([name, ...list]);
     }
   }
 
-  return ans;
+  return res;
 
-  function dfs(email, list) {
-    list.push(email);
+  function dfs(currentEmail, currentName, list) {
+    if (visited.has(currentEmail)) {
+      return list;
+    }
 
-    for (let [value] of graph.get(email).entries()) {
-      if (!visited.has(value)) {
-        visited.add(value);
-        dfs(value, list);
+    visited.add(currentEmail);
+    list.push(currentEmail);
+
+    for (let email of graph.get(currentEmail).values()) {
+      if (email == currentEmail) continue;
+      if (currentName == emailsToName.get(email)) {
+        dfs(email, currentName, list);
       }
     }
+    return list;
   }
 };
 
-const accountsMerge_II = function(accounts) {
+// BFS
+const accountsMerge_II = accounts => {
   let names = new Map();
   let adjList = new Map();
 
