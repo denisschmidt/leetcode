@@ -25,93 +25,55 @@ Note:
 // search () - Наихудший случай: O(M), M = общее количество символов в Trie
 class WordDictionary {
   constructor() {
-    this.root = new TrieNode();
+    this.root = new Node();
   }
 
   addWord(word) {
-    let cur = this.root;
+    let node = this.root;
 
     for (let w of word) {
-      if (!(w in cur.children)) {
-        cur.children[w] = new TrieNode();
+      if (!(w in node.children)) {
+        node.children[w] = new Node();
       }
-      cur = cur.children[w];
+      node = node.children[w];
     }
 
-    cur.isEnd = true;
+    node.isWord = true;
   }
 
-  // BFS
+  dfs(word, node, index) {
+    if (index >= word.length) {
+      return node.isWord;
+    }
+
+    if (word[index] == '.') {
+      for (let i = 0; i < 26; i++) {
+        let ch = String.fromCharCode(i + 97);
+
+        if (ch in node.children && this.dfs(word, node.children[ch], index + 1)) {
+          return true;
+        }
+      }
+      return false;
+    }
+
+    if (!(word[index] in node.children)) {
+      return false;
+    }
+
+    return this.dfs(word, node.children[word[index]], index + 1);
+  }
+
   search(word) {
-    let queue = [this.root];
-    let i = 0;
-
-    while (queue.length && i < word.length) {
-      if (word[i] == '.') {
-        let size = queue.length;
-        for (let j = 0; j < size; j++) {
-          let node = queue.shift();
-          Object.keys(node.children).forEach(key => {
-            queue.push(node.children[key]);
-          });
-        }
-      } else {
-        let size = queue.length;
-
-        for (let j = 0; j < size; j++) {
-          let node = queue.shift();
-
-          if (word[i] in node.children) {
-            if (i == word.length - 1 && node.children[word[i]].isEnd) {
-              return true;
-            }
-
-            queue.push(node.children[word[i]]);
-          }
-        }
-      }
-      i++;
-    }
-
-    // для кейса когда у нас строка 'abc...'
-    while (queue.length) {
-      let node = queue.shift();
-      if (node.isEnd) return true;
-    }
-
-    return false;
-  }
-
-  search_II(word) {
-    const search = (cur, level) => {
-      if (!cur || (level === word.length && !cur.isEnd)) return false;
-
-      if (level === word.length && cur.isEnd) return true;
-
-      let char = word[level];
-
-      if (char === '.') {
-        // перебираем все символы
-        for (let i = 0; i < 26; i++) {
-          let ch = String.fromCharCode(97 + i);
-
-          if (search(cur.children[ch], level + 1)) {
-            return true;
-          }
-        }
-        return false;
-      }
-
-      return search(cur.children[char], level + 1);
-    };
-
-    return search(this.root, 0);
+    let node = this.root;
+    return this.dfs(word, node, 0);
   }
 }
 
-class TrieNode {
+class Node {
   constructor() {
+    this.isWord = false;
     this.children = {};
-    this.isEnd = false;
+    this.word = null;
   }
 }
