@@ -1,4 +1,5 @@
 /*
+
 Given a binary tree, we install cameras on the nodes of the tree.
 
 Each camera at a node can monitor its parent, itself, and its immediate children.
@@ -21,7 +22,7 @@ Note:
   The number of nodes in the given tree will be in the range [1, 1000].
   Every node has value 0.
 
- */
+*/
 
 /*
 Вместо того, чтобы пытаться покрыть каждый узел сверху вниз, 
@@ -46,73 +47,46 @@ Note:
     что означает, что по крайней мере у одного из его дочерних элементов есть камера. 
   
   3) 2: есть камера в этом узле.
+
 */
 
 // Bottom-up recursion
 // Time O(N)
 // Space O(H) где H - высота данного дерева.
 const minCameraCover = root => {
-  let cnt = 0;
-  let NOT_MONITOR = 0;
-  let MONITOR_BY_OTHER = 1;
-  let CAMERA_HERE = 2;
+  if (root == null) return 0;
 
-  const status = dfs(root);
+  let CAMERA_ON = 1;
+  let CAMERA_OFF = 0;
+  let CAMERA_SEEN = 2;
+  let res = 0;
 
-  return status === NOT_MONITOR ? ++cnt : cnt;
+  let rootCamera = dfs(root);
+
+  return rootCamera == CAMERA_OFF ? ++res : res;
 
   function dfs(node) {
-    if (!node) {
-      return MONITOR_BY_OTHER;
+    if (node == null) {
+      return CAMERA_SEEN;
     }
 
-    let left = dfs(node.left);
-    let right = dfs(node.right);
+    let l = dfs(node.left);
+    let r = dfs(node.right);
 
-    // если хотя бы 1 дочерний элемент не отслеживается, нам нужно поместить камеру в текущий узел
-    if (left === NOT_MONITOR || right === NOT_MONITOR) {
-      cnt++;
-      return CAMERA_HERE;
+    // Если хотя бы 1 дочерний элемент не отслеживается, нам нужно поместить камеру в текущий узел
+    if (l == CAMERA_OFF || r == CAMERA_OFF) {
+      res++;
+      return CAMERA_ON;
     }
 
-    // если хотя бы у одного ребенка есть камера, текущий узел отслеживается. Таким образом, нам не нужно размещать камеру здесь
-    if (left === CAMERA_HERE || right === CAMERA_HERE) {
-      return MONITOR_BY_OTHER;
+    // Если хотя бы у одного ребенка есть камера, текущий узел отслеживается.
+    // Таким образом, нам не нужно размещать камеру здесь
+    if (l == CAMERA_ON || r == CAMERA_ON) {
+      return CAMERA_SEEN;
     }
 
-    // если оба ребенка находятся под наблюдением, но у них нет камеры, нам не нужно размещать камеру здесь. Мы помещаем камеру в родительский узел на более высоком уровне.
-    return NOT_MONITOR;
-  }
-};
-
-const { makeTreeNodes } = require('../../algorithms/treeNode');
-const res = minCameraCover(makeTreeNodes([1, 2, 3, null, 4, null, 5]));
-console.log(res);
-
-// Bottom-up recursion
-// Time O(N)
-// Space O(H) где H - высота данного дерева.
-const minCameraCover2 = root => {
-  let cnt = 0;
-  let set = new Set();
-  set.add(null);
-
-  dfs(root, null);
-
-  return cnt;
-
-  function dfs(node, parent) {
-    if (!node) return;
-
-    dfs(node.left, node);
-    dfs(node.right, node);
-
-    if ((parent === null && !set.has(node)) || !set.has(node.left) || !set.has(node.right)) {
-      cnt++;
-      set.add(node);
-      set.add(parent);
-      set.add(node.left);
-      set.add(node.right);
-    }
+    // Если оба ребенка находятся под наблюдением, но у них нет камеры, нам не нужно размещать камеру здесь.
+    // Мы помещаем камеру в родительский узел на более высоком уровне.
+    return CAMERA_OFF;
   }
 };
