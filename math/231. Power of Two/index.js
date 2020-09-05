@@ -69,26 +69,15 @@ const isPowerOfTwo = n => {
 
 // Time O(LogN)
 // Space O(1)
-const isPowerOfTwo_I = n => {
-  let num = 0;
-  let i = 0;
-
-  if (n < 1) return false;
-
-  while (n % 2 === 0) {
-    n = Math.floor(n / 2);
-  }
-
-  return n === 1;
-};
-
 const isPowerOfTwo_II = n => {
-  let num;
-  let i = 0;
-  while (true) {
-    num = Math.pow(2, i);
-    if (num === n) return true;
-    else if (num > n) return false;
-    i++;
+  if (num < 1) return false;
+
+  while (num != 1) {
+    if (num % 2 != 0) {
+      return false;
+    }
+    num /= 2;
   }
+
+  return true;
 };
