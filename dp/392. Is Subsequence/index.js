@@ -44,7 +44,7 @@ const isSubsequence = (s, t) => {
 // DP longest Common Subsequence
 // Time O(N*M)
 // Space O(N*M)
-const isSubsequence_II = function(s, t) {
+const isSubsequence_II = (s, t) => {
   if (s.length == 0) return true;
   let dp = Array(t.length + 1)
     .fill(0)
@@ -62,5 +62,5 @@ const isSubsequence_II = function(s, t) {
     }
   }
 
-  return false;
+  return dp[s.length][t.length] == s.length;
 };

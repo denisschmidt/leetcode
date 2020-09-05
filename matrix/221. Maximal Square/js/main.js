@@ -21,17 +21,16 @@ const maximalSquare = matrix => {
   let n = matrix.length;
   let m = matrix[0].length;
 
-  let dp = Array(n + 1)
-    .fill(0)
-    .map(() => Array(m + 1).fill(0));
-
   let max = 0;
-
-  for (let i = 1; i <= n; i++) {
-    for (let j = 1; j <= m; j++) {
-      if (matrix[i - 1][j - 1] == '1') {
-        dp[i][j] = Math.min(dp[i - 1][j], dp[i][j - 1], dp[i - 1][j - 1]) + 1;
-        max = Math.max(max, dp[i][j]);
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      if (matrix[i][j] == '1') {
+        if (i == 0 || j == 0) {
+          max = Math.max(max, 1);
+        } else {
+          matrix[i][j] = Math.min(matrix[i][j - 1], matrix[i - 1][j], matrix[i - 1][j - 1]) + 1;
+          max = Math.max(max, matrix[i][j]);
+        }
       }
     }
   }
