@@ -67,52 +67,47 @@ It is guaranteed that in a given test case the same buffer buf is called by read
  */
 
 /**
- * @param {function} read4()
- * @return {function}
+ * Definition for read4()
+ * 
+ * @param {character[]} buf Destination buffer
+ * @return {number} The number of characters read
+ * read4 = function(buf4) {
+ *     ...
+ * };
  */
+
+
 const solution = read4 => {
-  // a pointer in the buffer
-  let ptr = 0;
-  // how many left in the buffer after last call
-  let left = 0;
-  // as read() can be called multiple times
-  // we should only allocate the buffer once
-  const buffer = Array(4);
+    /**
+     * @param {character[]} buf Destination buffer
+     * @param {number} n Number of characters to read
+     * @return {number} The number of actual characters read
+     */
 
-  /**
-   * @param {character[]} buf Destination buffer
-   * @param {number} n Maximum number of characters to read
-   * @return {number} The number of characters read
-   */
-  return (buf, n) => {
-    // end of file flag
-    let eof = false;
-    // total bytes have been read this time
-    let total = 0;
-
-    while (!eof && total < n) {
-      // if we still have some leftovers, use them
-      // otherwise we read another 4 chars
-      const size = left > 0 ? left : read4(buffer);
-
-      // check if it's the end of the file
-      eof = left === 0 && size < 4;
-
-      // get the actual count we are going to read
-      const count = Math.min(size, n - total);
-
-      // update the count of leftovers
-      left = size - count;
-
-      // copy
-      for (let i = 0; i < count; i++) {
-        buf[total++] = buffer[ptr + i];
-      }
-
-      // update the pointer
-      ptr = (ptr + count) % 4;
-    }
-
-    return total;
-  };
+    let readChars = 0;
+    let buffer = Array(4);
+    let bufferIndex = 0;
+    
+    return function(buf, n) {
+        let total = 0;
+            
+        
+        while (total < n) {
+             if (bufferIndex == readChars) {
+                 readChars = read4(buffer);
+                 bufferIndex = 0;
+                 
+                 if (readChars == 0) {
+                     break;
+                 }
+             }
+            
+             buf[total] = buffer[bufferIndex];
+             total++;
+             bufferIndex++;
+        }
+        
+        return total;
+        
+    };
 };
