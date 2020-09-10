@@ -56,7 +56,7 @@ Constraints:
 
 // Time (d + NLogN)
 // Space O(N)
-const maxEvents = function(events) {
+const maxEvents = function (events) {
   events.sort((a, b) => a[0] - b[0]);
 
   let n = events.length;

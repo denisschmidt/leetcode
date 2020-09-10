@@ -13,7 +13,7 @@ Follow up: Could you solve it in O(n2) runtime?
  */
 
 // Time O(N^2)
-var threeSumSmaller = function(nums, target) {
+var threeSumSmaller = function (nums, target) {
   const n = nums.length;
   let count = 0;
   nums.sort((a, b) => a - b);

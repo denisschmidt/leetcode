@@ -46,7 +46,7 @@ Space Complexity: O(N)O(N) in additional space complexity, to store stack and se
  * @param {number[][]} rooms
  * @return {boolean}
  */
-var canVisitAllRooms = function(rooms) {
+var canVisitAllRooms = function (rooms) {
   let seen = [],
     stack = [];
   seen[0] = true;

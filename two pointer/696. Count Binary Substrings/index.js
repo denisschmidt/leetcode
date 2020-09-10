@@ -43,7 +43,7 @@ For example "0001111", will be min(3, 4) = 3, ("01", "0011", "000111")
 
  */
 
-const countBinarySubstrings2 = function(s) {
+const countBinarySubstrings2 = function (s) {
   const size = s.length;
   let cur = 1;
   let pre = 0;
@@ -67,7 +67,7 @@ console.log('----', res2);
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const countBinarySubstrings = function(s) {
+const countBinarySubstrings = function (s) {
   const size = s.length;
   let str = '';
   let ans = 0;

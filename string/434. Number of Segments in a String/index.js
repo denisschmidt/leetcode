@@ -12,7 +12,7 @@ Output: 5
 
 // Time O(N)
 // Space O(N)
-var countSegments = function(input) {
+var countSegments = function (input) {
   let arr = input.trim().split(' ');
 
   if (!arr.length) return 0;

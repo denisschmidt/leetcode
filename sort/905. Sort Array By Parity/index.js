@@ -12,7 +12,7 @@ The outputs [4,2,3,1], [2,4,1,3], and [4,2,1,3] would also be accepted.
  * @param {number[]} A
  * @return {number[]}
  */
-var sortArrayByParity = function(a) {
+var sortArrayByParity = function (a) {
   let s = a.length,
     i = 0,
     a1 = [],

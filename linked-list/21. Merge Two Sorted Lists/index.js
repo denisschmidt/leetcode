@@ -10,7 +10,7 @@ Output: 1->1->2->3->4->4
 
 // Time: O(M + N) (worst case) and O(min(m, n)) (best case)
 // Space: O(1)
-const mergeTwoLists = function(l1, l2) {
+const mergeTwoLists = function (l1, l2) {
   let dummy = new ListNode(-1);
   let last = dummy;
 

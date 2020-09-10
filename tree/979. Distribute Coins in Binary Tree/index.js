@@ -47,7 +47,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const distributeCoins = function(root) {
+const distributeCoins = function (root) {
   let cnt = 0;
 
   dfs(root);

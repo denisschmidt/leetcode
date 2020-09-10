@@ -17,13 +17,13 @@ Note:
 
 // Time O(N^2)
 // Space O(N)
-const rotateString = function(s1, s2) {
+const rotateString = function (s1, s2) {
   return s1.length === s2.length && (s1 + s1).indexOf(s2) > -1;
 };
 
 // Time O(N^2)
 // Space O(1)
-const rotateString = function(s1, s2) {
+const rotateString = function (s1, s2) {
   let i = 0;
   while (s1 !== s2 && i < s1.length) {
     s1 = s1.slice(1) + s1.slice(0, 1);

@@ -29,7 +29,7 @@ Could you do that without using any extra space?  (Assume that the implicit stac
 
 // Time O(N)
 // Space O(N)
-const findMode = function(root) {
+const findMode = function (root) {
   if (root === null) return [];
   const stack = [];
   stack.push(root);
@@ -59,7 +59,7 @@ const findMode = function(root) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const findMode2 = function(root) {
+const findMode2 = function (root) {
   let ans = [];
   let prev;
   let count = 0;

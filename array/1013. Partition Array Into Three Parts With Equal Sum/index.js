@@ -28,7 +28,7 @@
  * @param {number[]} A
  * @return {boolean}
  */
-const canThreePartsEqualSum = function(A) {
+const canThreePartsEqualSum = function (A) {
   const total = A.reduce((acc, val) => acc + val, 0);
   const size = A.length;
   let sum = 0;

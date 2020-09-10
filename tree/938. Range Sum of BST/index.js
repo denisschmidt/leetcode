@@ -31,7 +31,7 @@ const { makeTreeNodes } = require('../../algorithms/treeNode');
  * @param {number} R
  * @return {number}
  */
-const rangeSumBST = function(root, L, R) {
+const rangeSumBST = function (root, L, R) {
   let nodeStack = [],
     valuesArr = [];
   nodeStack.push(root);

@@ -89,7 +89,7 @@ Given n = 3, there are a total of 5 unique BST's:
 // Time Complexity: O(N^2)
 //
 // Space Complexity: O(N)
-const numTrees2 = function(size) {
+const numTrees2 = function (size) {
   const dp = new Array(size + 1).fill(0);
   dp[0] = dp[1] = 1;
 

@@ -21,7 +21,7 @@ Note:
 
 // Time O(2N)
 // Space O(N)
-const topKFrequent = function(nums, k) {
+const topKFrequent = function (nums, k) {
   const map = {};
   const ans = [];
   const stack = Array(nums.length + 1)

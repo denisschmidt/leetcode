@@ -29,7 +29,7 @@ Note:
 
 */
 
-const sufficientSubset = function(root, limit) {
+const sufficientSubset = function (root, limit) {
   if (root === null) {
     return null;
   }

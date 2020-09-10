@@ -28,7 +28,7 @@ const l2 = makeLinkNodes([9]);
 
 // Time O(N)
 // Space O(N)
-var addTwoNumbers = function(l1, l2) {
+var addTwoNumbers = function (l1, l2) {
   let c1 = l1;
   let c2 = l2;
   let sentinel = new ListNode(0);

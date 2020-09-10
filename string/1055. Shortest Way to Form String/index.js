@@ -73,7 +73,7 @@ const shortestWay = (source, target) => {
 // Binary Search
 // Time O(N + N * LogN)
 // Space O(N)
-const shortestWay_II = function(source, target) {
+const shortestWay_II = function (source, target) {
   let map = new Map();
 
   for (let i = 0; i < source.length; i++) {

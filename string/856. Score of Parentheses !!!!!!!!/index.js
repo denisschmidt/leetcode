@@ -27,7 +27,7 @@ Example 4:
  * @param {string} s
  * @return {number}
  */
-const scoreOfParentheses = function(s) {
+const scoreOfParentheses = function (s) {
   let stack = [];
   stack.push(0);
 

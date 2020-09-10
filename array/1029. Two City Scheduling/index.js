@@ -30,7 +30,7 @@ It is guaranteed that costs.length is even.
 
 // Time O(NlogN)
 // Space O(N)
-const twoCitySchedCost = function(costs) {
+const twoCitySchedCost = function (costs) {
   let cntPeople = Math.floor(costs.length / 2);
   let pq = new PriorityQueue({ comparator: (a, b) => a[0] - b[0] });
 

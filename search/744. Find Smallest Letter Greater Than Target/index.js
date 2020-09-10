@@ -44,7 +44,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const nextGreatestLetter = function(letters, target) {
+const nextGreatestLetter = function (letters, target) {
   let ans = null;
 
   for (let i = 0; i < letters.length; i++) {

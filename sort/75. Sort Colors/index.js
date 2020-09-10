@@ -41,7 +41,7 @@ Could you come up with a one-pass algorithm using only constant space?
 //
 // Сложность Θ(n)
 
-var sortColors = function(nums) {
+var sortColors = function (nums) {
   if (!nums) {
     return;
   }

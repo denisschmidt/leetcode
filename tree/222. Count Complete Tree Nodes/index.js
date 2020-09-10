@@ -57,7 +57,7 @@ const isExist = (idx, depth, node) => {
 
 // По сути, мы делаем здесь бинарный поиск в бинарном поиске, и общая временная сложность
 // O (d ^ 2) = O (log N * log N) = O (log ^ 2 N) лучше, чем линейная O (N ).
-const countNodes = function(root) {
+const countNodes = function (root) {
   // если дерево пустое
   if (root === null) return 0;
 
@@ -91,7 +91,7 @@ const countNodes = function(root) {
 // Time O(logN*logN)
 
 // Поддерево полного двоичного дерева также является полным двоичным деревом.
-const countNodes3 = function(root) {
+const countNodes3 = function (root) {
   if (!root) return 0;
 
   let hl = 0;
@@ -123,7 +123,7 @@ const countNodes3 = function(root) {
 // Стек имеет размер глубины дерева, и, следовательно, сложность O(d).
 // У нас есть полное дерево и, следовательно, его глубина d = log N.
 // Следовательно, сложность пространства равна O (log N).
-const countNodes2 = function(root) {
+const countNodes2 = function (root) {
   const queue = [];
   let count = 0;
 

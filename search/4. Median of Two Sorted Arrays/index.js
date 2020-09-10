@@ -56,7 +56,7 @@ const getMedian = (nums, n) => {
 // после нахождения медиана это здачения их x2 x3,  y5 y6
 // а именно max(x2, x3) and min(y5, y6)
 
-const findMedianSortedArrays = function(input1, input2) {
+const findMedianSortedArrays = function (input1, input2) {
   //if input1 length is greater than switch them so that input1 is smaller than input2.
   if (input1.length > input2.length) {
     return findMedianSortedArrays(input2, input1);
@@ -101,7 +101,7 @@ const findMedianSortedArrays = function(input1, input2) {
 
 // Time O(N + M)
 // Space O(max(N, M))
-const findMedianSortedArrays2 = function(nums1, nums2) {
+const findMedianSortedArrays2 = function (nums1, nums2) {
   const merge = [...nums1, ...nums2].sort((a, b) => a - b);
   const median = getMedian(merge, merge.length);
   return median;
@@ -137,6 +137,6 @@ const calcMedian = (A1, A2, n) => {
 
 // Time Complexity : O(logn)
 // Algorithmic Paradigm: Divide and Conquer
-const findMedianSortedArrays3 = function(nums1, nums2) {
+const findMedianSortedArrays3 = function (nums1, nums2) {
   return calcMedian(nums1, nums2, nums1.length);
 };

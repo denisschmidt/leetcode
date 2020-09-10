@@ -95,7 +95,7 @@ const postorderTraversal = root => {
 // Time O(N)
 // Space O(N)
 // Решение через два стека s1 и s2
-const postorderTraversal2 = function(root) {
+const postorderTraversal2 = function (root) {
   if (root === null) return [];
 
   const stack1 = [];

@@ -22,7 +22,7 @@ Output:
 
 // Space O(N! / (N - k)!k!)
 
-const combine = function(n, k) {
+const combine = function (n, k) {
   const ans = [];
 
   backtrack([], 1);

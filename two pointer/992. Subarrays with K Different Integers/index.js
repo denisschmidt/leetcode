@@ -27,7 +27,7 @@ Note:
 // Two Pointers
 // Time O(N)
 // Space O(K)
-const subarraysWithKDistinct = function(nums, k) {
+const subarraysWithKDistinct = function (nums, k) {
   // Стандарный подход two pointers рассчитывает atMostK вместо ровно K.
   return atMostK(nums, k) - atMostK(nums, k - 1);
 };

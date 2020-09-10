@@ -46,7 +46,7 @@ Constraints:
 class Codec {
   constructor() {}
 
-  encode = function(root) {
+  encode = function (root) {
     if (root == null) return null;
 
     let queue = [];
@@ -79,7 +79,7 @@ class Codec {
     return newRoot;
   };
 
-  decode = function(root) {
+  decode = function (root) {
     if (root == null) return null;
 
     let newRoot = new Node(root.val, []);

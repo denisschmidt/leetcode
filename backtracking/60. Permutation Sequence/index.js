@@ -27,7 +27,7 @@ Example 2:
 
 // Time O(N)
 // Space O(N)
-const getPermutation = function(n, k) {
+const getPermutation = function (n, k) {
   let used = Array(n + 1).fill(false);
 
   let ans = helper([], used);

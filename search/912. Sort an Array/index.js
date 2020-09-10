@@ -18,7 +18,7 @@ Note:
 
 // Time O(N * logN)
 // Space O(N)
-const sortArray = function(nums) {
+const sortArray = function (nums) {
   if (nums.length <= 1) return nums;
 
   const mid = Math.floor(nums.length / 2);

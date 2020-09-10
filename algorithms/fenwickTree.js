@@ -1,7 +1,7 @@
 class FenwickTree {
   constructor(nums) {
     let n = nums.length;
-    this.binaryIndexedTree = Array(n); 
+    this.binaryIndexedTree = Array(n);
 
     for (let i = 1; i <= n; i++) {
       this.updateBinaryIndexedTree(nums[i - 1], i);
@@ -11,7 +11,7 @@ class FenwickTree {
   updateBinaryIndexedTree(val, index) {
     while (index < this.binaryIndexedTree.length) {
       this.binaryIndexedTree[index] += val;
-      index = this.getNext(index); 
+      index = this.getNext(index);
     }
   }
 

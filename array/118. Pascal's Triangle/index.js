@@ -20,7 +20,7 @@ Output:
 
 // Time O(N^2)
 // Space O(N)
-const generate = function(numRows) {
+const generate = function (numRows) {
   if (numRows === 0) return [];
   if (numRows === 1) return [[1]];
 
@@ -44,7 +44,7 @@ const generate = function(numRows) {
 
 // Time O(N^2)
 // Space O(N)
-const generate2 = function(numRows) {
+const generate2 = function (numRows) {
   if (numRows === 0) return [];
   if (numRows === 1) return [[1]];
   const ans = [[1]];

@@ -48,7 +48,7 @@ Note:
  * @param {number[]} a
  * @return {number}
  */
-const lenLongestFibSubseq = function(a) {
+const lenLongestFibSubseq = function (a) {
   let n = a.length,
     set = new Set();
   let ans = 0;
@@ -80,7 +80,7 @@ console.log('---', res);
 
 // Solution 2  Dynamic Programming
 
-const lenLongestFibSubSeq = function(a) {
+const lenLongestFibSubSeq = function (a) {
   let s = a.length,
     ans = 0,
     map = {};
@@ -110,7 +110,7 @@ console.log('---', res2);
 
 // dp[i][j] represents the length of longest sequence which ends with A[i] and A[j].
 
-const lenLongestFibSubSeqDP = function(a) {
+const lenLongestFibSubSeqDP = function (a) {
   let s = a.length,
     ans = 0,
     map = new Map();

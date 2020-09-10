@@ -66,7 +66,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const regionsBySlashes = function(grid) {
+const regionsBySlashes = function (grid) {
   // Строим grid если попадается \\ или / заполняем грид 1 в противном случае заполняем его 0
   // Потом делаем dfs и считаем кол-во 0 в grid
   // При grid.length * 2 минимальное расстояние между линиями равно нулю, что делает невозможным обнаружение региона.

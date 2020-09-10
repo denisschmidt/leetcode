@@ -52,7 +52,7 @@ Can you do it in O(n) time and/or in-place with O(1) extra space?
 // Time O(NlogN)
 // Space O(N)
 
-var wiggleSort = function(nums) {
+var wiggleSort = function (nums) {
   const size = nums.length;
   const sorted = nums.slice().sort((a, b) => a - b);
   let mid = Math.floor((size - 1) / 2);

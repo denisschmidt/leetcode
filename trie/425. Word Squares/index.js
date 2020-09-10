@@ -64,7 +64,7 @@ Input: ["abat","baba","atan","atal"]
 
 // https://leetcode.com/problems/word-squares/discuss/91333/Explained.-My-Java-solution-using-Trie-126ms-1616
 
-const wordSquares = function(words) {
+const wordSquares = function (words) {
   if (words === null || words.length === 0) return [];
   if (words.length === 1) return [words];
 

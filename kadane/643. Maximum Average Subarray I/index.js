@@ -34,7 +34,7 @@ Elements of the given array will be in the range [-10,000, 10,000].
 // Prefix Sum
 // Time O(N)
 // Space O(1)
-const findMaxAverage = function(nums, k) {
+const findMaxAverage = function (nums, k) {
   let sum = 0;
   for (let i = 0; i < k; i++) {
     sum += nums[i];
@@ -51,7 +51,7 @@ const findMaxAverage = function(nums, k) {
 
 // Time: O(n^2)
 // Space O(1)
-const findMaxAverage_II = function(nums, k) {
+const findMaxAverage_II = function (nums, k) {
   let n = nums.length;
   let max = -Number.MAX_VALUE;
   for (let i = 0; i <= n - k; i++) {
@@ -67,7 +67,7 @@ const findMaxAverage_II = function(nums, k) {
 // Cumulative Sum
 // Time O(N)
 // Space O(1)
-const findMaxAverage_III = function(nums, k) {
+const findMaxAverage_III = function (nums, k) {
   let sum = [];
   sum.push(nums[0]);
   for (let i = 1; i < nums.length; i++) {

@@ -71,7 +71,7 @@ Example 2:
  * @param {number} N
  * @return {boolean}
  */
-const divisorGame = function(N) {
+const divisorGame = function (N) {
   return N % 2 === 0;
 };
 

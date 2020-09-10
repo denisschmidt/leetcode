@@ -17,7 +17,7 @@ Output: "lovely"
 
  */
 
-var toLowerCase = function(str) {
+var toLowerCase = function (str) {
   let ans = '';
   let diff = 'a'.charCodeAt(0) - 'A'.charCodeAt(0);
   for (let i = 0; i < str.length; i++) {

@@ -32,7 +32,7 @@ Notes:
 
 // Time O(N^2)
 // Space O(1)
-const expressiveWords = function(str, words) {
+const expressiveWords = function (str, words) {
   let cnt = 0;
 
   for (let word of words) {

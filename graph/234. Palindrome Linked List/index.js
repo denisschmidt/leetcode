@@ -25,7 +25,7 @@ Follow up: Could you do it in O(n) time and O(1) space?
 
  */
 
-const isPalindrome = function(head) {
+const isPalindrome = function (head) {
   let fast = head;
   let slow = head;
 
@@ -70,7 +70,7 @@ const isPalindrome = function(head) {
 
 // Time O(N)
 // Space O(N)
-const isPalindrome2 = function(head) {
+const isPalindrome2 = function (head) {
   if (head === null) return true;
 
   const arr = [];

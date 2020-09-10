@@ -22,7 +22,7 @@ Example 2:
 
 // Time O(N) + O(N)
 // Space O(N) + O(N)
-var rob = function(nums) {
+var rob = function (nums) {
   if (!nums.length) return 0;
   if (nums.length === 1) return nums[0];
   if (nums.length === 2) return Math.max(nums[0], nums[1]);

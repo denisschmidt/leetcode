@@ -77,7 +77,7 @@ Note:
 // Space O(N)
 // Кучи все вместе требуют пространства O(K).
 // Хеш-таблице нужно около O(N - K) пространства.
-const medianSlidingWindow = function(nums, k) {
+const medianSlidingWindow = function (nums, k) {
   let min = new PriorityQueue({ comparator: (a, b) => a - b });
   let max = new PriorityQueue({ comparator: (a, b) => b - a });
 
@@ -144,7 +144,7 @@ const medianSlidingWindow = function(nums, k) {
 
 // Time O(N * K*Log*K) -> O(N*K)
 // Space O(K)
-const medianSlidingWindow_II = function(nums, k) {
+const medianSlidingWindow_II = function (nums, k) {
   let n = nums.length;
   let ans = [];
 

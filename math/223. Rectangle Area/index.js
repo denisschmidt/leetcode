@@ -16,7 +16,7 @@ Note: Assume that the total area is never beyond the maximum possible value of i
 
 // Time O(1)
 // Space O(1)
-const computeArea = function(A, B, C, D, E, F, G, H) {
+const computeArea = function (A, B, C, D, E, F, G, H) {
   let a = (C - A) * (D - B);
   let b = (G - E) * (H - F);
 

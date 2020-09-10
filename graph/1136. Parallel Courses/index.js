@@ -30,7 +30,7 @@ Note:
   There are no repeated relations in the input.
 
 */
-const minimumSemesters = function(N, relations) {
+const minimumSemesters = function (N, relations) {
   let adjList = [];
 
   for (let i = 0; i < N; i++) {

@@ -20,7 +20,7 @@ Note: The total number of elements of the given matrix will not exceed 10,000.
 
 // Time O(N*M)
 // Space O(min(N, M))
-const findDiagonalOrder = function(matrix) {
+const findDiagonalOrder = function (matrix) {
   if (matrix.length === 0) {
     return [];
   }
@@ -56,7 +56,7 @@ const findDiagonalOrder = function(matrix) {
 
 // Time O(N^3)
 // Space O(N^2)
-const findDiagonalOrder_II = function(matrix) {
+const findDiagonalOrder_II = function (matrix) {
   if (matrix.length === 0) {
     return [];
   }

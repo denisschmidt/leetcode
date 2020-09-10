@@ -21,7 +21,7 @@ Example 2:
 
 // Time O(N)
 // Space O(1)
-const increasingTriplet = function(nums) {
+const increasingTriplet = function (nums) {
   let n = nums.length;
   let INF = Number.MAX_VALUE;
   let first = INF;
@@ -78,7 +78,7 @@ const increasingTriplet = function(nums) {
 
 // Time O(N)
 // Space O(1)
-const increasingTriplet_II = function(nums) {
+const increasingTriplet_II = function (nums) {
   let first = Number.MAX_VALUE;
   let second = Number.MAX_VALUE;
 

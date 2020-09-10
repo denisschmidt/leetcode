@@ -22,7 +22,7 @@ Note:
  */
 // Time O(N)
 // Space O(1)
-const maxDistance = function(arrays) {
+const maxDistance = function (arrays) {
   if (arrays.length === 0) return 0;
   let ans = 0;
   let min = arrays[0][0];

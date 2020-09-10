@@ -73,7 +73,7 @@ const numSubarraysWithSum_II = (nums, s) => {
 
 // Time O(N)
 // Space O(N)
-const numSubarraysWithSum_III = function(nums, target) {
+const numSubarraysWithSum_III = function (nums, target) {
   const size = nums.length;
   let sum = 0;
   let ans = 0;

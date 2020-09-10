@@ -38,7 +38,7 @@ Follow up:
 // DFS
 // Time O(N)
 // Space O(N)
-const kthSmallest = function(root, k) {
+const kthSmallest = function (root, k) {
   let stack = [];
 
   while (stack.length || root != null) {

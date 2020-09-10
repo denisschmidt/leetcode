@@ -25,7 +25,7 @@ Note:
 
 */
 
-const isUgly = function(num) {
+const isUgly = function (num) {
   if (num <= 0) return false;
 
   while (num % 2 == 0) {
@@ -49,7 +49,7 @@ const isUgly = function(num) {
 let a = isUgly(13);
 console.log(a);
 
-const isUgly_II = function(num) {
+const isUgly_II = function (num) {
   if (num == 1) return true;
   if (num == 0) return false;
 

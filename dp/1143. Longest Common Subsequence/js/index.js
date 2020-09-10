@@ -78,7 +78,7 @@ const longestCommonSubsequence_II = (text1, text2) => {
 
     let l = 0;
     let r = 0;
-    
+
     if (text1[index1] == text2[index2]) {
       l = 1 + dfs(index1 + 1, index2 + 1);
     } else {

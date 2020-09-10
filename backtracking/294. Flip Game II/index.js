@@ -39,7 +39,7 @@ Follow up: Derive your algorithm's runtime complexity.
   Так как мы играем первыми, тогда мы можем гарантировать, что существует способ, которым первый игрок может выиграть
 
 */
-const canWin = function(s) {
+const canWin = function (s) {
   let n = s.length;
   let map = new Map();
 

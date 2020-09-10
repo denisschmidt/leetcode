@@ -48,7 +48,7 @@ Example 4:
 // Когда мы посещаем каждую комбинацию, мы тратим O(N^2) время для перечисления и построения каждого узла.
 
 // Space O()
-var openLock = function(deadends, target) {
+var openLock = function (deadends, target) {
   let map = {
     0: [1, 9],
     1: [2, 0],

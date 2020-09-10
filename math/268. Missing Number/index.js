@@ -21,7 +21,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const missingNumber = function(nums) {
+const missingNumber = function (nums) {
   const size = nums.length;
   const total = (size * (size + 1)) / 2;
   const sum = nums.reduce((acc, v) => acc + v, 0);

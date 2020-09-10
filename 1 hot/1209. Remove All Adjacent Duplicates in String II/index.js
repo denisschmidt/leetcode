@@ -40,7 +40,7 @@ Constraints:
 // Two Stack
 // Time O(N)
 // Space O(N)
-const removeDuplicates = function(str, k) {
+const removeDuplicates = function (str, k) {
   if (!k) return str;
 
   const n = str.length;
@@ -75,7 +75,7 @@ removeDuplicates('deeedbbcccbdaaff', 3);
 
 // Time O(N ^ 2)
 // Space O(1)
-const removeDuplicates2 = function(str, k) {
+const removeDuplicates2 = function (str, k) {
   if (k === 0) return str;
 
   while (true) {

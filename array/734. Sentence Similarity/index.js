@@ -26,7 +26,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const areSentencesSimilar = function(words1, words2, pairs) {
+const areSentencesSimilar = function (words1, words2, pairs) {
   const map = new Map();
 
   if (words1.length !== words2.length) return false;

@@ -73,7 +73,7 @@ Note:
 
 // Time O(N^2)
 // Space O(N^2)
-const PredictTheWinner = function(nums) {
+const PredictTheWinner = function (nums) {
   let n = nums.length;
   let dp = Array(n)
     .fill(null)
@@ -111,7 +111,7 @@ const PredictTheWinner = function(nums) {
 // MIN - MAX Algoritm
 // Time O(2^N)
 // Space O(N)
-const PredictTheWinner_II = function(nums) {
+const PredictTheWinner_II = function (nums) {
   return helper() >= 0;
 
   function helper(lo, hi) {

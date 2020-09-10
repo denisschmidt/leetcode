@@ -40,7 +40,7 @@ https://leetcode.com/problems/reconstruct-itinerary/discuss/78799/Very-Straightf
 
 const sort = (a, b) => a[1].localeCompare(b[1]);
 
-const findItinerary = function(tickets) {
+const findItinerary = function (tickets) {
   if (tickets === null || tickets.length === 0) {
     return [];
   }

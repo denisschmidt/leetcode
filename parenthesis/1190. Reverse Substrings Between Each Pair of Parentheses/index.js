@@ -57,7 +57,7 @@ const reverseParentheses = s => {
 // Делаем реверс каждой скобочной последовательности. стек нужен как раз для глубины
 // Time O(N^2)
 // Space O(N)
-const reverseParentheses_II = function(s) {
+const reverseParentheses_II = function (s) {
   let stack = [];
   let chars = s.split('');
 

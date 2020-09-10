@@ -47,7 +47,7 @@ const minSubArrayLen = (s, nums) => {
 // Sum of the subarrays is calculated in O(1) time.
 // Thus, the total time complexity: O(n^2 * 1)
 // Space complexity: O(N) extra space.
-const minSubArrayLen3 = function(target, nums) {
+const minSubArrayLen3 = function (target, nums) {
   let sums = [];
   sums.push(nums[0]);
   let ans = Number.MAX_VALUE;

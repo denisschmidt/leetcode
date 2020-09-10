@@ -9,7 +9,7 @@ You may assume the integer does not contain any leading zero, except the number 
 
 // Time O(N);
 // Space O(1)
-const plusOne = function(digits) {
+const plusOne = function (digits) {
   const num = BigInt(digits.join('')) + 1n;
   return num.toString().split('');
 };

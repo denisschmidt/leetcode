@@ -67,7 +67,7 @@ const reverseKGroup = (head, k) => {
 
 // Time O(N)
 // Space O(1)
-const reverseKGroup_II = function(head, k) {
+const reverseKGroup_II = function (head, k) {
   if (head == null) return null;
   if (k == 1) return head;
   if (getLen(head) < k) return head;

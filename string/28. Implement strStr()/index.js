@@ -30,7 +30,7 @@ KMP: https://en.wikipedia.org/wiki/Knuth–Morris–Pratt_algorithm
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // O(N^2)
-var strStr = function(haystack, needle) {
+var strStr = function (haystack, needle) {
   if (needle.length === 0) return 0;
   if (haystack.length === 0) return -1;
 
@@ -52,7 +52,7 @@ console.log('---', res);
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // O(N^2)
-var strStr = function(haystack, needle) {
+var strStr = function (haystack, needle) {
   if (needle.length === 0) return 0;
 
   let end = 0;

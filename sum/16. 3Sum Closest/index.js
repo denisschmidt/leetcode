@@ -12,7 +12,7 @@ Example:
  * @param {number} target
  * @return {number}
  */
-var threeSumClosest = function(nums, target) {
+var threeSumClosest = function (nums, target) {
   const len = nums.length;
   let result;
 

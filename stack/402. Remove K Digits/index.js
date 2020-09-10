@@ -57,7 +57,7 @@ const removeKdigits = (num, k) => {
 
 // TLE
 // DFS
-const removeKdigits_II = function(num, k) {
+const removeKdigits_II = function (num, k) {
   let min = Number.MAX_VALUE;
   let n = num.length;
 

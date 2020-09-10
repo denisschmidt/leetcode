@@ -66,7 +66,7 @@ const findNumOfValidWords = (words, puzzles) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const findNumOfValidWords3 = function(words, puzzles) {
+const findNumOfValidWords3 = function (words, puzzles) {
   let n = puzzles.length,
     offset = 'a'.charCodeAt();
   let res = new Array(n).fill(0);

@@ -18,7 +18,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const shortestWordDistance = function(words, word1, word2) {
+const shortestWordDistance = function (words, word1, word2) {
   let index1 = -1;
   let index2 = -1;
   let ans = Number.MAX_VALUE;

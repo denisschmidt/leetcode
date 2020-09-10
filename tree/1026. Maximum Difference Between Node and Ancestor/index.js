@@ -26,7 +26,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const maxAncestorDiff = function(root) {
+const maxAncestorDiff = function (root) {
   let result = -Number.MAX_VALUE;
 
   helper(root, 0);
@@ -50,7 +50,7 @@ const maxAncestorDiff = function(root) {
 
 // Time O(N)
 // Space O(N)
-const maxAncestorDiff_II = function(root, min = Number.MAX_VALUE, max = -Number.MAX_VALUE) {
+const maxAncestorDiff_II = function (root, min = Number.MAX_VALUE, max = -Number.MAX_VALUE) {
   if (root === null) {
     return max - min;
   }

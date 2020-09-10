@@ -12,7 +12,7 @@ Example:
 
 // Time O(10!) или O(n!) если n < 10
 // Space O(N)
-const countNumbersWithUniqueDigits_II = function(n) {
+const countNumbersWithUniqueDigits_II = function (n) {
   if (n == 0) return 1;
   if (n == 1) return 10;
 

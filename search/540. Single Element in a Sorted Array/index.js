@@ -28,7 +28,7 @@ Note: Your solution should run in O(log n) time and O(1) space.
 
 // Time O(logN)
 // Space O(1)
-const singleNonDuplicate = function(nums) {
+const singleNonDuplicate = function (nums) {
   let left = 0;
   let right = nums.length - 1;
 

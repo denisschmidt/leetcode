@@ -53,7 +53,7 @@ const backtracking = (A, sum, partsize, partsum, start) => {
   return false;
 };
 
-const splitArraySameAverage = function(A) {
+const splitArraySameAverage = function (A) {
   const sum = A.reduce((acc, item) => acc + item, 0);
   A.sort((a, b) => a - b);
   return backtracking(A, sum, 0, 0, 0);
@@ -78,7 +78,7 @@ const dfs = (start, n, sum, A) => {
 };
 
 // The only thing we must know is that the average of each partition is the average of the entire array.
-const splitArraySameAverage2 = function(A) {
+const splitArraySameAverage2 = function (A) {
   const sum = A.reduce((acc, item) => acc + item, 0);
   A.sort((a, b) => a - b);
 
@@ -109,7 +109,7 @@ const combinationSum = (nums, start, k, sum) => {
   Для таких k задача преобразуется в «Найти k sum = Asum, т.е. totalSum * k / n, из массива размера n».
   Эта подзадача аналогична сумме комбинации LC39, которая может быть решена путем возврата.
  */
-const splitArraySameAverage3 = function(A) {
+const splitArraySameAverage3 = function (A) {
   const totalSum = A.reduce((acc, val) => acc + val, 0);
   const n = A.length;
   const m = n / 2;

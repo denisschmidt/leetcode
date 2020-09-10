@@ -32,7 +32,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const deleteAndEarn = function(nums) {
+const deleteAndEarn = function (nums) {
   const size = 10001;
   const buckets = Array(size).fill(0);
 

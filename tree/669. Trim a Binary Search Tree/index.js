@@ -32,7 +32,7 @@ const { TreeNode } = require('../../algorithms/treeNode');
  * @param {number} R
  * @return {TreeNode}
  */
-const trimBST = function(root, L, R) {
+const trimBST = function (root, L, R) {
   if (!root) return root;
   if (root.val > R) return trimBST(root.left, L, R);
   if (root.val < L) return trimBST(root.right, L, R);

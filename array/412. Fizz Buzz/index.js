@@ -30,7 +30,7 @@ Return:
 
 // Time O(N)
 // Space O(N)
-const fizzBuzz = function(n) {
+const fizzBuzz = function (n) {
   let ans = [];
   for (let i = 1; i <= n; i++) {
     if (i % 3 === 0 && i % 5 === 0) {

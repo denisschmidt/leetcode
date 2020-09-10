@@ -65,7 +65,7 @@ Thinking:
   Result pattern dp[index] = dp[index - offset] + 1;
 
  */
-const countBits = function(num) {
+const countBits = function (num) {
   let dp = [];
   dp[0] = 0;
   let offset = 1;

@@ -29,7 +29,7 @@ and that "hit" isn't the answer even though it occurs more because it is banned.
  * @param {string[]} banned
  * @return {string}
  */
-const mostCommonWord = function(paragraph, banned) {
+const mostCommonWord = function (paragraph, banned) {
   let count = Number.MIN_VALUE,
     resValue = '';
   const newParagraph = paragraph.replace(/[!?',;.]/gi, ' ');

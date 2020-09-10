@@ -103,8 +103,5 @@ function isPalidrome(str) {
 }
 
 function getReverse(s) {
-  return s
-    .split('')
-    .reverse()
-    .join('');
+  return s.split('').reverse().join('');
 }

@@ -39,7 +39,7 @@ Explanation: 1 group ["abcd","cdab","adcb","cbad"]
  * @return {number}
  */
 
-const numSpecialEquivGroups = function(arr) {
+const numSpecialEquivGroups = function (arr) {
   const size = arr.length;
   let even = [],
     odd = [],

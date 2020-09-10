@@ -27,7 +27,7 @@ Note:
 // DFS + MEMO
 // Time O(K * N^2)
 // Space O(K * K)
-const largestSumOfAverages = function(nums, K) {
+const largestSumOfAverages = function (nums, K) {
   let n = nums.length;
   let dp = Array(101)
     .fill(0)

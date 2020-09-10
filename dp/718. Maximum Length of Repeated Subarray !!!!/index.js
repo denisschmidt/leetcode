@@ -17,7 +17,7 @@ Note:
 
 // Time O (M * N * min (M, N)), где M, N - длины nums1, nums2. Худший случай - это когда все элементы равны.
 // Space O(M * N)
-var findLength = function(nums1, nums2) {
+var findLength = function (nums1, nums2) {
   const n = nums1.length;
   const m = nums2.length;
   let ans = 0;
@@ -48,7 +48,7 @@ var findLength = function(nums1, nums2) {
 
 // Time O (M * N * min (M, N)), где M, N - длины nums1, nums2. Худший случай - это когда все элементы равны.
 // Space O(1)
-const findLength2 = function(nums1, nums2) {
+const findLength2 = function (nums1, nums2) {
   let ans = 0;
   let n = nums1.length;
   let m = nums2.length;

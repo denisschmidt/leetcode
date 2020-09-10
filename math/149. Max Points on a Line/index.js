@@ -65,7 +65,7 @@ Please reset to default code definition to get new method signature.
 
 // Time O(N^2)
 // Space O(N)
-const maxPoints = function(points) {
+const maxPoints = function (points) {
   let total = 0;
 
   for (let i = 0; i < points.length; i++) {
@@ -106,7 +106,7 @@ const maxPoints = function(points) {
 
 // Time (O^3)
 // Space O(1)
-const maxPoints_II = function(points) {
+const maxPoints_II = function (points) {
   if (points.length <= 2) return points.length;
 
   let max = 0;

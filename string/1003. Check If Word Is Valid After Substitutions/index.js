@@ -43,7 +43,7 @@ Note:
 
 // Time O(N^2)
 // Space O(N)
-const isValid = function(S) {
+const isValid = function (S) {
   return helper(S);
 
   function helper(S) {

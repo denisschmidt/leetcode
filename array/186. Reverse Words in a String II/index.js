@@ -21,7 +21,7 @@ Follow up: Could you do it in-place without allocating extra space?
 
 // Time O(N)
 // Space O(N)
-const reverseWords = function(str) {
+const reverseWords = function (str) {
   if (str.length === 0) return str;
   let i = str.length - 1;
 

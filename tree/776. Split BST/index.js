@@ -64,7 +64,7 @@ const { TreeNode, makeTreeNodes } = require('../algorithms/treeNode');
 
 */
 
-const splitBST = function(root, V) {
+const splitBST = function (root, V) {
   return helper(root);
 
   function helper(node) {

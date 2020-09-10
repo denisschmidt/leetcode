@@ -69,7 +69,7 @@ Example 3:
 
 // Time O(N^2)
 // Space O(1)
-const validWordSquare = function(words) {
+const validWordSquare = function (words) {
   if (words === null || words.length === 0) return false;
 
   const n = words.length;

@@ -33,7 +33,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const killProcess = function(pid, ppid, kill) {
+const killProcess = function (pid, ppid, kill) {
   let graph = new Map();
 
   for (let i = 0; i < ppid.length; i++) {

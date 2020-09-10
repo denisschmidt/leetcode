@@ -35,7 +35,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const kthGrammar = function(N, K) {
+const kthGrammar = function (N, K) {
   if (N === 1) return 0;
   return (~K & 1) ^ kthGrammar(N - 1, (K + 1) / 2);
 };

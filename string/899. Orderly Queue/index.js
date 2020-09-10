@@ -12,7 +12,7 @@ Return the lexicographically smallest string we could have after any number of m
  * @param {number} len
  * @return {string}
  */
-const orderlyQueue = function(str, k) {
+const orderlyQueue = function (str, k) {
   if (k === 1) {
     let res = str,
       cur = str;
@@ -24,10 +24,7 @@ const orderlyQueue = function(str, k) {
     }
     return res;
   } else {
-    return str
-      .split('')
-      .sort()
-      .join('');
+    return str.split('').sort().join('');
   }
 };
 

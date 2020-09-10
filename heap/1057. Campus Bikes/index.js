@@ -35,7 +35,7 @@ Note:
 
 // Time O(M*N * Log(M*N))
 // Space O(M*N)
-const assignBikes = function(workers, bikes) {
+const assignBikes = function (workers, bikes) {
   // [distance, bikeIndex, workerIndex]
   let pq = new PriorityQueue({
     comparator: (a, b) => {

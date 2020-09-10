@@ -15,7 +15,7 @@ function stepikFibbo() {
   process.stdin.setEncoding('utf8');
   let n = 0;
 
-  process.stdin.on('data', function(data) {
+  process.stdin.on('data', function (data) {
     if (data !== null) {
       n = parseInt(data);
     }
@@ -34,7 +34,7 @@ function stepikFibbo2() {
   process.stdin.setEncoding('utf8');
   let n = 0;
 
-  process.stdin.on('data', function(data) {
+  process.stdin.on('data', function (data) {
     if (data !== null) {
       n = parseInt(data);
     }
@@ -54,7 +54,7 @@ function stepikFibbo3() {
   let buffer = [];
   let content = '';
 
-  process.stdin.on('data', function(data) {
+  process.stdin.on('data', function (data) {
     content += data;
     buffer = content.split(' ');
 

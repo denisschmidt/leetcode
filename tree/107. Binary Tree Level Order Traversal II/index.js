@@ -36,7 +36,7 @@ return its bottom-up level order traversal as:
  */
 const { makeTreeNodes } = require('../../algorithms/treeNode');
 
-const levelOrderBottom = function(root) {
+const levelOrderBottom = function (root) {
   let nodeQueue = [],
     depthQueue = [],
     maxDepth = -1;

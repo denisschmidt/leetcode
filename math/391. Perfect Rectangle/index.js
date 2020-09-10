@@ -66,7 +66,7 @@ Example 4:
 
 // Time O(N)
 // Space O(N)
-const isRectangleCover = function(rectangles) {
+const isRectangleCover = function (rectangles) {
   let map = new Map();
   let area = 0;
 
@@ -175,7 +175,7 @@ const isRectangleCover_II = rectangles => {
 
 // Time O(N^2)
 // Space O(1)
-const isRectangleCover_III = function(rectangles) {
+const isRectangleCover_III = function (rectangles) {
   if (rectangles.length == 0) return true;
   if (rectangles.length == 1) return true;
 

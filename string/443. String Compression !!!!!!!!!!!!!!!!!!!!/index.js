@@ -35,7 +35,7 @@ Example 3:
 // Time: O(n)
 // Space: O(1)
 
-var compress = function(chars) {
+var compress = function (chars) {
   let ans = 0;
   let index = 0;
 

@@ -237,10 +237,7 @@ const fromDeci = (num, base) => {
     num = num / base;
   }
 
-  return res
-    .split('')
-    .reverse()
-    .join('');
+  return res.split('').reverse().join('');
 
   function getVal(num) {
     if (num >= 0 && num <= 9) {

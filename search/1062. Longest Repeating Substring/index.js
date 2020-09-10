@@ -52,7 +52,7 @@ Note:
 // Binary Search
 // Time O(NLogN)
 // Space O(N^2)
-const longestRepeatingSubstring = function(S) {
+const longestRepeatingSubstring = function (S) {
   let n = S.length;
   let lo = 1;
   let hi = n;

@@ -21,7 +21,7 @@ Output:
 
 // Approach to Backtracking !!!!!
 
-const subsets = function(nums) {
+const subsets = function (nums) {
   const ans = [];
 
   nums.sort((a, b) => a - b);

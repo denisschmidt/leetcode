@@ -33,7 +33,7 @@ SQRT(2)
 // Находим последнее число M, которое M * M <= x.
 // Time O(LogN)
 // Space O(1)
-const mySqrt = function(target) {
+const mySqrt = function (target) {
   let left = 0;
   let right = target;
   let ans = -1;

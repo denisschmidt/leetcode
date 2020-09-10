@@ -14,7 +14,7 @@ Recursive solution is trivial, could you do it iteratively?
  */
 // Time O(N)
 // Space O(N)
-const postorder = function(root) {
+const postorder = function (root) {
   if (!root) return [];
   const res = flatten(root.children.reverse());
   res.reverse().push(root.val);

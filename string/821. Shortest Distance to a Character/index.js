@@ -20,7 +20,7 @@ let S = 'loveleetcode';
 let C = 'e';
 
 // Time O(N)
-const shortestToChar = function(str, target) {
+const shortestToChar = function (str, target) {
   const indexes = [];
   const ans = [];
   for (let i = 0; i < str.length; i++) {

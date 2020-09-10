@@ -65,7 +65,7 @@ const isExist = (idx, depth, node) => {
 
 // Time O(d^2) = O(log^2 * N) где d - глубина дерева
 // Space O(1)
-const countNodes = function(root) {
+const countNodes = function (root) {
   // если дерево пустое
   if (root === null) return 0;
 

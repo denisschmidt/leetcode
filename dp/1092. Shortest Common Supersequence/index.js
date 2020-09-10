@@ -38,7 +38,7 @@ Complexity
 
 
  */
-const shortestCommonSupersequence = function(str1, str2) {
+const shortestCommonSupersequence = function (str1, str2) {
   const s1 = str1.length;
   const s2 = str2.length;
 

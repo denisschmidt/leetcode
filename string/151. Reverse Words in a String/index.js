@@ -30,7 +30,7 @@ For C programmers, try to solve it in-place in O(1) extra space.
 
  */
 
-const reverseWords = function(s) {
+const reverseWords = function (s) {
   let arr = s.trim().split(' ');
 
   if (arr.length === 0) return '';

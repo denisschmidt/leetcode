@@ -29,7 +29,7 @@ const getRow = k => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const getRow2 = function(rowIndex) {
+const getRow2 = function (rowIndex) {
   if (rowIndex === 0) return [1];
   if (rowIndex === 1) return [1, 1];
 

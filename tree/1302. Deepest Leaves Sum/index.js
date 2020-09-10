@@ -15,7 +15,7 @@ Constraints:
 
 // Time O(N)
 // Space O(N)
-const deepestLeavesSum = function(root) {
+const deepestLeavesSum = function (root) {
   let stack = [root];
   let depth = [0];
   let map = new Map();

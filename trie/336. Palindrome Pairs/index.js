@@ -139,7 +139,7 @@ const isPalindrome = (str, i, j) => {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time O(N^2 * K)
-const palindromePairs2 = function(words) {
+const palindromePairs2 = function (words) {
   const size = words.length;
   const res = [];
 

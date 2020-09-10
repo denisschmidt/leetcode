@@ -29,7 +29,7 @@ Follow up: How would you handle overflow for very large input integers?
 
 */
 
-const isAdditiveNumber = function(nums) {
+const isAdditiveNumber = function (nums) {
   let ans = false;
 
   helper([], 0);

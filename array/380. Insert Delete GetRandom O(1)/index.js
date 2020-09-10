@@ -1,7 +1,7 @@
 /**
  * Initialize your data structure here.
  */
-var RandomizedSet = function() {
+var RandomizedSet = function () {
   this.nums = [];
   this.map = new Map();
 };
@@ -11,7 +11,7 @@ var RandomizedSet = function() {
  * @param {number} val
  * @return {boolean}
  */
-RandomizedSet.prototype.insert = function(val) {
+RandomizedSet.prototype.insert = function (val) {
   if (!this.map.has(val)) {
     this.map.set(val, this.nums.length);
     this.arr.push(val);
@@ -25,7 +25,7 @@ RandomizedSet.prototype.insert = function(val) {
  * @param {number} val
  * @return {boolean}
  */
-RandomizedSet.prototype.remove = function(val) {
+RandomizedSet.prototype.remove = function (val) {
   if (!this.map.has(val)) return false;
 
   let index = this.map.get(val);
@@ -43,7 +43,7 @@ RandomizedSet.prototype.remove = function(val) {
   return true;
 };
 
-RandomizedSet.prototype.getRandomId = function() {
+RandomizedSet.prototype.getRandomId = function () {
   let rand = Math.random() * this.nums.length;
   return Math.floor(rand);
 };
@@ -52,7 +52,7 @@ RandomizedSet.prototype.getRandomId = function() {
  * Get a random element from the set.
  * @return {number}
  */
-RandomizedSet.prototype.getRandom = function() {
+RandomizedSet.prototype.getRandom = function () {
   const id = this.getRandomId();
   return this.nums[id];
 };

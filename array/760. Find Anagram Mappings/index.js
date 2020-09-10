@@ -21,7 +21,7 @@ Note:
 
 // Time O(N^2)
 // Space O(N)
-const anagramMappings = function(A, B) {
+const anagramMappings = function (A, B) {
   let ans = [];
 
   for (let i = 0; i < A.length; i++) {

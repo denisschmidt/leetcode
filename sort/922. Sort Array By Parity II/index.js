@@ -25,7 +25,7 @@ A.length % 2 == 0
  * @param {number[]} A
  * @return {number[]}
  */
-const sortArrayByParityII = function(A) {
+const sortArrayByParityII = function (A) {
   let odd = [],
     even = [],
     ans = [];

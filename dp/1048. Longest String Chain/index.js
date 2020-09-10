@@ -37,7 +37,7 @@ Note:
 
 // Time O(N^2)
 // Space O(N)
-const longestStrChain = function(words) {
+const longestStrChain = function (words) {
   let map = new Map();
   let res = 0;
   words.sort((a, b) => a.length - b.length);
@@ -62,7 +62,7 @@ const longestStrChain = function(words) {
 // DFS
 // TIme O(N^2)
 // Space O(N)
-const longestStrChain_II = function(words) {
+const longestStrChain_II = function (words) {
   let used = Array(words.length).fill(false);
   let ans = 0;
   let max = 0;

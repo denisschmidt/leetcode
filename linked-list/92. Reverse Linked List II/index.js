@@ -20,7 +20,7 @@ Example:
 
 // Time O(N)
 // Space O(1)
-var reverseBetween = function(head, m, n) {
+var reverseBetween = function (head, m, n) {
   if (head === null) return null;
   if (m === n) return head;
 
@@ -57,7 +57,7 @@ var reverseBetween = function(head, m, n) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-var reverseBetween2 = function(head, m, n) {
+var reverseBetween2 = function (head, m, n) {
   let successor = null;
 
   if (m <= 1) {

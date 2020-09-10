@@ -37,7 +37,7 @@ Constraints:
 
 // Time O(N)
 // Space O(1)
-const getDecimalValue = function(head) {
+const getDecimalValue = function (head) {
   let str = '';
 
   while (head) {

@@ -26,7 +26,7 @@ The falling path with the smallest sum is [1,4,7], so the answer is 12.
 
 // Space Complexity: O(1) in additional space complexity.
 
-const minFallingPathSum = function(A) {
+const minFallingPathSum = function (A) {
   const size = A.length;
 
   for (let i = size - 2; i >= 0; i--) {

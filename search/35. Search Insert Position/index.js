@@ -14,7 +14,7 @@ You may assume no duplicates in the array.
  * @param {number} target
  * @return {number}
  */
-var searchInsert = function(arr, search) {
+var searchInsert = function (arr, search) {
   let left = 0,
     right = arr.length - 1;
 

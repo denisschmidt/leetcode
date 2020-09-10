@@ -60,7 +60,7 @@ Note:
 */
 
 // Base solution
-const superEggDrop_III = function(eggs, floors) {
+const superEggDrop_III = function (eggs, floors) {
   return helper(eggs, floors);
 
   function helper(eggs, floors) {

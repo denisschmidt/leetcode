@@ -26,7 +26,7 @@ Example 2:
 
 // Time O(1)
 // Space O(1)
-const canMeasureWater = function(x, y, z) {
+const canMeasureWater = function (x, y, z) {
   // два числа называются относительно простыми
   // если их наибольший общий делитель равен 1
 

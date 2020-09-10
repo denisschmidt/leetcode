@@ -25,7 +25,7 @@ It is guaranteed such an S exists for the given A and B.
 
 // Time O(A + B)
 // Space O(A + B)
-const strWithout3a3b = function(A, B) {
+const strWithout3a3b = function (A, B) {
   let ans = '';
   let firstChar;
   let firstVal;

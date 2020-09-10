@@ -16,7 +16,7 @@ You may assume that word1 does not equal to word2, and word1 and word2 are both 
  */
 // Time O(N)
 // Space O(1)
-var shortestDistance = function(words, word1, word2) {
+var shortestDistance = function (words, word1, word2) {
   if (!words || words.length === 0) return;
 
   let leftIndex = -1;

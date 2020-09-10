@@ -29,7 +29,7 @@ const { TreeNode } = require('../../algorithms/treeNode');
  * @param {TreeNode} root
  * @return {TreeNode}
  */
-var pruneTree = function(node1) {
+var pruneTree = function (node1) {
   if (!node1) return null;
   node1.left = pruneTree(node1.left);
   node1.right = pruneTree(node1.right);

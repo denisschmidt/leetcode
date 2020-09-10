@@ -16,7 +16,7 @@ The input time is legal and ranges from 00:00 to 23:59.
  * @param {string[]} timePoints
  * @return {number}
  */
-var findMinDifference = function(timePoints) {
+var findMinDifference = function (timePoints) {
   let MAX_MINUTES = 24 * 60;
   let marks = new Map();
 

@@ -42,7 +42,7 @@ Example 2:
 
 // Time O(N^2)
 // Space O(N)
-const canCompleteCircuit = function(gas, cost) {
+const canCompleteCircuit = function (gas, cost) {
   for (let i = 0; i < gas.length; i++) {
     let index = i;
     let gasCnt = 0;

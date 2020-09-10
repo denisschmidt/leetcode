@@ -36,7 +36,7 @@ Note:
 // Time O(N)
 // Space O(N)
 // Using HashMap
-const canReorderDoubled = function(nums) {
+const canReorderDoubled = function (nums) {
   if (nums.length === 0) return true;
   const map = new Map();
 

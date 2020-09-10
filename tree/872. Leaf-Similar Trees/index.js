@@ -25,7 +25,7 @@ const { TreeNode } = require('../../algorithms/treeNode');
  * @return {Boolean}
  */
 
-const leafSimilar = function(root1, root2) {
+const leafSimilar = function (root1, root2) {
   let a1 = [];
   let a2 = [];
 

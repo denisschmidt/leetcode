@@ -46,7 +46,7 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
  * @param {number} target
  * @return {number}
  */
-const pathSum = function(root, target) {
+const pathSum = function (root, target) {
   let cnt = 0;
   let map = new Map();
   map.set(0, 1);

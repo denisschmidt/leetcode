@@ -22,7 +22,7 @@ Time Complexity: O(N), where N is the length of nums. We perform one loop throug
 
 Space Complexity: O(1), the space used by anchor and ans.
  */
-const findLengthOfLCIS = function(nums) {
+const findLengthOfLCIS = function (nums) {
   let ans = 1;
   let maxValue = Number.MIN_VALUE;
   for (let i = 0; i < nums.length; i++) {

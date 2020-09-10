@@ -25,7 +25,7 @@ UPDATE (2017/9/19):
 
 // Time O(LOGN + K)
 // Space O(N)
-const findClosestElements = function(nums, k, x) {
+const findClosestElements = function (nums, k, x) {
   let index = search(nums, x);
   let res = [nums[index]];
 

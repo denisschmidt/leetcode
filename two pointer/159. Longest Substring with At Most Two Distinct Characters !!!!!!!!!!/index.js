@@ -16,7 +16,7 @@ Example 2:
 
 // Time O(N)
 // Space O(K)
-const lengthOfLongestSubstringTwoDistinct = function(str) {
+const lengthOfLongestSubstringTwoDistinct = function (str) {
   const map = {};
   for (let x of str) {
     map[x] = 0;

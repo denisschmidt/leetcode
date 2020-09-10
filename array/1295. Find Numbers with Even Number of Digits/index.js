@@ -25,7 +25,7 @@ Constraints:
 
 */
 
-const findNumbers = function(nums) {
+const findNumbers = function (nums) {
   let cnt = 0;
   for (let n of nums) {
     if (n.toString().length % 2 == 0) cnt++;

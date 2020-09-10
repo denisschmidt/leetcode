@@ -57,7 +57,7 @@ const combinationSum4 = (nums, target) => {
   If this problem requires you output the combinations, the backtracking method is very useful.
 
  */
-const combinationSum4_II = function(nums, target) {
+const combinationSum4_II = function (nums, target) {
   const ans = [];
   combination(ans, [], target);
   return ans.length;
@@ -81,7 +81,7 @@ const combinationSum4_II = function(nums, target) {
 /*
   Recursion
  */
-const combinationSum4Reqursion = function(nums, target) {
+const combinationSum4Reqursion = function (nums, target) {
   if (target === 0) {
     return 1;
   }
@@ -94,7 +94,7 @@ const combinationSum4Reqursion = function(nums, target) {
   return res;
 };
 
-const combinationSum4DFS = function(nums, target) {
+const combinationSum4DFS = function (nums, target) {
   if (!nums.length) {
     return 0;
   }

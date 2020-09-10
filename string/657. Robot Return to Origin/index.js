@@ -24,7 +24,7 @@ Explanation: The robot moves left twice. It ends up two "moves" to the left of t
  * @param {string} moves
  * @return {boolean}
  */
-var judgeCircle = function(moves) {
+var judgeCircle = function (moves) {
   let x = 0,
     y = 0;
   for (let i = 0; i < moves.length; i++) {

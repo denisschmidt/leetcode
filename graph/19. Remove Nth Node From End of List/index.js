@@ -22,7 +22,7 @@ const l1 = makeLinkNodes([1, 2, 3, 4, 5]);
 
 // Time O(N)
 // Space O(N)
-var removeNthFromEnd = function(head, n) {
+var removeNthFromEnd = function (head, n) {
   let max = 0;
   const abc = head => {
     if (head === null) {
@@ -54,7 +54,7 @@ removeNthFromEnd(l1, 5);
 // У нас есть два листа один заканчивается быстрее второй медленнее
 // так как первый закончиться раньше второй будет равен slow.next = slow.next.next
 //  slow.next = slow.next.next - как раз наша замена
-var removeNthFromEnd2 = function(head, n) {
+var removeNthFromEnd2 = function (head, n) {
   let fast = head;
   let slow = head;
 

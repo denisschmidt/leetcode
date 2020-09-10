@@ -18,7 +18,7 @@ Follow up: What if the inputs contain unicode characters? How would you adapt yo
 
 // Time O(N)
 // Space O(N)
-const isAnagram = function(s, t) {
+const isAnagram = function (s, t) {
   if (s.length !== t.length) {
     return false;
   }

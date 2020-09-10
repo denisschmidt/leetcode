@@ -26,7 +26,7 @@ Constraints:
 */
 // Time O(N)
 // Space O(1)
-var checkStraightLine = function(coordinates) {
+var checkStraightLine = function (coordinates) {
   let x1 = coordinates[0][0];
   let y1 = coordinates[0][1];
   let x2 = coordinates[coordinates.length - 1][0];

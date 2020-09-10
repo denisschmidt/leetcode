@@ -45,7 +45,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const flipMatchVoyage = function(root, nums) {
+const flipMatchVoyage = function (root, nums) {
   let index = 0;
   let result = [];
 
@@ -72,7 +72,7 @@ const flipMatchVoyage = function(root, nums) {
 
 // Time O(N)
 // Space O(N)
-const flipMatchVoyage_II = function(root, nums) {
+const flipMatchVoyage_II = function (root, nums) {
   let result = [];
 
   let index = 0;

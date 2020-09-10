@@ -33,7 +33,7 @@ https://leetcode.com/problems/binary-tree-longest-consecutive-sequence-ii/soluti
 
 const { makeTreeNodes } = require('../../algorithms/treeNode');
 
-var longestConsecutive = function(root) {
+var longestConsecutive = function (root) {
   let max = 0;
   helper(root);
   return max;

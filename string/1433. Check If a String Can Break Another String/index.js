@@ -44,9 +44,6 @@ const checkIfCanBreak = (s1, s2) => {
   }
 
   function helper(str) {
-    return str
-      .split('')
-      .sort()
-      .join('');
+    return str.split('').sort().join('');
   }
 };

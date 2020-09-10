@@ -18,7 +18,7 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default c
 
 // Time O(N)
 // Space O(1)
-const canAttendMeetings = function(intervals) {
+const canAttendMeetings = function (intervals) {
   intervals.sort((a, b) => a[0] - b[0]);
 
   for (let i = 1; i < intervals.length; i++) {

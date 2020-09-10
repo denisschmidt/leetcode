@@ -13,7 +13,7 @@ Output: 1->2->3
  */
 // Time O(N)
 // Space O(1)
-const deleteDuplicates = function(head) {
+const deleteDuplicates = function (head) {
   let a = head;
 
   while (a && a.next) {
@@ -31,7 +31,7 @@ const deleteDuplicates = function(head) {
 
 // Time O(N)
 // Space O(N)
-const deleteDuplicates2 = function(head) {
+const deleteDuplicates2 = function (head) {
   let dummy = new ListNode(0);
   let a = dummy;
   let prev = null;

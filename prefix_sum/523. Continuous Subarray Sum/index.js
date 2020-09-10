@@ -37,7 +37,7 @@ You may assume the sum of all the numbers is in the range of a signed 32-bit int
 
 // Time O(N)
 // Space O(N)
-const checkSubarraySum = function(nums, k) {
+const checkSubarraySum = function (nums, k) {
   if (nums.length <= 1 || k === 0) {
     return false;
   }
@@ -77,7 +77,7 @@ const checkSubarraySum = function(nums, k) {
 
 // Time O(N^2)
 // Space O(N)
-const checkSubarraySum_II = function(nums, k) {
+const checkSubarraySum_II = function (nums, k) {
   if (nums.length === 0) {
     return false;
   }

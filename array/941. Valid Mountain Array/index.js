@@ -28,7 +28,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const validMountainArray = function(nums) {
+const validMountainArray = function (nums) {
   if (nums.length < 3) return false;
 
   let i = 0;

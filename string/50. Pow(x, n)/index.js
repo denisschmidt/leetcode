@@ -19,7 +19,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const myPow = function(x, n) {
+const myPow = function (x, n) {
   if (n === 0 || x === 1) {
     return 1;
   }
@@ -44,7 +44,7 @@ const myPow = function(x, n) {
 
 // Time O(LogN)
 // Space O(LogN)
-const myPow2 = function(x, n) {
+const myPow2 = function (x, n) {
   if (n === 0 || x === 1) return 1;
   if (n === 1) return x;
 

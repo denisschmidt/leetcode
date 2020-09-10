@@ -37,7 +37,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const splitListToParts = function(root, k) {
+const splitListToParts = function (root, k) {
   let paths = Array(k);
 
   let size = getLen(root);

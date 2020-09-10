@@ -33,7 +33,7 @@ The first node is considered odd, the second node even and so on ...
  * @return {ListNode}
  */
 
-const oddEvenList = function(head) {
+const oddEvenList = function (head) {
   if (head == null) return null;
 
   let odd = head,

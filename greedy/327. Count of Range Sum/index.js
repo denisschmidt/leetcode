@@ -32,7 +32,7 @@ Example:
 
 // Time O(N*LogN)
 // Space O(N)
-const countRangeSum = function(nums, lower, upper) {
+const countRangeSum = function (nums, lower, upper) {
   if (nums.length === 0) {
     return 0;
   }

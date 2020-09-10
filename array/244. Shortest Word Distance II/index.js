@@ -17,7 +17,7 @@ You may assume that word1 does not equal to word2, and word1 and word2 are both 
 /**
  * @param {string[]} words
  */
-var WordDistance = function(words) {
+var WordDistance = function (words) {
   const map = new Map();
 
   for (let i = 0; i < words.length; i++) {
@@ -37,7 +37,7 @@ var WordDistance = function(words) {
  * @param {string} word2
  * @return {number}
  */
-WordDistance.prototype.shortest = function(word1, word2) {
+WordDistance.prototype.shortest = function (word1, word2) {
   const list1 = this.map.get(word1);
   const list2 = this.map.get(word2);
 

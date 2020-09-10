@@ -21,7 +21,7 @@ wordgood goodgoodbestword
 
 // Time O(N * Num) где Num - words.length * words[0].length
 // O(words.length)
-const findSubstring = function(s, words) {
+const findSubstring = function (s, words) {
   if (!words || words.length === 0) return [];
 
   const map = {};

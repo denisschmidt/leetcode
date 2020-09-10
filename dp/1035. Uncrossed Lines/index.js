@@ -59,7 +59,7 @@ const maxUncrossedLines = (A, B) => {
 // Top Down Recursion + MEMO
 // Time O(N * N)
 // Space O(N * M)
-const maxUncrossedLines_II = function(A, B) {
+const maxUncrossedLines_II = function (A, B) {
   let n = A.length;
   let m = B.length;
   let INF = Number.MAX_VALUE;

@@ -55,7 +55,7 @@ Note:
 
 // Time O (log (Y / X)).
 // Space O(1)
-const brokenCalc = function(X, Y) {
+const brokenCalc = function (X, Y) {
   let cnt = 0;
 
   while (Y > X) {
@@ -72,7 +72,7 @@ const brokenCalc = function(X, Y) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //
-const brokenCalc2 = function(X, Y) {
+const brokenCalc2 = function (X, Y) {
   if (X === Y) return 0;
   if (X > Y) return X - Y;
 

@@ -14,7 +14,7 @@ Output: 2->3
 
 // Time O(N)
 // Space O(N)
-const deleteDuplicates = function(head) {
+const deleteDuplicates = function (head) {
   if (head === null) return null;
   if (head && !head.next) return new ListNode(head.val);
 

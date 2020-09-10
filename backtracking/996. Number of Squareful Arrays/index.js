@@ -32,7 +32,7 @@ const numSquarefulPerms = A => {
   A.sort();
 
   dfs();
-  
+
   return res;
 
   function dfs(comb = []) {
@@ -51,20 +51,20 @@ const numSquarefulPerms = A => {
     for (let i = 0; i < n; i++) {
       if (visited[i]) continue;
 
-      if (i > 0 && A[i - 1] == A[i] && !visited[i - 1]) continue
+      if (i > 0 && A[i - 1] == A[i] && !visited[i - 1]) continue;
 
       if (comb.length == 0 || isSquare(comb[comb.length - 1] + A[i])) {
         visited[i] = true;
         comb.push(A[i]);
-        dfs(comb)
+        dfs(comb);
         comb.pop();
         visited[i] = false;
       }
     }
   }
 
-  function isSquare(integer){
+  function isSquare(integer) {
     let root = Math.sqrt(integer);
-    return integer == Math.floor(root + 0.5) ** 2
+    return integer == Math.floor(root + 0.5) ** 2;
   }
 };

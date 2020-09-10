@@ -58,7 +58,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const equationsPossible = function(equations) {
+const equationsPossible = function (equations) {
   let graph = [];
 
   for (let i = 0; i < 26; i++) {
@@ -105,7 +105,7 @@ const equationsPossible = function(equations) {
 
 // Time O(N)
 // Space O(N)
-const equationsPossible_II = function(equations) {
+const equationsPossible_II = function (equations) {
   let colors = Array(26).fill(0);
   let visited = Array(26).fill(0);
 

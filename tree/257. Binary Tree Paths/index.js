@@ -31,7 +31,7 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
  * @param {TreeNode} root
  * @return {string[]}
  */
-const binaryTreePaths = function(root) {
+const binaryTreePaths = function (root) {
   let path = [];
   let paths = [];
   const treePaths = (node, path, paths) => {

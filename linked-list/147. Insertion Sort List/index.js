@@ -26,7 +26,7 @@ Example 2:
 
 // Time O(N)
 // Space O(1)
-const insertionSortList = function(head) {
+const insertionSortList = function (head) {
   if (head == null || head.next == null) return head;
 
   let dummyHead = new ListNode(0);

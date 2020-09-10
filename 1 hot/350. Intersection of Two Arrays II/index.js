@@ -23,7 +23,7 @@ Follow up:
 
 // Time O(n + m)
 // Space O(min(n, m))
-const intersect = function(nums1, nums2) {
+const intersect = function (nums1, nums2) {
   let map = {};
   let result = [];
   let a = nums1.length > nums2.length ? nums2 : nums1;

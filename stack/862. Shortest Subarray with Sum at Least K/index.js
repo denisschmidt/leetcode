@@ -44,7 +44,7 @@ Note:
 // Монотонная очередь
 // Time O(N)
 // Space O(N)
-const shortestSubarray = function(nums, k) {
+const shortestSubarray = function (nums, k) {
   let prefix = Array(nums.length + 1);
   prefix[0] = nums[0];
 

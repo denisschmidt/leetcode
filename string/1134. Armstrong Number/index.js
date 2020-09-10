@@ -21,7 +21,7 @@ Example 2:
 
 // Time O(N)
 // Space O(1)
-var isArmstrong = function(n) {
+var isArmstrong = function (n) {
   if (n <= 9) return true;
 
   let ans = 0;

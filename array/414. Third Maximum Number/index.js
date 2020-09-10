@@ -24,7 +24,7 @@ Both numbers with value 2 are both considered as second maximum.
  */
 
 // Time O(N)
-const thirdMax = function(nums) {
+const thirdMax = function (nums) {
   if (nums.length === 1) {
     return nums[0];
   }

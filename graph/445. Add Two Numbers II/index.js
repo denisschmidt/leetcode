@@ -63,7 +63,7 @@ const makeLinkNodes2 = (count, root) => {
 };
 // Time O(N)
 // Space O(N)
-var addTwoNumbers = function(l1, l2) {
+var addTwoNumbers = function (l1, l2) {
   let m = getLen(l1);
   let n = getLen(l2);
 

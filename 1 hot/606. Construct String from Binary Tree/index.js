@@ -36,7 +36,7 @@ except we can't omit the first parenthesis pair to break the one-to-one mapping 
 
 // Time O(N)
 // Space O(N)
-const tree2str = function(t) {
+const tree2str = function (t) {
   let stack = [t];
   let str = '';
 

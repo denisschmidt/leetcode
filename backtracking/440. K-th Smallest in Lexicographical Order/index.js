@@ -19,7 +19,7 @@ Explanation:
  */
 
 // O(K)
-const findKthNumber = function(n, k) {
+const findKthNumber = function (n, k) {
   let cur = 1;
   k--;
 

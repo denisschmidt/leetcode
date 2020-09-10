@@ -41,7 +41,7 @@ Constraints:
 
 // Это пространство O (n).
 
-var reorderLogFiles = function(logs) {
+var reorderLogFiles = function (logs) {
   const map = new Map();
   const numbers = [];
   const chars = [];

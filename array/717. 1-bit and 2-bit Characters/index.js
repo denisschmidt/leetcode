@@ -21,7 +21,7 @@ Explanation: The only way to decode it is two-bit character and two-bit characte
 
 // Time O(N)
 // Space O(1)
-var isOneBitCharacter = function(bits) {
+var isOneBitCharacter = function (bits) {
   if (bits.length === 1) {
     return bits[0] === 0;
   }

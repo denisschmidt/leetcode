@@ -31,7 +31,7 @@ Note:
 // Trie
 // Time O(N)
 // Space O(N)
-const replaceWords = function(dict, sentence) {
+const replaceWords = function (dict, sentence) {
   let chars = sentence.split(' ');
 
   const trie = new Trie(dict);
@@ -107,7 +107,7 @@ console.log(res);
 
 // Time O(N^2)
 // Space O(N)
-const replaceWords2 = function(dict, sentence) {
+const replaceWords2 = function (dict, sentence) {
   let arr = sentence.split(' ');
   for (let i = 0; i < arr.length; i++) {
     let str = arr[i];

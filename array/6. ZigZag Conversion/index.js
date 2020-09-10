@@ -32,7 +32,7 @@ P     I
 
 // Time O(N)
 // Space O(N)
-const convert = function(str, numRows) {
+const convert = function (str, numRows) {
   if (numRows <= 1) return str;
 
   let i = 1;

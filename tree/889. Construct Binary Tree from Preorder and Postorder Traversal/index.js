@@ -18,7 +18,7 @@ Note:
 
 // Time O(N^2)
 // Space O(N)
-var constructFromPrePost = function(pre, post) {
+var constructFromPrePost = function (pre, post) {
   let root = new TreeNode(pre[0]);
   let size = pre.length;
   let visited = Array(size).fill(false);

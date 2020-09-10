@@ -35,7 +35,7 @@ return true, as there exist a root-to-leaf path 5->4->11->2 which sum is 22.
  */
 const { makeTreeNodes } = require('../../algorithms/treeNode');
 
-var hasPathSum = function(root, sum) {
+var hasPathSum = function (root, sum) {
   if (!root) return false;
   if (!root.left && !root.right) return root.val === sum;
   return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);

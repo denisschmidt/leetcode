@@ -68,7 +68,7 @@ It is guaranteed that in a given test case the same buffer buf is called by read
 
 /**
  * Definition for read4()
- * 
+ *
  * @param {character[]} buf Destination buffer
  * @return {number} The number of characters read
  * read4 = function(buf4) {
@@ -76,38 +76,35 @@ It is guaranteed that in a given test case the same buffer buf is called by read
  * };
  */
 
-
 const solution = read4 => {
-    /**
-     * @param {character[]} buf Destination buffer
-     * @param {number} n Number of characters to read
-     * @return {number} The number of actual characters read
-     */
+  /**
+   * @param {character[]} buf Destination buffer
+   * @param {number} n Number of characters to read
+   * @return {number} The number of actual characters read
+   */
 
-    let readChars = 0;
-    let buffer = Array(4);
-    let bufferIndex = 0;
-    
-    return function(buf, n) {
-        let total = 0;
-            
-        
-        while (total < n) {
-             if (bufferIndex == readChars) {
-                 readChars = read4(buffer);
-                 bufferIndex = 0;
-                 
-                 if (readChars == 0) {
-                     break;
-                 }
-             }
-            
-             buf[total] = buffer[bufferIndex];
-             total++;
-             bufferIndex++;
+  let readChars = 0;
+  let buffer = Array(4);
+  let bufferIndex = 0;
+
+  return function (buf, n) {
+    let total = 0;
+
+    while (total < n) {
+      if (bufferIndex == readChars) {
+        readChars = read4(buffer);
+        bufferIndex = 0;
+
+        if (readChars == 0) {
+          break;
         }
-        
-        return total;
-        
-    };
+      }
+
+      buf[total] = buffer[bufferIndex];
+      total++;
+      bufferIndex++;
+    }
+
+    return total;
+  };
 };

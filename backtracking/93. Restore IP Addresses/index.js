@@ -10,7 +10,7 @@ Output: ["255.255.11.135", "255.255.111.35"]
 // Time: нужно проверить не более 27 комбинаций.
 // Space: постоянное пространство для хранения решений, не более 19 действительных IP-адресов.
 
-const restoreIpAddresses = function(s) {
+const restoreIpAddresses = function (s) {
   const ans = [];
 
   backtrack([], 1);

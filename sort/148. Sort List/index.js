@@ -46,7 +46,7 @@ function createLinkedList(nums) {
 
 // Time O(NlogN) + O(N)
 // Space O(N)
-var sortList = function(head) {
+var sortList = function (head) {
   let arr = [];
 
   while (head) {

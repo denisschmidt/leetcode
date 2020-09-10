@@ -51,7 +51,7 @@ Note:
 // BFS
 // Time O(N)
 // Space O(N)
-const orangesRotting = function(grid) {
+const orangesRotting = function (grid) {
   let queue = [];
   let n = grid.length;
   let m = grid[0].length;

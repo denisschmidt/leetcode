@@ -18,7 +18,7 @@ Example 2:
 
 */
 
-const judgeSquareSum = function(c) {
+const judgeSquareSum = function (c) {
   let a = 0;
   let b = 0;
 

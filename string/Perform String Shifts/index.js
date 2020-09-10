@@ -37,7 +37,7 @@ Constraints:
 
 // Time O(N * K)
 // Space O(N)
-const stringShift = function(s, shift) {
+const stringShift = function (s, shift) {
   let chars = s.split('');
 
   shift.forEach(([dir, len]) => {

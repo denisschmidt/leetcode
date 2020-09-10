@@ -15,7 +15,7 @@ Could you do it without any loop/recursion in O(1) runtime?
 
 // Time O(N)
 // Space O(1)
-const addDigits = function(num) {
+const addDigits = function (num) {
   while (num > 9) {
     let x = num % 10;
     let y = Math.floor((num - x) / 10);
@@ -28,7 +28,7 @@ const addDigits = function(num) {
 
 // Time O(1)
 // Space O(1)
-const addDigits2 = function(num) {
+const addDigits2 = function (num) {
   if (num === 0) return 0;
   return num % 9 === 0 ? 9 : num % 9;
 };

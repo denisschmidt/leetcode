@@ -23,7 +23,7 @@ A is a mountain, as defined above.
 
 // Time O(LogN)
 // Space O(1)
-const peakIndexInMountainArray = function(nums) {
+const peakIndexInMountainArray = function (nums) {
   let l = 0;
   let r = nums.length - 1;
   let ans = -1;
@@ -42,7 +42,7 @@ const peakIndexInMountainArray = function(nums) {
 
 // Time O(N)
 // Space O(1)
-const peakIndexInMountainArray2 = function(nums) {
+const peakIndexInMountainArray2 = function (nums) {
   for (let i = 0; i < nums.length - 1; i++) {
     if (nums[i] > nums[i + 1]) return i;
   }

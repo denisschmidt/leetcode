@@ -45,7 +45,7 @@ const constructMaximumBinaryTree = nums => {
 
 // Time O(N)
 // Space O(N)
-const constructMaximumBinaryTree_II = function(nums) {
+const constructMaximumBinaryTree_II = function (nums) {
   let dummy = new TreeNode(null);
 
   helper(dummy, nums);

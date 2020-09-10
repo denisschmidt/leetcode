@@ -50,7 +50,7 @@ Comments:
  * @param {number} k
  * @return {number}
  */
-const longestSubstring = function(s, k) {
+const longestSubstring = function (s, k) {
   let map = {},
     maxLen = 0;
   for (let i = 1; i <= 26; i++) {

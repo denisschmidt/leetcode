@@ -25,7 +25,7 @@ Note:
  */
 // Time O(N^2)
 // Space O(1)
-var twoSumLessThanK = function(nums, target) {
+var twoSumLessThanK = function (nums, target) {
   const n = nums.length;
   let ans = -Number.MAX_VALUE;
 

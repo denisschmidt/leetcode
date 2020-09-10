@@ -16,7 +16,7 @@ Output: [1, 3, 9]
 
 // Time O(N)
 // Space O(N)
-const largestValues = function(root) {
+const largestValues = function (root) {
   if (root === null) return [];
   let queue = [root];
   let levels = [0];

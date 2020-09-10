@@ -36,7 +36,7 @@ Note:
 
 */
 
-const largestValsFromLabels = function(values, labels, num_wanted, use_limit) {
+const largestValsFromLabels = function (values, labels, num_wanted, use_limit) {
   let pq = new PriorityQueue({ comparator: (a, b) => b[0] - a[0] });
   let size = values.length;
 

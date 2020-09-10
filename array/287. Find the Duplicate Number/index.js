@@ -19,7 +19,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const findDuplicate = function(nums) {
+const findDuplicate = function (nums) {
   if (nums.length < 1) return -1;
 
   let slow = nums[0];

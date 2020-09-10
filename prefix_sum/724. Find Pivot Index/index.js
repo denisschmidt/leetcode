@@ -28,7 +28,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const pivotIndex = function(nums) {
+const pivotIndex = function (nums) {
   if (nums.length === 0) return -1;
 
   let rightSum = 0;

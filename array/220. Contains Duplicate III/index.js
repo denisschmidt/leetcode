@@ -20,7 +20,7 @@ Output: false
 
 // Time O(N^2)
 // Space O(N)
-var containsNearbyAlmostDuplicate = function(nums, k, t) {
+var containsNearbyAlmostDuplicate = function (nums, k, t) {
   const n = nums.length;
 
   for (let i = 0; i < n - 1; i++) {

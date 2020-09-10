@@ -81,7 +81,7 @@ Output:
 // BFS + HASHMAP
 // Time O(N)
 // Space O(N)
-var verticalOrder = function(root) {
+var verticalOrder = function (root) {
   if (root === null) {
     return [];
   }

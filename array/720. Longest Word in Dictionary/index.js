@@ -40,7 +40,7 @@ const sortStr = (a, b) => {
  * @param {string[]} words
  * @return {string}
  */
-const longestWord = function(words) {
+const longestWord = function (words) {
   words.sort(sortStr);
   const set = new Set(words);
   let ans = '';

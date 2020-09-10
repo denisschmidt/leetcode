@@ -34,7 +34,7 @@ const { makeTreeNodes } = require('../../algorithms/treeNode');
  * @param {TreeNode} root2
  * @return {boolean}
  */
-const flipEquiv = function(root1, root2) {
+const flipEquiv = function (root1, root2) {
   if (root1 === root2) {
     return true;
   }

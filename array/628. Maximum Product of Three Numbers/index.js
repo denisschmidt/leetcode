@@ -24,7 +24,7 @@ Multiplication of any three numbers in the input won't exceed the range of 32-bi
 // Space O(logN)
 
 // O(logN) - это высота дерева рекурсии. когда вы используете рекурсию для сортировки, она использует logN, когда вы помещаете контекст в стек
-const maximumProduct = function(nums) {
+const maximumProduct = function (nums) {
   nums.sort((a, b) => a - b);
   let n = nums.length;
   let sum1 = nums[n - 1] * nums[n - 2] * nums[n - 3];
@@ -36,7 +36,7 @@ const maximumProduct = function(nums) {
 // Time O(N)
 // Space O(1)
 
-const maximumProduct2 = function(nums) {
+const maximumProduct2 = function (nums) {
   let min1 = Number.MAX_VALUE;
   let min2 = Number.MAX_VALUE;
 

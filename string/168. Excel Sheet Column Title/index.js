@@ -34,7 +34,7 @@ Example 3:
 
 // Time O(N)
 // Space O(N)
-const convertToTitle = function(n) {
+const convertToTitle = function (n) {
   let res = [];
 
   while (n > 0) {
@@ -51,7 +51,7 @@ const convertToTitle = function(n) {
 
 // Time O(N)
 // Space O(N)
-const convertToTitle_II = function(n) {
+const convertToTitle_II = function (n) {
   if (n == 0) return '';
 
   return convertToTitle(Math.floor((n - 1) / 26)) + String.fromCharCode(((n - 1) % 26) + 65);

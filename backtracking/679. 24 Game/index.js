@@ -24,7 +24,7 @@ Note:
 
 // Time O(1) cуществует жесткое ограничение в 9216 возможных комбинаций.
 // Space O(1) промежуточные массивы состоят не более чем из 4-х элементов, а их число ограничено коэффициентом O(1)
-const judgePoint24 = function(nums) {
+const judgePoint24 = function (nums) {
   return dfs(nums);
 
   function dfs(nums) {

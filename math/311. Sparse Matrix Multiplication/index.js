@@ -28,7 +28,7 @@ Example:
 // Умножение матриц
 // Time O(N * M * K)
 // Space O(1)
-const multiply = function(A, B) {
+const multiply = function (A, B) {
   let m = A.length;
   let n = A[0].length;
   let nB = B[0].length;

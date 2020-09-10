@@ -17,7 +17,7 @@ Output: ""
 
 // Time O(N)
 // Space O(1)
-const removeVowels = function(s) {
+const removeVowels = function (s) {
   s = replaceAll(s, 'a', '');
   s = replaceAll(s, 'e', '');
   s = replaceAll(s, 'i', '');

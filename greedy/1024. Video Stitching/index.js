@@ -70,7 +70,7 @@ Note:
 
 // Time O(NLogN)
 // Space O(N)
-const videoStitching = function(clips, T) {
+const videoStitching = function (clips, T) {
   clips.sort((a, b) => a[0] - b[0]);
 
   let i = 0;

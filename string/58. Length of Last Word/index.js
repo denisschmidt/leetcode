@@ -16,7 +16,7 @@ Output: 5
  * @param {string} s
  * @return {number}
  */
-var lengthOfLastWord = function(s) {
+var lengthOfLastWord = function (s) {
   const str = s.trim();
   const index = str.lastIndexOf(' ');
   if (!str) return 0;

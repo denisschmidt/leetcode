@@ -40,7 +40,7 @@ TreeNode {
  * @param {TreeNode} root
  * @return {number}
  */
-var maxDepth = function(root) {
+var maxDepth = function (root) {
   let max = 0;
 
   const size = (node = root, depth = max) => {

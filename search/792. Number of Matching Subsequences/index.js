@@ -18,7 +18,7 @@ Note:
 // Binary Search
 // Time O(M + N * K * LogN)
 // Space O(M)
-const numMatchingSubseq = function(S, words) {
+const numMatchingSubseq = function (S, words) {
   let map = new Map();
 
   for (let i = 0; i < S.length; i++) {
@@ -77,7 +77,7 @@ const numMatchingSubseq = function(S, words) {
 
 // Time O(N * K * M)
 // Space O(N)
-const numMatchingSubseq_II = function(S, words) {
+const numMatchingSubseq_II = function (S, words) {
   let cnt = 0;
   let memo = new Map();
 

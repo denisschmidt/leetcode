@@ -77,7 +77,7 @@ Example 5:
  * @param {string} p
  * @return {boolean}
  */
-const isMatch = function(str, pattern) {
+const isMatch = function (str, pattern) {
   let s = 0,
     p = 0,
     match = 0,

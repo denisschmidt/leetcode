@@ -35,7 +35,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const prevPermOpt1 = function(nums) {
+const prevPermOpt1 = function (nums) {
   const n = nums.length;
   let i = n - 2;
 

@@ -19,7 +19,7 @@ Note: The given number is in the range [0, 108]
 
 // Time O(N^2)
 // Space O(N)
-const maximumSwap = function(num) {
+const maximumSwap = function (num) {
   let nums = num.toString().split('');
 
   for (let i = 0; i < nums.length; i++) {

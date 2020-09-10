@@ -39,7 +39,7 @@ The above arrows point to positions where the corresponding bits are different.
 
 // Time O(1)
 // Space O(1)
-const hammingDistance = function(x, y) {
+const hammingDistance = function (x, y) {
   let xor = x ^ y;
   let cnt = 0;
 

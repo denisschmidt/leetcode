@@ -37,7 +37,7 @@ Note:
 
 // Time O(C) C - is the total content of wordlist and queries
 // Space O(C)
-var spellchecker = function(wordlist, queries) {
+var spellchecker = function (wordlist, queries) {
   let ans = [];
   let vowelsSet = new Set(['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']);
 

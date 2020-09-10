@@ -82,7 +82,7 @@ var generateFragment = (comb, letters, maxWidth, isLast) => {
 };
 
 // Time O(N)
-var fullJustify = function(words, maxWidth) {
+var fullJustify = function (words, maxWidth) {
   let ans = [];
   let i = 0;
   const backtrack = (comb = [], size = 0, index) => {

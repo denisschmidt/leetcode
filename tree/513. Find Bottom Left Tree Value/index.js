@@ -26,7 +26,7 @@ Note: You may assume the tree (i.e., the given root node) is not NULL.
 
 */
 
-const findBottomLeftValue = function(root) {
+const findBottomLeftValue = function (root) {
   let queue = [root];
   let levels = [0];
   let prevLevel = null;
@@ -52,7 +52,7 @@ const findBottomLeftValue = function(root) {
   return ans;
 };
 
-const findBottomLeftValue_II = function(root) {
+const findBottomLeftValue_II = function (root) {
   let nodeStack = [];
   let depthStack = [];
   let rightmostValueAtDepth = new Map();

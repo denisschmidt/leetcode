@@ -54,7 +54,7 @@ Constraints:
 
 // Time O(NLogN + N * K)
 // Space O(N)
-const getKth = function(lo, hi, k) {
+const getKth = function (lo, hi, k) {
   let nums = [];
 
   while (lo <= hi) {

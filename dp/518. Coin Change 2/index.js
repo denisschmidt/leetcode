@@ -48,7 +48,7 @@ const change = (amount, coins) => {
 
 // Time O(N^2)
 // Space O(N^2)
-const change_II = function(amount, coins) {
+const change_II = function (amount, coins) {
   const n = coins.length;
 
   const dp = Array(n + 1)

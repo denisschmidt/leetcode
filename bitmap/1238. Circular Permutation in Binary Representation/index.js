@@ -69,7 +69,7 @@ const circularPermutation_II = (n, start) => {
 };
 
 // TLE
-const circularPermutation_II = function(n, start) {
+const circularPermutation_II = function (n, start) {
   let maxLen = Math.pow(2, n);
   let ans = [];
 

@@ -37,7 +37,7 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
  * @param {number} sum
  * @return {number[][]}
  */
-const pathSum = function(node, sum) {
+const pathSum = function (node, sum) {
   let path = [];
   let paths = [];
 

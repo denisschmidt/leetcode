@@ -89,7 +89,7 @@ const removeInvalidParentheses = s => {
 // Обратите внимание, что мы не рассматриваем пространство, необходимое для хранения допустимых выражений.
 // Мы считаем только промежуточное пространство здесь.
 
-const removeInvalidParentheses_II = function(str) {
+const removeInvalidParentheses_II = function (str) {
   let n = str.length;
   let ans = [];
   let minRemove = Number.MAX_VALUE;

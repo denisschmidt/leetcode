@@ -25,7 +25,7 @@ const { makeTreeNodes } = require('../../algorithms/treeNode');
 
 // Time O(N)
 // Space O(N)
-const preorderTraversal = function(root) {
+const preorderTraversal = function (root) {
   let nodeStack = [];
   let arr = [];
   nodeStack.push(root);

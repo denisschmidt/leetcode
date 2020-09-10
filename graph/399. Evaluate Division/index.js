@@ -45,7 +45,7 @@ The input is always valid. You may assume that evaluating the queries will resul
 
 // Time O(N)
 // Space O(N)
-const calcEquation = function(equations, values, queries) {
+const calcEquation = function (equations, values, queries) {
   let graph = buildGraph(equations, values);
   let ans = [];
 

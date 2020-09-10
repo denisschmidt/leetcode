@@ -21,7 +21,7 @@ Note:
 // Time N/2 * O(S) - проверка числа в стороке S
 // Общая сложность по времени имеет верхнюю границу O (S^2)
 // Space O(1)
-const queryString = function(S, N) {
+const queryString = function (S, N) {
   for (let i = N; i > N / 2; --i) {
     let p = i.toString(2);
     if (S.indexOf(p) == -1) {

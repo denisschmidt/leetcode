@@ -19,7 +19,7 @@ Output: 6
 // Так как оно перебирает значения в том же столбце.x
 // Это делается для всех N * M точек, давая O(N) * O(NM) = O (N^2 * M).
 // Space O(N * M)
-const maximalRectangle_II = function(matrix) {
+const maximalRectangle_II = function (matrix) {
   if (matrix.length === 0) return 0;
   let n = matrix.length;
   let m = matrix[0].length;
@@ -74,7 +74,7 @@ const maximalRectangle_II = function(matrix) {
 
 // Time O(N*M)
 // Space O(M)
-const maximalRectangle = function(matrix) {
+const maximalRectangle = function (matrix) {
   if (matrix.length == 0) return 0;
 
   const n = matrix.length;

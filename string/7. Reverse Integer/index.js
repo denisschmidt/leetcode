@@ -22,7 +22,7 @@ For the purpose of this problem, assume that your function returns 0 when the re
 
 // Time O(log(x)
 // Space O(1)
-var reverse = function(x) {
+var reverse = function (x) {
   let rev = 0;
 
   while (x !== 0) {

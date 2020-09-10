@@ -58,7 +58,7 @@ const missingElement = (nums, k) => {
 
 // Time O(N)
 // Space O(1)
-const missingElement2 = function(nums, k) {
+const missingElement2 = function (nums, k) {
   const set = new Set(nums);
   for (let i = nums[0]; i < nums[nums.length - 1]; i++) {
     if (!set.has(i)) k--;

@@ -32,7 +32,7 @@ Constraints:
 
 // Time O(N^2)
 // Space O(N^2)
-const dieSimulator = function(N, rollMax) {
+const dieSimulator = function (N, rollMax) {
   let dp = Array(N + 1)
     .fill(null)
     .map(() => Array(6).fill(0));

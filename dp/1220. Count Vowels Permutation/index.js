@@ -30,7 +30,7 @@ Constraints:
 
 // Time O(N)
 // Space O(N)
-const countVowelPermutation = function(n) {
+const countVowelPermutation = function (n) {
   let ans = 0;
   let mod = 1e9 + 7;
   let vec = [[1], [0, 2], [0, 1, 3, 4], [2, 4], [0]];

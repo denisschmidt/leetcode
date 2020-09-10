@@ -16,7 +16,7 @@ Example:
 // For each element, we try to find its complement by looping through the rest of array which takes O(n) time.
 // Therefore, the time complexity is O(n^2)
 // Space complexity : O(1).
-const twoSum = function(nums, target) {
+const twoSum = function (nums, target) {
   const ans = [];
   const size = nums.length;
 
@@ -47,7 +47,7 @@ console.log('---', res);
 
 // Space complexity : O(n).
 // The extra space required depends on the number of items stored in the hash table, which stores exactly nn elements.
-const twoSumHash = function(nums, target) {
+const twoSumHash = function (nums, target) {
   let map = new Map();
   const size = nums.length;
   const ans = [];

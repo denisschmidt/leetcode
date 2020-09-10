@@ -36,7 +36,7 @@ After the rotation we can ignore leading zeros, for example if after rotation we
 // Time O(N)
 // Space O(N)
 
-const confusingNumber = function(x) {
+const confusingNumber = function (x) {
   const validNums = { 0: 0, 1: 1, 6: 9, 9: 6, 8: 8 };
   let num = x;
 

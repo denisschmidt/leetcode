@@ -7,7 +7,7 @@ Two binary trees are considered the same if they are structurally identical and 
 
 // Time O(N)
 // Space O(LogN)
-const isSameTree = function(q, p) {
+const isSameTree = function (q, p) {
   if (p === null && q === null) return true;
   if (p === null || q === null) return false;
 

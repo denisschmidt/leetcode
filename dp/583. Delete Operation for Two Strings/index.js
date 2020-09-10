@@ -29,7 +29,7 @@ Explanation: You need one step to make "sea" to "ea" and another step to make "e
 
 // Time O(N^2)
 // Space O(N^2)
-const minDistance = function(word1, word2) {
+const minDistance = function (word1, word2) {
   let n = word1.length;
   let m = word2.length;
 
@@ -62,7 +62,7 @@ const minDistance = function(word1, word2) {
 
 // Time O(N^2)
 // Space O(N^2)
-const minDistance_II = function(s1, s2) {
+const minDistance_II = function (s1, s2) {
   const matrix = [[]];
 
   for (let i = 0; i <= s1.length; i++) {

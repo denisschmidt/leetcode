@@ -36,7 +36,7 @@ State Transition
  * @param {string} s
  * @return {number}
  */
-var countSubstrings = function(s) {
+var countSubstrings = function (s) {
   let n = s.length;
   let ans = 0;
   let dp = Array(n)

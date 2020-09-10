@@ -29,7 +29,7 @@ Note:
 // поэтому «локальные инверсии == глобальные инверсии» можно интерпретировать как «существуют только локальные инверсии»
 // если есть только локальные инверсии, массив будет отсортирован после выполнения всех локальных инверсий
 // если есть инверсии, которые не являются локальными, массив не будет отсортирован после выполнения всех локальных инверсий
-var isIdealPermutation = function(nums) {
+var isIdealPermutation = function (nums) {
   for (let i = 1; i < nums.length; i++) {
     if (nums[i - 1] === nums[i] + 1) {
       [nums[i], nums[i - 1]] = [nums[i - 1], nums[i]];
@@ -45,7 +45,7 @@ var isIdealPermutation = function(nums) {
 // [0,1,2], [0,2,1], [1,0,2] действительны, но [1,2,0], [2,0,1]. [2,1,0] являются недействительными
 // Следовательно, arr [0] может быть только 0 или 1.
 // А также, если arr [0] = 1, arr [1] должно быть 0. Если нет, arr = [1,2,0], где global = 2, local = 1.
-var isIdealPermutation3 = function(A) {
+var isIdealPermutation3 = function (A) {
   for (let i = 0; i < A.length; i++) {
     if (A[i] !== i) {
       if (A[i] !== i + 1 || A[i + 1] !== i) return false;
@@ -58,7 +58,7 @@ var isIdealPermutation3 = function(A) {
 
 // Time O(N^2)
 // Space O(1)
-var isIdealPermutation2 = function(nums) {
+var isIdealPermutation2 = function (nums) {
   let gCount = 0;
   let lCount = 0;
 

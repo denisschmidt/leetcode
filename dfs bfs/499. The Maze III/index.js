@@ -66,7 +66,7 @@ Example 2:
 // DFS
 // Time O(n * m)
 // Space O(N)
-const findShortestWay = function(maze, ball, hole) {
+const findShortestWay = function (maze, ball, hole) {
   let path = '';
   const dirs = [
     [1, 0, 'd'],
@@ -129,7 +129,7 @@ let y = [0, 1];
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const findShortestWay2 = function(maze, ball, hole) {
+const findShortestWay2 = function (maze, ball, hole) {
   const n = maze.length;
   const m = maze[0].length;
   const dirs = [

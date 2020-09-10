@@ -74,7 +74,7 @@ const isCousins = (root, x, y) => {
 
 // Time O(N)
 // Space O(N)
-const isCousins_II = function(root, x, y) {
+const isCousins_II = function (root, x, y) {
   let map = new Map();
 
   helper(root, null, 0);

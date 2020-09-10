@@ -75,7 +75,7 @@ const searchMatrix = (matrix, target) => {
 
 // Time O(N + M)
 // Space O(1)
-const searchMatrix_II = function(matrix, target) {
+const searchMatrix_II = function (matrix, target) {
   let i = matrix.length - 1;
   let j = 0;
 

@@ -21,7 +21,7 @@ All given inputs are in lowercase letters a-z.
  * @param {string[]} strs
  * @return {string}
  */
-const longestCommonPrefix = function(strs) {
+const longestCommonPrefix = function (strs) {
   const sortArr = strs.sort((a, b) => a.length - b.length);
   let str = sortArr[0];
   let i = 1;

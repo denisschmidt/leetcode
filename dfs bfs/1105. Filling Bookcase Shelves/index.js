@@ -31,7 +31,7 @@ Constraints:
 // Для каждой книги нам нужно изучить два случая: добавить на полку и добавить новую полку.
 
 // Time O(2^N) with memo O(N * M)
-const minHeightShelves = function(books, shelf_width) {
+const minHeightShelves = function (books, shelf_width) {
   let n = books.length;
   let INF = Number.MAX_VALUE;
   let dp = Array(1001)

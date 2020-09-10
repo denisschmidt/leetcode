@@ -19,7 +19,7 @@ Example 3:
 
 // Time O(N)
 // Space O(N)
-const containsNearbyDuplicate = function(nums, k) {
+const containsNearbyDuplicate = function (nums, k) {
   let map = new Map();
 
   for (let i = 0; i < nums.length; i++) {

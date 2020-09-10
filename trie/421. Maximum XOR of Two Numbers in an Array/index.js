@@ -19,7 +19,7 @@ Explanation: The maximum result is 5 ^ 25 = 28.
 
 // Time O(N^2)
 // Space O(1)
-const findMaximumXOR = function(nums) {
+const findMaximumXOR = function (nums) {
   let ans = 0;
   for (let i = 0; i < nums.length - 1; i++) {
     for (let j = 1; j < nums.length; j++) {

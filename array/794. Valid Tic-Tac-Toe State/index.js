@@ -43,7 +43,7 @@ Note:
  */
 // Time O(N)
 // Space O(N)
-const validTicTacToe = function(board) {
+const validTicTacToe = function (board) {
   const map = new Map();
   let p1 = 'X';
   let p2 = 'O';

@@ -23,7 +23,7 @@ Example 2:
  * @param {number} target
  * @return {number[][]}
  */
-const combinationSum3 = function(len, target) {
+const combinationSum3 = function (len, target) {
   let ans = [];
 
   const combination = (ans, comb = [], t, index) => {

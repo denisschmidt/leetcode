@@ -33,7 +33,7 @@ const { PriorityQueue } = require('../../algorithms/priorityQueue');
 
 // Time O(NLogN)
 // Space O(N)
-const scheduleCourse = function(courses) {
+const scheduleCourse = function (courses) {
   courses.sort((a, b) => a[1] - b[1]);
   // max heap
   let pq = new PriorityQueue({ comparator: (a, b) => b - a });
@@ -59,7 +59,7 @@ const scheduleCourse = function(courses) {
 
 // Time O(N * D)
 // Space O(N * D)
-const scheduleCourse_II = function(courses) {
+const scheduleCourse_II = function (courses) {
   courses.sort((a, b) => a[1] - b[1]);
 
   let memo = Array(courses.length)

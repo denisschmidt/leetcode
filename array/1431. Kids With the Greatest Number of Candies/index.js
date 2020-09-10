@@ -37,7 +37,7 @@ Constraints:
 
 // Time O(N)
 // Space O(N)
-const kidsWithCandies = function(candies, extraCandies) {
+const kidsWithCandies = function (candies, extraCandies) {
   let max = Math.max(...candies);
   let n = candies.length;
   let ans = Array(n).fill(false);

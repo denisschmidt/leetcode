@@ -26,7 +26,7 @@ Explanation:
 
 */
 
-const canIWin = function(maxChoosableInteger, desiredTotal) {
+const canIWin = function (maxChoosableInteger, desiredTotal) {
   let map = new Map();
 
   if (maxChoosableInteger >= desiredTotal) return true;

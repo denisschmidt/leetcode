@@ -60,7 +60,7 @@ Note:
 
 // Time O(N)
 // Space O(1)
-const maxSubarraySumCircular = function(nums) {
+const maxSubarraySumCircular = function (nums) {
   let sum = 0;
 
   for (let x of nums) sum += x;
@@ -99,7 +99,7 @@ function kadane(nums, i, j, sign) {
 
 // Time O(N)
 // Space O(N)
-const maxSubarraySumCircular_II = function(nums) {
+const maxSubarraySumCircular_II = function (nums) {
   let n = nums.length;
 
   let prefix = [nums[0]];

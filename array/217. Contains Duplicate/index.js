@@ -18,7 +18,7 @@ Output: true
 
  */
 
-const containsDuplicate = function(nums) {
+const containsDuplicate = function (nums) {
   const set = new Set();
 
   for (let num of nums) {

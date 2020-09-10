@@ -25,7 +25,7 @@ Explanation: There are three ways to climb to the top.
 
 // Time O(N)
 // Space O(N)
-const climbStairs = function(n) {
+const climbStairs = function (n) {
   if (n === 1) {
     return 1;
   }
@@ -45,7 +45,7 @@ const climbStairs = function(n) {
 
 // Time O(1)
 // Space O(1)
-const climbStairs1 = function(n) {
+const climbStairs1 = function (n) {
   const sqrt5 = Math.sqrt(5);
   const fibn = Math.pow((1 + sqrt5) / 2, n + 1) - Math.pow((1 - sqrt5) / 2, n + 1);
   return Math.round(fibn / sqrt5);
@@ -54,7 +54,7 @@ const climbStairs1 = function(n) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time: O(n).
 // Space: O(1)
-const climbStairs2 = function(n) {
+const climbStairs2 = function (n) {
   if (n === 1) {
     return 1;
   }
@@ -72,7 +72,7 @@ const climbStairs2 = function(n) {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time: O(n)
 // Space: O(n)
-const climbStairsMemo = function(n, memo = []) {
+const climbStairsMemo = function (n, memo = []) {
   if (n === 0 || n === 1) return 1;
 
   if (!memo[n]) memo[n] = climbStairsMemo(n - 1, memo) + climbStairsMemo(n - 2, memo);

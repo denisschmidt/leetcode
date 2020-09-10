@@ -45,7 +45,7 @@ Example:
 
 // Time O(N^2)
 // Space O(N^2)
-var pacificAtlantic = function(matrix) {
+var pacificAtlantic = function (matrix) {
   if (matrix.length == 0) return [];
   let n = matrix.length;
   let m = matrix[0].length;

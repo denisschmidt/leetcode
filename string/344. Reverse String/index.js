@@ -31,7 +31,7 @@ const reverseString = s => {
 
 // Time O(N)
 // Space O(1)
-const reverseString_II = function(arr) {
+const reverseString_II = function (arr) {
   return helper(arr, 0, arr.length - 1);
 
   function helper(arr, l, r) {

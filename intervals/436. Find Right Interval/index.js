@@ -40,7 +40,7 @@ Please reset to default code definition to get new method signature.
 
 // Time O(NLogN + N^2)
 // Space O(N)
-const findRightInterval = function(intervals) {
+const findRightInterval = function (intervals) {
   let n = intervals.length;
   let res = Array(n).fill(-1);
 

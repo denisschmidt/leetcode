@@ -38,7 +38,7 @@ Therefore, sum = 495 + 491 + 40 = 1026.
 
 // Time O(N)
 // Space O(1)
-const sumNumbers = function(root) {
+const sumNumbers = function (root) {
   return helper(root, 0);
 
   function helper(node, sum = 0) {

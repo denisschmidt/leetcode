@@ -42,7 +42,7 @@ Constraints:
 
 // Time O(N * V * E)
 // Space O(E * V)
-const shortestAlternatingPaths = function(n, red_edges, blue_edges) {
+const shortestAlternatingPaths = function (n, red_edges, blue_edges) {
   let map = new Map();
 
   for (let i = 0; i < n; i++) {

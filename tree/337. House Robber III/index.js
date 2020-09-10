@@ -30,7 +30,7 @@ Explanation: Maximum amount of money the thief can rob = 4 + 5 = 9.
 
  */
 
-var rob = function(root) {
+var rob = function (root) {
   const dfs = root => {
     if (root == null) {
       return [0, 0];

@@ -16,7 +16,7 @@
  * @param {number[]} nums
  * @return {number[]}
  */
-const majorityElement = function(nums) {
+const majorityElement = function (nums) {
   const size = nums.length;
   const majority = size / 3;
   const map = new Map();

@@ -36,7 +36,7 @@ A linked list can be reversed either iteratively or recursively. Could you imple
 //
 // after operate on 1:
 // null <- 1 <- 2 <- 3 <- 4 <- 5
-const reverseList = function(head) {
+const reverseList = function (head) {
   if (head === null) return null;
   if (head.next === null) return head;
 
@@ -69,7 +69,7 @@ const reverseList = function(head) {
 
 // Time complexity : O(N). где N длинна листа
 // Space complexity : O(1).
-const reverseList_II = function(root) {
+const reverseList_II = function (root) {
   // prev будет содержать head reverse node
   let prev = null;
   let curr = root;

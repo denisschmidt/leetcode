@@ -79,7 +79,7 @@ const findUnsortedSubarray = nums => {
 
 // Time O(N^2)
 // Space O(1)
-const findUnsortedSubarray_II = function(nums) {
+const findUnsortedSubarray_II = function (nums) {
   let start = nums.length;
   let end = -Number.MAX_VALUE;
 

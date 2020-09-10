@@ -21,7 +21,7 @@ Follow up:
 
 // Time O(LogN)
 // Space O(1)
-const search = function(nums, target) {
+const search = function (nums, target) {
   let l = 0;
   let r = nums.length - 1;
 

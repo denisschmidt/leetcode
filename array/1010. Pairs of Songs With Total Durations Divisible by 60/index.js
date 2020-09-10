@@ -27,7 +27,7 @@ Note:
 
  */
 
-const numPairsDivisibleBy60 = function(time) {
+const numPairsDivisibleBy60 = function (time) {
   let ans = 0;
   for (let i = 0; i < time.length; i++) {
     for (let j = i + 1; j < time.length; j++) {

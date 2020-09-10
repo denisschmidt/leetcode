@@ -14,7 +14,7 @@ Example:
 
 // Time O(N^2)
 // Space O(N)
-const generateMatrix = function(n) {
+const generateMatrix = function (n) {
   if (n === 0) return [];
 
   const matrix = Array(n)

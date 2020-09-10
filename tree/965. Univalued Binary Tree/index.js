@@ -33,7 +33,7 @@ const isUnivalTree = root => {
     return arr.every(y => x === y);
   };
 
-  const isUnivalTree = function(root) {
+  const isUnivalTree = function (root) {
     const arr = [];
     const dfs = node => {
       if (node === null) return;

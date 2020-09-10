@@ -16,7 +16,7 @@ Explanation: 2,3,4 form a continuous range; 8,9 form a continuous range.
 
 // Time O(N)
 // Space O(1)
-var summaryRanges = function(nums) {
+var summaryRanges = function (nums) {
   let n = nums.length;
   let ans = [];
 
@@ -41,7 +41,7 @@ var summaryRanges = function(nums) {
 
 // Time O(N)
 // Space O(N)
-var summaryRanges2 = function(nums) {
+var summaryRanges2 = function (nums) {
   let ans = 0;
   let index = 0;
   let n = nums.length;

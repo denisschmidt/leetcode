@@ -29,7 +29,7 @@
  */
 const { TreeNode } = require('../../algorithms/treeNode');
 
-const averageOfLevels = function(root, depth = 0, counts = []) {
+const averageOfLevels = function (root, depth = 0, counts = []) {
   if (!root) return null;
   counts[depth] = counts[depth] || { sum: 0, nodes: 0 };
   counts[depth].sum += root.val;

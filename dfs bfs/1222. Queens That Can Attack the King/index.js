@@ -38,7 +38,7 @@ Constraints:
 
 // Time O(N^2)
 // Space O(N^2)
-const queensAttacktheKing = function(queens, king) {
+const queensAttacktheKing = function (queens, king) {
   let comb = [];
   let dirs = [
     [1, 0],

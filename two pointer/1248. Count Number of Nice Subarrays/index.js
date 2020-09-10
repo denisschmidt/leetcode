@@ -29,7 +29,7 @@ Constraints:
 // На самом деле это тоже что и three pointers
 // Time O(N)
 // Space O(1)
-const numberOfSubarrays = function(nums, k) {
+const numberOfSubarrays = function (nums, k) {
   let ans = 0;
 
   let start = 0;

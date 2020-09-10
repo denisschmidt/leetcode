@@ -26,7 +26,7 @@ Note: 0 <= N <= 10^9
 
 // Time O(LogN)
 // Space O(1)
-const baseNeg2_II = function(N) {
+const baseNeg2_II = function (N) {
   return toNegativeBase(N, -2);
 
   // Любая негативаная база числа

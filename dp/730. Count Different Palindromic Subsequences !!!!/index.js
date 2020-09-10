@@ -32,7 +32,7 @@ Note:
  * @param {string} S
  * @return {number}
  */
-const countPalindromicSubsequences = function(s) {
+const countPalindromicSubsequences = function (s) {
   let mod = 1000000007;
   let l;
   let r;
@@ -80,7 +80,7 @@ console.log('---', res);
 
 // https://csacademy.com/contest/round-57/task/distinct-palindromes/solution/
 
-var countPalindromicSubsequences2 = function(s) {
+var countPalindromicSubsequences2 = function (s) {
   let mod = 1000000007;
   let l;
   let r;

@@ -26,7 +26,7 @@ Note:
 // Two pointers
 // Prefix sum
 
-const numSubarrayProductLessThanK = function(nums, k) {
+const numSubarrayProductLessThanK = function (nums, k) {
   let product = nums[0];
   let end = 1;
   let start = 0;

@@ -28,7 +28,7 @@ Note:
  * @param {number[][]} A
  * @return {number[][]}
  */
-const transpose = function(A) {
+const transpose = function (A) {
   let ans = [[]];
   for (let i = 0; i < A[0].length; i++) {
     if (!ans[i]) {

@@ -9,6 +9,6 @@ const factorial = x => {
 // Обратите внимание, что при мемоизации рекурсивных функций желательно,
 // чтобы рекурсия выполнялась в мемоизованной версии, а не в оригинале.
 
-const fact = memoize(function(n) {
+const fact = memoize(function (n) {
   return n <= 1 ? 1 : n * factorial(n - 1);
 });

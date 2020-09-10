@@ -11,21 +11,21 @@ function flatter(arg) {
 /**
  * @param {number[][]} v
  */
-var Vector2D = function(v) {
+var Vector2D = function (v) {
   this.arr = flatter(v);
 };
 
 /**
  * @return {number}
  */
-Vector2D.prototype.next = function() {
+Vector2D.prototype.next = function () {
   return this.arr.pop();
 };
 
 /**
  * @return {boolean}
  */
-Vector2D.prototype.hasNext = function() {
+Vector2D.prototype.hasNext = function () {
   return this.arr.length;
 };
 

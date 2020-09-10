@@ -37,7 +37,7 @@ let A = [9, 9, 9, 9, 9, 9, 9, 9, 9, 9],
   K = 1;
 
 // Time O(N)
-const addToArrayForm = function(nums, target) {
+const addToArrayForm = function (nums, target) {
   let prefix = 0;
   let str = target.toString();
   let ans = [];
@@ -77,7 +77,7 @@ console.log('---', res);
 //
 // Space Complexity: O(max(N, log K)).
 
-const addToArrayForm2 = function(nums, target) {
+const addToArrayForm2 = function (nums, target) {
   let size = nums.length;
   let ans = [];
   let sum = target;

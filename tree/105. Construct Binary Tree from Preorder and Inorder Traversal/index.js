@@ -107,7 +107,7 @@ const buildTree = (preorder, inorder) => {
   }
 };
 
-const buildTree_II = function(preorder, inorder) {
+const buildTree_II = function (preorder, inorder) {
   // preorder root-left-right
   // inorder left-root-right
 

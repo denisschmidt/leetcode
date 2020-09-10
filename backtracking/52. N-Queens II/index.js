@@ -23,7 +23,7 @@ Explanation: There are two distinct solutions to the 4-queens puzzle as shown be
 
 // Time O(N!)
 // Space O(N)
-const totalNQueens = function(n) {
+const totalNQueens = function (n) {
   let ans = 0;
 
   backtrack([], 0);

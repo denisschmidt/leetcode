@@ -22,7 +22,7 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default c
 // Помимо вызова сортировки, мы выполняем простое линейное сканирование списка,
 // поэтому во время выполнения преобладает сложность сортировки O(NlogN)
 // Space: O(N) можно попробоавть сортировать intervals наместе тогда сложность будет O(1)
-const merge = function(intervals) {
+const merge = function (intervals) {
   if (intervals.length === 0) {
     return [];
   }

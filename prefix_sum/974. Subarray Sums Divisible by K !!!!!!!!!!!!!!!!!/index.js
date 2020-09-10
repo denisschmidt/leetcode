@@ -23,7 +23,7 @@ Explanation: There are 7 subarrays with a sum divisible by K = 5:
 
 // Time Complexity: O(N)
 // Space Complexity: O(K)
-const subarraysDivByK = function(nums, target) {
+const subarraysDivByK = function (nums, target) {
   const map = new Map();
   let sum = 0;
   let ans = 0;

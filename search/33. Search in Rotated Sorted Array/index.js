@@ -55,7 +55,7 @@ const search = (nums, target) => {
 
 // Time O(LogN)
 // Space O(1)
-const search_II = function(nums, target) {
+const search_II = function (nums, target) {
   const n = nums.length;
 
   if (n === 0) return -1;

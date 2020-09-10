@@ -25,7 +25,7 @@ Note:
 // Как только 1-ое подмножество найдено, мы продолжаем находить второе, что займет примерно 2^N (потому что некоторые числа были помечены как посещенные).
 // Так что T = 2^N + 2^N + 2^N + ... = k * 2 ^N.
 
-const canPartitionKSubsets = function(nums, k) {
+const canPartitionKSubsets = function (nums, k) {
   let sum = nums.reduce((acc, val) => acc + val, 0);
   let visited = [];
 

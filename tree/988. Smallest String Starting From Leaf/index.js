@@ -31,7 +31,7 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const smallestFromLeaf = function(root, parent = null) {
+const smallestFromLeaf = function (root, parent = null) {
   if (!root) return '';
 
   let left = smallestFromLeaf(root.left, root);
@@ -67,7 +67,7 @@ const smallestFromLeaf = function(root, parent = null) {
 
 // Time O(N)
 // Space O(N)
-const smallestFromLeaf_II = function(root) {
+const smallestFromLeaf_II = function (root) {
   if (root === null) return '';
 
   let stack = [root];

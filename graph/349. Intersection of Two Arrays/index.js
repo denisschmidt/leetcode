@@ -25,7 +25,7 @@ Time complexity : O(n + m),
 Space complexity : O(m+n) in the worst case when all elements in the arrays are different.
  */
 
-const intersection = function(nums1, nums2) {
+const intersection = function (nums1, nums2) {
   let i = 0,
     set = new Set(),
     res = [];

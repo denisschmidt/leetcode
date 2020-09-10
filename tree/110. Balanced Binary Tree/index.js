@@ -60,7 +60,7 @@ const dfsHeight = root => {
   return Math.max(leftHeight, rightHeight) + 1;
 };
 
-const isBalanced = function(root) {
+const isBalanced = function (root) {
   return dfsHeight(root) !== -1;
   K;
 };

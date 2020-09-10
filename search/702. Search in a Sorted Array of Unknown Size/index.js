@@ -42,7 +42,7 @@ Note:
 // Binary Search
 // Time O(LogN + LogN)
 // Space O(1)
-const search = function(reader, target) {
+const search = function (reader, target) {
   let lo = 0;
   // получаем верхнюю границу массива
   let hi = find(0, 10000);

@@ -20,7 +20,7 @@ Note:
 */
 // Time O(N^2)
 // Space O(1)
-const findMaxAverage = function(nums, k) {
+const findMaxAverage = function (nums, k) {
   let result = -Number.MAX_VALUE;
   let n = nums.length;
 

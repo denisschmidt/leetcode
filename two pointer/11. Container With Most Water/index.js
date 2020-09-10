@@ -19,7 +19,7 @@ Output: 49
 
 // Time O(N)
 // Space O(1)
-const maxArea = function(height) {
+const maxArea = function (height) {
   let l = 0;
   let r = height.length - 1;
   let ans = -Number.MAX_VALUE;
@@ -38,7 +38,7 @@ const maxArea = function(height) {
 
 // Time O(N^2)
 // Space O(N)
-const maxArea2 = function(height) {
+const maxArea2 = function (height) {
   let ans = -Number.MAX_VALUE;
   const n = height.length;
 

@@ -42,7 +42,7 @@ const { makeTreeNodes, TreeNode } = require('../../algorithms/treeNode');
 
 // Time O(N)
 // Space O(N)
-const inorderTraversal = function(root) {
+const inorderTraversal = function (root) {
   let nodeStack = [];
   let node = root;
   const resArr = [];

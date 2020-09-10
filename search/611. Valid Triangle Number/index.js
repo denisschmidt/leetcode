@@ -20,7 +20,7 @@ Note:
 
 // Time O(N^2)
 // Space O(1)
-const triangleNumber = function(nums) {
+const triangleNumber = function (nums) {
   let count = 0;
   const n = nums.length;
   nums.sort((a, b) => a - b);
@@ -45,7 +45,7 @@ const triangleNumber = function(nums) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time O(N!)
 // Space O(N)
-const triangleNumber2 = function(nums) {
+const triangleNumber2 = function (nums) {
   const n = nums.length;
   let count = 0;
 

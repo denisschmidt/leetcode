@@ -41,7 +41,7 @@ Note:
 
 // Time O(N*M)
 // Space O(N)
-const findCircleNum = function(grid) {
+const findCircleNum = function (grid) {
   let parent = [];
   let count = grid.length;
 

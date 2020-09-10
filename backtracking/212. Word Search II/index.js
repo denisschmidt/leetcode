@@ -27,7 +27,7 @@ Note:
 // Backtrack + Trie
 // Time O(N^2)
 // Space O(N)
-const findWords = function(board, words) {
+const findWords = function (board, words) {
   const dirs = [
     [0, 1],
     [0, -1],

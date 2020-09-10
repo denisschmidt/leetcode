@@ -30,7 +30,7 @@ Every cost[i] will be an integer in the range [0, 999].
  * @param {number[]} cost
  * @return {number}
  */
-const minCostClimbingStairs = function(cost) {
+const minCostClimbingStairs = function (cost) {
   let f1 = 0;
   let f2 = 0;
 
