@@ -69,7 +69,7 @@ const numberOfPatterns = (m, n) => {
       return;
     }
 
-    for (let i = 1; i < 10; i++) {
+    for (let i = 1; i <= 9; i++) {
       if (visited[i]) continue;
 
       // необходимый номер для прыжка от состояния start -> end
