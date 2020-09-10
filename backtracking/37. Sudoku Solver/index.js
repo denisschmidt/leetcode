@@ -92,7 +92,7 @@ const solve = (board, row, col) => {
   return false;
 };
 
-const solveSudoku = function(board) {
+const solveSudoku = function (board) {
   solve(board, 0, 0);
 };
 

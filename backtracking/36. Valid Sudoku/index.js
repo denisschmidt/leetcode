@@ -62,7 +62,7 @@ const board = [
   ['.', '.', '.', '.', '8', '.', '.', '7', '9'],
 ];
 
-const isValidSudoku = function(board, row = 0, col = 0) {
+const isValidSudoku = function (board, row = 0, col = 0) {
   if (row === 9) {
     return true;
   }

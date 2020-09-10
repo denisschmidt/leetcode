@@ -19,7 +19,7 @@ Output:
 
 // Approach to Backtracking !!!!!
 
-const subsetsWithDup = function(nums) {
+const subsetsWithDup = function (nums) {
   let ans = [];
   nums.sort((a, b) => a - b);
 
