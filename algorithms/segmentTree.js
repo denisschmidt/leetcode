@@ -1,8 +1,3 @@
-/*
-
-
-*/
-
 class SegTree {
   constructor(nums = []) {
     let inputArrayLength = nums.length;
