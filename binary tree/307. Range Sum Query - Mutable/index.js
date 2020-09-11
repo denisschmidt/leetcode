@@ -48,10 +48,12 @@ class NumArray {
   getSum(i) {
     let sum = 0;
     i++;
+
     while (i > 0) {
       sum += this.tree[i];
       i = this.getPrev(i);
     }
+
     return sum;
   }
 
