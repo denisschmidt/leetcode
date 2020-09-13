@@ -4,11 +4,11 @@ class FenwickTree {
     this.binaryIndexedTree = Array(n);
 
     for (let i = 1; i <= n; i++) {
-      this.updateBinaryIndexedTree(nums[i - 1], i);
+      this.build(i, nums[i - 1]);
     }
   }
 
-  updateBinaryIndexedTree(val, index) {
+  build(index, val) {
     while (index < this.binaryIndexedTree.length) {
       this.binaryIndexedTree[index] += val;
       index = this.getNext(index);
