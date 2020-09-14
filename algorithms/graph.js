@@ -25,7 +25,7 @@
 // Space Complexity: O(V).
 // To store the visited and recursion stack O(V) space is needed.
 
-function main(n, graph) {
+function DirectedGraph(n, graph) {
   let visited = Array(n).fill(false);
   let stack = Array(n).fill(false);
 
@@ -50,6 +50,146 @@ function main(n, graph) {
     }
 
     stack[u] = false;
+
+    return false;
+  }
+}
+
+/*
+
+  Graph theory:
+
+  Graph can't possibly contain a cycle. If the graph is fully connected and contains exactly n - 1 edges!
+
+  And graph must be a tree.
+
+  Going by this definition, our algorithm needs to do the following:
+    1) Check whether or not there are n - 1 edges. If there's not, then return false.
+    2) Check whether or not the graph is fully connected. Return true if it is, false if otherwise.
+
+  Detect Cycle in a UnDirected Graph
+
+  Solutions:
+    1) Union Find
+    2) Recursion DFS
+    3) Iterative DFS + MAP
+    4) Iterative DFS + SET + Remove
+
+*/
+
+function UnDirectedGraph() {
+  // Algos:
+
+  // Union Find
+  function hasCycle(n, graph) {
+    if (edges.length != n - 1) {
+      return false;
+    }
+
+    let parent = [];
+
+    for (let i = 0; i < n; i++) {
+      parent[i] = i;
+    }
+
+    for (let [u, v] of graph) {
+      if (!union(u, v)) {
+        return false;
+      }
+    }
+
+    return true;
+
+    function find(x) {
+      if (x != parent[x]) {
+        parent[x] = find(parent[x]);
+      }
+
+      return parent[x];
+    }
+
+    function union(x, y) {
+      let xr = find(x);
+      let yr = find(y);
+
+      if (xr != yr) {
+        parent[yr] = xr;
+        return true;
+      }
+
+      return false;
+    }
+  }
+
+  function hasCycle_II(u, parent) {
+    if (seen.has(u)) {
+      return true;
+    }
+
+    seen.add(u);
+
+    for (let v of graph[u]) {
+      if (parent != v) {
+        let res = hasCycle(v, u);
+
+        if (res) {
+          return true;
+        }
+      }
+    }
+
+    return false;
+  }
+
+  function hasCycle_III(n, graph) {
+    let stack = [];
+    let parent = new Map();
+
+    stack.push(0);
+    parent.set(0, -1);
+
+    while (!stack.length) {
+      let u = stack.pop();
+
+      for (let v of graph[u]) {
+        // Don't look at the trivial cycle
+        if (parent.get(u) == v) {
+          continue;
+        }
+
+        // Check if we've already seen this node.
+        if (parent.has(v)) {
+          return true; // There must be a cycle.
+        }
+
+        parent.set(v, u);
+        stack.pop(v);
+      }
+    }
+
+    return false;
+  }
+
+  function hasCycle_IIII(n, graph) {
+    let stack = [];
+    let seen = new Set();
+
+    stack.push(0);
+
+    while (stack.length) {
+      let u = stack.pop();
+
+      for (let v of graph.get(u).values()) {
+        if (seen.has(v)) {
+          return true;
+        }
+
+        stack.push(v);
+        seen.add(v);
+
+        graph.get(v).delete(u);
+      }
+    }
 
     return false;
   }
