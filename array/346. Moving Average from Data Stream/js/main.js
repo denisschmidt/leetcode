@@ -11,24 +11,27 @@ Example:
 
 */
 
+// Circular Queue
 class MovingAverage {
   constructor(size) {
-    this.limit = size;
+    this.maxLen = size;
     this.sum = 0;
-    this.nums = [];
+    this.queue = Array(size).fill(0);
+    this.cnt = 0;
+    this.head = 0;
   }
 
   next(val) {
-    if (this.nums.length == this.limit) {
-      let x = this.nums.shift();
-      this.sum -= x;
-      this.sum += val;
-      this.nums.push(val);
-      return this.sum / this.nums.length;
-    } else {
-      this.nums.push(val);
-      this.sum += val;
-      return this.sum / this.nums.length;
-    }
+    this.cnt++;
+
+    let tail = (this.head + 1) % this.maxLen;
+
+    this.sum = this.sum - this.queue[tail] + val;
+
+    this.queue[tail] = val;
+
+    this.head = tail;
+
+    return this.sum / Math.min(this.cnt, this.maxLen);
   }
 }
