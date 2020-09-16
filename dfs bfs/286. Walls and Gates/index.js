@@ -1,4 +1,5 @@
 /*
+
 You are given a m x n 2D grid initialized with these three possible values.
 
 -1 - A wall or an obstacle.
@@ -10,60 +11,63 @@ Fill each empty room with the distance to its nearest gate. If it is impossible 
 
 Example: 
   
-  Given the 2D grid:
-  
-  INF  -1  0  INF
-  INF INF INF  -1
-  INF  -1 INF  -1
+  Given the 2D grid:  
+    INF  -1  0  INF
+    INF INF INF  -1
+    INF  -1 INF  -1
     0  -1 INF INF 
   
   After running your function, the 2D grid should be:
+    3  -1   0   1
+    2   2   1  -1
+    1  -1   2  -1
+    0  -1   3   4
 
-  3  -1   0   1
-  2   2   1  -1
-  1  -1   2  -1
-  0  -1   3   4
- */
+*/
 
 // BFS
 // Time O(N * M)
 // Space O(N * M)
 const wallsAndGates = rooms => {
-  if (rooms.length === 0) return;
+  if (rooms.length == 0) return [];
 
-  const n = rooms.length;
-  const m = rooms[0].length;
-  let queue = [];
+  let dirs = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ];
+
+  let n = rooms.length;
+  let m = rooms[0].length;
 
   for (let i = 0; i < n; i++) {
     for (let j = 0; j < m; j++) {
-      if (rooms[i][j] === 0) {
-        queue.push([i, j]);
+      if (rooms[i][j] == 0) {
+        queue.push([i, j, 0]);
       }
     }
   }
 
-  while (queue.length > 0) {
-    const [i, j] = queue.shift();
+  while (queue.length) {
+    let k = queue.length;
 
-    if (i - 1 >= 0 && rooms[i - 1][j] === 2147483647) {
-      queue.push([i - 1, j]);
-      rooms[i - 1][j] = rooms[i][j] + 1;
-    }
+    for (let w = 0; w < k; w++) {
+      let [i, j, cnt] = queue.shift();
 
-    if (i + 1 < n && rooms[i + 1][j] === 2147483647) {
-      queue.push([i + 1, j]);
-      rooms[i + 1][j] = rooms[i][j] + 1;
-    }
+      for (let dir of dirs) {
+        let x = dir[0] + i;
+        let y = dir[1] + j;
 
-    if (j - 1 >= 0 && rooms[i][j - 1] === 2147483647) {
-      queue.push([i, j - 1]);
-      rooms[i][j - 1] = rooms[i][j] + 1;
-    }
+        if (x < 0 || y < 0 || x >= n || y >= m || rooms[x][y] == 0 || rooms[x][y] == -1) {
+          continue;
+        }
 
-    if (j + 1 < m && rooms[i][j + 1] === 2147483647) {
-      queue.push([i, j + 1]);
-      rooms[i][j + 1] = rooms[i][j] + 1;
+        if (rooms[x][y] > cnt + 1) {
+          rooms[x][y] = cnt + 1;
+          queue.push([x, y, cnt + 1]);
+        }
+      }
     }
   }
 };
