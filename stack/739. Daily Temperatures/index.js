@@ -14,17 +14,22 @@ Note:
 
 // Time O(N)
 // Space O(N)
-const dailyTemperatures = nums => {
-  let stack = [];
-  let result = Array(nums.length).fill(0);
+const dailyTemperatures = T => {
+  let st = [];
+  let n = T.length;
+  let res = [];
 
-  for (let i = 0; i < nums.length; i++) {
-    while (stack.length && nums[stack[stack.length - 1]] < nums[i]) {
-      let index = stack.pop();
-      result[index] = i - index;
+  for (let i = 0; i < n; i++) {
+    while (st.length && T[st[st.length - 1]] < T[i]) {
+      let j = st.pop();
+      res[j] = i - j;
     }
-    stack.push(i);
+    st.push(i);
   }
 
-  return result;
+  while (st.length) {
+    res[st.pop()] = 0;
+  }
+
+  return res;
 };
