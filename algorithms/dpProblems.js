@@ -39,7 +39,6 @@
 
 function coinRepeat(coins, target) {
   // содержит количество способов получить сумму из первых чисел i, используя повторяющиеся монеты
-  // Пример задача 377 518
   let dp = Array(target + 1).fill(0);
   dp[0] = 1;
 
@@ -53,7 +52,7 @@ function coinRepeat(coins, target) {
   return dp[target];
 }
 
-function coinNonRepealett(coins, target) {
+function coinNonRepeat(coins, target) {
   // количество способов сделать сумму из первых чисел i с использованием неповторяющихся монет
   let dp = Array(target + 1);
   dp[0] = 1;
@@ -69,7 +68,6 @@ function coinNonRepealett(coins, target) {
   return dp[target];
 }
 
-// Пример задача 322
 function minCoinRepeat(coins, target) {
   // содержит минимальное кол-во монет необходимое чтобы получить сумму target
   let dp = Array(target + 1).fill(target + 1);
