@@ -122,3 +122,32 @@ function findNextLessElement_II() {
 
   return nextLess;
 }
+
+class Stack {
+  constructor() {
+    this.data = [];
+  }
+
+  push(x) {
+    this.data.push(x);
+  }
+
+  isEmpty() {
+    return this.data.length == 0;
+  }
+
+  top() {
+    if (this.isEmpty()) {
+      return -1;
+    }
+    return this.data[this.data.length - 1];
+  }
+
+  pop() {
+    if (this.isEmpty()) {
+      return false;
+    }
+    this.data.pop();
+    return true;
+  }
+}
