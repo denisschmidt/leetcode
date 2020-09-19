@@ -34,4 +34,4 @@ class Solution:
       return ans      
 
     def getDist(self, bike, worker):
-      return abs(bike[0] - worker[0]) + abs(bike[1] - worker[1]);  
+      return abs(bike[0] - worker[0]) + abs(bike[1] - worker[1])
