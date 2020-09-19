@@ -29,19 +29,25 @@ const cloneGraph = node => {
 
   return dfs(node);
 
-  function dfs(u) {
-    if (u == null) return null;
-
-    if (map.has(u)) return map.get(u);
-
-    let p = new Node(u.val, []);
-    map.set(u, p);
-
-    for (let v of u.neighbors) {
-      p.neighbors.push(dfs(v));
+  function dfs(node) {
+    if (node == null) {
+      return null;
     }
 
-    return p;
+    if (map.has(node.val)) {
+      return map.get(node.val);
+    }
+
+    let newNode = new Node(node.val, []);
+
+    // array is mutable
+    map.set(node.val, newNode);
+
+    for (let child of node.neighbors) {
+      newNode.neighbors.push(dfs(child));
+    }
+
+    return newNode;
   }
 };
 
