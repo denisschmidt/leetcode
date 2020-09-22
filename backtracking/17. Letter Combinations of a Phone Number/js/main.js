@@ -1,21 +1,41 @@
+// DFS
+// Time O(3^N * 4^N) (2,3,4,5,6,8) contains 3 chars (7, 9) contains 4 chars
+// Space O(3^N * 4^N)
+const letterCombinations = digits => {
+  if (digits.length == 0) return [];
+
+  let map = {
+    '1': [],
+    '2': ['a', 'b', 'c'],
+    '3': ['d', 'e', 'f'],
+    '4': ['g', 'h', 'i'],
+    '5': ['j', 'k', 'l'],
+    '6': ['m', 'n', 'o'],
+    '7': ['p', 'q', 'r', 's'],
+    '8': ['t', 'u', 'v'],
+    '9': ['w', 'x', 'y', 'z'],
+  };
+
+  let res = [];
+
+  dfs(0, '');
+
+  return res;
+
+  function dfs(index, comb) {
+    if (index == digits.length) {
+      res.push(comb);
+      return;
+    }
+
+    for (let ch of map[digits[index]]) {
+      dfs(index + 1, comb + ch);
+    }
+  }
+};
+
 /*
-Given a string containing digits from 2-9 inclusive, return all possible letter combinations that the number could represent.
-
-A mapping of digit to letters (just like on the telephone buttons) is given below. Note that 1 does not map to any letters.
-
-
-
-Example:
-
-Input: "23"
-Output: ["ad", "ae", "af", "bd", "be", "bf", "cd", "ce", "cf"].
-Note:
-
-Although the above answer is in lexicographical order, your answer could be in any order you want.
- */
-
-/*
-  Алгоритм работы бектрека!
+  Алгоритм работы backtrack!
 
   Довольно важный момент - это увеличение счетчика значений
   
@@ -42,9 +62,10 @@ Although the above answer is in lexicographical order, your answer could be in a
     
 */
 
+// BACKTRACK
 // Time O(N!)
 // Space O(N)
-const letterCombinations = digits => {
+const letterCombinations_II = digits => {
   if (digits.length === 0) return [];
 
   let ans = [];
@@ -71,58 +92,11 @@ const letterCombinations = digits => {
     }
 
     for (let i = start; i < digits.length; i++) {
-      let words = map[digits[i]];
-
-      for (let word of words) {
-        comb.push(word);
-
-        helper(i + 1, comb);
-
-        comb.pop();
-      }
-    }
-  }
-};
-
-// Time O(N!)
-// Space O(N)
-const letterCombinations_II = digits => {
-  if (digits.length === 0) return [];
-
-  let ans = [];
-  let n = digits.length;
-  let map = {
-    '1': '',
-    '2': ['a', 'b', 'c'],
-    '3': ['d', 'e', 'f'],
-    '4': ['g', 'h', 'i'],
-    '5': ['j', 'k', 'l'],
-    '6': ['m', 'n', 'o'],
-    '7': ['p', 'q', 'r', 's'],
-    '8': ['t', 'u', 'v'],
-    '9': ['w', 'x', 'y', 'z'],
-  };
-  let visited = Array(n).fill(false);
-
-  dfs(0, []);
-
-  return ans;
-
-  function dfs(index, comb) {
-    if (index == n) {
-      ans.push(comb.join(''));
-      return;
-    }
-
-    for (let i = index; i < n; i++) {
-      visited[i] = true;
       for (let ch of map[digits[i]]) {
-        if (i > 0 && !visited[i - 1]) continue;
         comb.push(ch);
-        dfs(index + 1, comb);
+        helper(i + 1, comb);
         comb.pop();
       }
-      visited[i] = false;
     }
   }
 };
