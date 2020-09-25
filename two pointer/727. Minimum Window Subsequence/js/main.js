@@ -5,6 +5,7 @@ const minWindow = (S, T) => {
   let minLen = Number.MAX_VALUE;
   let minStartIndex = 0;
 
+  // two pointers go through right to left
   while (endIndex < S.length) {
     let tIndex = 0;
 
@@ -24,6 +25,7 @@ const minWindow = (S, T) => {
       break;
     }
 
+    // use another slow pointer to traverse from right to left until find first character of T in S
     let startIndex = endIndex;
     tIndex = T.length - 1;
 
@@ -39,11 +41,13 @@ const minWindow = (S, T) => {
       startIndex--;
     }
 
+    // found new subsequence
     if (endIndex - startIndex + 1 < minLen) {
       minLen = endIndex - startIndex + 1;
       minStartIndex = startIndex;
     }
 
+    // WARNING: we have to move right pointer to the next position of left pointer, NOT the next position of right pointer
     endIndex = startIndex + 1;
   }
 
