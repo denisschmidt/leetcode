@@ -2,24 +2,18 @@
 // Space O(N^2)
 const stoneGame = piles => {
   let n = piles.length;
-
-  let dp = Array(n)
+  let dp = Array(n + 1)
     .fill(0)
-    .map(() => Array(n).fill(null));
+    .map(() => Array(n + 1).fill(null));
 
-  let Alex = dfs(0, n - 1);
-
-  let totalScore = piles.reduce((acc, x) => acc + x, 0);
-  let Lee = totalScore - Alex;
-
-  return Alex >= Lee;
+  return dfs(0, n - 1);
 
   function dfs(left, right) {
     if (left > right) {
       return 0;
     }
 
-    if (left + 1 == right && right < piles.length) {
+    if (left == right) {
       return piles[left];
     }
 
@@ -28,10 +22,8 @@ const stoneGame = piles => {
     }
 
     dp[left][right] = Math.max(
-      piles[left] + dfs(left + 1, right - 1),
-      piles[left] + dfs(left + 2, right),
-      piles[right] + dfs(left + 1, right - 1),
-      piles[right] + dfs(left, right - 2),
+      piles[left] + Math.min(dfs(left + 1, right - 1), dfs(left + 2, right)),
+      piles[right] + Math.min(dfs(left + 1, right - 1), dfs(left, right - 2)),
     );
 
     return dp[left][right];
@@ -71,7 +63,7 @@ const stoneGame_II = piles => {
     .map(() =>
       Array(piles.length + 1)
         .fill(0)
-        .map(() => Array(2).fill(null)),
+        .map(() => [null, null]),
     );
 
   return dfs(0, piles.length - 1, 0) >= 1;
