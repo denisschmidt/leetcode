@@ -16,11 +16,9 @@ const winnerSquareGame = n => {
     squareList.add(i * i);
   }
 
-  let x = dfs(n, 0);
+  return dfs(n, 0);
 
-  console.log(cache);
-
-  function dfs(N, next) {
+  function dfs(N) {
     // base case
     // this are not any stones
     if (N == 0) {
@@ -36,7 +34,7 @@ const winnerSquareGame = n => {
 
       // if there is any chance to make the opponent lose the game in the next round
       // then the current player will win.
-      if (!dfs(N - square, next + 1)) {
+      if (!dfs(N - square)) {
         cache.set(N, true);
         return true;
       }
