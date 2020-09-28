@@ -119,6 +119,7 @@ function UnDirectedGraph() {
     }
   }
 
+  // DFS
   function hasCycle_II(u, parent) {
     if (seen.has(u)) {
       return true;
@@ -128,9 +129,7 @@ function UnDirectedGraph() {
 
     for (let v of graph[u]) {
       if (parent != v) {
-        let res = hasCycle(v, u);
-
-        if (res) {
+        if (hasCycle_II(v, u)) {
           return true;
         }
       }
