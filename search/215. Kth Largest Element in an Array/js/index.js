@@ -16,9 +16,7 @@ Note: You may assume k is always valid, 1 ≤ k ≤ array's length.
 
 */
 
-const { PriorityQueue } = require('../../algorithms/priorityQueue');
-
-// Time O(N * log(K))
+// Time O(NlogK)
 // Space O(K)
 const findKthLargest = (nums, k) => {
   let pq = new PriorityQueue({ comparator: (a, b) => a - b });
@@ -29,62 +27,60 @@ const findKthLargest = (nums, k) => {
       pq.poll();
     }
   }
+
   return pq.poll();
 };
 
+// Binary Search + Quick Select
 // E.g. if the array is reversely sorted and you pick the pivot always as the first element of the partition,
 // complexity's going to be O(n^2), because on every iteration you don't gain a lot of information other than the fact that all numbers
 // in the subarray are bigger than the pivot.
-
-// Binary Search + Quick Select
 
 // Time O(N)
 // Worth case O(N^2)
 // Space O(1)
 const findKthLargest_II = (nums, k) => {
-  let n = nums.length;
-  let left = 0;
-  let right = n - 1;
-  let targetIndex = n - k;
+  let targetIndex = nums.length - k;
+  let lo = 0;
+  let hi = n - 1;
 
-  while (left <= right) {
-    // получаем index отсортированного значения
-    let pivotIndex = quickSelect(left, right);
+  while (lo <= hi) {
+    let pivotIndex = quickSort(lo, hi);
 
     if (pivotIndex == targetIndex) {
-      return nums[targetIndex];
+      return nums[pivotIndex];
     }
 
     if (pivotIndex < targetIndex) {
-      left = pivotIndex + 1;
+      lo = mid + 1;
     } else {
-      right = pivotIndex - 1;
+      hi = mid - 1;
     }
   }
 
-  return nums[left];
+  return nums[lo];
 
-  function quickSelect(left, right) {
-    let pivotValue = nums[left];
-    let pivotIndex = left;
-    left++;
+  function quickSort(lo, hi) {
+    let pivotValue = nums[lo];
+    let pivotIndex = lo;
+    lo++;
 
-    while (left <= right) {
-      if (nums[left] < pivotValue) {
-        left++;
-      } else if (nums[right] >= pivotValue) {
-        right--;
+    while (lo <= hi) {
+      if (pivotValue > nums[lo]) {
+        lo++;
+      } else if (pivotValue <= nums[hi]) {
+        hi--;
       } else {
-        swap(left, right);
+        swap(nums, lo, hi);
       }
     }
 
-    swap(pivotIndex, right);
+    swap(nums, pivotIndex, hi);
 
-    return right;
+    return hi;
   }
 
-  function swap(i, j) {
+  function swap(nums, i, j) {
     return ([nums[i], nums[j]] = [nums[j], nums[i]]);
   }
 };
