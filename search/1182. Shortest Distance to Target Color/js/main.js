@@ -30,41 +30,35 @@ Constraints:
 
 */
 
-// Time O(N^2)
-// Space O(3*N)
 const shortestDistanceColor = (colors, queries) => {
-  let res = [];
-  let n = colors.length;
-  let memo = Array(4)
-    .fill(0)
-    .map(() => Array(n).fill(-1));
+  let map = new Map();
+  let res = Array(queries.length).fill(-1);
 
-  for (let [index, color] of queries) {
-    if (memo[color][index] != -1) {
-      res.push(memo[color][index]);
-    } else {
-      let dist = getDist(index, color);
-
-      memo[color][index] = dist;
-
-      res.push(dist);
-    }
+  for (let i = 1; i <= 3; i++) {
+    map.set(i, []);
   }
 
-  return res;
+  for (let i = 0; i < colors.length; i++) {
+    map.get(colors[i]).push(i);
+  }
 
-  function getDist(index, color) {
-    let left = index - 1;
-    let right = index + 1;
-    if (colors[index] == color) return 0;
+  let x = search();
 
-    while (left >= 0 || right < n) {
-      if (colors[left] == color) return index - left;
-      if (colors[right] == color) return right - index;
+  function search(nums, target) {
+    let lo = 0;
+    let hi = nums.length - 1;
 
-      left--;
-      right++;
+    while (lo < hi) {
+      let mid = lo + Math.floor((hi - lo) / 2);
     }
-    return -1;
   }
 };
+
+shortestDistanceColor(
+  [1, 1, 2, 1, 3, 2, 2, 1, 1, 1, 3, 2, 3, 3],
+  [
+    [1, 3],
+    [2, 2],
+    [6, 1],
+  ],
+);
