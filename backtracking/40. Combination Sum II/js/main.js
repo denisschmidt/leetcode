@@ -1,11 +1,8 @@
+// Each number in candidates may only be used once in the combination.
+
 // Time O(N^2)
 // Space O(N)
-/**
- * @param {number[]} candidates
- * @param {number} target
- * @return {number[][]}
- */
-var combinationSum2 = function (candidates, target) {
+const combinationSum2 = (candidates, target) => {
   let res = [];
 
   candidates.sort();
@@ -36,9 +33,11 @@ var combinationSum2 = function (candidates, target) {
         
         Then i increments to 1, you choose 1 at 1st index, since i greater than start 0, continue prevents backtracking, so no duplicate [1,2].
 
-        PS: [1,1] can be generated because i and start are the same at the time which is 1, so its backtracking is not stopped.
+        PS: [1,1] can be generated because i and start are the same at the time which is 1, so its backtracking is not stopped.      
       */
-      if (i > start && candidates[i - 1] == candidates[i]) continue;
+      if (i > start && candidates[i - 1] == candidates[i]) {
+        continue;
+      }
 
       comb.push(candidates[i]);
 

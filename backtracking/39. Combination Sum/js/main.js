@@ -1,3 +1,5 @@
+// The same number may be chosen from candidates an unlimited number of times.
+
 // Time O(N!)
 // Space O(N!)
 const combinationSum = (candidates, target) => {
