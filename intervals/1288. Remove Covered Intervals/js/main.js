@@ -1,27 +1,28 @@
-/*
+// Sort
+// Time O(NLogN)
+// Space O(1)
+const removeCoveredIntervals = intervals => {
+  intervals.sort((a, b) => a[0] - b[0]);
 
-Given a list of intervals, remove all intervals that are covered by another interval in the list. 
+  let start = -1;
+  let end = -1;
+  let res = 0;
+  for (let i = 0; i < intervals.length; i++) {
+    if (intervals[i][0] > start && intervals[i][1] > end) {
+      res++;
+      start = intervals[i][0];
+    }
 
-Interval [a,b) is covered by interval [c,d) if and only if c <= a and b <= d.
+    end = Math.max(end, intervals[i][1]);
+  }
 
-After doing so, return the number of remaining intervals.
+  return res;
+};
 
-Example 1:
-  Input: intervals = [[1,4],[3,6],[2,8]]
-  Output: 2
-  Explanation: Interval [3,6] is covered by [2,8], therefore it is removed.
-  
-
-Constraints:
-  1 <= intervals.length <= 1000
-  0 <= intervals[i][0] < intervals[i][1] <= 10^5
-  intervals[i] != intervals[j] for all i != j
-
-*/
-
+// Stack + Sort
 // Time O(NLogN)
 // Space O(N)
-const removeCoveredIntervals = intervals => {
+const removeCoveredIntervals_II = intervals => {
   intervals.sort((a, b) => a[0] - b[0]);
 
   let stack = [];
