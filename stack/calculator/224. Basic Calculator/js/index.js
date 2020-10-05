@@ -11,12 +11,7 @@
 const calculate = s => {
   let opers = [];
   let nums = [];
-  let map = new Map();
-
-  map.set('+', 0);
-  map.set('-', 0);
-  map.set('*', 1);
-  map.set('/', 1);
+  let map = { '+': 0, '-': 0, '*': 1, '/': 1, '(': -1 };
 
   for (let i = 0; i < s.length; i++) {
     if (s[i] == ' ') continue;
@@ -29,8 +24,8 @@ const calculate = s => {
       }
 
       opers.pop();
-    } else if (map.has(s[i])) {
-      while (opers.length && map.get(opers[opers.length - 1]) >= map.get(s[i])) {
+    } else if (s[i] in map) {
+      while (opers.length && map[opers[opers.length - 1]] >= map[s[i]]) {
         nums.push(applyOp(opers.pop(), nums.pop(), nums.pop()));
       }
 
