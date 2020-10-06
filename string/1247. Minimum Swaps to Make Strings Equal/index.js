@@ -39,7 +39,13 @@ Constraints:
 // Во-первых, игнорируйте все уже согласованные позиции, они никак не влияют на ответ.
 // Для несопоставленных позиций есть три основных случая (уже приведены в примерах)
 
-// ("xx", "yy") => 1 swap, ("xy", "yx") => 2 swaps
+// ("xx",
+//  "yy"
+// ) => 1 swap
+
+// ("xy",
+//  "yx"
+// ) => 2 swaps
 
 // Time O(N)
 // Space O(1)
@@ -56,65 +62,4 @@ const minimumSwap = (s1, s2) => {
   if (case1 % 2 != case2 % 2) return -1;
 
   return Math.floor(case1 / 2) + Math.floor(case2 / 2) + (case1 % 2) * 2;
-};
-
-// TLE
-// BFS
-const minimumSwap_II = (s1, s2) => {
-  let visited = new Set();
-  let queue = [[s1, s2]];
-  let cnt = 0;
-
-  let h1 = hashCode(s1);
-  let h2 = hashCode(s2);
-
-  visited.add(h1 + h2);
-
-  while (queue.length) {
-    let size = queue.length;
-
-    for (let k = 0; k < size; k++) {
-      let [ss1, ss2] = queue.shift();
-
-      let hash = hashCode(ss1 + ss2);
-
-      if (ss1 == ss2) {
-        return cnt;
-      }
-
-      for (let i = 0; i < ss1.length; i++) {
-        let l1 = ss1.substring(0, i);
-        let r1 = ss1.substring(i + 1);
-        let c1 = ss1[i];
-
-        for (let j = 0; j < ss2.length; j++) {
-          let l2 = ss2.substring(0, j);
-          let r2 = ss2.substring(j + 1);
-          let c2 = ss2[j];
-
-          s1 = l1 + c2 + r1;
-          s2 = l2 + c1 + r2;
-
-          let h1 = hashCode(s1);
-          let h2 = hashCode(s2);
-
-          if (!visited.has(h1 + h2)) {
-            queue.push([s1, s2]);
-            visited.add(h1 + h2);
-          }
-        }
-      }
-    }
-
-    cnt++;
-  }
-
-  return -1;
-
-  function hashCode(s) {
-    return s.split('').reduce((a, b) => {
-      a = (a << 5) - a + b.charCodeAt(0);
-      return a & a;
-    }, 0);
-  }
 };
