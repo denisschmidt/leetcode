@@ -1,5 +1,5 @@
-text = [0, 1, 2]
+test = ['a', 'b', 'c']
 
-text2 = ' '.join((map(str, text)))
+test[-1] = 'f'
 
-print(text2)
+print(''.join(test))
