@@ -1,12 +1,30 @@
-// Binary Tree Traversal
+/* 
 
-// Задачи на leetcode #94 #144 #145
+  Construct BST
 
-// Cуществуют разные способы посещения всех узлов или поиска значения в двоичном дереве.
+  BST could be constructed from preorder or postorder traversal only. 
 
-// Узел является листом тогда и только тогда, когда у него 0 дочерних элементов.
+  Inorder traversal of BST is an array sorted in the ascending order: inorder = sorted(preorder).
+  
+  Serialization could be easily implemented with both strategies.
+  
+  But for optimal deserialization better to choose the postorder traversal because member/global/static variables are not allowed here.
+
+*/
 
 /* 
+
+  Binary Tree Traversal
+
+  Задачи на leetcode #94 #144 #145
+
+  Cуществуют разные способы посещения всех узлов или поиска значения в двоичном дереве.
+
+  Узел является листом тогда и только тогда, когда у него 0 дочерних элементов.
+
+*/
+
+/*
 
   Важное своиство для BST для нахождения дочерних элементов.
 
@@ -44,6 +62,13 @@
 
 // Time O(N) - где N - количество узлов в дереве. Мы перебираем каждый узел один раз.
 // Space O(H) - где H - высота дерева. Это пространство, стеком вызовов при вызове dfs.
+
+/**
+ * Inorder Traversal
+ *
+ * @param {TreeNode} nums
+ * @return {Array}
+ */
 const inorderTraversal = root => {
   let stack = [];
   let node = root;
@@ -63,7 +88,13 @@ const inorderTraversal = root => {
   return ans;
 };
 
-const inorderTraversal2 = root => {
+/**
+ * Inorder Traversal
+ *
+ * @param {TreeNode} nums
+ * @return {Array}
+ */
+const inorderTraversal_II = root => {
   const nums = [];
   helper(root);
   return nums;
@@ -93,10 +124,14 @@ const inorderTraversal2 = root => {
 
 [10, 5, 4, 3, 30, 15, 40]
 
- */
+*/
 
-// Time O(N)
-// Space O(N)
+/**
+ * Preorder Traversal
+ *
+ * @param {TreeNode} root
+ * @return {Array}
+ */
 const preorderTraversal = root => {
   const stack = [];
   const ans = [];
@@ -115,7 +150,13 @@ const preorderTraversal = root => {
   return ans;
 };
 
-const preorderTraversal2 = root => {
+/**
+ * Preorder Traversal
+ *
+ * @param {TreeNode} root
+ * @return {Array}
+ */
+const preorderTraversal_II = root => {
   const ans = [];
   helper(root, ans);
   return ans;
@@ -129,9 +170,7 @@ const preorderTraversal2 = root => {
   }
 };
 
-// Post-order Traversal
-
-// Посещаем узлы в порядке left-right-root
+// Post-order Traversal - посещаем узлы в порядке left-right-root
 
 /*
 
@@ -147,10 +186,13 @@ const preorderTraversal2 = root => {
 
 145 Задача
 
- */
+*/
 
-// Time O(N)
-// Space O(N)
+/**
+ * Postorder Traversal
+ * @param {TreeNode} root
+ * @return {Array}
+ */
 const postorderTraversal = root => {
   if (root === null) {
     return [];
@@ -178,9 +220,15 @@ const postorderTraversal = root => {
 };
 
 // Bottom - Up recursive solution
-const postorderTraversal2 = root => {
+/**
+ * @param {TreeNode} root
+ * @return {Array}
+ */
+const postorderTraversal_II = root => {
   const ans = [];
+
   helper(root);
+
   return ans;
 
   function helper(node) {
@@ -192,6 +240,14 @@ const postorderTraversal2 = root => {
   }
 };
 
+/**
+ * Create Balance BST
+ *
+ * @param {Array} nums
+ * @param {Number} start
+ * @param {Number} end
+ * @return {TreeNode}
+ */
 function balanceBST(nums, start, end) {
   if (start > end) return null;
 

@@ -77,73 +77,25 @@ Inorder: left - root - right
 const buildTree = (preorder, inorder) => {
   // preorder root-left-right
   // inorder left-root-right
-  if (!preorder.length && !inorder.length) {
-    return null;
-  }
-
-  let preIndex = 0;
-  const map = new Map();
+  let map = new Map();
+  let index = 0;
 
   inorder.forEach((v, i) => map.set(v, i));
 
-  return helper(0, preorder.length);
+  return dfs(0, preorder.length);
 
-  function helper(left, right) {
-    // если нет элементов для построения поддеревьев
-    if (left === right) {
+  function dfs(lo, hi) {
+    if (lo >= hi) {
       return null;
     }
 
-    let val = preorder[preIndex++];
-
+    let val = preorder[index++];
     let node = new TreeNode(val);
+    let mid = map.get(val);
 
-    let rootIndex = map.get(val);
-
-    node.left = helper(left, rootIndex);
-    node.right = helper(rootIndex + 1, right);
+    node.left = dfs(lo, mid);
+    node.right = dfs(mid + 1, hi);
 
     return node;
   }
-};
-
-const buildTree_II = function (preorder, inorder) {
-  // preorder root-left-right
-  // inorder left-root-right
-
-  if (!preorder.length && !inorder.length) {
-    return null;
-  }
-
-  let map = new Map();
-  let root = new TreeNode(preorder[0]);
-
-  let i = 0;
-  for (let val of inorder) {
-    map.set(val, i++);
-  }
-
-  for (let value of preorder.slice(1)) {
-    let prev = root;
-    let node = root;
-
-    // идем по всему дереву от начального root до той ноды, в которой должно находиться заначение value изходя из in orderer обхода
-    while (node) {
-      prev = node;
-
-      if (map.get(value) > map.get(node.val)) {
-        node = node.right;
-      } else if (map.get(value) < map.get(node.val)) {
-        node = node.left;
-      }
-    }
-
-    if (map.get(prev.val) > map.get(value)) {
-      prev.left = new TreeNode(value);
-    } else {
-      prev.right = new TreeNode(value);
-    }
-  }
-
-  return root;
 };
