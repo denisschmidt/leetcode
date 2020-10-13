@@ -1,14 +1,15 @@
 /*
+  Medium:
 
   Given binary tree find depth sum all subtrees
 
     Input:
 
-          1
-        /  \
-       2    3
-      / \   
-     4   5 
+            1 (5, 6)
+          /   \
+  (3, 2) 2     3 (1, 0)
+        /  \   
+(1, 0) 4    5 (1, 0) 
 
     Output: 8 
       tree with root 1 have the next depth => 1 + 1 + 2 + 2 = 6
@@ -29,7 +30,7 @@
 
 */
 
-const { makeTreeNodes } = require('../algorithms/treeNode');
+const { makeTreeNodes } = require('../../../utils/treeNode');
 
 let nums = [1, 2, 3, 4, 5, 6, 7, 8, 9]; // 26
 let tree = makeTreeNodes(nums);
