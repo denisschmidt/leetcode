@@ -1,19 +1,4 @@
 /*
-Given an array of meeting time intervals consisting of start and end times [[s1,e1],[s2,e2],...] (si < ei),
-find the minimum number of conference rooms required.
-
-Example 1:
-
-Input: [[0, 30],[5, 10],[15, 20]]
-Output: 2
-Example 2:
-
-Input: [[7,10],[2,4]]
-Output: 1
-NOTE: input types have been changed on April 15, 2019. Please reset to default code definition to get new method signature.
- */
-
-/*
 
   Алгоритм
 
@@ -42,26 +27,25 @@ NOTE: input types have been changed on April 15, 2019. Please reset to default c
 // Time O(NLogN)
 // Space O(N)
 const minMeetingRooms = intervals => {
-  let starts = [];
-  let ends = [];
+  let start = [];
+  let end = [];
 
-  for (let i = 0; i < intervals.length; i++) {
-    let [start, end] = intervals[i];
-    starts[i] = start;
-    ends[i] = end;
+  for (let [s, e] of intervals) {
+    start.push(s);
+    end.push(e);
   }
 
-  starts.sort((a, b) => a - b);
-  ends.sort((a, b) => a - b);
+  start.sort((a, b) => a - b);
+  end.sort((a, b) => a - b);
 
+  let index = 0;
   let rooms = 0;
-  let endIndex = 0;
 
-  for (let i = 0; i < starts.length; i++) {
-    if (starts[i] < ends[endIndex]) {
+  for (let i = 0; i < start.length; i++) {
+    if (start[i] < end[index]) {
       rooms++;
     } else {
-      endIndex++;
+      index++;
     }
   }
 
