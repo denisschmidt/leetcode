@@ -44,7 +44,7 @@ Constraints:
 
 // Disjoint set union (DSU) или Union-Find
 // Time O(N)
-// Space O(N))
+// Space O(N)
 const makeConnected = (n, connections) => {
   let parent = [];
 
@@ -53,16 +53,26 @@ const makeConnected = (n, connections) => {
   }
 
   let extraEdge = 0;
+
   for (let [x, y] of connections) {
-    // считаем кол-во свободных дополнительных ребер которые образуют цикл
-    if (!union(x, y)) {
+    let xr = find(x);
+    let yr = find(y);
+
+    if (xr != yr) {
+      parent[yr] = xr;
+    } else {
+      // считаем кол-во циклов
+      // цикл можем разорвать и связать с недоступным узлом
       extraEdge++;
     }
   }
 
   let components = 0;
+
   for (let i = 0; i < n; i++) {
-    if (parent[i] == i) components++;
+    if (parent[i] == i) {
+      components++;
+    }
   }
 
   return extraEdge >= components - 1 ? components - 1 : -1;
@@ -72,17 +82,5 @@ const makeConnected = (n, connections) => {
       parent[x] = find(parent[x]);
     }
     return parent[x];
-  }
-
-  function union(x, y) {
-    let xr = find(x);
-    let yr = find(y);
-
-    if (xr !== yr) {
-      parent[yr] = xr;
-      return true;
-    } else {
-      return false;
-    }
   }
 };
