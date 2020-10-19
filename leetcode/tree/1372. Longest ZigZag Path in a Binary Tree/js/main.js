@@ -40,47 +40,25 @@ const longestZigZag = root => {
 
   return max;
 
-  function maxZigZag(node, isLeft, cnt) {
-    if (node == null) return 0;
+  function maxZigZag(node) {
+    if (node == null) return [0, 0]; // leftCnt rightCnt
 
-    let l = maxZigZag(node.left, true, 0);
-    let r = maxZigZag(node.right, false, 0);
+    let left = maxZigZag(node.left, true, 0);
+    let right = maxZigZag(node.right, false, 0);
 
-    max = Math.max(max, l, r);
+    max = Math.max(max, left[1] + 1, right[0] + 1);
 
-    return isLeft ? r + 1 : l + 1;
+    return [left[1] + 1, right[0] + 1];
   }
 };
 
-// Time O(N^2)
-// Space O(N^2)
-const longestZigZag_II = root => {
-  let res = 0;
+function maxZigZag(node) {
+  if (node == null) return 0;
 
-  dfs(root);
+  let l = maxZigZag(node.left);
+  let r = maxZigZag(node.right);
 
-  return res;
+  max = Math.max(max, l, r);
 
-  function dfs(node) {
-    if (node == null) return;
-
-    res = Math.max(res, maxZigZag(node.left, 'LEFT', 0), maxZigZag(node.right, 'RIGHT', 0));
-
-    dfs(node.left);
-    dfs(node.right);
-  }
-
-  function maxZigZag(node, dir, cnt) {
-    if (node == null) return cnt;
-
-    let l = 0;
-    let r = 0;
-    if (dir == 'LEFT') {
-      l = maxZigZag(node.right, 'RIGHT', cnt + 1);
-    } else {
-      r = maxZigZag(node.left, 'LEFT', cnt + 1);
-    }
-
-    return Math.max(l, r);
-  }
-};
+  return isLeft ? r + 1 : l + 1;
+}
