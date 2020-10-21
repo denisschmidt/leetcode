@@ -1,49 +1,4 @@
 /*
-Two elements of a binary search tree (BST) are swapped by mistake.
-
-Recover the tree without changing its structure.
-
-Example 1:
-  Input: [1,3,null,null,2]
-
-     1
-    /
-   3
-    \
-     2
-
-  Output: [3,1,null,null,2]
-
-     3
-    /
-   1
-    \
-     2
-
-Example 2:
-  Input: [3,1,4,null,null,2]
-
-      3
-     / \
-    1   4
-      /
-    2
-
-    Output: [2,1,4,null,null,3]
-
-      2
-     / \
-    1   4
-      /
-    3
-
-Follow up:
-  A solution using O(n) space is pretty straight forward.
-  Could you devise a constant space solution?
-
- */
-
-/*
 
   Идея проста: найти два узла, которые поменялись местами по ошибке, а затем обменять их значения.   
   
@@ -73,16 +28,16 @@ Follow up:
   Решением является использование DFS и обход дерева по порядку (inOrder).   
   
   Таким образом: 
-  1) Cложность времени равна O(n) 
-  2) Cложность пространства равна O(1) (если мы не заботимся о стеке рекурсии, в противном случае это  высота дерева).
+    1) Cложность времени равна O(n) 
+    2) Cложность пространства равна O(1) (если мы не заботимся о стеке рекурсии, в противном случае это  высота дерева).
 
- */
+*/
 
 // Time O(N)
 // Space O(1)
 const recoverTree = root => {
   if (root == null) {
-    return;
+    return root;
   }
 
   // first и second - два узла, которые по ошибке поменялись местами
