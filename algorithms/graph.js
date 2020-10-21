@@ -34,6 +34,10 @@ function DirectedGraph(n, graph) {
   return false;
 
   function hasCycle(u) {
+    if (visited[u]) {
+      return false;
+    }
+
     visited[u] = true;
     stack[u] = true;
 

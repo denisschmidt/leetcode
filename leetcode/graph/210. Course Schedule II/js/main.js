@@ -1,35 +1,3 @@
-/*
-
-There are a total of n courses you have to take, labeled from 0 to n-1.
-
-Some courses may have prerequisites, for example to take course 0 you have to first take course 1, which is expressed as a pair: [0,1]
-
-Given the total number of courses and a list of prerequisite pairs, return the ordering of courses you should take to finish all courses.
-
-There may be multiple correct orders, you just need to return one of them.
-
-If it is impossible to finish all courses, return an empty array.
-
-Example 1:
-  Input: 2, [[1,0]]
-  Output: [0,1]
-  Explanation: There are a total of 2 courses to take. To take course 1 you should have finished
-             course 0. So the correct course order is [0,1] .
-
-Example 2:
-  Input: 4, [[1,0],[2,0],[3,1],[3,2]]
-  Output: [0,1,2,3] or [0,2,1,3]
-  Explanation: There are a total of 4 courses to take. To take course 3 you should have finished both
-             courses 1 and 2. Both courses 1 and 2 should be taken after you finished course 0. 
-             So one correct course order is [0,1,2,3]. Another correct ordering is [0,2,1,3] .
-
-Note:
-  The input prerequisites is a graph represented by a list of edges, not adjacency matrices.
-  Read more about how a graph is represented.
-  You may assume that there are no duplicate edges in the input prerequisites.
-
-*/
-
 // https://leetcode.com/articles/course-schedule-ii/
 // Time O(N)
 //
@@ -38,18 +6,27 @@ Note:
 //  Могут быть и непересекающиеся компоненты.
 //
 // Space O(N)
+
+/**
+ * @param {number} numCourses
+ * @param {number[][]} prerequisites
+ * @return {number[]}
+ */
 const findOrder = (numCourses, prerequisites) => {
-  const adjList = [];
+  let adjList = [];
 
   for (let i = 0; i < numCourses; i++) {
     adjList[i] = [];
   }
 
-  prerequisites.forEach(([u, v]) => adjList[u].push(v));
+  for (let [u, v] of prerequisites) {
+    adjList[u].push(v);
+  }
 
-  const ans = [];
-  const visited = [];
-  const stack = [];
+  let ans = [];
+  let visited = Array(numCourses).fill(false);
+  let stack = Array(numCourses).fill(false);
+
   for (let i = 0; i < numCourses; i++) {
     // начинаем поиск с каждого нового узла
     if (hasCycle(i)) {
@@ -59,18 +36,15 @@ const findOrder = (numCourses, prerequisites) => {
 
   return ans;
 
-  function hasCycle(index) {
-    if (visited[index]) {
+  function hasCycle(u) {
+    if (visited[u]) {
       return false;
     }
-    visited[index] = true;
-    stack[index] = true;
 
-    // рекурсивно обходим всех соседей
-    // если у узла нет соседей то добавляем этот узел в стек
-    for (let j = 0; j < adjList[index].length; j++) {
-      const v = adjList[index][j];
+    stack[u] = true;
+    visited[u] = true;
 
+    for (let v of adjList[u]) {
       if (stack[v]) {
         return true;
       }
@@ -82,9 +56,9 @@ const findOrder = (numCourses, prerequisites) => {
 
     // Когда мы добавляем узел N в стек
     // Все узлы необходимые для N в качестве предварительных условий, уже будут в стеке.
-    ans.push(index);
+    ans.push(u);
 
-    stack[index] = false;
+    stack[u] = false;
 
     return false;
   }
@@ -113,26 +87,25 @@ const findOrder = (numCourses, prerequisites) => {
    Если какой-либо уровень узла достигнет 0, добавим его в очередь.
    Добавим узел N в список, сохраняя топологически отсортированный порядок. Продолжаем пока что-то есть в стеке.
 
- */
+*/
+
 // Time O(N)
 // Space O(N)
-const findOrder2 = (numCourses, prerequisites) => {
-  const adjList = new Map();
-  const indegree = Array(numCourses).fill(0);
+const findOrder = (numCourses, prerequisites) => {
+  let adjList = new Map();
+  let indegree = Array(numCourses).fill(0);
+
+  for (let i = 0; i < numCourses; i++) {
+    adjList.set(i, []);
+  }
 
   // Создаем представление списка смежности графа
   prerequisites.forEach(([u, v]) => {
-    if (!adjList.has(v)) {
-      adjList.set(v, [u]);
-    } else {
-      const arr = adjList.get(v);
-      arr.push(u);
-      adjList.set(v, arr);
-    }
-    indegree[u] += 1;
+    adjList.get(u).push(v);
+    indegree[v] += 1;
   });
 
-  const queue = [];
+  let queue = [];
 
   for (let i = 0; i < numCourses; i++) {
     if (indegree[i] === 0) {
@@ -140,27 +113,24 @@ const findOrder2 = (numCourses, prerequisites) => {
     }
   }
 
-  const topologicalOrder = [];
+  let topologicalOrder = [];
 
   while (queue.length) {
-    let node = queue.shift();
-    topologicalOrder.push(node);
+    let u = queue.shift();
 
-    if (adjList.has(node)) {
-      const arr = adjList.get(node);
+    topologicalOrder.push(u);
 
-      for (let neighbor of arr) {
-        indegree[neighbor]--;
+    for (let v of adjList.get(u)) {
+      indegree[v]--;
 
-        if (indegree[neighbor] === 0) {
-          queue.push(neighbor);
-        }
+      if (indegree[v] === 0) {
+        queue.push(v);
       }
     }
   }
 
-  if (topologicalOrder.length === numCourses) {
-    return topologicalOrder;
+  if (topologicalOrder.length == numCourses) {
+    return topologicalOrder.reverse();
   }
 
   return [];
