@@ -1,30 +1,17 @@
 class Solution {
-  solve(input) {
-    let words = [];
+  solve(input = []) {
+    let words = input.filter(x => x && isUnique(x));
     let queue = [];
-
-    for (let word of input) {
-      let map = {};
-      let valid = true;
-
-      for (let ch of word) {
-        map[ch] = ~~map[ch] + 1;
-        if (map[ch] > 1) {
-          valid = false;
-        }
-      }
-
-      if (valid) {
-        words.push(word);
-      }
-    }
 
     for (let w of words) {
       queue.push(w);
     }
 
+    if (queue.length == 0) {
+      return 0;
+    }
+
     let max = 0;
-    let visited = new Set();
 
     while (queue.length) {
       let current = queue.shift();
@@ -32,25 +19,18 @@ class Solution {
       max = Math.max(max, current.length);
 
       for (let word of words) {
-        let valid = true;
+        let newWord = current + word;
 
-        for (let ch of word) {
-          if (current.indexOf(ch) != -1) {
-            valid = false;
-            break;
-          }
-        }
-
-        if (valid) {
-          let x = current + word;
-          if (!visited.has(x)) {
-            queue.push(x);
-            visited.add(x);
-          }
+        if (isUnique(newWord)) {
+          queue.push(newWord);
         }
       }
     }
 
     return max;
+
+    function isUnique(s) {
+      return new Set(s).size == s.length;
+    }
   }
 }
