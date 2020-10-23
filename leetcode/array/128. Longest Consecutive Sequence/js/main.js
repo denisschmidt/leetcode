@@ -1,23 +1,11 @@
-/*
-
-Given an unsorted array of integers, find the length of the longest consecutive elements sequence.
-
-Your algorithm should run in O(n) complexity.
-
-Example:
-  Input: [100, 4, 200, 1, 3, 2]
-  Output: 4
-  Explanation: The longest consecutive elements sequence is [1, 2, 3, 4]. Therefore its length is 4.
-
-*/
-
 // Time O(N)
 // Space O(N)
 const longestConsecutive = nums => {
   let set = new Set(nums);
   let max = 0;
 
-  nums.forEach((num, index) => {
+  for (let i = 0; i < nums.length; i++) {
+    let num = nums[i];
     let cnt = 1;
 
     // удаляем из сета все элементы слева
@@ -26,8 +14,7 @@ const longestConsecutive = nums => {
       set.delete(num);
     }
 
-    // возращаемся опять к текущему значению
-    num = nums[index];
+    num = nums[i];
 
     // удаляем из сета все элементы справа
     while (set.has(++num)) {
@@ -36,7 +23,7 @@ const longestConsecutive = nums => {
     }
 
     max = Math.max(max, cnt);
-  });
+  }
 
   return max;
 };
@@ -71,6 +58,7 @@ const longestConsecutive_II = nums => {
   let f = {};
   let max = 0;
   let visited = new Set();
+
   for (let i = 0; i < nums.length; i++) {
     if (visited.has(nums[i])) {
       continue;
@@ -101,5 +89,36 @@ const longestConsecutive_II = nums => {
     } else {
       return false;
     }
+  }
+};
+
+const longestConsecutive_III = nums => {
+  let map = new Map();
+  let ans = 0;
+
+  for (let i = 0; i < nums.length; i++) {
+    ans = Math.max(ans, dfs(i));
+  }
+
+  return ans;
+
+  function dfs(index) {
+    if (map.has(nums[index])) {
+      return map.get(nums[index]);
+    }
+
+    let max = 1;
+
+    for (let i = 0; i < nums.length; i++) {
+      if (i == index) continue;
+
+      if (nums[i] - nums[index] == 1) {
+        max = Math.max(max, 1 + dfs(i));
+      }
+    }
+
+    map.set(nums[index], max);
+
+    return map.get(nums[index]);
   }
 };
