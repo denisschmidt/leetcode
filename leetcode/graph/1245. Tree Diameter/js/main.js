@@ -36,8 +36,13 @@ Constraints:
 
 // Time O(N)
 // Space O(N)
-const treeDiameter = edges => {
-  let adjList = [];
+
+/**
+ * @param {number[][]} edges
+ * @return {number}
+ */
+var treeDiameter = function (edges) {
+  let adjList = new Map();
   let n = edges.length;
 
   for (let i = 0; i <= n; i++) {
@@ -48,24 +53,33 @@ const treeDiameter = edges => {
     adjList[u].push(v);
     adjList[v].push(u);
   }
-  let best = [-1, -1]; // [depth, point]
 
-  dfs(0, -1, 0);
-  dfs(best[1], -1, 0);
+  let visited = new Set();
+  let maxDist = -1;
+  let maxDistNode = -1;
 
-  return best[0];
+  dfs(0, null, 0, new Set());
 
-  function dfs(u, parent, depth) {
-    if (best[0] < depth) {
-      best = [depth, u];
+  dfs(maxDistNode, null, 0, new Set());
+
+  return maxDist;
+
+  function dfs(u, parent, dist, visited) {
+    if (visited.has(u)) {
+      return;
     }
 
-    for (let i = 0; i < adjList[u].length; i++) {
-      let v = adjList[u][i];
+    if (dist > maxDist) {
+      maxDist = dist;
+      maxDistNode = u;
+    }
 
-      if (v == parent) continue;
+    visited.add(u);
 
-      dfs(v, u, depth + 1);
+    for (let v of adjList[u]) {
+      if (v != parent) {
+        dfs(v, u, dist + 1, visited);
+      }
     }
   }
 };

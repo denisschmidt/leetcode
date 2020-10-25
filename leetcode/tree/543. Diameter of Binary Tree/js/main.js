@@ -38,21 +38,37 @@ Note: The length of path between two nodes is represented by the number of edges
 
 // Time O(N)
 // Space O(N)
-const diameterOfBinaryTree = root => {
-  let ans = 0;
+/**
+ * Definition for a binary tree node.
+ * function TreeNode(val, left, right) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.left = (left===undefined ? null : left)
+ *     this.right = (right===undefined ? null : right)
+ * }
+ */
+/**
+ * @param {TreeNode} root
+ * @return {number}
+ */
+var diameterOfBinaryTree = function (root) {
+  if (root == null) return 0;
 
-  helper(root);
+  let max = 0;
 
-  return ans;
+  dfs(root);
 
-  function helper(node) {
-    if (!node) return 0;
+  return max;
 
-    let left = helper(node.left); // максимальная длинная левого поддерева
-    let right = helper(node.right); // максимальная длинна правого поддерева
+  function dfs(node) {
+    if (node == null) {
+      return 0;
+    }
 
-    ans = Math.max(ans, left + right);
+    let l = dfs(node.left);
+    let r = dfs(node.right);
 
-    return Math.max(left, right) + 1;
+    max = Math.max(max, l + r);
+
+    return Math.max(l + 1, r + 1);
   }
 };
