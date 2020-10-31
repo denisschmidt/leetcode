@@ -5,14 +5,13 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def insertIntoBST(self, root, val):
-      if root == None:
-        return TreeNode(val)
-
-      if val > root.val:
-        root.right = self.insertIntoBST(root.right, val) 
-      if val < root.val:
-        root.left = self.insertIntoBST(root.left, val)  
+    def insertIntoBST(self, root: TreeNode, val: int) -> TreeNode:
+        if root is None:
+            return TreeNode(val)
         
-      return root  
-
+        if root.val > val:
+            root.left = self.insertIntoBST(root.left, val)
+        else:
+            root.right = self.insertIntoBST(root.right, val)
+            
+        return root

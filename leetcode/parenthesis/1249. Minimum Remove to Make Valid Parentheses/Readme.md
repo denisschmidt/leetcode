@@ -1,7 +1,7 @@
-/*
 Given a string s of '(' , ')' and lowercase English characters. 
 
-Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) so that the resulting parentheses string is valid and return any valid string.
+Your task is to remove the minimum number of parentheses ( '(' or ')', in any positions ) 
+so that the resulting parentheses string is valid and return any valid string.
 
 Formally, a parentheses string is valid if and only if:
 
@@ -9,6 +9,7 @@ It is the empty string, contains only lowercase characters, or
 It can be written as AB (A concatenated with B), where A and B are valid strings, or
 It can be written as (A), where A is a valid string.
  
+``` 
 Example 1:
   Input: s = "lee(t(c)o)de)"
   Output: "lee(t(c)o)de"
@@ -26,40 +27,8 @@ Example 3:
 Example 4:
   Input: s = "(a(b(c)d)"
   Output: "a(b(c)d)"
- 
+``` 
 
-Constraints:
+**Constraints:**
   1 <= s.length <= 10^5
   s[i] is one of  '(' , ')' and lowercase English letters.
-
-*/
-
-// Time O(N)
-// Space O(N)
-const minRemoveToMakeValid = s => {
-  let stack = [];
-  let res = [];
-
-  for (let i = 0; i < s.length; i++) {
-    if (s[i] == '(') {
-      res.push(s[i]);
-      stack.push(i);
-    } else if (s[i] == ')') {
-      if (stack.length == 0) {
-        res.push('@');
-      } else {
-        stack.pop();
-        res.push(s[i]);
-      }
-    } else {
-      res.push(s[i]);
-    }
-  }
-
-  while (stack.length) {
-    let index = stack.pop();
-    res[index] = '@';
-  }
-
-  return res.filter(x => x != '@').join('');
-};
