@@ -1,17 +1,86 @@
+# Time O(NLogN)
+# Space O(N)
 class Solution:
     def lengthOfLIS(self, nums):
-      if len(nums) == 0:
-        return 0
+        if not len(nums):
+          return 0
 
-      n = len(nums)
-      dp = [1] * n
-      max_len = 1
+        def search(nums, target):
+          lo, hi = 0, len(nums) - 1
 
-      for i in range(0, n):
-        for j in range(i + 1, n):
-          if nums[i] < nums[j]:
-            dp[j] = max(dp[j], dp[i] + 1)
-          if dp[j] > max_len:
-            max_len = dp[j]
+          while lo < hi:
+            mid = (lo + hi) >> 1
 
-      return max_len      
+            if nums[mid] < target:
+              lo = mid + 1
+            else:
+              hi = mid
+
+          return lo
+
+        n = len(nums)
+        dp = [[None] * n for _ in range(n)]
+
+        piles = []
+
+        for num in nums:
+          if not piles or num > piles[-1]:
+            piles.append(num)
+          else:
+            pos = search(piles, num)
+            piles[pos] = num
+
+        return len(piles)
+
+
+# Time O(N^2)
+# Space O(N)
+class Solution_II:
+    def lengthOfLIS(self, nums):
+        if not len(nums):
+          return 0
+        
+        n = len(nums)
+        dp = [1] * n
+        
+        res = 1
+        
+        for i in range(0, n):
+            for j in range(i + 1, n):
+                if (nums[i] < nums[j]):
+                    dp[j] = max(dp[j], dp[i] + 1)
+                    
+                res = max(res, dp[j])
+                
+        return res
+ 
+
+# Time O(N^2)
+# Space O(N^2)
+class Solution_III:
+    def lengthOfLIS(self, nums):
+        if not len(nums):
+          return 0
+        
+        n = len(nums)
+        dp = [[None] * n for _ in range(n)]
+
+        def dfs(prev_index, next_index):
+          if next_index >= n:
+            return 0
+          
+          if dp[prev_index + 1][next_index] is not None:
+            return dp[prev_index + 1][next_index]
+
+          res = 0
+
+          if prev_index < 0 or nums[prev_index] < nums[next_index]:
+            res = max(res, 1 + dfs(next_index, next_index + 1))
+            
+          res = max(res,  dfs(prev_index, next_index + 1))
+            
+          dp[prev_index + 1][next_index] = res
+
+          return dp[prev_index + 1][next_index]
+              
+        return dfs(-1, 0)
