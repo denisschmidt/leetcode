@@ -1,37 +1,36 @@
 # Time O(NLogN)
 # Space O(N)
 class Solution:
-    def lengthOfLIS(self, nums):
-        if not len(nums):
-          return 0
-
+    def solve(self, nums):
+        if not nums:
+            return 0
+        
         def search(nums, target):
-          lo, hi = 0, len(nums) - 1
-
-          while lo < hi:
-            mid = (lo + hi) >> 1
-
-            if nums[mid] < target:
-              lo = mid + 1
-            else:
-              hi = mid
-
-          return lo
-
+            lo, hi = 0, len(nums) - 1
+            
+            while lo < hi:
+                mid = (lo + hi) >> 1
+                
+                if target > nums[mid]:
+                    lo = mid + 1
+                else:
+                    hi = mid
+            
+            return lo
+            
         n = len(nums)
-        dp = [[None] * n for _ in range(n)]
-
-        piles = []
-
+        stack = []
+        
         for num in nums:
-          if not piles or num > piles[-1]:
-            piles.append(num)
-          else:
-            pos = search(piles, num)
-            piles[pos] = num
-
-        return len(piles)
-
+            if not stack or num > stack[-1]:
+                stack.append(num)
+            else:
+                pos = search(stack, num)
+                
+                stack[pos] = num
+                
+        return len(stack)
+        
 
 # Time O(N^2)
 # Space O(N)
