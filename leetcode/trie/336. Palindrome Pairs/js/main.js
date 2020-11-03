@@ -1,22 +1,3 @@
-/*
-Given a list of unique words,
-find all pairs of distinct indices (i, j) in the given list,
-
-so that the concatenation of the two words, i.e. words[i] + words[j] is a palindrome.
-
-Example 1:
-
-Input: ["abcd","dcba","lls","s","sssll"]
-Output: [[0,1],[1,0],[3,2],[2,4]]
-Explanation: The palindromes are ["dcbaabcd","abcddcba","slls","llssssll"]
-Example 2:
-
-Input: ["bat","tab","cat"]
-Output: [[0,1],[1,0]]
-Explanation: The palindromes are ["battab","tabbat"]
-
- */
-
 /**
  * Solution using Trie
  * Time complexity: O(n * k^2) where k is Where n is the number of words in the list
@@ -29,10 +10,10 @@ Explanation: The palindromes are ["battab","tabbat"]
 // Space O(N)
 const palindromePairs = words => {
   let results = [];
-  const trie = new Trie(words);
+  let trie = new Trie(words);
 
   words.forEach((word, index) => {
-    const pairs = trie.search(word, index);
+    let pairs = trie.search(word, index);
     results = results.concat(pairs);
   });
 
@@ -78,7 +59,7 @@ class Trie {
   }
 
   search(word, index) {
-    const pairs = [];
+    let pairs = [];
 
     let current = this.root;
 
@@ -100,13 +81,11 @@ class Trie {
         pairs.push([index, current.index]);
       }
 
-      const c = word[i];
-
-      if (!current.children[c]) {
+      if (!current.children[word[i]]) {
         return pairs; // Mismatch
       }
 
-      current = current.children[c];
+      current = current.children[word[i]];
     }
 
     // Case 2. длинное слово
@@ -137,24 +116,52 @@ const isPalindrome = (str, i, j) => {
   return true;
 };
 
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Time O(N^2 * K)
-const palindromePairs2 = function (words) {
-  const size = words.length;
-  const res = [];
+const palindromePairs_II = words => {
+  let res = [];
 
-  for (let i = 0; i <= size - 1; i++) {
-    for (let j = 0; j <= size - 1; j++) {
-      if (i === j) {
-        continue;
+  for (let i = 0; i < words.length; i++) {
+    for (let j = i + 1; j < words.length; j++) {
+      if (isPalidrome(words[i], words[j])) {
+        res.push([i, j]);
       }
 
-      const str = words[i] + words[j];
-      if (isPalindrome(str, 0, str.length)) {
-        let arr = [i, j];
-        res.push(arr);
+      if (isPalidrome(words[j], words[i])) {
+        res.push([j, i]);
       }
     }
   }
+
   return res;
+
+  function isPalidrome(a = '', b = '') {
+    let i = 0;
+    let j = b.length - 1;
+
+    while (i < a.length && j >= 0) {
+      if (a[i] != b[j]) {
+        return false;
+      }
+      i++;
+      j--;
+    }
+
+    let k = a.length - 1;
+
+    while (i < a.length) {
+      if (a[i] != a[k]) return false;
+      i++;
+      k--;
+    }
+
+    k = 0;
+
+    while (k < j) {
+      if (b[k] != b[j]) return false;
+      j--;
+      k++;
+    }
+
+    return true;
+  }
 };
