@@ -49,53 +49,53 @@
 
 // Time O(N)
 // Space O(N)
-const findMinHeightTrees = (n, edges) => {
-  if (edges.length === 0) return [0];
 
-  // Строим граф исходя из заданных вершин
-  let graph = buildGraph(n, edges);
+/**
+ * @param {number} n
+ * @param {number[][]} edges
+ * @return {number[]}
+ */
+var findMinHeightTrees = function(n, edges) {
+  if (edges.length == 0) return [0];
 
-  // Записываем все листья в массив
-  let leaves = [];
+  let adjList = new Map();
+
   for (let i = 0; i < n; i++) {
-    if (graph.get(i).size === 1) {
-      leaves.push(i);
+    adjList.set(i, new Set());
+  }
+
+  for (let [u, v] of edges) {
+    adjList.get(u).add(v);
+    adjList.get(v).add(u);
+  }
+
+  let queue = [];
+
+  for (let i = 0; i < n; i++) {
+    // начинаем обход от листьев
+    if (adjList.get(i).size == 1) {
+      queue.push(i);
     }
   }
 
-  // Делаем BFS обход. Удаляем все листья, пока не останется только два листа
+  //  Делаем BFS обход. Удаляем все листья, пока не останется только два листа
   while (n > 2) {
-    let size = leaves.length;
+    let size = queue.length;
 
     n -= size;
 
     for (let i = 0; i < size; i++) {
-      let u = leaves.shift();
+      let u = queue.shift();
 
-      graph.get(u).forEach(v => {
-        graph.get(v).delete(u);
+      for (let v of adjList.get(u).values()) {
+        adjList.get(v).delete(u);
 
-        if (graph.get(v).size === 1) {
-          leaves.push(v);
+        if (adjList.get(v).size == 1) {
+          queue.push(v);
         }
-      });
+      }
     }
   }
 
-  return leaves;
+  return queue;
 };
-
-function buildGraph(n, edges) {
-  let graph = new Map();
-
-  for (let i = 0; i < n; i++) {
-    graph.set(i, new Set());
-  }
-
-  edges.forEach(([u, v]) => {
-    graph.get(u).add(v);
-    graph.get(v).add(u);
-  });
-
-  return graph;
-}
