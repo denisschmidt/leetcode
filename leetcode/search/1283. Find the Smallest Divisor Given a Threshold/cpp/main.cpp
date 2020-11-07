@@ -1,3 +1,5 @@
+// Time O(LogN)
+// Space O(1)
 int smallestDivisor(vector<int>& A, int threshold) {
   int left = 0;
   int right = 1e6;
