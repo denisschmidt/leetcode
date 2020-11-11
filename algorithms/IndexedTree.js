@@ -6,11 +6,11 @@ class FenwickTree {
     this.tree = Array(n);
 
     for (let i = 1; i <= n; i++) {
-      this.build(i, nums[i - 1]);
+      this.update(i, nums[i - 1]);
     }
   }
 
-  build(index, val) {
+  update(index, val) {
     while (index < this.tree.length) {
       this.tree[index] += val;
       index = this.getChild(index);
