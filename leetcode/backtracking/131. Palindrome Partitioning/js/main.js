@@ -1,18 +1,3 @@
-/*
-Given a string s, partition s such that every substring of the partition is a palindrome.
-
-Return all possible palindrome partitioning of s.
-
-Example:
-  Input: "aab"
-  Output:
-  [
-    ["aa","b"],
-    ["a","a","b"]
-  ]
-
- */
-
 /* 
 
 Необходимо найти все подстроки которые являются палидромом
@@ -51,25 +36,26 @@ const partition = str => {
   let n = str.length;
   let ans = [];
 
-  helper();
+  dfs();
 
   return ans;
 
-  function helper(comb = [], index = 0) {
+  function dfs(comb = [], index = 0) {
     if (index === n) {
       ans.push([...comb]);
       return;
     }
+
     for (let i = index; i < n; i++) {
-      if (isPalidrome(str, index, i)) {
+      if (isPalindrome(str, index, i)) {
         comb.push(str.substring(index, i + 1));
-        helper(comb, i + 1);
+        dfs(comb, i + 1);
         comb.pop();
       }
     }
   }
 
-  function isPalidrome(str, left, right) {
+  function isPalindrome(str, left, right) {
     while (left < right)
       if (str[left++] !== str[right--]) {
         return false;
