@@ -10,6 +10,7 @@ class FenwickTree {
     }
   }
 
+  // Only full update. Can't update by range
   update(index, val) {
     while (index < this.tree.length) {
       this.tree[index] += val;
