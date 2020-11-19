@@ -16,8 +16,6 @@ class SparseVector:
             
         return res
         
-        
-
 # Your SparseVector object will be instantiated and called as such:
 # v1 = SparseVector(nums1)
 # v2 = SparseVector(nums2)
