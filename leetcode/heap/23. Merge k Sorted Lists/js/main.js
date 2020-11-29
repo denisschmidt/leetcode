@@ -1,18 +1,3 @@
-/*
-
-Merge k sorted linked lists and return it as one sorted list. Analyze and describe its complexity.
-
-Example:
-  Input:
-  [
-    1->4->5,
-    1->3->4,
-    2->6
-  ]
-  Output: 1->1->2->3->4->4->5->6
-
-*/
-
 // Time:
 // O(N * Log * K) где k - количество связанных списков
 // Стоимость сравнения будет уменьшена до O(Log k) для каждого удаления и вставки в приоритетную очередь.
@@ -27,9 +12,10 @@ Example:
 const mergeKLists = lists => {
   let pq = new PriorityQueue({ comparator: (a, b) => a.val - b.val });
 
-  // init minHeap
   for (let list of lists) {
-    if (list) pq.offer(list);
+    if (list) {
+      pq.offer(list);
+    }
   }
 
   let dummy = new ListNode();

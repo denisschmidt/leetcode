@@ -47,7 +47,7 @@ class LRUCache {
       return -1;
     }
 
-    const node = this.map.get(key);
+    let node = this.map.get(key);
 
     // Продвигаем узел до хвоста списка
     this.dataList.remove(node);

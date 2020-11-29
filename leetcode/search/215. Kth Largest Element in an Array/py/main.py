@@ -1,5 +1,13 @@
+
+import heapq
+
 class Solution:
+    # heap
     def findKthLargest(self, nums, k):
+        return heapq.nlargest(k, nums)[-1]
+    
+    # quick select
+    def findKthLargest_II(self, nums, k):
       def swap(i, j):
         nums[i], nums[j] = nums[j], nums[i]
 
@@ -36,4 +44,3 @@ class Solution:
           hi = pivotIndex - 1
 
       return nums[lo]
-       

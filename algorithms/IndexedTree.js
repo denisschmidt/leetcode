@@ -1,6 +1,6 @@
 // https://www.youtube.com/watch?v=CWDQJGaN1gY&ab_channel=TusharRoy-CodingMadeSimple
 
-class FenwickTree {
+class IndexedTree {
   constructor(nums) {
     let n = nums.length;
     this.tree = Array(n);
