@@ -1,7 +1,9 @@
 // Time O(LogN)
 // Space O(1)
 const findMin = function (nums) {
-  if (nums.length == 2) return Math.min(nums[0], nums[1]);
+  if (nums.length == 2) {
+    return Math.min(nums[0], nums[1]);
+  }
 
   let n = nums.length;
   let lo = 0;
@@ -20,5 +22,6 @@ const findMin = function (nums) {
       hi = mid;
     }
   }
+
   return nums[lo];
 };
