@@ -1,31 +1,48 @@
-# Time O(N)
-# Space O(N)
+import heapq
+import collections
+
 class Solution:
-    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
-      st = []
-      i = 0
+  # Deque(double-ended queue), the structure which pops from / pushes to either side with the same O(1) performance
+  # Time O(N)
+  # Space O(N)
+  def maxSlidingWindow(self, nums, k):
+        ans = []
+        deque = collections.deque()
+        
+        for i in range(k):
+            while deque and deque[-1][0] < nums[i]:
+                deque.pop()
+            deque.append([nums[i], i])
+        
+        ans.append(deque[0][0])
+        
+        for i in range(k, len(nums)):
+            while deque and deque[-1][0] < nums[i]:
+                deque.pop()
+            
+            if deque and i - deque[0][1] >= k:
+              deque.popleft()
 
-      while i < k:
-        while len(st) and st[-1][0] < nums[i]: 
-          st.pop()
-        st.append([nums[i], i])
-        i += 1
+            deque.append([nums[i], i])
 
-      res = []
+            ans.append(deque[0][0])
+        
+        return ans
+  
+  # Heap
+  # Time O(NLogK)
+  # Space O(N)
+  def maxSlidingWindow_II(self, nums, k):
+        heap = []
+        ans = []
 
-      res.append(st[0][0])
+        for i in range(len(nums)):
+          heapq.heappush(heap, (-1 * nums[i], i))
 
-      if st[0][1] + k == k:
-        st.pop(0)
+          if len(heap) >= k:
+                while heap and i + 1 - heap[0][1] > k:
+                  heapq.heappop(heap) 
+  
+                ans.append(-1 * heap[0][0])
 
-      for i in range(k, len(nums)):
-        while len(st) and st[-1][0] < nums[i]:
-          st.pop()
-      
-        st.append([nums[i], i])
-        res.append(st[0][0])
-
-        if i - st[0][1] == k - 1:
-          st.pop(0)
-
-      return res     
+        return ans
