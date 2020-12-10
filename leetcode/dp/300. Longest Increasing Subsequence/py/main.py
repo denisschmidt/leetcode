@@ -18,7 +18,6 @@ class Solution:
             
             return lo
             
-        n = len(nums)
         stack = []
         
         for num in nums:
@@ -46,7 +45,7 @@ class Solution_II:
         
         for i in range(0, n):
             for j in range(i + 1, n):
-                if (nums[i] < nums[j]):
+                if nums[i] < nums[j]:
                     dp[j] = max(dp[j], dp[i] + 1)
                     
                 res = max(res, dp[j])
@@ -76,7 +75,7 @@ class Solution_III:
           if prev_index < 0 or nums[prev_index] < nums[next_index]:
             res = max(res, 1 + dfs(next_index, next_index + 1))
             
-          res = max(res,  dfs(prev_index, next_index + 1))
+          res = max(res, dfs(prev_index, next_index + 1))
             
           dp[prev_index + 1][next_index] = res
 

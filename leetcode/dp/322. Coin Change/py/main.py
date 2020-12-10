@@ -1,14 +1,15 @@
+# Time O(S * N)
+# Space O(N)
 class Solution:
-  def coinChange(self, coins, amount):
-    dp = [float('inf')] * (amount + 1)
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        inf = float('inf')
+        dp = [inf] * (amount + 1)
 
-    dp[0] = 0
+        dp[0] = 0
 
-    for curSum in range(1, amount + 1):
-      for coin in coins:
-        if coin > curSum:
-          continue
-
-        dp[curSum] = min(dp[curSum], dp[curSum - coin] + 1)
-        
-      return dp[amount] if dp[amount] != float('inf') else -1
+        for target in range(1, amount + 1):
+          for i in range(len(coins)):
+            if target - coins[i] >= 0:
+                dp[target] = min(dp[target], dp[target - coins[i]] + 1)
+                
+        return -1 if dp[amount] == inf else dp[amount] 
