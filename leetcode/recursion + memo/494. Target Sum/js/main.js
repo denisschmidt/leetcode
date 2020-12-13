@@ -39,7 +39,6 @@ const findTargetSumWays = (nums, target) => {
 
 const findTargetSumWays_II = (nums, target) => {
   // dp[i][j] означает количество способов получить сумму j из первых i элементов.
-  let len = nums.length;
   let sum = nums.reduce((acc, v) => acc + v, 0);
 
   if (sum < target || (sum + target) % 2 > 0) {

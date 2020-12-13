@@ -58,7 +58,7 @@ function coinNonRepeat(coins, target) {
   dp[0] = 1;
 
   for (let i = 0; i < coins.length; i++) {
-    for (let j = target; i >= coins[i]; j--) {
+    for (let j = target; j >= coins[i]; j--) {
       // Если предидущий шаг положителен dp[j - coins[i]]
       // То и текущий шаг dp[j] будет положителен
       dp[j] = dp[j] + dp[j - coins[i]];
