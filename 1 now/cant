@@ -1,4 +1,9 @@
 Intersection of Two Linked Lists
 Find K Pairs with Smallest Sums +-
 Ugly Number II
-LFU Cache
+
+Partition to K Equal Sum Subsets +- вопрос про сложность если не использовать битовые маски и в целом про бэктрек решение
+
+Can i win +-
+Minimum Score Triangulation of Polygon
+Minimum Cost Tree From Leaf Values +- 
