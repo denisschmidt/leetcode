@@ -1,24 +1,25 @@
 # Time O(N)
 # Space O(N)
 class Solution:
-    def maxPathSum(self, root):
-      if root is None:
-        return 0
-        
-      ans = -float('inf')
-      
-      def dfs(node):
-        nonlocal ans
-        if node is None:
-          return 0
+    def maxPathSum(self, root: TreeNode) -> int:
+        ans = -float('inf')
 
-        l = dfs(node.left)
-        r = dfs(node.right)
+        def dfs(node):
+          nonlocal ans
 
-        ans = max(ans, l + node.val, r + node.val, l + r + node.val, node.val)
+          if node == None:
+            return 0
 
-        return max(l + node.val, r + node.val, 0)
+          l = dfs(node.left)
+          r = dfs(node.right) 
 
-      dfs(root)
+          x = l if l > 0 else 0
+          y = r if r > 0 else 0
 
-      return ans
+          ans = max(ans, x + y + node.val)
+
+          return max(max(l, r) + node.val, node.val)
+
+        dfs(root)
+
+        return ans
