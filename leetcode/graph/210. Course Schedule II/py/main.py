@@ -4,6 +4,9 @@ import collections
 # Space O(N)
 class Solution:
     def findOrder(self, numCourses, prerequisites):
+        visited = [False] * numCourses
+        stack = [False] * numCourses
+
         def has_cycle(u):
           if visited[u]:
             return False
@@ -29,9 +32,6 @@ class Solution:
 
         for u, v in prerequisites:
           adj_list[u].append(v)
-
-        visited = [False] * numCourses
-        stack = [False] * numCourses
 
         for i in range(numCourses):
           if has_cycle(i):
