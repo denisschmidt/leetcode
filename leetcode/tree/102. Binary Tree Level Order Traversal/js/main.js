@@ -1,22 +1,3 @@
-/*
-Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
-
-For example:
-Given binary tree [3,9,20,null,null,15,7],
-    3
-   / \
-  9  20
-    /  \
-   15   7
-return its level order traversal as:
-[
-  [3],
-  [9,20],
-  [15,7]
-]
-
- */
-
 /**
  * Definition for a binary tree node.
  * function TreeNode(val) {
@@ -29,17 +10,22 @@ return its level order traversal as:
  * @return {number[][]}
  */
 
-// DFS
 // Time O(N)
 // Space O(N)
 const levelOrder = root => {
-  if (root === null) return [];
-  const ans = [];
-  const map = new Map();
+  if (root === null) {
+    return [];
+  }
+
+  let ans = [];
+  let map = new Map();
+
   map.set(0, [root.val]);
 
-  const dfs = (node, depth) => {
-    if (!node || !node.children) return;
+  function dfs(node, depth) {
+    if (!node || !node.children) {
+      return;
+    }
 
     let n = node.children.length;
 
@@ -56,7 +42,7 @@ const levelOrder = root => {
         dfs(item, depth + 1);
       }
     }
-  };
+  }
 
   dfs(root, 1);
 
