@@ -5,7 +5,7 @@
 # Time O(N)
 # Space O(N)
 class Solution:
-    def detectCycle(self, head: ListNode) -> ListNode:
+    def detectCycle(self, head):
         def getIntersect(head):
           fast = head
           slow = head 
