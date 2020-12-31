@@ -1,8 +1,14 @@
 /*
 
-  Создаем стек для операции и чисел
-  Итерируемся по массиву и если операцию можно рассчитать, то мы ее расчитываем пока это возможно.
-  Записываем новое значение в стек
+  Steps:
+
+  1) Create two stacks for operations and numbers
+
+  2) Iterate thoughts over the array  
+  
+  3) While it's possible calculate prev operation's and add this new value to our stack of numbers
+  
+  4) Continue iterating
 
 */
 
@@ -27,6 +33,10 @@ const calculate = s => {
     } else if (s[i] in map) {
       while (opers.length && map[opers[opers.length - 1]] >= map[s[i]]) {
         nums.push(applyOp(opers.pop(), nums.pop(), nums.pop()));
+      }
+
+      if (s[i] == '-' && !opers.length && !nums.length) {
+        nums.push(0);
       }
 
       opers.push(s[i]);

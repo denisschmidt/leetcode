@@ -1,16 +1,5 @@
+
 import operator
-
-"""
-  Steps:
-
-  1) Create two stacks for operations and numbers
-
-  2) Iterate thoughts over the array  
-  
-  3) While it's possible calculate prev operation's and add this new value to our stack of numbers
-  
-  4) Continue iterating
-"""
 
 class Solution:
     # Time O(N)
@@ -23,7 +12,7 @@ class Solution:
           '-': lambda x, y: y - x,
           '/': lambda x, y: int(y / x)
         }
-
+        
         numsStack, opersStack = [], []
         i = 0
 
@@ -31,26 +20,38 @@ class Solution:
           if s[i] == ' ':
             i += 1
             continue
-
-          elif s[i] == '(':
+          
+          if s[i] == '(':
             opersStack.append('(')
-
+          
           elif s[i] == ')':
             while opersStack[-1] != '(':
-              numsStack.append(calc[opersStack.pop()](numsStack.pop(), numsStack.pop()))
-            
+                numsStack.append(calc[opersStack.pop()](numsStack.pop(), numsStack.pop()))
+
             # remove "(" from the stack
             opersStack.pop()
-          
+
           elif s[i] in opersPrior:
             while opersStack and opersPrior[opersStack[-1]] >= opersPrior[s[i]]:
-              numsStack.append(calc[opersStack.pop()](numsStack.pop(), numsStack.pop()))
+                numsStack.append(calc[opersStack.pop()](numsStack.pop(), numsStack.pop()))
+            
+            if s[i] == '-':
+                # case: "-2 + 1"
+                if not opersStack and not numsStack:
+                    numsStack.append(0)
+                
+                # case: "1 - (-7)"
+                else:
+                  j = i - 1
 
-            if s[i] == '-' and not opersStack and not numsStack:
-              numsStack.append(0)
-          
+                  while s[j] == ' ':
+                    j -= 1
+                  
+                  if s[j] == '(':
+                    numsStack.append(0)
+
             opersStack.append(s[i])
-
+          
           else:
             buf = ''
 
@@ -60,10 +61,10 @@ class Solution:
             
             numsStack.append(int(buf))
             i -= 1
-            
+
           i += 1
 
         while opersStack:
-          numsStack.append(calc[opersStack.pop()](numsStack.pop(), numsStack.pop()))
+            numsStack.append(calc[opersStack.pop()](numsStack.pop(), numsStack.pop()))
 
         return numsStack[-1]

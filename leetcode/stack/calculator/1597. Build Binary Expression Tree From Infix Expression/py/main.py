@@ -8,53 +8,48 @@
 
 # Time O(N)
 # Space O(N)
+
 class Solution:
-    def expTree(self, s: str) -> 'Node':
-      maps = {'+': 0,'-': 0,'*': 1,'/': 1, '(': -1}
-      opStack = []
-      nodes = []
-      i = 0
-
-      while i < len(s):
-        if s[i] == ' ': 
-          i += 1
-          continue
+    def expTree(self, s):
+        opersPrior = {'+': 0,'-': 0,'*': 1,'/': 1, '(': -1}
         
-        if s[i] == '(':
-          opStack.append('(')
-        
-        elif s[i] == ')':
-          while opStack[-1] != '(':
-            newNode = self.applyOperator(opStack.pop(), nodes.pop(), nodes.pop())
-            nodes.append(newNode)
-          opStack.pop()
+        numsStack, opersStack = [], []
+        i = 0
 
-        elif s[i] in maps:
-          while len(opStack) and maps[opStack[-1]] >= maps[s[i]]:
-            newNode = self.applyOperator(opStack.pop(), nodes.pop(), nodes.pop())
-            nodes.append(newNode)
-          opStack.append(s[i])
+        while i < len(s):
+          if s[i] == '(':
+              opersStack.append(s[i])
+          
+          elif s[i] == ')':
+              while opersStack[-1] != '(':
+                numsStack.append(self.applyOper(opersStack.pop(), numsStack.pop(), numsStack.pop()))
             
-        else:
-          buf = ''
-          while i < len(s) and s[i].isdigit():
-            buf += s[i]
-            i += 1      
-          i -= 1
-          newNode = Node(buf) 
-          nodes.append(newNode)
-        
-        i += 1
+              # remove "(" from the stack
+              opersStack.pop()
+          
+          elif s[i] in opersPrior:
+              while opersStack and opersPrior[opersStack[-1]] >= opersPrior[s[i]]:
+                numsStack.append(self.applyOper(opersStack.pop(), numsStack.pop(), numsStack.pop()))
+                          
+              opersStack.append(s[i])
+          
+          else:
+            buf = ''
 
-      while len(opStack):
-        newNode = self.applyOperator(opStack.pop(), nodes.pop(), nodes.pop())
-        nodes.append(newNode)
+            while i < len(s) and s[i].isdigit():
+                buf += s[i]
+                i += 1
+                
+            numsStack.append(Node(buf))
 
-      return nodes.pop()
+            i-= 1
+            
+          i += 1
+                
+        while opersStack:
+            numsStack.append(self.applyOper(opersStack.pop(), numsStack.pop(), numsStack.pop()))
+                
+        return numsStack[-1]
 
-    def applyOperator(self, oper, node1, node2):
-      newNode = Node(oper)
-      newNode.left = node2
-      newNode.right = node1
-      return newNode
-
+    def applyOper(self, oper, num1, num2):
+      return Node(oper, num2, num1)

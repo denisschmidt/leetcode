@@ -15,7 +15,7 @@ class IndexedTree:
             
         return res
     
-    def update(self, index, val):
+    def insert(self, index, val):
         index += 1
         
         while index < self.size:
