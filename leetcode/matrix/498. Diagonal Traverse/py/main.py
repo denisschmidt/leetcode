@@ -27,25 +27,23 @@ class Solution:
 
             return i, j
 
-        while True:
+        while isValid(x, y):
           x, y = dfs(x, y, direction)
           
           if direction == 1:
-            if isValid(x, y + 1):
+            if y + 1 < m:
               y = y + 1
-            elif isValid(x + 1, y):
-              x = x + 1
+            # if we reach the last cell, we can only go down 
             else:
-              break
+              x = x + 1
           else:
-            if isValid(x + 1, y):
+            if x + 1 < n:
               x = x + 1
-            elif isValid(x, y + 1):
-              y = y + 1
+            # if we reach the last row, we can only go to right 
             else:
-              break
+              y = y + 1
 
           # Flip the direction
           direction = 1 - direction
-          
+
         return ans
