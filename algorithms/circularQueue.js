@@ -25,7 +25,7 @@ class MyCircularQueue {
    * Delete an element from the circular queue. Return true if the operation is successful.
    * @return {boolean}
    */
-  deQueue() {
+  deleteFront() {
     if (this.isEmpty()) return false;
 
     this.headIndex = (this.headIndex + 1) % this.size;
@@ -38,8 +38,9 @@ class MyCircularQueue {
    * Get the front item from the queue.
    * @return {number}
    */
-  Front() {
+  getFront() {
     if (this.isEmpty()) return -1;
+
     return this.queue[this.headIndex];
   }
 
@@ -47,7 +48,7 @@ class MyCircularQueue {
    * Get the last item from the queue.
    * @return {number}
    */
-  Rear() {
+  getRear() {
     if (this.isEmpty()) return -1;
 
     let tailIndex = (this.headIndex + this.count - 1) % this.size;
