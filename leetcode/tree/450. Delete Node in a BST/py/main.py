@@ -1,46 +1,40 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
-    def deleteNode(self, root, key):
-      if root == None: 
-        return None
+    # Time O(height of tree)
+    # Space O(height of tree)
+    def deleteNode(self, root, target):
+            if root == None:
+                return None
 
-      if key > root.val:
-        root.right = self.deleteNode(root.right, key)
-      elif key < root.val:
-        root.left = self.deleteNode(root.left, key)
-      else:
-        if self.isLeaf(root):
-          return None
-        if root.right:
-          succ = self.getSuccessor(root)
-          root.val = succ.val
-          root.right = self.deleteNode(root.right, root.val)
-          return root
-        if root.left:
-          pre = self.getPredecessor(root)
-          root.val = pre.val
-          root.left = self.deleteNode(root.left, root.val)
-          return root    
-      return root    
+            if root.val > target:
+                root.left = self.deleteNode(root.left, target)
+            
+            elif root.val < target:
+                root.right = self.deleteNode(root.right, target)
+            
+            else:
+                # if we have a right child
+                if root.right:
+                    root.val = self.getSuccessor(root).val
+                    root.right = self.deleteNode(root.right, root.val)
+                
+                # if we have a left child
+                elif root.left:
+                    root.val = self.getPredecessor(root).val
+                    root.left = self.deleteNode(root.left, root.val)
 
-    def isLeaf(self, root):
-      return root.left == None and root.right == None
+                else:
+                    return None
 
-    def getSuccessor(self, root):
-      root = root.right
-      while (root.left != None):
-        root = root.left
-      return root  
-
-    def getPredecessor(self, root):
-      root = root.left
-      while (root.right != None):
-        root = root.right
-      return root  
-
+            return root
         
+    def getSuccessor(self, node):
+            node = node.right
+            while node and node.left:
+                node = node.left
+            return node
+
+    def getPredecessor(self, node):
+            node = node.left
+            while node and node.right:
+                node = node.right
+            return node

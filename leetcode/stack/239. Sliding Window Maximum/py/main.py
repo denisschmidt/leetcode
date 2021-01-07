@@ -33,15 +33,15 @@ class Solution:
   # Time O(NLogK)
   # Space O(N)
   def maxSlidingWindow_II(self, nums, k):
-        heap = []
+        heap, ans = [], []
         ans = []
 
         for i in range(len(nums)):
-          heapq.heappush(heap, (-1 * nums[i], i))
+            heapq.heappush(heap, (-1 * nums[i], i))
 
-          if len(heap) >= k:
-                while heap and i + 1 - heap[0][1] > k:
-                  heapq.heappop(heap) 
+            if len(heap) >= k:
+                while heap and i - heap[0][1] >= k:
+                    heapq.heappop(heap) 
   
                 ans.append(-1 * heap[0][0])
 
