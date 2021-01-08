@@ -48,13 +48,3 @@ class NumMatrix {
     return this.search(row2 + 1, col2 + 1) - this.search(row1, col2 + 1) - this.search(row2 + 1, col1) + this.search(row1, col1);
   }
 }
-
-let x = new NumMatrix([
-  [3, 0, 1, 4, 2],
-  [5, 6, 3, 2, 1],
-  [1, 2, 0, 1, 5],
-  [4, 1, 0, 1, 7],
-  [1, 0, 3, 0, 5],
-]);
-
-console.log(x.sumRegion(1, 1, 2, 2));

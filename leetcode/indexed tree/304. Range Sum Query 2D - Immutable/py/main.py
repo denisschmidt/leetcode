@@ -1,45 +1,43 @@
 class NumMatrix:
-
-    def __init__(self, matrix: List[List[int]]):
+    # Time O(N*M)
+    # Space O(1)
+    def __init__(self, matrix):
         if len(matrix):
-          n, m = len(matrix), len(matrix[0])
+            n, m = len(matrix), len(matrix[0])
 
-          self.tree = [[0 for i in range(m+1)] for j in range(n+1)]
+            # calc prefix sum for each row
+            for i in range(n):
+                for j in range(1, m):
+                    matrix[i][j] += matrix[i][j - 1] 
 
-          for i in range(n):
+            # calc prefix sum for each col
             for j in range(m):
-              self.insert(i, j, matrix[i][j])
+                for i in range(1, n):
+                    matrix[i][j] += matrix[i - 1][j]
 
+            self.matrix = matrix
 
-    def getParent(self, index):
-      return index - (index & -index);
+    """
+    Let's calculate sum for region row1=1, col1=1, row2=2, col2=2
 
+    Take sum of the region matrix[2][2] -> 21
+    
+    Substract the sum of region matrix[0][2] -> 4
+    Substract the sum of region matrix[2][0] -> 9
 
-    def getChild(self, index):
-      return index + (index & -index);
+    But we've substracted twice the sum of matrix[0][0]
 
+    So we have to add matrix[0][0] to answer
 
-    def insert(self, x, y, val):
-      x += 1
-      y += 1
-      
-      while x < len(self.tree):  
-        while y < len(self.tree[0]):        
-          self.tree[x][y] += val
-          y = self.getChild(y)
-        x = self.getChild(x)
+    3, 3,   4
+    8, 14,  18
+    9, 17 , 21
 
-    def query(self, x, y):
-      res = 0
-
-      while x > 0:
-        while y > 0:
-          res += self.tree[x][y]
-          y = self.getParent(y)
-        x = self.getParent(x)
-
-      return res
-
-
-    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:    
-        return self.query(row2 + 1, col2 + 1) - self.query(row1, col2 + 1) - self.query(row2 + 1, col1) + self.query(row1, col1)
+    """
+    def sumRegion(self, row1: int, col1: int, row2: int, col2: int) -> int:
+        current = self.matrix[row2][col2]
+        origin = self.matrix[row1 - 1][col1 - 1] if col1 > 0 and row1 > 0 else 0
+        left = self.matrix[row2][col1 - 1] if col1 > 0 else 0
+        right = self.matrix[row1 - 1][col2] if row1 > 0 else 0
+        
+        return current - left - right + origin

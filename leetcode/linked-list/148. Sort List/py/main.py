@@ -1,47 +1,46 @@
-# Definition for singly-linked list.
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
 
 class Solution:
+    # Time O(NLogN)
+    # Space O(LogN)
     def sortList(self, head):
         if head == None or head.next == None:
-          return head
-        
-        slow = head
+            return head 
+
         fast = head
+        slow = head
+        prev = None
 
         while fast and fast.next:
-          prev = slow
-          slow = slow.next
-          fast = fast.next.next
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
+        
+        prev.next = None # split linked list into two halves
+        
+        # Recursively split the original list into two halves. 
+        left = self.sortList(head) # left half
+        right = self.sortList(slow) # right half
 
-        prev.next = None
-
-        # Split the original list into two halves
-
-        left = self.sortList(head) # left havle
-        right = self.sortList(slow) # right havle
-
+        # merge two linked list
         return self.merge(left, right)
 
-    def merge(self, list1, list2):
-      dummy = ListNode(0)
-      p = dummy
+    def merge(self, left, right):
+        dummy = ListNode()
+        p = dummy
 
-      while list1 and list2:
-        if list1.val < list2.val:
-          p.next = list1
-          list1 = list1.next
-        else:
-          p.next = list2
-          list2 = list2.next
-        p = p.next
-      
-      if list1:
-        p.next = list1
-      else:
-        p.next = list2
-  
-      return dummy.next
+        while left and right:
+            if left.val < right.val:
+                p.next = left
+                left = left.next
+            else:
+                p.next = right
+                right = right.next
+            p = p.next
+        
+        if left:
+            p.next = left
+        
+        if right:
+            p.next = right
+
+        return dummy.next

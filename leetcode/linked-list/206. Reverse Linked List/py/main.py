@@ -18,28 +18,25 @@ class Solution:
             
             head = new_node
             current = current.next
-            
-            
+
         return head
 
 # Time O(N)
 # Space O(N)
 class Solution_II:
     def reverseList(self, head):  
-        if not head:
-            return head
+        def dfs(head):
+            if head == None:
+                return None
+            
+            if head.next == None:
+                return head
+            
+            prev = dfs(head.next)
+            
+            head.next.next = head
+            head.next = None
+            
+            return prev
         
-        def dfs(node):
-            if node and node.next == None:
-                return node
-            
-            p = dfs(node.next)
-                        
-            node.next.next = node
-            node.next = None
-            
-            return p
-            
         return dfs(head)
-        
-
