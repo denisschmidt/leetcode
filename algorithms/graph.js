@@ -61,7 +61,7 @@ function DirectedGraph(n, graph) {
 
   Graph theory:
 
-  Graph can't possibly contain a cycle. If the graph is fully connected and contains exactly n - 1 edges!
+  Graph can't possibly contains a cycle if the graph is fully connected and contains exactly n - 1 edges!
 
   And graph must be a tree.
 

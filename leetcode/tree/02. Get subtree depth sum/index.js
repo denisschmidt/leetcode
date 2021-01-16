@@ -26,6 +26,8 @@
       / \
      8  9
 
+      1 + 1 + 2 + 2 + 2 + 2 + 3 + 3 + 1 + 1 + 1 + 1 + 2 + 2 + 1 + 1
+
     Output: 26 
 
 */
@@ -55,7 +57,7 @@ const getSumDepth = node => {
 
     ans += subTreeSum;
 
-    return new Node(cntNodes, subTreeSumu);
+    return new Node(cntNodes, subTreeSum);
   }
 };
 

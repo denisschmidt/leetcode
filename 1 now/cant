@@ -4,7 +4,8 @@ Find K Pairs with Smallest Sums +-
 
 Ugly Number II
 
-Partition to K Equal Sum Subsets +- вопрос про сложность, если не использовать битовые маски и в целом про бэктрек решение
+Partition to K Equal Sum Subsets - вопрос про сложность, если не использовать битовые маски и в целом про бэктрек решение
+Partition to K Equal Sum Subsets -
 
 Can i win +-
 
