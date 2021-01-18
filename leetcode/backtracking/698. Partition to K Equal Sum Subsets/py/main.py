@@ -2,40 +2,78 @@
 # Space O(2^N)
 class Solution:
     def canPartitionKSubsets(self, nums, k):
-        totalSum = sum(nums)
+        total_sum = sum(nums)
+        N = len(nums)
+        used = [False] * N
+
+        if total_sum % k != 0:
+            return False
+
+        def dfs(index, cur_sum, target_sum, k):
+            if k == 0:
+                return True
+            
+            if cur_sum == target_sum:
+                return dfs(0, 0, target_sum, k - 1)
+
+            if index >= N or cur_sum > target_sum:
+                return False
+            
+            res = False
+
+            # try to take the current num if it possible
+            if not used[index]:
+                used[index] = True
+                
+                res = dfs(index + 1, cur_sum + nums[index], target_sum, k)
+                
+                # backtracking
+                used[index] = False
+            
+            # we already find the answer or need continue the search
+            return res or dfs(index + 1, cur_sum, target_sum, k)
+
+        return dfs(0, 0, total_sum // k, k)
+
+    def canPartitionKSubsets_II(self, nums, k):
+        total_sum = sum(nums)
         n = len(nums)
 
-        if totalSum % k != 0 or k == 0:
+        if total_sum % k != 0 or k == 0:
             return False
         
         used = [False] * n
         
-        def dfs(index, currSum, cnt, target):
+        def dfs(index, cur_sum, target_sum, k):
             # first of all check all valid results
-            if cnt == k:
+            if k == 0:
                 return True
-            
+
             # if we found a subset with sum equal target
-            # start search from the beginning
-            if currSum == target:
-                return dfs(0, 0, cnt + 1, target)
+            # start a new search from the beginning
+            if cur_sum == target_sum:
+                return dfs(0, 0, target_sum, k - 1)
             
-            if index >= n or currSum > target:
+            if index >= len(nums):
                 return False
 
             # search a new subset
-            for i in range(index, n):
+            for i in range(index, len(nums)):
                 if used[i]:
                     continue
 
-                used[i] = True
-                ans = dfs(i + 1, currSum + nums[i], cnt, target)
-                used[i] = False
-                
-                if ans:
-                    return True
-                
+                if cur_sum + nums[i] <= target_sum:
+                    used[i] = True
+
+                    res = dfs(i + 1, cur_sum + nums[i], target_sum, k)
+
+                    # backtracking
+                    used[i] = False
+
+                    if res:
+                        return True
+            
             return False
 
-        return dfs(0, 0, 0, totalSum / k)
+        return dfs(0, 0, 0, total_sum / k)
             
