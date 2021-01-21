@@ -1,26 +1,11 @@
-/*
-Given a 2D binary matrix filled with 0's and 1's, find the largest rectangle containing only 1's and return its area.
-
-Example:
-
-Input:
-[
-  ["1","0","1","0","0"],
-  ["1","0","1","1","1"],
-  ["1","1","1","1","1"],
-  ["1","0","0","1","0"]
-]
-Output: 6
-
- */
-
 // Time O(N^2 * M).
 // Вычисление максимальной площади для одной точки занимает время O(N),
 // Так как оно перебирает значения в том же столбце.x
 // Это делается для всех N * M точек, давая O(N) * O(NM) = O (N^2 * M).
 // Space O(N * M)
-const maximalRectangle_II = function (matrix) {
+const maximalRectangle_II = matrix => {
   if (matrix.length === 0) return 0;
+
   let n = matrix.length;
   let m = matrix[0].length;
   let ans = 0;
@@ -49,6 +34,7 @@ const maximalRectangle_II = function (matrix) {
       }
     }
   }
+
   return ans;
 };
 

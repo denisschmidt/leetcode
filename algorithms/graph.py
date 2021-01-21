@@ -16,12 +16,40 @@
   
   If a vertex is reached that is already in the recursion stack, then there is a cycle in the tree. 
 
+
+DFS - мы всегда идем до конца пока не обойдем все вершины а потом начнем backtrack
+
 """
 
 # Time Complexity: O(V+E).
 # Time Complexity of this method is same as time complexity of DFS traversal which is O(V+E).
 # Space Complexity: O(V).
 # To store the visited and recursion stack O(V) space is needed.
+
+# Base solution
+def hasCycle(graph, n):
+    def dfs(u):
+        color[u] = 1 # processed
+
+        for v in graph[u]:
+            if color[v] == 1: # если приходим в ребро которое обрабатывается в данный момент
+                return True
+                
+            if color[v] == 0 and dfs(v):
+                return True
+
+        color[u] = 2
+
+        return False
+
+    color = [0] * n
+
+    # Если графы несвязанны
+    for v in range(n):
+        if color[v] == 0 and dfs(v):
+            return True
+
+    return False
 
 def hasCycleInDirectedGraph(n, graph):
     visited = [False] * n
@@ -48,6 +76,8 @@ def hasCycleInDirectedGraph(n, graph):
     return hasCycle(0)
 
 
+
+
 """
 
     Graph theory:
@@ -68,10 +98,17 @@ def hasCycleInDirectedGraph(n, graph):
         3) Iterative DFS + MAP
         4) Iterative DFS + SET + Remove
 
-    Backward edge - path from the same vertex to a parent node or other node in current path from the root to the edge
+
+
+    Backward edge (обратное ребро) - ребро ведущее от какой-то вершины в своего одного из предков
     
-    Cross edge - edge from the vertex to another subtree
+    Cross edge (перекрестные ребра) - две независимые вершины соедененные ребром
     
+    Древестные ребра
+
+
+    При обходе графа DFS НЕСУЩЕСТВУЕТ перекрестных ребер !!!
+
 """
 
 class UnDirectedGraph:
@@ -167,3 +204,34 @@ class UnDirectedGraph:
             stack.append(v)
         
         return False
+
+
+# Время входа и выхода из вершины
+# Это просто таймер
+# Задача найти ancestors in tree 
+
+"""
+(время входа, время выхода)
+
+            1 (1, 10)
+          /   \
+  (2, 7) 2     3 (8, 9)
+        /  \   
+(3, 4) 4    5 (5, 6) 
+
+
+"""
+
+def dfs(u):
+    color[u] = 1
+    tIn[u] = timer++
+
+    for v in graph[u]:
+        if color[v] == 0:
+            dfs(v)
+
+    tOut[u] = timer++;
+
+
+def isAncerssor(v, u):
+    return tIn[v] <= tIn[u] and tOut[v] >= tOut[u]
