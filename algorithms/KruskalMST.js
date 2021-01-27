@@ -28,7 +28,7 @@
 
 */
 
-// Time O(ELogE + E)
+// Time O(ELogE + (V + E) * alpha(V)) where alpha(V) - обратная функция Аккермана
 // Space O(E)
 const kruskalMST = (n, prims) => {
   let parent = [];
@@ -41,6 +41,7 @@ const kruskalMST = (n, prims) => {
 
   let ans = 0;
   for (let [u, v, cnt] of prims) {
+    // Если ребро не добавляет цикла
     if (union(u, v)) {
       ans += cnt;
     }
