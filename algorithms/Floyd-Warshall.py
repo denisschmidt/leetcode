@@ -12,6 +12,9 @@
   dp[k+1, i, j] = min(dp[k, i, j], dp[k, i, k] + dp[k, k, j])
 
   We either don't visit (k + 1) vertex or visit it as some middle vertex
+
+
+  Можем проверить негативные циклы 
  
 """
 

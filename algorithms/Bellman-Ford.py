@@ -9,9 +9,4 @@
 
   The same as "BFS on weighted graph"
 
-  
-
-
-
-
 """
