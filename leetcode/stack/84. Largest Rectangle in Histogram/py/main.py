@@ -1,42 +1,26 @@
 class Solution:
+    # Time O(N)
+    # Space O(N)
     def largestRectangleArea(self, heights):
-        if not heights: return 0
-        
         st = []
-        res = 0
-        N = len(heights)
+        n = len(heights)
+        ans = 0
 
-        for i in range(N):
-          while st and heights[st[-1]] > heights[i]:
-            j = st.pop()
-            
-            height = heights[j] 
-            width = 0
-            
-            if not st:
-                # Если стек пуст то текущий height является самым минимальным значением на интервале до i
-                # И следовательно его ширина равна i
-                width = i
-            else:
-                 width = i - st[-1] - 1
-                       
-            res = max(res, height * width)
-            
-          st.append(i)
-                
-        while st:
-            j = st.pop()
-            
-            height = heights[j]
-            width = 0
-            
-            if not st:
-                width = N
-            else:
-                width = N - st[-1] - 1 
-            
-            print(height, width)
+        for i in range(n + 1):
+            while st and (i < n and heights[st[-1]] > heights[i] or i == n):
+                index = st.pop()
 
-            res = max(res, height * width)
-        
-        return res
+                if not st:
+                    # If stack in empty than current height is the smallest value in the interval [0-i]
+                    # Then the width will be equal to the current index
+                    width = i
+                else:
+                    # i - right border of width
+                    # st[-1] - left border of width
+                    width = i - st[-1] - 1
+
+                ans = max(ans, width * heights[index])
+
+            st.append(i)
+
+        return ans
