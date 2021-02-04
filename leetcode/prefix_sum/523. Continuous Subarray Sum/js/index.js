@@ -1,35 +1,11 @@
 /*
-
-Given a list of non-negative numbers and a target integer k, write a function to check if the array has a continuous subarray
-of size at least 2 that sums up to a multiple of k, that is, sums up to n*k where n is also an integer.
-
-Example 1:
-
-  Input: [23, 2, 4, 6, 7],  k=6
-  Output: True
-  Explanation: Because [2, 4] is a continuous subarray of size 2 and sums up to 6.
-
-Example 2:
-  Input: [23, 2, 6, 4, 7],  k=6
-  Output: True
-  Explanation: Because [23, 2, 6, 4, 7] is an continuous subarray of size 5 and sums up to 42.
- 
-
-Note:
-
-The length of the array won't exceed 10,000.
-You may assume the sum of all the numbers is in the range of a signed 32-bit integer.
-
-*/
-
-/*
   Алгоритм довольно не очевидный по началу, но в реализации оч крутой 
   
   1) Находим сумму на промежутке от 0 до i
   2) И если остаток от делания этой суммы от 0 до i равен остатку от деления от 0 до j 
   3) Тогда сумма [i + 1, j] делится на k 
   
-  Формула: [0, i] % K == сумма [0, j]% K тогда сумма [i + 1, j] делится на K.  
+  Формула: [0, i] % K == сумма [0, j] % K, тогда сумма [i + 1, j] делится на K.  
   
   Итак, для текущего индекса j где i < j нам нужно выяснить, а встречался ли уже подобный остаток от деления ранее.
 
