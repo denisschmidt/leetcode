@@ -1,6 +1,11 @@
 class Solution:
     def isAlienSorted(self, words, order):
         mapping = {ch: i for i, ch in enumerate(order)}
+
+        return words == sorted(words, key=lambda s: [mapping[ch] for ch in s])
+
+    def isAlienSorted_II(self, words, order):
+        mapping = {ch: i for i, ch in enumerate(order)}
         n = len(words)
 
         for i in range(n - 1):

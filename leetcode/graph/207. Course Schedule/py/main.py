@@ -1,34 +1,39 @@
 import collections
 
-# Time O(N + E)
-# Space O(N)
+
+# Time O(E + V) where |V| is the number of courses, and |E| is the number of dependencies.
+# Space O(E + V)
 class Solution:
     def canFinish(self, numCourses, prerequisites):
-        def has_cycle(u):
-          stack[u] = True
-          visited[u] = True
+        def dfs(u):
+            if color[u] == 2:
+                return False
 
-          for v in adj_list[u]:
-            if stack[v]:
-              return True
+            color[u] = 1
 
-            if not visited[v] and has_cycle(v):
-              return True
+            for v in adj_list[u]:
+                if color[v] == 1:
+                    return True
 
-          stack[u] = False
+                if color[v] == 0 and dfs(v):
+                    return True
 
-          return False
-        
+            color[u] = 2
+
+            return False
+
+        # 0 - not used
+        # 1 - processing
+        # 2 - processed
+        color = [0] * numCourses
+
         adj_list = collections.defaultdict(list)
 
         for u, v in prerequisites:
-          adj_list[u].append(v)
+            adj_list[u].append(v)
 
-        visited = [False] * numCourses
-        stack = [False] * numCourses
-
-        for i in range(numCourses):
-          if has_cycle(i):
-            return False
+        for course in range(numCourses):
+            if dfs(course):
+                return False
 
         return True

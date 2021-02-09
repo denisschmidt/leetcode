@@ -2,6 +2,12 @@ import collections
 
 
 class Solution:
+    # There are N-1 pairs of adjacent words, and only one edge can be generated from each pair
+    # There are at most N - 1 edges.
+    # The number of vertices is simply V; the number of unique letters.
+
+    # Time O(V + E)
+    # Space O(V + E) => E in the worst case is min(V^2, N)
     def alienOrder(self, words):
         graph = collections.defaultdict(list)
         indegree = {}
@@ -51,15 +57,3 @@ class Solution:
             return ''.join(items)
 
         return ''
-
-
-x = Solution()
-
-y = x.alienOrder(["ab", "adc"])
-"""  
-  vlxpwiqbsg cpwqwqcd
-  
-  
-  bdgilpqsvcwx
-"""
-print('---', y)
