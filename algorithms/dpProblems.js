@@ -113,16 +113,22 @@ function minCoinRepeat(coins, target) {
 function getBestFromLeftAndRight(nums) {
   let n = nums.length;
 
+  // dp[left][right] - max number of values we can get after calculating (left, right) interval.
   let dp = Array(n)
     .fill(null)
     .map(() => Array(n).fill(null));
 
-  for (let l = 1; l < n; l++) {
-    for (let i = 0; i < n - l; i++) {
-      let j = i + l;
+  for (let len = 1; len < n; len++) {
+    for (let left = 0; left < n - len; left++) {
+      let right = left + len;
 
-      for (let k = i; k < j; k++) {
-        dp[i][j] = max(dp[i][j], dp[i][k] + result[k] + dp[k + 1][j]);
+      // Iterate over the elements we will destroy last
+      for (let k = left + 1; k < right; k++) {
+        let currentState = nums[left] + nums[right] + nums[k];
+
+        // If element k is destroyed last we have to destroy intervals (left, k) and (k, right)
+        // For the last operation we receive nums[left] + nums[k] + nums[right]
+        dp[left][right] = max(dp[left][right], dp[left][k] + dp[k][right] + currentState);
       }
     }
   }
@@ -176,7 +182,6 @@ function getDpOneString(s) {
 }
 
 /*
-  Принимать решение
 
   Общая формулировка проблемы для этого шаблона - ситуация, решающая, использовать или не использовать текущее состояние. 
   Итак, проблема требует от вас принятия решения в текущем состоянии.
