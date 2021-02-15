@@ -4,8 +4,7 @@ Find K Pairs with Smallest Sums +-
 
 Ugly Number II
 
-Partition to K Equal Sum Subsets - вопрос про сложность, если не использовать битовые маски и в целом про бэктрек решение
-Partition to K Equal Sum Subsets -
+Partition to K Equal Sum Subsets - Time Complexity ???
 
 Can i win +-
 
@@ -20,3 +19,38 @@ Jump Game II
 Maximum XOR of Two Numbers in an Array
 
 Valid Triangle Number
+
+
+Next:
+
+Unique Binary Search Trees Medium
+Minimum Score Triangulation of Polygon Medium
+Remove Boxes Medium
+Minimum Cost to Merge Stones Medium
+Burst Balloons Hard
+Guess Number Higher or Lower II Medium
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

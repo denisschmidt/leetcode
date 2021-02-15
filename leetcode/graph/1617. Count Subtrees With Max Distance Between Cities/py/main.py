@@ -54,10 +54,3 @@ class Solution:
                 ans[max_dist - 1] += 1
 
         return ans
-
-x = Solution()
-
-res =  x.countSubgraphsForEachDiameter(4,
-[[1,3],[1,4],[2,3]])
-
-print(res)

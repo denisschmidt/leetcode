@@ -1,5 +1,3 @@
-const { stat } = require('fs');
-
 /**
  * @param {number} n
  * @param {number[][]} edges

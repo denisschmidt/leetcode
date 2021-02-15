@@ -26,15 +26,17 @@ DFS - мы всегда идем до конца пока не обойдем в
 # Space Complexity: O(V).
 # To store the visited and recursion stack O(V) space is needed.
 
+
 # Base solution
 def hasCycle(graph, n):
     def dfs(u):
-        color[u] = 1 # processed
+        color[u] = 1  # processed
 
         for v in graph[u]:
-            if color[v] == 1: # если приходим в ребро которое обрабатывается в данный момент
+            if color[
+                    v] == 1:  # если приходим в ребро которое обрабатывается в данный момент
                 return True
-                
+
             if color[v] == 0 and dfs(v):
                 return True
 
@@ -51,6 +53,7 @@ def hasCycle(graph, n):
 
     return False
 
+
 def hasCycleInDirectedGraph(n, graph):
     visited = [False] * n
     stack = [False] * n
@@ -58,17 +61,17 @@ def hasCycleInDirectedGraph(n, graph):
     def hasCycle(u):
         if visited[u]:
             return False
-        
+
         visited[u] = True
         stack[u] = True
 
         for v in graph[u]:
             if stack[v]:
                 return True
-            
+
             if not visited[v] and hasCycle(v):
                 return True
-        
+
         stack[u] = False
 
         return False
@@ -76,10 +79,7 @@ def hasCycleInDirectedGraph(n, graph):
     return hasCycle(0)
 
 
-
-
 """
-
     Graph theory:
 
     Graph can't possibly contains a cycle if the graph is fully connected and contains exactly n - 1 edges!
@@ -99,17 +99,17 @@ def hasCycleInDirectedGraph(n, graph):
         4) Iterative DFS + SET + Remove
 
 
+    Типы ребер:
+        - Backward edge (обратное ребро) - ребро ведущее от какой-то вершины в своего одного из предков
 
-    Backward edge (обратное ребро) - ребро ведущее от какой-то вершины в своего одного из предков
-    
-    Cross edge (перекрестные ребра) - две независимые вершины соедененные ребром
-    
-    Древестные ребра
+        - Cross edge (перекрестные ребра) - две независимые вершины соедененные ребром
 
+        - Древестные ребра
 
     При обходе графа DFS НЕСУЩЕСТВУЕТ перекрестных ребер !!!
 
 """
+
 
 class UnDirectedGraph:
     def __init__(self, n, graph):
@@ -118,46 +118,47 @@ class UnDirectedGraph:
         self.parent = [0] * n
         self.seen = set()
 
-        for i in range(n): parent[i] = i
+        for i in range(n):
+            self.parent[i] = i
 
-    # Union Find      
-    def hasCycle():
+    # Union Find
+    def hasCycle(self, edges):
         if len(edges) != self.n - 1:
             return False
-        
-        for [u, v] in self.graph:
+
+        for [u, v] in edges:
             if not self.union(u, v):
                 return False
-      
-    return True
+
+        return True
 
     def find(self, x):
-        if x != parent[x]:
-            parent[x] = self.find(parent[x])
+        if x != self.parent[x]:
+            self.parent[x] = self.find(self.parent[x])
 
-      return parent[x]
+        return self.parent[x]
 
-    def union(x, y):
-        xr = find(x)
-        yr = find(y)
+    def union(self, x, y):
+        xr = self.find(x)
+        yr = self.find(y)
 
         if xr != yr:
-            parent[yr] = xr
-            return True 
+            self.parent[yr] = xr
+            return True
 
-      return False
-    
+        return False
+
     # DFS
     def hasCycle_II(self, u, parent):
         if u in self.seen:
             return True
-        
+
         self.seen.add(u)
 
         for v in self.graph[u]:
             if v != parent and self.hasCycle_II(v, u):
                 return True
-        
+
         return False
 
     # Remove connections
@@ -173,44 +174,20 @@ class UnDirectedGraph:
             for v in graph[u]:
                 if v in seen:
                     return True
-                
+
                 stack.append(v)
                 seen.add(v)
 
-                graph[v].remove(u) # remove connection
+                graph[v].remove(u)  # remove connection
 
-        return False
-
-    def hasCycle_IV(self, n, graph):
-        stack = []
-        parent = {}
-
-        stack.append(0)
-        parent[0] = -1
-
-        while stack:
-            u = stack.pop()
-
-            for v in graph[u]:
-                # Don't look at the trivial cycle
-                if parent[u] == v:
-                    continue
-                
-                # Check if we've already seen this node.
-                if v in parent:
-                    return True # There must be a cycle.
-
-            parent[v] = u
-            stack.append(v)
-        
         return False
 
 
 # Время входа и выхода из вершины
 # Это просто таймер
-# Задача найти ancestors in tree 
-
+# Задача найти ancestors in tree
 """
+
 (время входа, время выхода)
 
             1 (1, 10)
@@ -222,16 +199,27 @@ class UnDirectedGraph:
 
 """
 
-def dfs(u):
-    color[u] = 1
-    tIn[u] = timer++
 
-    for v in graph[u]:
-        if color[v] == 0:
-            dfs(v)
+class GraphTime:
+    def setTimeInTimeOut(self, n, graph):
+        color = [0] * n
+        tIn = [0] * n
+        tOut = [0] * n
+        timer = 0
 
-    tOut[u] = timer++;
+        def dfs(u):
+            nonlocal timer
+            color[u] = 1
+            tIn[u] = timer
 
+            timer += 1
 
-def isAncerssor(v, u):
-    return tIn[v] <= tIn[u] and tOut[v] >= tOut[u]
+            for v in graph[u]:
+                if color[v] == 0:
+                    dfs(v)
+
+            tOut[u] = timer
+            timer += 1
+
+        def isAncerssor(v, u):
+            return tIn[v] <= tIn[u] and tOut[v] >= tOut[u]
