@@ -1,23 +1,31 @@
-import heapq 
-
 class Solution:
+    # Time O(N)
+    # Space O(1)
     def minCost(self, s, cost):
-      heap = []
-      res = 0
-      heapq.heappush(heap, cost[0])
+        if not s: return 0
+        n = len(s)
+        ans, i = 0, 0
 
-      for i in range(1, len(cost)):
-        if s[i - 1] == s[i]:
-          heapq.heappush(heap, cost[i])
-        else:
-          if len(heap) > 1:
-            while len(heap) > 1:
-              res += heapq.heappop(heap)  
+        while i < n:
+            # two pointers
+            j = i + 1
 
-          heapq.heappop(heap)
-          heapq.heappush(heap, cost[i])
+            while j < n and s[i] == s[j]:
+                ans += min(cost[i], cost[j])
 
-      while len(heap) > 1:
-        res += heapq.heappop(heap)
+                if cost[i] < cost[j]:
+                    # swap because we need to remove the char with less cost
+                    i = j
 
-      return res
+                j += 1
+
+                if j < n and s[i] != s[j]:
+                    i = j - 1
+                    break
+
+            if j == n:
+                break
+
+            i += 1
+
+        return ans

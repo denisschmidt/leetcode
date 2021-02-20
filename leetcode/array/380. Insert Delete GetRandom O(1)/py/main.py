@@ -1,5 +1,6 @@
 import random
 
+
 class RandomizedSet:
     # Time O(1) worst-case O(N)
     # Space O(N)
@@ -19,7 +20,7 @@ class RandomizedSet:
 
         self.dict[val] = len(self.items)
         self.items.append(val)
-        
+
         return True
 
     def remove(self, val: int) -> bool:
@@ -28,23 +29,23 @@ class RandomizedSet:
         """
         if val not in self.dict:
             return False
-        
+
         idx = self.dict[val]
-        last_element = self.items[-1]
-        
+
         # Swap current element and last element
         # Move the last element to the place idx of the element to delete
-        self.items[idx] = last_element
-        self.dict[last_element] = idx
+        self.items[idx] = self.items[-1]
+        self.items.pop()
 
-        # Remove last element
-        self.items.pop()        
+        if idx < len(self.items):
+            self.dict[self.items[idx]] = idx
+
         del self.dict[val]
-      
+
         return True
-    
+
     def getRandom(self) -> int:
         """
         Get a random element from the set.
         """
-        return random.choice(self.items) 
+        return random.choice(self.items)
