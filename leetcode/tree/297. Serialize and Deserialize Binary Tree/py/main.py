@@ -1,79 +1,64 @@
-from collections import deque
+import collections
 
-class TreeNode(object):
-  def __init__(self, x):
-    self.val = x
-    self.left = None
-    self.right = None
 
 class Codec:
-    """Encodes a tree to a single string.    
-      :type root: TreeNode
-      :rtype: str
-    """
     def serialize(self, root):
-        if root == None:
-          return []
+        """Encodes a tree to a single string.
+        
+        :type root: TreeNode
+        :rtype: str
+        """
+        if not root:
+            return []
 
-        queue = deque()
-        queue.append(root)
         res = []
+        queue = collections.deque()
+
+        queue.append(root)
 
         while queue:
-          node = queue.popleft()
+            node = queue.popleft()
 
-          if node:
-            queue.append(node.left)
-            queue.append(node.right)
-            res.append(node.val)
-          else:
-            res.append(None)
+            res.append(node.val if node else None)
 
-        while len(res) and res[-1] == None:
-          res.pop()
+            if node:
+                queue.append(node.left)
+                queue.append(node.right)
+
+        while res[-1] == None:
+            res.pop()
 
         return res
-        
-    """
-      Decodes your encoded data to tree.  
-      :type data: str
-      :rtype: TreeNode
-    """
+
     def deserialize(self, data):
-      if len(data) == 0:
-        return None
-
-      queue = deque()
-      index = 0
-      
-      root = TreeNode(data[index])
-      index += 1
-
-      queue.append(root)
-
-      while queue and index < len(data):
-        node = queue.popleft()
-        left = data[index]
-        index += 1
-
-        if left != None:
-          node.left = TreeNode(left)
-          queue.append(node.left)
-            
-        if index == len(data):
-            break
-            
-        right = data[index]
-        index += 1
+        """Decodes your encoded data to tree.
         
-        if right != None:
-          node.right = TreeNode(right)
-          queue.append(node.right)
+        :type data: str
+        :rtype: TreeNode
+        """
+        if not data:
+            return None
 
-      return root        
-        
+        queue = collections.deque()
+        node = TreeNode(data[0])
+        index, n = 1, len(data)
 
-# Your Codec object will be instantiated and called as such:
-# ser = Codec()
-# deser = Codec()
-# ans = deser.deserialize(ser.serialize(root))
+        queue.append(node)
+
+        while index < n:
+            current = queue.popleft()
+
+            # If value == None, skip it
+            if index < n and data[index] != None:
+                current.left = TreeNode(data[index])
+                queue.append(current.left)
+
+            index += 1
+
+            if index < n and data[index] != None:
+                current.right = TreeNode(data[index])
+                queue.append(current.right)
+
+            index += 1
+
+        return node
