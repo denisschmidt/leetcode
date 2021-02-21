@@ -62,7 +62,7 @@ class Solution:
     # Dp + Memo
     # Time O(N^3)
     # Space O(N^2)
-    def checkPartitioning_II(self, s):
+    def checkPartitioning_III(self, s):
         n = len(s)
         target = 3
         memo = {}
