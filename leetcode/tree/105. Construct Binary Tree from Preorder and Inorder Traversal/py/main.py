@@ -1,35 +1,36 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
+    # Time O(N)
+    # Space O(N)
     def buildTree(self, preorder: List[int], inorder: List[int]) -> TreeNode:
-      def dfs(lo, hi):
-          nonlocal pre_idx
-          if lo >= hi:
-              return None
+        # root-left-right
+        # left-root-right
+        mapping = {}
+        n = len(inorder)
+        index = 0
 
-          val = preorder[pre_idx]  
-          node = TreeNode(val)
-          
-          # val splits inorder list
-          # into left and right subtrees
-          mid = idx_map[val]
-        
-          # recursion
-          pre_idx += 1  
+        for i, v in enumerate(inorder):
+            mapping[v] = i
 
-          # build left subtree
-          node.left = dfs(lo, mid)        
-          # build right subtree
-          node.right = dfs(mid + 1, hi)
+        def dfs(lo, hi):
+            nonlocal index
 
-          return node
-                  
-      pre_idx = 0
+            if lo > hi:
+                return None
 
-      idx_map = {val:idx for idx, val in enumerate(inorder)}  
+            # val splits inorder list
+            # into left and right subtrees
+            val = preorder[index]
 
-      return dfs(0, len(preorder))
+            node = TreeNode(val)
+            mid = mapping[val]
+            index += 1
+
+            # build left subtree
+            node.left = dfs(lo, mid - 1)
+
+            # build right subtree
+            node.right = dfs(mid + 1, hi)
+
+            return node
+
+        return dfs(0, n - 1)
