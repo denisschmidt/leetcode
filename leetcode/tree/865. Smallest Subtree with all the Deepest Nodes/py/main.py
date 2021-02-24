@@ -1,50 +1,92 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+import collections
+
+
 class Solution:
     def __init__(self):
-      self.ans = None
-    
+        self.ans = None
+
     def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
-      if root == None or self.isLeaf(root):
-        return root
+        if root == None or self.isLeaf(root):
+            return root
 
-      maxDepth = self.getMaxDepth(root)
+        maxDepth = self.getMaxDepth(root)
 
-      self.dfs(root, 1, maxDepth)
+        self.dfs(root, 1, maxDepth)
 
-      return self.ans
+        return self.ans
 
     def dfs(self, root, depth, maxDepth):
-      if root == None:
-        return None
+        if root == None:
+            return None
 
-      if depth == maxDepth:
-        self.ans = root    
-        return root
+        if depth == maxDepth:
+            self.ans = root
+            return root
 
-      if self.isLeaf(root):
-        return None
+        L = self.dfs(root.left, depth + 1, maxDepth)
+        R = self.dfs(root.right, depth + 1, maxDepth)
 
-      L = self.dfs(root.left, depth + 1, maxDepth)    
-      R = self.dfs(root.right, depth + 1, maxDepth)
+        if L and R:
+            self.ans = root
 
-      if L != None and R != None:
-        self.ans = root
-
-      return L or R  
+        return L or R
 
     def getMaxDepth(self, root):
-      if root == None:
-        return 0
+        if root == None:
+            return 0
 
-      l = self.getMaxDepth(root.left)
-      r = self.getMaxDepth(root.right)       
+        l = self.getMaxDepth(root.left)
+        r = self.getMaxDepth(root.right)
 
-      return max(l, r) + 1
+        return max(l, r) + 1
 
     def isLeaf(self, root):
-      return root.left == None and root.right == None  
+        return root.left == None and root.right == None
+
+
+class Solution_II:
+    # Time O(N)
+    # Space O(N)
+    def subtreeWithAllDeepest(self, root: TreeNode) -> TreeNode:
+        depths = collections.defaultdict(list)
+        maxDepth = 0
+        parent = {}
+
+        def dfs(node, p, d):
+            nonlocal maxDepth
+
+            if node is None:
+                return
+
+            depths[d].append(node)
+            maxDepth = max(maxDepth, d)
+
+            parent[node] = p
+
+            dfs(node.left, node, d + 1)
+            dfs(node.right, node, d + 1)
+
+        dfs(root, None, 0)
+
+        queue = collections.deque()
+        visited = {}
+
+        for n in depths[maxDepth]:
+            queue.append(n)
+
+        target = len(queue)
+
+        while queue:
+            size = len(queue)
+
+            for _ in range(size):
+                n = queue.popleft()
+
+                if n in parent and parent[n] != None:
+                    queue.append(parent[n])
+                    visited[n] = visited.get(n, 0) + 1
+
+                    if visited[n] == target:
+                        return n
+
+        return root
