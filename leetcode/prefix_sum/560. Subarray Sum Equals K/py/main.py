@@ -1,20 +1,18 @@
-
-import collections
-
-# Time O(N)
-# Space O(N)
 class Solution:
-    def subarraySum(self, nums, k):
-        m = collections.Counter({0: 1})
-        cur_sum = 0
+    # Time O(N)
+    # Space O(N)
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        mapping = {0: 1}
+        current = 0
+        n = len(nums)
         ans = 0
-                
-        for i in range(len(nums)):
-          cur_sum += nums[i]
-            
-          if cur_sum - k in m:
-            ans += m[cur_sum - k]    
-            
-          m[cur_sum] += 1
-        
+
+        for i in range(n):
+            current += nums[i]
+
+            if current - k in mapping:
+                ans += mapping.get(current - k)
+
+            mapping[current] = mapping.get(current, 0) + 1
+
         return ans
