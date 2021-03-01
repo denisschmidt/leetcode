@@ -1,28 +1,26 @@
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
 class Solution:
-    def __init__(self):
-      super().__init__()
-      self.res = None
-      self.diff = float('inf')
+    # Time O(H)
+    # Space O(H)
+    def closestValue(self, root: TreeNode, target: float) -> int:
+        def dfs(node):
+            if node is None:
+                return
 
-    def closestValue(self, root, target):
-      self.dfs(root, target)
-      return self.res
+            if abs(node.val - target) < self.min:
+                self.min = abs(node.val - target)
+                self.ans = node
 
-    def dfs(self, node, target):
-      if node == None:
-        return None
+            if node.val > target:
+                dfs(node.left)
+            elif node.val < target:
+                dfs(node.right)
+            else:
+                self.min = 0
+                self.ans = node
 
-      if self.diff > abs(node.val - target):
-        self.diff = abs(node.val - target)
-        self.res = node.val
+        self.min = float('inf')
+        self.ans = None
 
-      if node.val > target:
-        self.dfs(node.left, target)
-      else:
-        self.dfs(node.right, target)  
+        dfs(root)
+
+        return self.ans
