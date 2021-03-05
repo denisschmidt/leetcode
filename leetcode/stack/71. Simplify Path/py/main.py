@@ -1,22 +1,21 @@
 class Solution:
+    # Time O(N)
+    # Space O(N)
     def simplifyPath(self, path: str) -> str:
-      paths = path.split('/')
-      st = []
+        path = path.split('/')
+        st = []
 
-      for p in paths:
-        if p == '.' or p == '':
-          continue
+        for i in range(1, len(path)):
+            if path[i] == '.' or path[i] == '':
+                continue
 
-        if p == '..':
-          if st:
+            if path[i] == '..':
+                if st:
+                    st.pop()
+            else:
+                st.append(path[i])
+
+        if st and st[-1] == '/':
             st.pop()
-        else:
-          st.append(p)
 
-      res = ''
-
-      while st:
-        res = '/' + st.pop() + res
-
-      return res if len(res) else '/'  
-      
+        return '/' + "/".join(st)
