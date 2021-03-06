@@ -13,7 +13,6 @@
 
   We either don't visit (k + 1) vertex or visit it as some middle vertex
 
-
   Можем проверить негативные циклы 
  
 """
