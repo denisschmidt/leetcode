@@ -1,27 +1,30 @@
 class Solution:
     # Time O(U + V)
     # Space O(U)
-    def isBipartite(self, graph):
+    def isBipartite(self, graph: List[List[int]]) -> bool:
         n = len(graph)
         colors = [0] * n
 
-        def dfs(u, parent, color):
-            if colors[u] != 0:
-                if colors[u] != color:
-                    return False
+        def dfs(v, parent, color):
+            if colors[v] == -color:
+                return False
+
+            if colors[v] != 0:
                 return True
 
-            colors[u] = color
+            colors[v] = color
 
-            for v in graph[u]:
-                if v != parent and not dfs(v, u, -colors[u]):
+            for u in graph[v]:
+                if u == parent:
+                    continue
+
+                if not dfs(u, v, -color):
                     return False
 
             return True
 
-        for u in range(n):
-            if colors[u] == 0:
-                if not dfs(u, -1, 1):
-                    return False
+        for v in range(n):
+            if colors[v] == 0 and not dfs(v, -1, 1):
+                return False
 
         return True

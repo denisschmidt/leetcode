@@ -33,8 +33,8 @@ def hasCycle(graph, n):
         color[u] = 1  # processed
 
         for v in graph[u]:
-            if color[
-                    v] == 1:  # если приходим в ребро которое обрабатывается в данный момент
+            # если приходим в ребро которое обрабатывается в данный момент
+            if color[v] == 1:
                 return True
 
             if color[v] == 0 and dfs(v):
