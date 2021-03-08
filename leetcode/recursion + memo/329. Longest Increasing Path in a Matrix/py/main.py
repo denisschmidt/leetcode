@@ -1,8 +1,52 @@
 import heapq
+import collections
 
 
 class Solution:
-    def longestIncreasingPath(self, matrix: List[List[int]]) -> int:
+    # Time O(N*M). The the topological sort is O(V + E)
+    # In our problem, O(V) = O(N*M), O(E) = O(4V) = O(N*M).
+    # Space O(N*M)
+    def longestIncreasingPath(self, matrix) -> int:
+        n, m = len(matrix), len(matrix[0])
+
+        indegree = [[0] * m for _ in range(n)]
+
+        for i in range(n):
+            for j in range(m):
+                for x, y in self.getNeighbors(i, j, n, m):
+                    if matrix[i][j] < matrix[x][y]:
+                        indegree[x][y] += 1
+
+        queue = collections.deque()
+
+        for i in range(n):
+            for j in range(m):
+                if indegree[i][j] == 0:
+                    queue.append((i, j))
+
+        path_length = 0
+
+        while queue:
+            size = len(queue)
+
+            for _ in range(size):
+                i, j = queue.popleft()
+
+                for x, y in self.getNeighbors(i, j, n, m):
+                    if matrix[x][y] > matrix[i][j]:
+                        indegree[x][y] -= 1
+
+                        if indegree[x][y] == 0:
+                            queue.append((x, y))
+
+            path_length += 1
+
+        return path_length
+
+    # Time O(N*M)
+    # Each vertex/cell will be calculated once and only once, and each edge will be visited once and only once.
+    # Space O(N*M)
+    def longestIncreasingPath_II(self, matrix: List[List[int]]) -> int:
         n, m = len(matrix), len(matrix[0])
         dp = [[None] * m for _ in range(n)]
         ans = 0
@@ -26,7 +70,9 @@ class Solution:
                 ans = max(ans, dfs(i, j) + 1)
         return ans
 
-    def longestIncreasingPath_II(self, matrix: List[List[int]]) -> int:
+    # Time O(N*M)
+    # Space O(N*M)
+    def longestIncreasingPath_III(self, matrix: List[List[int]]) -> int:
         n, m = len(matrix), len(matrix[0])
         distance = [[1] * m for _ in range(n)]
         queue = []

@@ -35,8 +35,7 @@ class Solution:
                     break
                 j += 1
 
-            if j == min_length and len(word1) > len(word2) and word1[
-                    j - 1] == word2[j - 1]:
+            if j == min_length and len(word1) > len(word2) and word1[j - 1] == word2[j - 1]:
                 return ''
 
         items = []

@@ -21,14 +21,14 @@ DFS - мы всегда идем до конца пока не обойдем в
 
 """
 
-# Time Complexity: O(V+E).
-# Time Complexity of this method is same as time complexity of DFS traversal which is O(V+E).
+# Time Complexity: O(V + E).
+# Time Complexity of this method is same as time complexity of DFS traversal which is O(V + E).
+
 # Space Complexity: O(V).
 # To store the visited and recursion stack O(V) space is needed.
 
-
-# Base solution
-def hasCycle(graph, n):
+# Coloring solution
+def hasCycleInDirectedGraph(graph, n):
     def dfs(u):
         color[u] = 1  # processed
 
@@ -53,8 +53,9 @@ def hasCycle(graph, n):
 
     return False
 
-
-def hasCycleInDirectedGraph(n, graph):
+# Time O(V + E)
+# Space O(V)
+def hasCycleInDirectedGraph_II(n, graph):
     visited = [False] * n
     stack = [False] * n
 
@@ -77,6 +78,36 @@ def hasCycleInDirectedGraph(n, graph):
         return False
 
     return hasCycle(0)
+
+
+import collections
+
+
+# Directed Acyclic Graph.
+# It's a must condition for topological sort.
+# Time O(V + E)
+# Space O(V)
+def topologicalSort(n, graph):
+    indegree = [0] * n
+    topological_sorted_order = []
+
+    for v, u in graph:
+        indegree[u] += 1
+
+    queue = collections.deque([i for i in range(n) if indegree[i] == 0])
+
+    while queue:
+        v = queue.popleft()
+
+        topological_sorted_order.append(v)
+
+        for u in graph[v]:
+            indegree[u] -= 1
+
+            if indegree[u] == 0:
+                queue.append(u)
+
+    return topological_sorted_order if len(topological_sorted_order) == n else []
 
 
 """
