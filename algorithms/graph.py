@@ -27,6 +27,7 @@ DFS - мы всегда идем до конца пока не обойдем в
 # Space Complexity: O(V).
 # To store the visited and recursion stack O(V) space is needed.
 
+
 # Coloring solution
 def hasCycleInDirectedGraph(graph, n):
     def dfs(u):
@@ -52,6 +53,7 @@ def hasCycleInDirectedGraph(graph, n):
             return True
 
     return False
+
 
 # Time O(V + E)
 # Space O(V)
@@ -107,7 +109,8 @@ def topologicalSort(n, graph):
             if indegree[u] == 0:
                 queue.append(u)
 
-    return topological_sorted_order if len(topological_sorted_order) == n else []
+    return topological_sorted_order if len(
+        topological_sorted_order) == n else []
 
 
 """
@@ -214,18 +217,43 @@ class UnDirectedGraph:
         return False
 
 
-# Время входа и выхода из вершины
-# Это просто таймер
-# Задача найти ancestors in tree
+"""
+    What is mean the MST?
+
+    A spanning tree means all vertices must be connected. 
+    
+    So the two disjoint subsets (discussed above) of vertices must be connected to make a Spanning Tree. 
+    
+    And they must be connected with the minimum weight edge to make it a Minimum Spanning Tree.
+
+    1) Initially MST is empty. Every vertex is singe component as highlighted in blue color in below diagram.
+
+    2) For every component, find the cheapest edge that connects it to some other component.
+
+    3) Repeat that step, i.e., for every component, find the cheapest edge that connects it to some other component.
+
+    4) If there is only one component left, we stop and return MST.
+
+    Greedy algorithms for finding MST: Kruskal, Prim, Boruvkas
+
+    https://www.geeksforgeeks.org/boruvkas-algorithm-greedy-algo-9/
+
+"""
 """
 
-(время входа, время выхода)
+    Время входа и выхода из вершины
+    
+    Это просто таймер
+    
+    Задача найти ancestors in tree
 
-            1 (1, 10)
-          /   \
-  (2, 7) 2     3 (8, 9)
-        /  \   
-(3, 4) 4    5 (5, 6) 
+    (время входа, время выхода)
+
+                1 (1, 10)
+            /   \
+    (2, 7) 2     3 (8, 9)
+            /  \   
+    (3, 4) 4    5 (5, 6) 
 
 
 """

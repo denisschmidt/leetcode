@@ -24,12 +24,17 @@ class DSU {
    *  В качестве идентификатора выбирается один элемент из этого множества — представителя множества.
    *  Гарантируется, что для одного и того же множества представитель будет возвращаться один и тот же
    *
+   * The worst running Time is O(M * α(M, N)), where α(M, N) is the very slowly growing inverse of Ackermann’s function.
+   * We can say that the running time is linear in terms of M.
+   *
    * @param x
    * @returns {*}
    */
   find(x) {
     if (this.parent[x] !== x) {
       // Path compression
+      // It speeds up the data structure by compressing the height of the trees.
+      // It can be achieved by inserting a small caching mechanism into the Find operation.
       this.parent[x] = this.find(this.parent[x]);
     }
     return this.parent[x];

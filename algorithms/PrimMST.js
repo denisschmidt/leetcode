@@ -36,6 +36,10 @@
   Итого: 
     Как результат мы получаем сумму минимального остовного дерева взвешенного связного неориентированного графа.
 
+
+    
+  Example: https://leetcode.com/problems/connecting-cities-with-minimum-cost/
+
 */
 
 // Time O(V^2) or O((V + E) * LogV) same as for Dijkstra's

@@ -1,18 +1,19 @@
 class Solution:
+    # Time O(N)
+    # Space O(N)
     def removeDuplicateLetters(self, s: str) -> str:
+        last_index = {v: i for i, v in enumerate(s)}
         st = []
         visited = set()
-        last_index = {v: i for i, v in enumerate(s)}
 
-        for i, ch in enumerate(s):
-            if ch in visited:
+        for i, v in enumerate(s):
+            if v in visited:
                 continue
 
-            while st and st[-1] > ch and last_index.get(st[-1]) > i:
-                x = st.pop()
-                visited.remove(x)
+            while st and st[-1] >= v and last_index[st[-1]] >= i:
+                visited.remove(st.pop())
 
-            visited.add(ch)
-            st.append(ch)
+            st.append(s[i])
+            visited.add(s[i])
 
         return ''.join(st)

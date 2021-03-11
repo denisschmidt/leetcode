@@ -3,7 +3,6 @@ class Solution:
     # Space O(1)
     def compress(self, s):
         n = len(s)
-        cnt = 1
         i = 0
         index = 0
 
@@ -11,7 +10,6 @@ class Solution:
             j = i + 1
 
             while j < n and s[i] == s[j]:
-                cnt += 1
                 j += 1
 
             cnt = j - i
