@@ -35,7 +35,7 @@ class Solution:
                 for u in adj_list[v]:
                     # remove the current leaves along with the edges
                     adj_list[u].remove(v)
-
+                
                     if len(adj_list[u]) == 1:
                         queue.append(u)
 

@@ -282,3 +282,53 @@ class GraphTime:
 
         def isAncerssor(v, u):
             return tIn[v] <= tIn[u] and tOut[v] >= tOut[u]
+
+
+"""
+
+    Find MHT (Minimum Height Tree) https://leetcode.com/problems/minimum-height-trees/
+
+    Suppose we don't know number of nodes and don't have access to nodes.
+
+    Solution: We can use two pointers from each side and start going with equal speed.
+
+    When they meet or locale on the 1 step distance (depends if n odd or even) it means that we found centroid nodes.
+    
+    For the tree-alike graph, the number of centroids is no more than 2.
+
+    Also the main condition that there is no cycle in tree-alike graph.
+
+    If the nodes form a chain, it is intuitive to see that the above statement holds, which can be broken into the following two cases:
+	    -If the number of nodes is even, then there would be two centroids.
+        - If the number of nodes is odd, then there would be only one centroid.
+
+    We start with the first layer and remove nodes layer by layer while number of nodes more then 2.
+    
+"""
+
+
+def findMHT(n, graph):
+    queue = collections.deque()
+
+    for v in range(n):
+        if len(graph[v]) == 1:
+            queue.append(v)
+
+    remaining_nodes = n
+
+    while remaining_nodes > 2:
+        size = len(queue)
+        remaining_nodes -= size
+
+        for _ in range(size):
+            v = queue.popleft()
+
+            for u in graph[v]:
+                # remove the current leaves along with the edges
+                graph[u].remove(v)
+
+                # if it's a leaf
+                if len(graph[u]) == 1:
+                    queue.append(u)
+
+    return queue
