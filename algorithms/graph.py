@@ -27,21 +27,23 @@ DFS - мы всегда идем до конца пока не обойдем в
 # Space Complexity: O(V).
 # To store the visited and recursion stack O(V) space is needed.
 
+import collections
+
 
 # Coloring solution
 def hasCycleInDirectedGraph(graph, n):
-    def dfs(u):
-        color[u] = 1  # processed
+    def dfs(v):
+        color[v] = 1  # processed
 
-        for v in graph[u]:
+        for u in graph[v]:
             # если приходим в ребро которое обрабатывается в данный момент
-            if color[v] == 1:
+            if color[u] == 1:
                 return True
 
-            if color[v] == 0 and dfs(v):
+            if color[u] == 0 and dfs(u):
                 return True
 
-        color[u] = 2
+        color[v] = 2
 
         return False
 
@@ -57,39 +59,37 @@ def hasCycleInDirectedGraph(graph, n):
 
 # Time O(V + E)
 # Space O(V)
-def hasCycleInDirectedGraph_II(n, graph):
-    visited = [False] * n
-    stack = [False] * n
+def topologicalSort(n, graph):
+    def dfs(v):
+        color[v] = 1
 
-    def hasCycle(u):
-        if visited[u]:
-            return False
-
-        visited[u] = True
-        stack[u] = True
-
-        for v in graph[u]:
-            if stack[v]:
+        for u in graph[v]:
+            if color[u] == 1:
                 return True
 
-            if not visited[v] and hasCycle(v):
+            if color[u] == 0 and dfs(u):
                 return True
 
-        stack[u] = False
+        topological_sorted_order.append(v)
+        color[v] = 2
 
         return False
 
-    return hasCycle(0)
+    topological_sorted_order = []
+    color = [0] * n
 
+    for v in range(n):
+        if color[v] == 0 and dfs(v):
+            return []
 
-import collections
+    return topological_sorted_order
 
 
 # Directed Acyclic Graph.
 # It's a must condition for topological sort.
 # Time O(V + E)
 # Space O(V)
-def topologicalSort(n, graph):
+def topologicalSort_II(n, graph):
     indegree = [0] * n
     topological_sorted_order = []
 
@@ -241,19 +241,19 @@ class UnDirectedGraph:
 """
 """
 
-    Время входа и выхода из вершины
-    
-    Это просто таймер
-    
-    Задача найти ancestors in tree
+    Answer several queries, each query asks if the first vertex in the tree is the ancestor of the second one
 
+    Introduce in and out times for every vertex. It's just a timer.
+
+    All ancestor have in time smaller and out time bigger than all descendants
+    
     (время входа, время выхода)
 
-                1 (1, 10)
+              1 (1, 10)
             /   \
     (2, 7) 2     3 (8, 9)
-            /  \   
-    (3, 4) 4    5 (5, 6) 
+         /  \   
+(3, 4) 4    5 (5, 6) 
 
 
 """
@@ -266,22 +266,25 @@ class GraphTime:
         tOut = [0] * n
         timer = 0
 
-        def dfs(u):
+        def dfs(v):
             nonlocal timer
-            color[u] = 1
-            tIn[u] = timer
+            color[v] = 1
+            tIn[v] = timer
 
             timer += 1
 
-            for v in graph[u]:
-                if color[v] == 0:
-                    dfs(v)
+            for u in graph[v]:
+                if color[u] == 0:
+                    dfs(u)
 
-            tOut[u] = timer
+            tOut[v] = timer
             timer += 1
 
+        # returns if v is ancestor of u
         def isAncerssor(v, u):
             return tIn[v] <= tIn[u] and tOut[v] >= tOut[u]
+
+        return isAncerssor(0, 2)
 
 
 """

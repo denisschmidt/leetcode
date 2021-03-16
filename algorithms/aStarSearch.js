@@ -1,7 +1,20 @@
 /*
+
   A* Search (https://ru.wikipedia.org/wiki/A*)
 
-  The A* star algorithm is another path-finding algorithm. 
+  The A* star algorithm is another path-finding algorithm.
+  
+  Given weighted graph (all weights are non-negative), find shortest path between two vertices s and t. 
+
+  Besides, there is some physical limitation for every vertex v: d[v → t] >= f[v]. 
+  Example: cities in physical world
+  
+  The main idea is to optimize Dijkstra in such a way that it doesn’t visit far vertices
+
+  Algorithm
+    Instead of using d[v] as a key use d[v] + f[v] as a key, so now we pick vertices in increasing order of d[v] + f[v]
+    If for every edge a → b: f[a] <= f[b] + w_{a, b} (triangle inequality) every vertex will be picked only once
+    In fact, the optimization of Dijkstra’s algorithm for specific graphs
 
   Подходит для задач с метрикой вида расстояние по Евклидовой метрике.
   

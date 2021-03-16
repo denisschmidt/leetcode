@@ -55,7 +55,6 @@ const recFibbonacci = (i, memo = []) => {
 };
 
 // Используя золотое сечение, формула Бине
-
 // Time O(1)
 // Space O(1)
 const fib = N => {
